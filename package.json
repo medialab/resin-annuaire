@@ -1,0 +1,28 @@
+{
+  "name": "resin-annuaire",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Site de l'annuaire des expertises du Réseau d'Ingenieur USPC/SciencesPo",
+  "main": "index.js",
+  "scripts": {
+    "build": "node ./scripts/build.js",
+    "prettier": "prettier 'scripts/*.js' 'src/*.js' 'site/js/*.js' --write",
+    "serve": "npm run build && http-server -p 8000 -o"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/medialab/resin-annuaire.git"
+  },
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/medialab/resin-annuaire/issues"
+  },
+  "homepage": "https://github.com/medialab/resin-annuaire#readme",
+  "devDependencies": {
+    "csvtojson": "^2.0.10",
+    "http-server": "^14.1.1",
+    "node-fetch": "^2.6.12",
+    "nunjucks": "^3.2.4",
+    "prettier": "^3.0.0"
+  }
+}
