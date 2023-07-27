@@ -1,7 +1,5 @@
-const fs = require("fs");
-const rm = require("rimraf");
 const path = require("path");
-const fse = require("fs-extra");
+const fs = require("fs-extra");
 const csv = require("csvtojson");
 const fetch = require("node-fetch");
 const nunjucks = require("nunjucks");
@@ -25,7 +23,6 @@ async function main() {
   const output = template.render({
     items: pandemonium.shuffle(items),
   });
-  rm.sync(baseUrl);
-  fse.copySync(siteUrl, baseUrl);
-  fs.writeFileSync(path.join(baseUrl, "index.html"), output);
+  fs.removeSync(baseUrl);
+  fs.outputFileSync(path.join(baseUrl, "index.html"), output);
 }
