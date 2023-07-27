@@ -3,8 +3,7 @@ const path = require("path");
 const fetch = require("node-fetch");
 const csv = require("csvtojson");
 const nunjucks = require("nunjucks");
-
-const shuffle = require("./shuffle.js");
+const pandemonium = require("pandemonium");
 
 module.exports = function build() {
   main();
@@ -22,7 +21,7 @@ async function main() {
   const body = await response.text();
   const items = await csv().fromString(body);
   const output = template.render({
-    items: shuffle(items),
+    items: pandemonium.shuffle(items),
   });
   fs.writeFileSync("index.html", output);
   console.log("Wrote index.html");

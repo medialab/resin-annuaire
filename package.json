@@ -23,6 +23,7 @@
     "http-server": "^14.1.1",
     "node-fetch": "^2.6.12",
     "nunjucks": "^3.2.4",
+    "pandemonium": "^2.4.1",
     "prettier": "^3.0.0"
   }
 }
