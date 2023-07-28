@@ -15,7 +15,7 @@ module.exports = function build() {
   main();
 };
 
-const buildJavascript = promisify(kotatsu.build.bind(null, "client"));
+const buildJavascript = promisify(kotatsu.build.bind(null, "front"));
 
 const baseUrl = path.join(__dirname, "..", "build");
 const siteUrl = path.join(__dirname, "..", "site");
@@ -75,6 +75,7 @@ async function main() {
     output: path.join(baseUrl, "js", "bundle.js"),
     quiet: true,
     sourceMaps: false,
+    // production: true,
   });
 
   fs.outputFileSync(
