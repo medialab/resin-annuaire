@@ -5,9 +5,9 @@ const csv = require("csvtojson");
 const kotatsu = require("kotatsu");
 const fetch = require("node-fetch");
 const nunjucks = require("nunjucks");
-const { sortBy } = require("lodash");
 const { promisify } = require("util");
 const pandemonium = require("pandemonium");
+const { sortBy, range } = require("lodash");
 
 const remap = require("./remap.js");
 
@@ -28,7 +28,7 @@ const formUrl =
   "https://docs.google.com/spreadsheets/d/1Wner4VHEAGfxmqJ5uLT-n5PJoZKYLUzLs9-_J1PMfq0/export?exportFormat=csv";
 
 function formatMembers(formItems) {
-  const ranks = pandemonium.shuffle([...Array(formItems.length).keys()]);
+  const ranks = pandemonium.shuffle(range(formItems.length));
   let uniqueSlugs = {};
   let cleanItems = [];
 
