@@ -2,9 +2,11 @@ const path = require("path");
 const slug = require("slug");
 const fs = require("fs-extra");
 const csv = require("csvtojson");
-const { sortBy } = require("lodash");
+const kotatsu = require("kotatsu");
 const fetch = require("node-fetch");
 const nunjucks = require("nunjucks");
+const { sortBy } = require("lodash");
+const { promisify } = require("util");
 const pandemonium = require("pandemonium");
 
 const remap = require("./remap.js");
@@ -12,6 +14,8 @@ const remap = require("./remap.js");
 module.exports = function build() {
   main();
 };
+
+const buildJavascript = promisify(kotatsu.build.bind(null, "client"));
 
 const baseUrl = path.join(__dirname, "..", "build");
 const siteUrl = path.join(__dirname, "..", "site");
@@ -65,6 +69,13 @@ async function main() {
   const body = await response.text();
   const members = await csv().fromString(body);
   const cleanMembers = formatMembers(members);
+
+  await buildJavascript({
+    entry: path.join(siteUrl, "js", "search.js"),
+    output: path.join(baseUrl, "js", "bundle.js"),
+    quiet: true,
+    sourceMaps: false,
+  });
 
   fs.outputFileSync(
     path.join(baseUrl, "index.html"),
