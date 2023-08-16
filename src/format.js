@@ -4,7 +4,7 @@ const { sortBy, range } = require("lodash");
 
 const remap = require("./remap.js");
 
-function createNewSlug(uniqueSlugs, member) {
+exports.createNewSlug = function (uniqueSlugs, member) {
   let nameSlug = slug(member.firstName + " " + member.lastName);
   counter = 0;
 
@@ -15,9 +15,9 @@ function createNewSlug(uniqueSlugs, member) {
 
   uniqueSlugs.add(nameSlug);
   return [nameSlug, uniqueSlugs];
-}
+};
 
-function formatMembers(formItems) {
+exports.formatMembers = function (formItems) {
   const ranks = pandemonium.shuffle(range(formItems.length));
   let uniqueSlugs = new Set();
 
@@ -35,12 +35,10 @@ function formatMembers(formItems) {
   });
 
   for (i = 0; i < sortedItems.length; i++) {
-    const updatedSlugs = createNewSlug(uniqueSlugs, sortedItems[i]);
+    const updatedSlugs = exports.createNewSlug(uniqueSlugs, sortedItems[i]);
     uniqueSlugs = updatedSlugs[1];
     sortedItems[i].slug = updatedSlugs[0];
   }
 
   return sortedItems;
-}
-
-module.exports = formatMembers;
+};

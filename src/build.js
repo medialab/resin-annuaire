@@ -7,7 +7,7 @@ const nunjucks = require("nunjucks");
 const { sortBy } = require("lodash");
 const { promisify } = require("util");
 
-const formatMembers = require("./format.js");
+const { formatMembers } = require("../src/format.js");
 
 module.exports = function build() {
   main();

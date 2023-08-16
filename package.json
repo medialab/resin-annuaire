@@ -7,7 +7,8 @@
   "scripts": {
     "build": "node ./scripts/build.js",
     "prettier": "prettier 'scripts/*.js' 'src/*.js' 'site/js/*.js' --write",
-    "serve": "npm run build && http-server build -p 8000 -o"
+    "serve": "npm run build && http-server build -p 8000 -o",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
     "http-server": "^14.1.1",
     "kotatsu": "^0.23.1",
     "lodash": "^4.17.21",
+    "mocha": "^10.2.0",
     "node-fetch": "^2.6.12",
     "nunjucks": "^3.2.4",
     "pandemonium": "^2.4.1",
