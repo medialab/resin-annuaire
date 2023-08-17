@@ -1,8 +1,16 @@
-<html>
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>{% block title %} Annuaire RésIn {% endblock %}</title>
+  </head>
   <body>
+    {% block body %}
     <h1>Annuaire</h1>
     <input type="text" id="searchBar" class="input" placeholder="Search.." />
     {% include "ul.html" %}
     <script type="text/javascript" src="js/bundle.js"></script>
+    {% endblock %} {% include "footer.html" %}
   </body>
 </html>

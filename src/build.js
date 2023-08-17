@@ -21,6 +21,7 @@ const siteUrl = path.join(__dirname, "..", "site");
 const env = nunjucks.configure(path.join(siteUrl, "templates"));
 const main_page_template = env.getTemplate("mainPage.html");
 const member_page_template = env.getTemplate("memberPage.html");
+const legal_template = env.getTemplate("legal.html");
 
 const formUrl =
   "https://docs.google.com/spreadsheets/d/1Wner4VHEAGfxmqJ5uLT-n5PJoZKYLUzLs9-_J1PMfq0/export?exportFormat=csv";
@@ -48,6 +49,11 @@ async function main() {
     })
   );
 
+  fs.outputFileSync(
+    path.join(baseUrl, "mentions-legales.html"),
+    legal_template.render()
+  );
+
   for (member of cleanMembers) {
     fs.outputFileSync(
       path.join(baseUrl, member.slug + ".html"),
@@ -56,6 +62,11 @@ async function main() {
       })
     );
   }
+
+  fs.copySync(
+    path.join(siteUrl, "css", "styles.css"),
+    path.join(baseUrl, "css", "styles.css")
+  );
 
   fs.outputJSONSync(
     path.join(baseUrl, "assets", "members.json"),
