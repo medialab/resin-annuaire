@@ -1,17 +1,8 @@
 <html>
   <body>
     <h1>Annuaire</h1>
-    <ul>
-      {% for item in items %}
-      <li>
-        <a href="{{ item.slug }}.html">
-          {{ item.firstName }} {{ item.lastName }}</a
-        >
-      </li>
-      {% else %}
-      <li>This would display if the 'item' collection were empty</li>
-      {% endfor %}
-    </ul>
+    <input type="text" id="searchBar" class="input" placeholder="Search.." />
+    {% include "ul.html" %}
     <script type="text/javascript" src="js/bundle.js"></script>
   </body>
 </html>
