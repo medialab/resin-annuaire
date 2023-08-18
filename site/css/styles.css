@@ -34,3 +34,7 @@
   background-color: cadetblue;
   text-align: center;
 }
+
+.card:hover {
+  background-color: lightblue;
+}

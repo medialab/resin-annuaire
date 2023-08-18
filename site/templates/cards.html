@@ -1,7 +1,7 @@
 <div class="cardsWrapper">
   {% for item in items %}
-  <div class="card">
-    <a href="{{ item.slug }}.html"> {{ item.firstName }} {{ item.lastName }}</a>
+  <div class="card" onclick="location.href='{{ item.slug }}'">
+    {{ item.firstName }} {{ item.lastName }}
   </div>
   {% else %}
   <div class="card">This would display if the 'item' collection were empty</div>

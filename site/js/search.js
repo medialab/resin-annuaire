@@ -15,12 +15,10 @@ function setList(searchResults) {
   for (const person of searchResults) {
     const resultItem = document.createElement("div");
     resultItem.className = "card";
-
-    const a = document.createElement("a");
-    a.href = person.slug;
-    a.innerHTML = person.firstName + " " + person.lastName;
-
-    resultItem.appendChild(a);
+    resultItem.textContent = person.firstName + " " + person.lastName;
+    resultItem.onclick = function () {
+      location.href = person.slug;
+    };
     grid.appendChild(resultItem);
   }
 }
