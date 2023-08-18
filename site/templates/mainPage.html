@@ -8,8 +8,10 @@
   <body>
     {% block body %}
     <h1>Annuaire</h1>
-    <input type="text" id="searchBar" class="input" placeholder="Search.." />
-    {% include "ul.html" %}
+    <div class="container">
+      <input type="text" id="searchBar" class="input" placeholder="Search.." />
+      {% include "cards.html" %}
+    </div>
     <script type="text/javascript" src="js/bundle.js"></script>
     {% endblock %} {% include "footer.html" %}
   </body>

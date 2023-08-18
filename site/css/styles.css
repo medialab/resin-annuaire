@@ -5,3 +5,32 @@
   width: 100%;
   text-align: right;
 }
+
+.container {
+  margin: auto;
+  width: 80%;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, 250px);
+}
+
+.input {
+  grid-column: 1 / -1;
+  margin: auto;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.cardsWrapper {
+  display: grid;
+  grid-column: 1 / -1;
+  gap: 10px;
+  grid-auto-rows: minmax(250px, auto);
+  grid-template-columns: subgrid;
+}
+
+.card {
+  background-color: cadetblue;
+  text-align: center;
+}

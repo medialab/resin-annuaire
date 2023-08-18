@@ -9,18 +9,19 @@ function clearList(list) {
 }
 
 function setList(searchResults) {
-  const ul = document.querySelector("ul");
-  clearList(ul);
+  const grid = document.querySelector(".cardsWrapper");
+  clearList(grid);
 
   for (const person of searchResults) {
-    const resultItem = document.createElement("li");
+    const resultItem = document.createElement("div");
+    resultItem.className = "card";
 
     const a = document.createElement("a");
     a.href = person.slug;
     a.innerHTML = person.firstName + " " + person.lastName;
 
     resultItem.appendChild(a);
-    ul.appendChild(resultItem);
+    grid.appendChild(resultItem);
   }
 }
 

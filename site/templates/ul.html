@@ -1,9 +1,0 @@
-<ul>
-  {% for item in items %}
-  <li>
-    <a href="{{ item.slug }}.html"> {{ item.firstName }} {{ item.lastName }}</a>
-  </li>
-  {% else %}
-  <li>This would display if the 'item' collection were empty</li>
-  {% endfor %}
-</ul>
