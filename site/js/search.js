@@ -25,18 +25,21 @@ function setList(searchResults) {
   }
 }
 
+function searchPerson(value) {
+  return function (person) {
+    return (
+      person.firstName.toLowerCase().includes(value) ||
+      person.lastName.toLowerCase().includes(value)
+    );
+  };
+}
+
 loadJSON(function (response) {
   const members = JSON.parse(response);
 
   searchInput.addEventListener("input", (e) => {
     let value = e.target.value;
-    if (value && value.trim().length > 0) {
-      value = value.trim().toLowerCase();
-      setList(
-        members.filter((person) => {
-          return person.firstName.toLowerCase().includes(value);
-        })
-      );
-    }
+    value = value.trim().toLowerCase();
+    setList(members.filter(searchPerson(value)));
   });
 });
