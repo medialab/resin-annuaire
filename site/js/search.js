@@ -1,26 +1,18 @@
+import { sortBy } from "lodash";
+import { Environment, WebLoader } from "nunjucks";
+
 import loadJSON from "./loadMembers";
 
 const searchInput = document.querySelector(".input");
 
-function clearList(list) {
-  while (list.firstChild) {
-    list.removeChild(list.firstChild);
-  }
-}
+const env = new Environment(new WebLoader("/templates"));
+const cards = env.getTemplate("cards.html");
 
 function setList(searchResults) {
   const grid = document.querySelector(".cardsWrapper");
-  clearList(grid);
-
-  for (const person of searchResults) {
-    const resultItem = document.createElement("div");
-    resultItem.className = "card";
-    resultItem.textContent = person.firstName + " " + person.lastName;
-    resultItem.onclick = function () {
-      location.href = person.slug;
-    };
-    grid.appendChild(resultItem);
-  }
+  grid.innerHTML = cards.render({
+    items: sortBy(searchResults, ["rank"]),
+  });
 }
 
 function searchPerson(value) {

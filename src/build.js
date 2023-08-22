@@ -68,6 +68,11 @@ async function main() {
     path.join(baseUrl, "css", "styles.css")
   );
 
+  fs.copySync(
+    path.join(siteUrl, "templates", "cards.html"),
+    path.join(baseUrl, "templates", "cards.html")
+  );
+
   fs.outputJSONSync(
     path.join(baseUrl, "assets", "members.json"),
     cleanMembers,
