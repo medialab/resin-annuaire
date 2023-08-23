@@ -23,14 +23,14 @@
 }
 
 .card {
-  background-color: cadetblue;
+  background-color: lightgrey;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .card:hover {
-  background-color: lightblue;
+  background-color: darkgrey;
 }
 
 .footer {
@@ -39,4 +39,17 @@
   bottom: 0;
   width: 100%;
   text-align: right;
+  display: flex;
+  padding: 10px 10px;
+  align-items: end;
+  justify-content: space-evenly;
+}
+
+#logo-medialab {
+  width: 100px;
+  padding-bottom: 8px;
+}
+
+#logo-upc {
+  width: 120px;
 }
