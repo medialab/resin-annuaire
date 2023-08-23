@@ -19,9 +19,12 @@ const baseUrl = path.join(__dirname, "..", "build");
 const siteUrl = path.join(__dirname, "..", "site");
 
 const env = nunjucks.configure(path.join(siteUrl, "templates"));
-const main_page_template = env.getTemplate("mainPage.html");
-const member_page_template = env.getTemplate("memberPage.html");
-const legal_template = env.getTemplate("legal.html");
+const mainPageTemplate = env.getTemplate("mainPage.html");
+const memberPageTemplate = env.getTemplate("memberPage.html");
+const legalTemplate = env.getTemplate("legal.html");
+const cardsPrecompiled = nunjucks.precompile(path.join(siteUrl, "templates"), {
+  include: ["cards.html"],
+});
 
 const formUrl =
   "https://docs.google.com/spreadsheets/d/1Wner4VHEAGfxmqJ5uLT-n5PJoZKYLUzLs9-_J1PMfq0/export?exportFormat=csv";
@@ -34,6 +37,8 @@ async function main() {
   const members = await csv().fromString(body);
   const cleanMembers = formatMembers(members);
 
+  fs.outputFileSync(path.join(siteUrl, "js", "templates.js"), cardsPrecompiled);
+
   await buildJavascript({
     entry: path.join(siteUrl, "js", "search.js"),
     output: path.join(baseUrl, "js", "bundle.js"),
@@ -44,20 +49,20 @@ async function main() {
 
   fs.outputFileSync(
     path.join(baseUrl, "index.html"),
-    main_page_template.render({
+    mainPageTemplate.render({
       items: sortBy(cleanMembers, ["rank"]),
     })
   );
 
   fs.outputFileSync(
     path.join(baseUrl, "mentions-legales.html"),
-    legal_template.render()
+    legalTemplate.render()
   );
 
   for (member of cleanMembers) {
     fs.outputFileSync(
       path.join(baseUrl, member.slug + ".html"),
-      member_page_template.render({
+      memberPageTemplate.render({
         member: member,
       })
     );
@@ -66,11 +71,6 @@ async function main() {
   fs.copySync(
     path.join(siteUrl, "css", "styles.css"),
     path.join(baseUrl, "css", "styles.css")
-  );
-
-  fs.copySync(
-    path.join(siteUrl, "templates", "cards.html"),
-    path.join(baseUrl, "templates", "cards.html")
   );
 
   fs.outputJSONSync(

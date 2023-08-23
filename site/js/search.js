@@ -1,15 +1,16 @@
 import { sortBy } from "lodash";
-import { Environment, WebLoader } from "nunjucks";
+import { Environment, PrecompiledLoader } from "nunjucks";
 
 import loadJSON from "./loadMembers";
+import templates from "./templates";
 
-const searchInput = document.querySelector(".input");
-
-const env = new Environment(new WebLoader("/templates"));
+const env = new Environment(new PrecompiledLoader(templates));
 const cards = env.getTemplate("cards.html");
 
+const searchInput = document.querySelector(".input");
+const grid = document.querySelector(".cardsWrapper");
+
 function setList(searchResults) {
-  const grid = document.querySelector(".cardsWrapper");
   grid.innerHTML = cards.render({
     items: sortBy(searchResults, ["rank"]),
   });
