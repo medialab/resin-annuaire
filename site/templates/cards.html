@@ -1,8 +1,28 @@
 <div class="cardsWrapper">
   {% for item in items %}
-  <div class="card" onclick="location.href='{{ item.slug }}'">
-    {{ item.firstName }} {{ item.lastName }}
-  </div>
+  <a href="{{ item.slug }}" class="card"
+    ><div class="imageContainer">
+      <img
+        src="{{ item.avatar }}"
+        alt="Photo de profil de {{ item.firstName }} {{ item.lastName }}"
+      />
+    </div>
+    <div class="memberText">
+      <hgroup>
+        <h1 data-level-1="name">
+          <span class="firstName">{{ item.firstName }}</span>
+          <span class="lastName">{{ item.lastName }}</span>
+        </h1>
+        <p class="description">
+          <span>{{ item.shortBio }}</span>
+        </p>
+      </hgroup>
+      <div class="details">
+        <p class="title">{{ item.title }}</p>
+        <p class="organization">{{ item.organization }}</p>
+      </div>
+    </div></a
+  >
   {% else %}
   <div>Pas de résultat</div>
   {% endfor %}

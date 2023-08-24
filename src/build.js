@@ -8,6 +8,7 @@ const { sortBy } = require("lodash");
 const { promisify } = require("util");
 
 const { formatMembers } = require("../src/format.js");
+const { loadImages } = require("../src/loadImages.js");
 
 module.exports = function build() {
   main();
@@ -15,9 +16,15 @@ module.exports = function build() {
 
 const buildJavascript = promisify(kotatsu.build.bind(null, "front"));
 
+// Define paths
 const baseUrl = path.join(__dirname, "..", "build");
 const siteUrl = path.join(__dirname, "..", "site");
+const imageFolder = path.join(baseUrl, "assets", "images");
+const validImageTypes = ["image/jpeg", "image/png"];
+const formUrl =
+  "https://docs.google.com/spreadsheets/d/1Wner4VHEAGfxmqJ5uLT-n5PJoZKYLUzLs9-_J1PMfq0/export?exportFormat=csv";
 
+// Configure nunjucks
 const env = nunjucks.configure(path.join(siteUrl, "templates"));
 const mainPageTemplate = env.getTemplate("mainPage.html");
 const memberPageTemplate = env.getTemplate("memberPage.html");
@@ -26,16 +33,14 @@ const cardsPrecompiled = nunjucks.precompile(path.join(siteUrl, "templates"), {
   include: ["cards.html"],
 });
 
-const formUrl =
-  "https://docs.google.com/spreadsheets/d/1Wner4VHEAGfxmqJ5uLT-n5PJoZKYLUzLs9-_J1PMfq0/export?exportFormat=csv";
-
 async function main() {
   fs.removeSync(baseUrl);
+  await fs.ensureDir(imageFolder);
 
   const response = await fetch(formUrl);
   const body = await response.text();
   const members = await csv().fromString(body);
-  const cleanMembers = formatMembers(members);
+  let cleanMembers = formatMembers(members);
 
   fs.outputFileSync(path.join(siteUrl, "js", "templates.js"), cardsPrecompiled);
 
@@ -71,6 +76,10 @@ async function main() {
   fs.copySync(
     path.join(siteUrl, "css", "styles.css"),
     path.join(baseUrl, "css", "styles.css")
+  );
+
+  cleanMembers.map((member) =>
+    loadImages(member, imageFolder, validImageTypes)
   );
 
   fs.outputJSONSync(
