@@ -19,6 +19,7 @@ const remap = {
   Responsabilités: "responsibilities",
   Distinctions: "distinctions",
   "Joindre une photo à votre profil": "avatar",
+  "À afficher dans l'annuaire": "keep",
 };
 
 module.exports = remap;

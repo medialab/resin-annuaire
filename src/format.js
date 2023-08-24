@@ -21,14 +21,17 @@ exports.formatMembers = function (formItems) {
   const ranks = pandemonium.shuffle(range(formItems.length));
   let uniqueSlugs = new Set();
 
-  cleanItems = formItems.map((item, index) => {
-    let cleanItem = {};
-    for (const key in item) {
-      cleanItem[remap[key]] = item[key];
-    }
-    cleanItem.rank = ranks[index];
-    return cleanItem;
-  });
+  cleanItems = formItems
+    .map((item, index) => {
+      let cleanItem = {};
+      for (const key in item) {
+        cleanItem[remap[key]] = item[key];
+      }
+      cleanItem.rank = ranks[index];
+      cleanItem.keep = cleanItem.keep.toLowerCase() == "oui";
+      return cleanItem;
+    })
+    .filter((item) => item.keep);
 
   sortedItems = sortBy(cleanItems, function (o) {
     return new Date(o.timestamp);
