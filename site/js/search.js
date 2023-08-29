@@ -1,4 +1,5 @@
 import { sortBy } from "lodash";
+import unidecode from "unidecode";
 import { Environment, PrecompiledLoader } from "nunjucks";
 
 import loadJSON from "./loadMembers";
@@ -16,11 +17,15 @@ function setList(searchResults) {
   });
 }
 
+function normalizeNames(name) {
+  return unidecode(name.toLowerCase());
+}
+
 function searchPerson(value) {
   return function (person) {
     return (
-      person.firstName.toLowerCase().includes(value) ||
-      person.lastName.toLowerCase().includes(value)
+      normalizeNames(person.firstName).includes(value) ||
+      normalizeNames(person.lastName).includes(value)
     );
   };
 }
