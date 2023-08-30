@@ -2,10 +2,12 @@
   {% for item in items %}
   <a href="{{ item.slug }}" class="card"
     ><div class="imageContainer">
+      {% if item.imageFile %}
       <img
-        src="{{ item.avatar }}"
+        src="{{imageFolder}}/{{ item.imageFile }}"
         alt="Photo de profil de {{ item.firstName }} {{ item.lastName }}"
       />
+      {% endif %}
     </div>
     <div class="memberText">
       <hgroup>

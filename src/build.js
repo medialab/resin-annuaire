@@ -19,8 +19,9 @@ const buildJavascript = promisify(kotatsu.build.bind(null, "front"));
 // Define paths
 const baseUrl = path.join(__dirname, "..", "build");
 const siteUrl = path.join(__dirname, "..", "site");
-const imageFolder = path.join(baseUrl, "assets", "images");
-const validImageTypes = ["image/jpeg", "image/png"];
+const imageFolder = path.join("assets", "images");
+const baseImageFolder = path.join(baseUrl, imageFolder);
+
 const formUrl =
   "https://docs.google.com/spreadsheets/d/1Wner4VHEAGfxmqJ5uLT-n5PJoZKYLUzLs9-_J1PMfq0/export?exportFormat=csv";
 
@@ -35,7 +36,7 @@ const cardsPrecompiled = nunjucks.precompile(path.join(siteUrl, "templates"), {
 
 async function main() {
   fs.removeSync(baseUrl);
-  await fs.ensureDir(imageFolder);
+  await fs.ensureDir(baseImageFolder);
 
   const response = await fetch(formUrl);
   const body = await response.text();
@@ -51,13 +52,6 @@ async function main() {
     sourceMaps: false,
     // production: true,
   });
-
-  fs.outputFileSync(
-    path.join(baseUrl, "index.html"),
-    mainPageTemplate.render({
-      items: sortBy(cleanMembers, ["rank"]),
-    })
-  );
 
   fs.outputFileSync(
     path.join(baseUrl, "mentions-legales.html"),
@@ -78,13 +72,24 @@ async function main() {
     path.join(baseUrl, "css", "styles.css")
   );
 
-  cleanMembers.map((member) =>
-    loadImages(member, imageFolder, validImageTypes)
+  const membersWithImage = await Promise.all(
+    cleanMembers.map(async (member) => {
+      let imageFile = await loadImages(member, baseImageFolder);
+      return { ...member, imageFile: imageFile };
+    })
+  );
+
+  fs.outputFileSync(
+    path.join(baseUrl, "index.html"),
+    mainPageTemplate.render({
+      items: sortBy(membersWithImage, ["rank"]),
+      imageFolder: imageFolder,
+    })
   );
 
   fs.outputJSONSync(
     path.join(baseUrl, "assets", "members.json"),
-    cleanMembers,
+    membersWithImage,
     {
       spaces: 2,
     }
