@@ -75,7 +75,10 @@ async function main() {
   const membersWithImage = await Promise.all(
     cleanMembers.map(async (member) => {
       let imageFile = await loadImages(member, baseImageFolder);
-      return { ...member, imageFile: imageFile };
+      if (imageFile) {
+        return { ...member, imageFile: path.join(imageFolder, imageFile) };
+      }
+      return { ...member, imageFile: "" };
     })
   );
 
@@ -83,7 +86,6 @@ async function main() {
     path.join(baseUrl, "index.html"),
     mainPageTemplate.render({
       items: sortBy(membersWithImage, ["rank"]),
-      imageFolder: imageFolder,
     })
   );
 
