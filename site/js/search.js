@@ -17,15 +17,15 @@ function setList(searchResults) {
   });
 }
 
-function normalizeNames(name) {
-  return unidecode(name.toLowerCase());
+function normalizeString(string) {
+  return unidecode(string.trim().toLowerCase());
 }
 
 function searchPerson(value) {
   return function (person) {
     return (
-      normalizeNames(person.firstName).includes(value) ||
-      normalizeNames(person.lastName).includes(value)
+      normalizeString(person.firstName).includes(value) ||
+      normalizeString(person.lastName).includes(value)
     );
   };
 }
@@ -35,7 +35,7 @@ loadJSON(function (response) {
 
   searchInput.addEventListener("input", (e) => {
     let value = e.target.value;
-    value = value.trim().toLowerCase();
+    value = normalizeString(value);
     setList(members.filter(searchPerson(value)));
   });
 });
