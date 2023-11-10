@@ -30,9 +30,6 @@ const env = nunjucks.configure(path.join(siteUrl, "templates"));
 const mainPageTemplate = env.getTemplate("mainPage.html");
 const memberPageTemplate = env.getTemplate("memberPage.html");
 const legalTemplate = env.getTemplate("legal.html");
-const cardsPrecompiled = nunjucks.precompile(path.join(siteUrl, "templates"), {
-  include: ["cards.html"],
-});
 
 async function main() {
   fs.removeSync(baseUrl);
@@ -43,13 +40,27 @@ async function main() {
   const members = await csv().fromString(body);
   let cleanMembers = formatMembers(members);
 
-  fs.outputFileSync(path.join(siteUrl, "js", "templates.js"), cardsPrecompiled);
-
   await buildJavascript({
     entry: path.join(siteUrl, "js", "search.js"),
     output: path.join(baseUrl, "js", "bundle.js"),
     quiet: true,
     sourceMaps: false,
+    config: {
+      module: {
+        rules: [
+          {
+            test: /\.html$/,
+            include: [path.join(siteUrl, "templates")],
+            use: [
+              {
+                loader: "simple-nunjucks-loader",
+                options: {},
+              },
+            ],
+          },
+        ],
+      },
+    },
     // production: true,
   });
 

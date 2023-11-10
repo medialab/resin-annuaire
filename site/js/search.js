@@ -1,18 +1,14 @@
 import { sortBy } from "lodash";
 import unidecode from "unidecode";
-import { Environment, PrecompiledLoader } from "nunjucks";
 
 import loadJSON from "./loadMembers";
-import templates from "./templates";
-
-const env = new Environment(new PrecompiledLoader(templates));
-const cards = env.getTemplate("cards.html");
+import cardsTemplate from "../templates/cards.html";
 
 const searchInput = document.querySelector(".input");
 const grid = document.querySelector(".cardsWrapper");
 
 function setList(searchResults) {
-  grid.innerHTML = cards.render({
+  grid.innerHTML = cardsTemplate({
     items: sortBy(searchResults, ["rank"]),
   });
 }
