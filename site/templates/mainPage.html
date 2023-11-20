@@ -9,10 +9,14 @@
     {% block body %}
     <h1>Annuaire</h1>
     <div class="container">
+      <ul class="nav">
+        <li><a href="#">Projet</a></li>
+        <li><a href="#">S'inscrire</a></li>
+      </ul>
       <input type="text" id="searchBar" class="input" placeholder="Search.." />
-      {% include "cards.html" %}
+      {% include "cards.html" %} {% include "footer.html" %}
     </div>
     <script type="text/javascript" src="js/bundle.js"></script>
-    {% endblock %} {% include "footer.html" %}
+    {% endblock %}
   </body>
 </html>

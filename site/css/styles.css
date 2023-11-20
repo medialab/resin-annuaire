@@ -1,49 +1,67 @@
 .container {
-  margin: auto;
-  width: 80%;
-  display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  display: flex;
+  min-height: 90vh;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.input {
-  grid-column: 1 / -1;
-  margin: auto;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 10px;
+input {
+  margin: 10px;
 }
 
 .cardsWrapper {
-  display: grid;
-  grid-column: 1 / -1;
-  gap: 10px;
-  grid-auto-rows: minmax(200px, auto);
-  grid-template-columns: subgrid;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
 .card {
-  background-color: lightgrey;
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0;
+  min-width: 200px;
+  max-width: 220px;
+  min-height: 250px;
+  max-height: 260px;
+  background-color: grey;
+  margin: 10px;
+  justify-content: center;
 }
 
 .card:hover {
   background-color: darkgrey;
 }
 
-.card img {
+.inner-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-image {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  max-height: 150px;
+}
+
+.card-image img {
   width: 100%;
-  height: 100%;
-  max-height: 200px;
   object-fit: cover;
 }
 
+.card-text {
+  display: flex;
+  justify-content: center;
+}
+
 .footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
+  display: flex;
   width: 100%;
   text-align: right;
-  display: flex;
   padding: 10px 10px;
   align-items: end;
   justify-content: space-evenly;
