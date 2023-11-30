@@ -1,6 +1,6 @@
 .container {
   display: flex;
-  min-height: 90vh;
+  min-height: calc(100vh - 100px);
   flex-direction: column;
   justify-content: space-between;
 }
@@ -29,6 +29,7 @@ input {
   max-height: 260px;
   background-color: grey;
   margin: 10px;
+  padding: 10px;
   justify-content: center;
 }
 
@@ -45,12 +46,13 @@ input {
   display: flex;
   justify-content: center;
   overflow: hidden;
-  max-height: 150px;
 }
 
 .card-image img {
-  width: 100%;
+  width: 150px;
+  height: 150px;
   object-fit: cover;
+  border-radius: 100%;
 }
 
 .card-text {
