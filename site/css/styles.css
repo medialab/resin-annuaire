@@ -21,6 +21,10 @@ a#home {
   list-style-type: none;
 }
 
+.nav-links a {
+  margin: 5px;
+}
+
 .container {
   display: flex;
   min-height: 100vh;

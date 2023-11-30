@@ -30,6 +30,7 @@ const env = nunjucks.configure(path.join(siteUrl, "templates"));
 const mainPageTemplate = env.getTemplate("mainPage.html");
 const memberPageTemplate = env.getTemplate("memberPage.html");
 const legalTemplate = env.getTemplate("legal.html");
+const subscribeTemplate = env.getTemplate("subscribe.html");
 
 async function main() {
   fs.removeSync(baseUrl);
@@ -67,6 +68,11 @@ async function main() {
   fs.outputFileSync(
     path.join(baseUrl, "mentions-legales.html"),
     legalTemplate.render()
+  );
+
+  fs.outputFileSync(
+    path.join(baseUrl, "s-inscrire.html"),
+    subscribeTemplate.render()
   );
 
   for (member of cleanMembers) {
