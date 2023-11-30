@@ -7,12 +7,14 @@
   </head>
   <body>
     {% block body %}
-    <h1>Annuaire</h1>
     <div class="container">
-      <ul class="nav">
-        <li><a href="#">Projet</a></li>
-        <li><a href="#">S'inscrire</a></li>
-      </ul>
+      <nav class="navbar">
+        <a href="#" id="home">RéSin</a>
+        <ul class="nav-links">
+          <li><a href="#">Projet</a></li>
+          <li><a href="#">S'inscrire</a></li>
+        </ul>
+      </nav>
       <input type="text" id="searchBar" class="input" placeholder="Search.." />
       {% include "cards.html" %} {% include "footer.html" %}
     </div>

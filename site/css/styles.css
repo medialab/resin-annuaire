@@ -1,6 +1,29 @@
+a {
+  text-decoration: none;
+  color: black;
+  margin: 5px;
+}
+
+a#home {
+  font-size: x-large;
+  color: #e42229;
+}
+
+.navbar {
+  padding: 10px;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  list-style-type: none;
+}
+
 .container {
   display: flex;
-  min-height: calc(100vh - 100px);
+  min-height: 100vh;
   flex-direction: column;
   justify-content: space-between;
 }
@@ -24,10 +47,10 @@ input {
   flex-shrink: 1;
   flex-basis: 0;
   min-width: 200px;
-  max-width: 220px;
+  max-width: 200px;
   min-height: 250px;
   max-height: 260px;
-  background-color: grey;
+  background-color: lightgrey;
   margin: 10px;
   padding: 10px;
   justify-content: center;
@@ -58,6 +81,8 @@ input {
 .card-text {
   display: flex;
   justify-content: center;
+  text-decoration: none;
+  color: black;
 }
 
 .footer {
