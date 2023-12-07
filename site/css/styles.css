@@ -34,6 +34,8 @@ a#home {
 
 input {
   margin: 10px;
+  width: 100%;
+  height: 20px;
 }
 
 .cardsWrapper {
