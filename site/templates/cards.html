@@ -13,6 +13,16 @@
       </div>
       <div class="card-text">
         <h5 class="firstName">{{ item.firstName }} {{ item.lastName }}</h5>
+        <h6 class="institution">
+          Sciences Po
+        </h6>
+        <p>
+          {% if item.shortBio %}
+          {{ item.shortBio }}
+          {% else %}
+          {{ item.skills }}
+          {% endif %}
+        </p>
       </div>
     </div>
   </a>

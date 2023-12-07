@@ -1,12 +1,33 @@
+
+::root {
+  font-size: 16px;
+}
+
+body {
+  --primary-color: #333;
+  --sciencespo-color: #e42229;
+
+  --body-fontsize: 1rem;
+  --medium-header-fontsize: 1.5rem;
+  /* --secondary-color: ;
+  --headers-fontsize: ;
+  --body-fontsize: ; */
+
+  --gutter-basis: 5px;/* base de gouttière pour l'ensemble des marges et des paddings*/
+
+  color: var(--primary-color);
+  font-family: "Montserrat", sans-serif;
+}
+
 a {
   text-decoration: none;
-  color: black;
-  margin: 5px;
+  color: var(--primary-color);
+  margin: var(--gutter-basis);
 }
 
 a#home {
   font-size: x-large;
-  color: #e42229;
+  color: var(--sciencespo-color);
 }
 
 .navbar {
@@ -52,43 +73,75 @@ input {
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: 0;
-  min-width: 200px;
-  max-width: 200px;
-  min-height: 250px;
-  max-height: 260px;
-  background-color: lightgrey;
-  margin: 10px;
-  padding: 10px;
+  min-width: 500px;
+  /* max-width: 500px; */
+  /* min-height: 250px;
+  max-height: 260px; */
+  /* background-color: lightgrey; */
+  margin: var(--gutter-basis);
+  padding: calc(8 * var(--gutter-basis));
+  padding-left: calc(4 * var(--gutter-basis));
   justify-content: center;
+  transition: background .5s ease;
+  box-sizing: border-box;
+}
+@media only screen and (max-width: 1000px) {
+  .card {
+    max-width: 100vw;
+    box-sizing: border-box;
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 
 .card:hover {
-  background-color: darkgrey;
+  background-color: rgba(0,0,0,0.05);
 }
 
 .inner-card {
   display: flex;
-  flex-direction: column;
+  flex-flow: row nowrap;
+  align-items: center;
+  flex: 1;
 }
 
 .card-image {
   display: flex;
   justify-content: center;
   overflow: hidden;
+  align-items: flex-start;
+  min-width: 30%;
+  max-width: 30%;
 }
 
 .card-image img {
-  width: 150px;
-  height: 150px;
+  width: 130px;
+  height: 130px;
   object-fit: cover;
   border-radius: 100%;
 }
 
 .card-text {
-  display: flex;
-  justify-content: center;
+  margin-left: calc(2 * var(--gutter-basis));
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center; */
   text-decoration: none;
-  color: black;
+  min-width: 70%;
+}
+.card-text h5,
+.card-text h6,
+.card-text p {
+  margin: 0;
+}
+
+.card-text .firstName {
+  font-size: var(--medium-header-fontsize);
+}
+
+.card-text .institution {
+  font-size: calc(0.6 * var(--medium-header-fontsize));
+  margin-bottom: var(--gutter-basis);
 }
 
 .footer {
