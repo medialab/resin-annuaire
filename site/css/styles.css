@@ -1,4 +1,3 @@
-
 ::root {
   font-size: 16px;
 }
@@ -13,7 +12,7 @@ body {
   --headers-fontsize: ;
   --body-fontsize: ; */
 
-  --gutter-basis: 5px;/* base de gouttière pour l'ensemble des marges et des paddings*/
+  --gutter-basis: 5px; /* base de gouttière pour l'ensemble des marges et des paddings*/
 
   color: var(--primary-color);
   font-family: "Montserrat", sans-serif;
@@ -54,8 +53,8 @@ a#home {
 }
 
 input {
-  margin: 10px;
-  width: 100%;
+  margin: calc(4 * var(--gutter-basis));
+  padding: var(--gutter-basis);
   height: 20px;
 }
 
@@ -82,7 +81,7 @@ input {
   padding: calc(8 * var(--gutter-basis));
   padding-left: calc(4 * var(--gutter-basis));
   justify-content: center;
-  transition: background .5s ease;
+  transition: background 0.5s ease;
   box-sizing: border-box;
 }
 @media only screen and (max-width: 1000px) {
@@ -95,7 +94,7 @@ input {
 }
 
 .card:hover {
-  background-color: rgba(0,0,0,0.05);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .inner-card {
