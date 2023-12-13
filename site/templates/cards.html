@@ -1,5 +1,4 @@
 <div class="cardsWrapper">
-  <input type="text" id="searchBar" class="input" placeholder="Search.." />
   {% for item in items %}
   <a href="{{ item.slug }}" class="card">
     <div class="inner-card">
@@ -12,16 +11,11 @@
         {% endif %}
       </div>
       <div class="card-text">
-        <h5 class="firstName">{{ item.firstName }} {{ item.lastName }}</h5>
-        <h6 class="institution">
-          Sciences Po
-        </h6>
+        <h5 class="member-name">{{ item.firstName }} {{ item.lastName }}</h5>
+        <h6 class="institution">Sciences Po</h6>
         <p>
-          {% if item.shortBio %}
-          {{ item.shortBio }}
-          {% else %}
-          {{ item.skills }}
-          {% endif %}
+          {% if item.shortBio %} {{ item.shortBio }} {% else %} {{ item.skills
+          }} {% endif %}
         </p>
       </div>
     </div>

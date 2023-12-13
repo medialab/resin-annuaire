@@ -122,19 +122,17 @@ input {
 
 .card-text {
   margin-left: calc(2 * var(--gutter-basis));
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center; */
   text-decoration: none;
   min-width: 70%;
 }
+
 .card-text h5,
 .card-text h6,
 .card-text p {
   margin: 0;
 }
 
-.card-text .firstName {
+.card-text .member-name {
   font-size: var(--medium-header-fontsize);
 }
 
