@@ -27,6 +27,7 @@ exports.formatMembers = function (formItems) {
       for (const key in item) {
         cleanItem[remap[key]] = item[key];
       }
+      cleanItem.skillsArray = cleanItem.mainSkills.split(", ");
       cleanItem.rank = ranks[index];
       cleanItem.keep = cleanItem.keep.toLowerCase() == "oui";
       return cleanItem;

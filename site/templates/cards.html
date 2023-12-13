@@ -12,10 +12,10 @@
       </div>
       <div class="card-text">
         <h5 class="member-name">{{ item.firstName }} {{ item.lastName }}</h5>
-        <h6 class="institution">Sciences Po</h6>
+        <h6 class="institution">{{ item.organization }}</h6>
         <p>
-          {% if item.shortBio %} {{ item.shortBio }} {% else %} {{ item.skills
-          }} {% endif %}
+          {% if item.shortBio %} {{ item.shortBio }} {% else %} {{
+          item.mainSkills }} {% endif %}
         </p>
       </div>
     </div>
