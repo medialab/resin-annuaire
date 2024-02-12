@@ -1,4 +1,9 @@
 {% extends "mainPage.html" %} {% block body %}
+<img
+  src="{{ member.imageFilePath }}"
+  alt="Photo de profil de {{ member.firstName }} {{ member.lastName }}"
+  width="200"
+/>
 <h1>{{ member.firstName }} {{ member.lastName }}</h1>
 <ul>
   <li>{{ member.shortBio }}</li>

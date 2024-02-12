@@ -8,7 +8,7 @@ const { sortBy } = require("lodash");
 const { promisify } = require("util");
 
 const { formatMembers } = require("../src/format.js");
-const { loadImages } = require("../src/loadImages.js");
+const { loadImages, createDonut } = require("./buildImages.js");
 
 module.exports = function build() {
   main();
@@ -75,40 +75,51 @@ async function main() {
     subscribeTemplate.render()
   );
 
-  for (member of cleanMembers) {
-    fs.outputFileSync(
-      path.join(baseUrl, member.slug + ".html"),
-      memberPageTemplate.render({
-        member: member,
-      })
-    );
-  }
-
   fs.copySync(
     path.join(siteUrl, "css", "styles.css"),
     path.join(baseUrl, "css", "styles.css")
   );
 
-  const membersWithImage = await Promise.all(
+  const membersWithAvatar = await Promise.all(
     cleanMembers.map(async (member) => {
-      let imageFile = await loadImages(member, baseImageFolder);
-      if (imageFile) {
-        return { ...member, imageFile: path.join(imageFolder, imageFile) };
+      let imageFileName = await loadImages(member, baseImageFolder);
+      let donutFileName = await createDonut(
+        imageFileName,
+        member,
+        baseImageFolder
+      );
+      if (imageFileName) {
+        return {
+          ...member,
+          donutFilePath: path.join(imageFolder, donutFileName),
+          imageFilePath: path.join(imageFolder, imageFileName),
+        };
       }
-      return { ...member, imageFile: "" };
+      return {
+        ...member,
+        donutFilePath: path.join(imageFolder, donutFileName),
+        imageFilePath: "",
+      };
     })
   );
+
+  for (member of membersWithAvatar) {
+    fs.outputFileSync(
+      path.join(baseUrl, member.slug + ".html"),
+      memberPageTemplate.render({ member })
+    );
+  }
 
   fs.outputFileSync(
     path.join(baseUrl, "index.html"),
     mainPageTemplate.render({
-      items: sortBy(membersWithImage, ["rank"]),
+      items: sortBy(membersWithAvatar, ["rank"]),
     })
   );
 
   fs.outputJSONSync(
     path.join(baseUrl, "assets", "members.json"),
-    membersWithImage,
+    membersWithAvatar,
     {
       spaces: 2,
     }
