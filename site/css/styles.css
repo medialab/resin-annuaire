@@ -30,7 +30,7 @@ a {
 
 a#home {
   font-size: x-large;
-  color: var(--sciencespo-color);
+  color: var(--primary-color);
 }
 
 .navbar {

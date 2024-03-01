@@ -3,7 +3,7 @@ const palette = {
   "Collecte de données": "#51394E", //purple
   "Visualisation de données": "#F6DE7D", //yellow
   "Analyse de données": "#658385", //blue
-  "Diffusion de données": "#C8AF8A", //beige
+  "Diffusion de données": "#B04838", //red
 };
 
 const point = (x, y, r, angel) => [
