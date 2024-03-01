@@ -11,6 +11,16 @@
         {% else %}
         <img src="{{ item.donutFilePath }}" alt="donut" />
         {% endif %}
+        <div class="tooltip">
+          {% for skill in item.skillsArray %}
+          <div class="skill-group">
+            <div
+              class="skill-color {{ skill | replace(' ', '-') | lower }}"
+            ></div>
+            <div class="skill-text">{{skill}}</div>
+          </div>
+          {% endfor %}
+        </div>
       </div>
       <div class="card-text">
         <h5 class="member-name">{{ item.firstName }} {{ item.lastName }}</h5>

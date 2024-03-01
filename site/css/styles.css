@@ -5,6 +5,10 @@
 body {
   --primary-color: #333;
   --sciencespo-color: #e42229;
+  --collecte-de-données: #51394e;
+  --visualisation-de-données: #f6de7d;
+  --analyse-de-données: #658385;
+  --diffusion-de-données: #b04838;
 
   --body-fontsize: 1rem;
   --medium-header-fontsize: 1.5rem;
@@ -107,10 +111,11 @@ input {
 .card-image {
   display: flex;
   justify-content: center;
-  overflow: hidden;
+  overflow: visible;
   align-items: flex-start;
   min-width: 30%;
   max-width: 30%;
+  position: relative;
 }
 
 .card-image img {
@@ -118,6 +123,68 @@ input {
   height: 130px;
   object-fit: cover;
   border-radius: 100%;
+}
+
+.tooltip {
+  padding: var(--gutter-basis);
+  display: flex;
+  flex-flow: column nowrap;
+  position: absolute;
+  top: calc(100% + 15px);
+  background-color: black;
+  color: white;
+  z-index: 2;
+  transition: all 0.5s ease;
+  opacity: 0;
+  user-select: none;
+}
+
+.tooltip::before {
+  content: ".";
+  color: black;
+  display: inline-block;
+  background-color: black;
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: -5px;
+  left: calc(50% - 5px);
+  transform: rotate(45deg);
+}
+
+.card-image:hover .tooltip {
+  opacity: 1;
+  user-select: all;
+}
+
+.skill-group {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.skill-color {
+  display: inline-block;
+  height: calc(var(--gutter-basis) * 3);
+  min-width: calc(var(--gutter-basis) * 3);
+  margin-right: var(--gutter-basis);
+  position: relative;
+  top: 3px;
+}
+
+.skill-color.analyse-de-données {
+  background-color: var(--analyse-de-données);
+}
+
+.skill-color.visualisation-de-données {
+  background-color: var(--visualisation-de-données);
+}
+
+.skill-color.collecte-de-données {
+  background-color: var(--collecte-de-données);
+}
+
+.skill-color.diffusion-de-données {
+  background-color: var(--diffusion-de-données);
 }
 
 .card-text {
