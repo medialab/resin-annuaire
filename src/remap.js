@@ -22,6 +22,7 @@ const remap = {
   "Joindre une photo à votre profil": "avatar",
   Genre: "gender",
   "À afficher dans l'annuaire": "keep",
+  "Ville de résidence": "city",
 };
 
 module.exports = remap;

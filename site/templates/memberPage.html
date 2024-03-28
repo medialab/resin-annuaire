@@ -1,30 +1,40 @@
 {% extends "mainPage.html" %} {% block body %}
-<div class="member-header">
-  {% if item.imageFilePath %}
-  <img
-    src="{{ member.imageFilePath }}"
-    alt="Photo de profil de {{ member.firstName }} {{ member.lastName }}"
-  />
-  {% else %}
-  <img
-    src="{{ member.donutFilePath }}"
-    alt="Avatar de {{ member.firstName }} {{ member.lastName }}"
-  />
-  {% endif %}
-  <div class="member-summary">
-    <h5 class="member-name">{{ member.firstName }} {{ member.lastName }}</h5>
-    <p>{{ member.shortBio }}</p>
-    <p>Genre&nbsp;: {{ member.gender }}</p>
-    <!-- <h6>Genre&nbsp;: {{ member.gender }}</h6> -->
+<div class="member-container">
+  <div class="member-header">
+    {% if member.imageFilePath %}
+    <img
+      src="{{ member.imageFilePath }}"
+      alt="Photo de profil de {{ member.firstName }} {{ member.lastName }}"
+    />
+    {% else %}
+    <img
+      src="{{ member.donutFilePath }}"
+      alt="Avatar de {{ member.firstName }} {{ member.lastName }}"
+    />
+    {% endif %}
+    <div class="member-summary">
+      <h5 class="member-name">{{ member.firstName }} {{ member.lastName }}</h5>
+      <p>&laquo; {{ member.shortBio }} &raquo;</p>
+      <p>Genre&nbsp;: {{ member.gender }}</p>
+      <p>Langues&nbsp;: {{ member.languages }}</p>
+    </div>
   </div>
+  <div class="contact-line">
+    <div>{{ member.organization }}, {{ member.city }}</div>
+    <div class="contact-button">Contacter</div>
+  </div>
+
+  <p>{{ member.longBio }}</p>
+  <p>Compétences&nbsp;: {{ member.allSkills }}</p>
+  <p>Fonction / Titre&nbsp;: {{ member.title }}</p>
+  {% if member.education %}
+  <p>Formation&nbsp;: {{ member.education }}</p>
+  {% endif %} {% if member.activities %}
+  <p>Autres activités&nbsp;: {{ member.activities }}</p>
+  {% endif %} {% if member.responsabilities %}
+  <p>Responsabilités&nbsp;: {{ member.responsabilities }}</p>
+  {% endif %} {% if member.distinctions %}
+  <p>Distinctions&nbsp;: {{ member.distinctions }}</p>
+  {% endif %}
 </div>
-<div class="lead">
-  <p>{{ member.organization }}</p>
-  <p>{{ member.languages }}</p>
-</div>
-<ul>
-  <li>{{ member.shortBio }}</li>
-  <li>{{ member.organization }}</li>
-  <li>{{ member.longBio }}</li>
-</ul>
 {% endblock %}
