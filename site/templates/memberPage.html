@@ -1,10 +1,27 @@
 {% extends "mainPage.html" %} {% block body %}
-<img
-  src="{{ member.imageFilePath }}"
-  alt="Photo de profil de {{ member.firstName }} {{ member.lastName }}"
-  width="200"
-/>
-<h1>{{ member.firstName }} {{ member.lastName }}</h1>
+<div class="member-header">
+  {% if item.imageFilePath %}
+  <img
+    src="{{ member.imageFilePath }}"
+    alt="Photo de profil de {{ member.firstName }} {{ member.lastName }}"
+  />
+  {% else %}
+  <img
+    src="{{ member.donutFilePath }}"
+    alt="Avatar de {{ member.firstName }} {{ member.lastName }}"
+  />
+  {% endif %}
+  <div class="member-summary">
+    <h5 class="member-name">{{ member.firstName }} {{ member.lastName }}</h5>
+    <p>{{ member.shortBio }}</p>
+    <p>Genre&nbsp;: {{ member.gender }}</p>
+    <!-- <h6>Genre&nbsp;: {{ member.gender }}</h6> -->
+  </div>
+</div>
+<div class="lead">
+  <p>{{ member.organization }}</p>
+  <p>{{ member.languages }}</p>
+</div>
 <ul>
   <li>{{ member.shortBio }}</li>
   <li>{{ member.organization }}</li>

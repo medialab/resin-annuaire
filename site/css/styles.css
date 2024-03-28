@@ -12,6 +12,7 @@ body {
 
   --body-fontsize: 1rem;
   --medium-header-fontsize: 1.5rem;
+  --header-fontsize: 2rem;
   /* --secondary-color: ;
   --headers-fontsize: ;
   --body-fontsize: ; */
@@ -206,6 +207,39 @@ input {
 .card-text .institution {
   font-size: calc(0.6 * var(--medium-header-fontsize));
   margin-bottom: var(--gutter-basis);
+}
+
+.member-header {
+  display: flex;
+  flex-direction: row;
+}
+
+.member-header img {
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 100%;
+}
+
+.member-summary {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-left: calc(2 * var(--gutter-basis));
+  text-decoration: none;
+  min-width: 70%;
+}
+
+.member-summary .member-name {
+  font-size: var(--header-fontsize);
+}
+
+.member-summary h5 {
+  margin: 0;
+}
+
+.member-summary p {
+  margin: var(--gutter-basis);
 }
 
 .footer {
