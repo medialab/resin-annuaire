@@ -256,11 +256,25 @@ input {
   margin: var(--gutter-basis);
 }
 
-.contact-button {
+label {
   border: thin solid black;
   padding: var(--gutter-basis);
   margin: calc(2 * var(--gutter-basis));
   background-color: var(--diffusion-de-données);
+  color: white;
+}
+
+.contact-info {
+  display: none;
+}
+
+#toggle:checked ~ .contact-info {
+  display: inline;
+}
+
+.visually-hidden {
+  position: absolute;
+  left: -100vw;
 }
 
 .footer {

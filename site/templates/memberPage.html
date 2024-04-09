@@ -21,7 +21,11 @@
   </div>
   <div class="contact-line">
     <div>{{ member.organization }}, {{ member.city }}</div>
-    <div class="contact-button">Contacter</div>
+    <label for="toggle">Contacter</label>
+    <input type="checkbox" id="toggle" class="visually-hidden" />
+    <div class="contact-info">
+      {% if member.phone %} {{ member.phone }}, {% endif %}{{ member.email }}
+    </div>
   </div>
 
   <p>{{ member.longBio }}</p>
