@@ -14,7 +14,9 @@
     {% endif %}
     <div class="member-summary">
       <h5 class="member-name">{{ member.firstName }} {{ member.lastName }}</h5>
+      {% if member.shortBio %}
       <p>&laquo; {{ member.shortBio }} &raquo;</p>
+      {% endif %}
       <p>Genre&nbsp;: {{ member.gender }}</p>
       <p>Langues&nbsp;: {{ member.languages }}</p>
     </div>
