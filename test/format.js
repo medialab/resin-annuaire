@@ -15,18 +15,22 @@ const formInput = [
     Prénom: "First",
     Nom: "Member",
     "À afficher dans l'annuaire": "Oui",
+    "Domaine d'expertise": "Analyse de données",
   },
   {
     Horodateur: "28/07/2023 11:05:23",
     Prénom: "Second",
     Nom: "Member",
     "À afficher dans l'annuaire": "oui",
+    "Domaine d'expertise":
+      "Collecte de données, Visualisation de données, Analyse de données",
   },
   {
     Horodateur: "24/08/2023 10:48:12",
     Prénom: "Third",
     Nom: "Member",
     "À afficher dans l'annuaire": "",
+    "Domaine d'expertise": "Visualisation de données",
   },
 ];
 
