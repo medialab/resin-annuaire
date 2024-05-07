@@ -4,13 +4,12 @@
     <div class="inner-card">
       <div class="card-image">
         {% if item.imageFilePath %}
-        <img
-          src="{{ item.imageFilePath }}"
-          alt="Photo de profil de {{ item.firstName }} {{ item.lastName }}"
-        />
-        {% else %}
-        <img src="{{ item.donutFilePath }}" alt="donut" />
+        <img src="{{ item.imageFilePath }}" />
         {% endif %}
+        <img
+          src="{{ item.donutFilePath }}"
+          alt="Avatar de {{ item.firstName }} {{ item.lastName }}"
+        />
         <div class="tooltip">
           {% for skill in item.skillsArray %}
           <div class="skill-group">

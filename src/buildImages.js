@@ -41,7 +41,7 @@ exports.createDonut = async function (imageFileName, member, baseImageFolder) {
         angle * currentIndex,
         angle * (currentIndex + 1)
       );
-      return `${accumulator} <path d="${arcD}" fill="${palette[currentValue]}" fill-rule="evenodd"/>`;
+      return `${accumulator}<path d="${arcD}" fill="${palette[currentValue]}" fill-rule="evenodd"/>`;
     },
     ""
   );
@@ -51,7 +51,7 @@ exports.createDonut = async function (imageFileName, member, baseImageFolder) {
     "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
   <svg xmlns="http://www.w3.org/2000/svg"
        version="1.1" width="${size}" height="${size}">
-       "${donut}"
+       ${donut}
   </svg>`;
 
   const donutFileName = member.slug + ".svg";

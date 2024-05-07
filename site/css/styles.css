@@ -101,13 +101,13 @@ input {
 .inner-card {
   display: flex;
   flex-flow: row nowrap;
-  align-items: center;
+  position: relative;
   flex: 1;
 }
 
 .card-image {
   display: flex;
-  justify-content: center;
+  height: 100%;
   overflow: visible;
   align-items: flex-start;
   min-width: 30%;
@@ -120,6 +120,9 @@ input {
   height: 130px;
   object-fit: cover;
   border-radius: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .tooltip {
@@ -210,20 +213,28 @@ input {
   position: absolute;
   top: 100px;
   padding: 10px;
+  padding-top: 0;
 }
 
 .member-header {
   display: flex;
   flex-direction: row;
-  align-items: center;
   margin-bottom: calc(2 * var(--gutter-basis));
+  min-height: 200px;
+}
+
+.member-image {
+  min-width: calc(200px + var(--gutter-basis));
 }
 
 .member-header img {
-  width: 130px;
-  height: 130px;
+  width: 200px;
+  height: 200px;
   object-fit: cover;
   border-radius: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .member-summary {
