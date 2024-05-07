@@ -19,6 +19,11 @@ body {
 
   --gutter-basis: 5px; /* base de gouttière pour l'ensemble des marges et des paddings*/
 
+  --card-donut-size: 12px;
+  --member-donut-size: 18px;
+  --card-image-size: 130px;
+  --member-image-size: 200px;
+
   color: var(--primary-color);
   font-family: "Montserrat", sans-serif;
 }
@@ -116,13 +121,20 @@ input {
 }
 
 .card-image img {
-  width: 130px;
-  height: 130px;
+  width: var(--card-image-size);
+  height: var(--card-image-size);
   object-fit: cover;
   border-radius: 100%;
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.card-image img.card-photo {
+  top: var(--card-donut-size);
+  left: var(--card-donut-size);
+  width: calc(var(--card-image-size) - 2 * var(--card-donut-size));
+  height: calc(var(--card-image-size) - 2 * var(--card-donut-size));
 }
 
 .tooltip {
@@ -228,13 +240,20 @@ input {
 }
 
 .member-header img {
-  width: 200px;
-  height: 200px;
+  width: var(--member-image-size);
+  height: var(--member-image-size);
   object-fit: cover;
   border-radius: 100%;
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.member-image img.member-photo {
+  top: var(--member-donut-size);
+  left: var(--member-donut-size);
+  width: calc(var(--member-image-size) - 2 * var(--member-donut-size));
+  height: calc(var(--member-image-size) - 2 * var(--member-donut-size));
 }
 
 .member-summary {
