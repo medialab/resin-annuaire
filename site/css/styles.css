@@ -84,6 +84,7 @@ input {
   flex-shrink: 1;
   flex-basis: 0;
   min-width: 500px;
+  min-height: 275px;
   margin: var(--gutter-basis);
   padding: calc(8 * var(--gutter-basis));
   padding-left: calc(4 * var(--gutter-basis));
@@ -94,6 +95,7 @@ input {
 @media only screen and (max-width: 1000px) {
   .card {
     max-width: 100vw;
+    min-height: unset;
     box-sizing: border-box;
     margin-left: 0;
     margin-right: 0;
@@ -226,12 +228,27 @@ input {
   margin-bottom: var(--gutter-basis);
 }
 
-.member-container {
+.member-wrapper {
+  justify-content: center;
+  display: flex;
   height: 100%;
   position: absolute;
   top: 100px;
+  width: 100%;
+}
+
+.member-container {
+  position: relative;
+  max-width: 1000px;
   padding: 10px;
   padding-top: 0;
+}
+
+@media only screen and (max-width: 1000px) {
+  .member-container {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
 }
 
 .member-header {
@@ -239,6 +256,14 @@ input {
   flex-direction: row;
   margin-bottom: calc(2 * var(--gutter-basis));
   min-height: 200px;
+  position: relative;
+}
+
+@media only screen and (max-width: 1000px) {
+  .member-header {
+    flex-direction: column;
+    padding-top: var(--member-image-size);
+  }
 }
 
 .member-image {
@@ -255,11 +280,22 @@ input {
   left: 0;
 }
 
+@media only screen and (max-width: 1000px) {
+  .member-header img {
+    left: calc(50% - var(--member-image-size) / 2);
+  }
+}
+
 .member-image img.member-photo {
   top: var(--member-donut-size);
   left: var(--member-donut-size);
   width: calc(var(--member-image-size) - 2 * var(--member-donut-size));
   height: calc(var(--member-image-size) - 2 * var(--member-donut-size));
+}
+@media only screen and (max-width: 1000px) {
+  .member-image img.member-photo {
+    left: calc(50% - var(--member-image-size) / 2 + var(--member-donut-size));
+  }
 }
 
 .member-summary {
@@ -271,6 +307,11 @@ input {
 
 .member-summary .member-name {
   font-size: var(--header-fontsize);
+}
+@media only screen and (max-width: 1000px) {
+  .member-summary .member-name {
+    margin-top: var(--gutter-basis);
+  }
 }
 
 .member-summary h5 {

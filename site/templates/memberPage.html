@@ -1,45 +1,49 @@
 {% extends "mainPage.html" %} {% block body %}
-<div class="member-container">
-  <div class="member-header">
-    <div class="member-image">
-      {% if member.imageFilePath %}
-      <img class="member-photo" src="{{ member.imageFilePath }}" />
-      {% endif %}
-      <img
-        src="{{ member.donutFilePath }}"
-        alt="Avatar de {{ member.firstName }} {{ member.lastName }}"
-      />
+<div class="member-wrapper">
+  <div class="member-container">
+    <div class="member-header">
+      <div class="member-image">
+        {% if member.imageFilePath %}
+        <img class="member-photo" src="{{ member.imageFilePath }}" />
+        {% endif %}
+        <img
+          src="{{ member.donutFilePath }}"
+          alt="Avatar de {{ member.firstName }} {{ member.lastName }}"
+        />
+      </div>
+
+      <div class="member-summary">
+        <h5 class="member-name">
+          {{ member.firstName }} {{ member.lastName }}
+        </h5>
+        {% if member.shortBio %}
+        <p>&laquo; {{ member.shortBio }} &raquo;</p>
+        {% endif %}
+        <p>Genre&nbsp;: {{ member.gender }}</p>
+        <p>Langues&nbsp;: {{ member.languages }}</p>
+      </div>
+    </div>
+    <div class="contact-line">
+      <div>{{ member.organization }}, {{ member.city }}</div>
+      <label for="toggle">Contacter</label>
+      <input type="checkbox" id="toggle" class="visually-hidden" />
+      <div class="contact-info">
+        {% if member.phone %} {{ member.phone }}, {% endif %}{{ member.email }}
+      </div>
     </div>
 
-    <div class="member-summary">
-      <h5 class="member-name">{{ member.firstName }} {{ member.lastName }}</h5>
-      {% if member.shortBio %}
-      <p>&laquo; {{ member.shortBio }} &raquo;</p>
-      {% endif %}
-      <p>Genre&nbsp;: {{ member.gender }}</p>
-      <p>Langues&nbsp;: {{ member.languages }}</p>
-    </div>
+    <p>{{ member.longBio }}</p>
+    <p>Compétences&nbsp;: {{ member.allSkills }}</p>
+    <p>Fonction / Titre&nbsp;: {{ member.title }}</p>
+    {% if member.education %}
+    <p>Formation&nbsp;: {{ member.education }}</p>
+    {% endif %} {% if member.activities %}
+    <p>Autres activités&nbsp;: {{ member.activities }}</p>
+    {% endif %} {% if member.responsabilities %}
+    <p>Responsabilités&nbsp;: {{ member.responsabilities }}</p>
+    {% endif %} {% if member.distinctions %}
+    <p>Distinctions&nbsp;: {{ member.distinctions }}</p>
+    {% endif %}
   </div>
-  <div class="contact-line">
-    <div>{{ member.organization }}, {{ member.city }}</div>
-    <label for="toggle">Contacter</label>
-    <input type="checkbox" id="toggle" class="visually-hidden" />
-    <div class="contact-info">
-      {% if member.phone %} {{ member.phone }}, {% endif %}{{ member.email }}
-    </div>
-  </div>
-
-  <p>{{ member.longBio }}</p>
-  <p>Compétences&nbsp;: {{ member.allSkills }}</p>
-  <p>Fonction / Titre&nbsp;: {{ member.title }}</p>
-  {% if member.education %}
-  <p>Formation&nbsp;: {{ member.education }}</p>
-  {% endif %} {% if member.activities %}
-  <p>Autres activités&nbsp;: {{ member.activities }}</p>
-  {% endif %} {% if member.responsabilities %}
-  <p>Responsabilités&nbsp;: {{ member.responsabilities }}</p>
-  {% endif %} {% if member.distinctions %}
-  <p>Distinctions&nbsp;: {{ member.distinctions }}</p>
-  {% endif %}
 </div>
 {% endblock %}
