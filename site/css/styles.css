@@ -5,10 +5,11 @@
 body {
   --primary-color: #333;
   --sciencespo-color: #e42229;
-  --collecte-de-données: #51394e;
-  --visualisation-de-données: #f6de7d;
-  --analyse-de-données: #658385;
-  --diffusion-de-données: #b04838;
+  --collecte: #51394e;
+  --curation: #f6de7d;
+  --analyse: #658385;
+  --valorisation: #b04838;
+  --outils: #c8af8a;
 
   --body-fontsize: 1rem;
   --medium-header-fontsize: 1.5rem;
@@ -184,20 +185,24 @@ input {
   top: 3px;
 }
 
-.skill-color.analyse-de-données {
-  background-color: var(--analyse-de-données);
+.skill-color.analyse {
+  background-color: var(--analyse);
 }
 
-.skill-color.visualisation-de-données {
-  background-color: var(--visualisation-de-données);
+.skill-color.curation {
+  background-color: var(--curation);
 }
 
-.skill-color.collecte-de-données {
-  background-color: var(--collecte-de-données);
+.skill-color.collecte {
+  background-color: var(--collecte);
 }
 
-.skill-color.diffusion-de-données {
-  background-color: var(--diffusion-de-données);
+.skill-color.valorisation {
+  background-color: var(--valorisation);
+}
+
+.skill-color.outils {
+  background-color: var(--outils);
 }
 
 .card-text {
