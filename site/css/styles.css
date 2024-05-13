@@ -296,7 +296,7 @@ label {
   border: thin solid black;
   padding: var(--gutter-basis);
   margin: calc(2 * var(--gutter-basis));
-  background-color: var(--diffusion-de-données);
+  background-color: var(--valorisation);
   color: white;
 }
 
