@@ -1,0 +1,100 @@
+Analyse:
+  Analyse qualitative:
+    - Analyse de discours
+    - Codage
+    - Thésaurus
+  Analyse quantitative:
+    - Analyse statistique de réseaux
+    - Scientométrie
+  Analyse spatiale:
+    - Cartographie
+    - Géomatique
+  Analyse visuelle:
+    - Design d’information
+    - Photographies
+    - Réseaux
+  Apprentissage automatique:
+    - Non supervisé
+    - Supervisé
+  Statistiques:
+    - Descriptives
+    - Inférientielles
+    - Modélisation
+  TAL:
+    - Analyse syntaxique
+    - Analyse sémantique
+    - LLMs
+    - Lexicométrie
+    - Text-mining
+Collecte:
+  APIs:
+  Entrepôts de données:
+  Entretiens:
+    - Cognitifs
+    - Semi-directifs
+  Ethnographie:
+  Scraping:
+  Sondages:
+Curation:
+  Aspects légaux:
+    - Anonymisation
+    - Réglementation (RGPD, DSA)
+  Chiffrement, protection, sécurité:
+  Enrichissement:
+    - Métadonnées
+  Nettoyage:
+    - Conversion
+  Sauvegarde, versioning:
+Outils:
+  Administration de systèmes d'information:
+    - Gestion de serveurs
+    - Kubernetes
+    - Shell
+  Bases de données:
+    - NoSQL
+    - SQL
+    - SparkQL
+  CAQDAS:
+    - Atlas.ti
+    - MaxQDA
+    - Nvivo
+    - Taguette
+  Git:
+  Hyphe:
+  Langages de programmation:
+    - Bash
+    - Java
+    - Javascript
+    - PHP
+    - Perl
+    - Python
+    - R
+    - Ruby
+    - Rust
+    - SQLx
+    - Stata
+  Limesurvey:
+  Open refine:
+Valorisation:
+  Archivage:
+  Communication:
+    - Interviews
+    - Site web de laboratoire
+    - Édition numérique
+    - Édition papier
+  Documentation:
+    - Plan de gestion de données
+  Enseignement:
+    - Ateliers
+    - Encadrement
+    - Innovation pédagogique
+  Exposition:
+  Gestion de projets:
+    - Agilité
+    - Management
+    - Reporting
+  Publication:
+    - Data papers
+    - Jeux de données
+    - Podcasts
+  Écologie du numérique:

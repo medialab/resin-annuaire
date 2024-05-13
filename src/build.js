@@ -1,5 +1,6 @@
 const path = require("path");
 const fs = require("fs-extra");
+const yaml = require("js-yaml");
 const csv = require("csvtojson");
 const kotatsu = require("kotatsu");
 const fetch = require("node-fetch");
@@ -24,6 +25,7 @@ const baseImageFolder = path.join(baseUrl, imageFolder);
 
 const formUrl =
   "https://docs.google.com/spreadsheets/d/1Wner4VHEAGfxmqJ5uLT-n5PJoZKYLUzLs9-_J1PMfq0/export?exportFormat=csv";
+const treeUrl = path.join(siteUrl, "data", "tree.yaml");
 
 // Configure nunjucks
 const env = nunjucks.configure(path.join(siteUrl, "templates"));
@@ -40,6 +42,9 @@ async function main() {
   const body = await response.text();
   const members = await csv().fromString(body);
   let cleanMembers = formatMembers(members);
+
+  const tree = await yaml.load(fs.readFileSync(treeUrl, "utf-8"));
+  const mainSkills = Object.keys(tree);
 
   await buildJavascript({
     entry: path.join(siteUrl, "js", "search.js"),
@@ -114,6 +119,7 @@ async function main() {
     path.join(baseUrl, "index.html"),
     mainPageTemplate.render({
       items: sortBy(membersWithAvatar, ["rank"]),
+      skills: mainSkills,
     })
   );
 

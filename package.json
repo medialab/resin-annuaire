@@ -41,6 +41,7 @@
     "unidecode": "^0.1.8"
   },
   "dependencies": {
+    "js-yaml": "^4.1.0",
     "nodemon": "^3.0.2",
     "svg-arc": "^1.0.2"
   }

@@ -1,9 +1,10 @@
 //source: https://colorlisa.com/ --> RIFT SCULL by James Jean
 const palette = {
-  "Collecte de données": "#51394E", //purple
-  "Visualisation de données": "#F6DE7D", //yellow
-  "Analyse de données": "#658385", //blue
-  "Diffusion de données": "#B04838", //red
+  Collecte: "#51394E", //purple
+  Curation: "#F6DE7D", //yellow
+  Analyse: "#658385", //blue
+  Valorisation: "#B04838", //red
+  Outils: "#C8AF8A", //beige
 };
 
 const point = (x, y, r, angel) => [
