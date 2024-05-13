@@ -142,8 +142,9 @@ input {
   display: flex;
   flex-flow: column nowrap;
   position: absolute;
-  top: calc(100% + 15px);
-  background-color: black;
+  top: calc(var(--card-image-size) + 10px);
+  width: calc(var(--card-image-size) * 2);
+  background-color: var(--primary-color);
   color: white;
   z-index: 2;
   transition: all 0.5s ease;
@@ -155,12 +156,12 @@ input {
   content: ".";
   color: black;
   display: inline-block;
-  background-color: black;
+  background-color: var(--primary-color);
   width: 10px;
   height: 10px;
   position: absolute;
   top: -5px;
-  left: calc(50% - 5px);
+  left: calc(25% - 5px);
   transform: rotate(45deg);
 }
 
