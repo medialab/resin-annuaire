@@ -16,9 +16,11 @@ Analyse:
   Apprentissage automatique:
     - Non supervisé
     - Supervisé
+  Dispositifs expérimentaux:
+    - Analyse contre-factuelle
   Statistiques:
-    - Descriptives
-    - Inférientielles
+    - Statistiques descriptives
+    - Statistiques inférentielles
     - Modélisation
   TAL:
     - Analyse syntaxique
@@ -47,6 +49,8 @@ Curation:
   Sauvegarde, versioning:
 Outils:
   Administration de systèmes d'information:
+    - Ansible
+    - Docker
     - Gestion de serveurs
     - Kubernetes
     - Shell
@@ -63,6 +67,8 @@ Outils:
   Hyphe:
   Langages de programmation:
     - Bash
+    - CSS
+    - HTML
     - Java
     - Javascript
     - PHP
