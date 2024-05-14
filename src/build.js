@@ -85,6 +85,11 @@ async function main() {
     path.join(baseUrl, "css", "styles.css")
   );
 
+  fs.copySync(
+    path.join(siteUrl, "css", "normalize.css"),
+    path.join(baseUrl, "css", "normalize.css")
+  );
+
   const membersWithAvatar = await Promise.all(
     cleanMembers.map(async (member) => {
       let imageFileName = await loadImages(member, baseImageFolder);
