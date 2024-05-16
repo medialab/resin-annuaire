@@ -16,6 +16,8 @@ const formInput = [
     Nom: "Member",
     "À afficher dans l'annuaire": "Oui",
     "Domaine d'expertise": "Analyse de données",
+    Compétences:
+      "Analyse/Apprentissage automatique/Apprentissage non supervisé,Analyse/Apprentissage automatique/Apprentissage supervisé,Analyse/TAL",
   },
   {
     Horodateur: "28/07/2023 11:05:23",
@@ -24,6 +26,8 @@ const formInput = [
     "À afficher dans l'annuaire": "oui",
     "Domaine d'expertise":
       "Collecte de données, Visualisation de données, Analyse de données",
+    Compétences:
+      "Outils/Langages de programmation/Stata,Analyse/Statistiques/Statistiques descriptives,Analyse/Statistiques/Statistiques inférentielles",
   },
   {
     Horodateur: "24/08/2023 10:48:12",
@@ -31,6 +35,8 @@ const formInput = [
     Nom: "Member",
     "À afficher dans l'annuaire": "",
     "Domaine d'expertise": "Visualisation de données",
+    Compétences:
+      "Analyse/Analyse spatiale/Cartographie,Curation/Enrichissement",
   },
 ];
 

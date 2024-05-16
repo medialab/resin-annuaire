@@ -11,7 +11,7 @@
           alt="Avatar de {{ item.firstName }} {{ item.lastName }}"
         />
         <div class="tooltip">
-          {% for skill in item.skillsArray %}
+          {% for skill in item.firstSkillsArray %}
           <div class="skill-group">
             <div
               class="skill-color {{ skill | replace(' ', '-') | lower }}"
@@ -25,8 +25,8 @@
         <h5 class="member-name">{{ item.firstName }} {{ item.lastName }}</h5>
         <h6 class="institution">{{ item.organization }}</h6>
         <p>
-          {% if item.shortBio %} {{ item.shortBio }} {% else %} {{
-          item.allSkills }} {% endif %}
+          {% if item.shortBio %} {{ item.shortBio }} {% else %}
+          {{item.lastSkillsArray | join(", ")}} {% endif %}
         </p>
       </div>
     </div>

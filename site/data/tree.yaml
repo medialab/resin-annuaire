@@ -14,8 +14,8 @@ Analyse:
     - Photographies
     - Réseaux
   Apprentissage automatique:
-    - Non supervisé
-    - Supervisé
+    - Apprentissage non supervisé
+    - Apprentissage supervisé
   Dispositifs expérimentaux:
     - Analyse contre-factuelle
   Statistiques:
@@ -40,7 +40,7 @@ Collecte:
 Curation:
   Aspects légaux:
     - Anonymisation
-    - Réglementation (RGPD, DSA)
+    - Réglementation (RGPD et DSA)
   Chiffrement, protection, sécurité:
   Enrichissement:
     - Métadonnées

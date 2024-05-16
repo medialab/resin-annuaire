@@ -33,7 +33,7 @@
     </div>
 
     <p>{{ member.longBio }}</p>
-    <p>Compétences&nbsp;: {{ member.allSkills }}</p>
+    <p>Compétences&nbsp;: {{ member.lastSkillsArray | join(", ") }}</p>
     <p>Fonction / Titre&nbsp;: {{ member.title }}</p>
     {% if member.education %}
     <p>Formation&nbsp;: {{ member.education }}</p>

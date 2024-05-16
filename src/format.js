@@ -1,6 +1,6 @@
 const slug = require("slug");
 const pandemonium = require("pandemonium");
-const { sortBy, range } = require("lodash");
+const { sortBy, range, first, last } = require("lodash");
 
 const remap = require("./remap.js");
 
@@ -27,7 +27,20 @@ exports.formatMembers = function (formItems) {
       for (const key in item) {
         cleanItem[remap[key]] = item[key];
       }
-      cleanItem.skillsArray = cleanItem.mainSkills.split(", ");
+      cleanItem.allSkillsArray = cleanItem.allSkills.split(",").map((item) => {
+        return item.trim();
+      });
+      cleanItem.lastSkillsArray = cleanItem.allSkillsArray.map((item) => {
+        return last(item.split("/"));
+      });
+
+      cleanItem.firstSkillsArray = Array.from(
+        new Set(
+          cleanItem.allSkillsArray.map((item) => {
+            return first(item.split("/"));
+          })
+        )
+      );
       cleanItem.rank = ranks[index];
       cleanItem.keep = cleanItem.keep.toLowerCase() == "oui";
       return cleanItem;
