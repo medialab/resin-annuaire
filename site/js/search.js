@@ -15,7 +15,7 @@ let MEMBERS = null;
 const $searchInput = document.querySelector(".input");
 const $grid = document.querySelector(".cardsWrapper");
 const $skillsToggle = document.querySelector("#skills-toggle");
-const $skillsSelector = document.querySelector("#skills-selector");
+const $searchTable = document.querySelector(".search-table");
 const $selectedSkillsUl = document.querySelector("#selected-skills");
 
 function updateSearchResults() {
@@ -52,11 +52,11 @@ loadJSON(function (data) {
   MEMBERS = data;
   $skillsToggle.addEventListener("click", () => {
     if (SEARCH_STATE.skillsToggled) {
-      $skillsSelector.style.display = "none";
+      $searchTable.style.display = "none";
       SEARCH_STATE.skillsToggled = false;
       $skillsToggle.textContent = "+";
     } else {
-      $skillsSelector.style.display = "block";
+      $searchTable.style.display = "flex";
       SEARCH_STATE.skillsToggled = true;
       $skillsToggle.textContent = "-";
     }

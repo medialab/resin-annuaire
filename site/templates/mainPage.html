@@ -22,14 +22,6 @@
         </ul>
       </nav>
       {% block body %}
-      <div class="search-table">
-        <ul id="skills-selector" style="display: none">
-          {% for skill in skills %}
-          <li><button type="button">{{skill}}</button></li>
-
-          {% endfor %}
-        </ul>
-      </div>
       <div class="search-line">
         <input
           type="text"
@@ -40,6 +32,35 @@
         <button id="skills-toggle" type="button">+</button>
       </div>
       <ul id="selected-skills"></ul>
+      <div class="search-table" style="display: none">
+        <div class="categories">
+          <ul>
+            {% for category in categories %}
+            <li
+              style="height:{{ category.height }}px ; color:{{category.color}}"
+            >
+              {{ category.label }}
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="sub-categories"></div>
+        <ul>
+          {% for category in subcategories %}
+          <li style="height:{{ category.height }}px ; color:{{category.color}}">
+            {{ category.label }}
+          </li>
+          {% endfor %}
+        </ul>
+        <div class="sub-sub-categories"></div>
+        <ul>
+          {% for category in subsubcategories %}
+          <li style="height:{{ category.height }}px ; color:{{category.color}}">
+            {{ category.label }}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
 
       {% include "cards.html" %} {% include "footer.html" %} {% endblock %}
     </div>

@@ -6,7 +6,7 @@ const remap = require("./remap.js");
 
 exports.createNewSlug = function (uniqueSlugs, member) {
   let nameSlug = slug(member.firstName + " " + member.lastName);
-  counter = 0;
+  let counter = 0;
 
   while (uniqueSlugs.has(nameSlug)) {
     counter += 1;

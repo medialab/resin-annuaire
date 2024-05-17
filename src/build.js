@@ -9,6 +9,8 @@ const { sortBy } = require("lodash");
 const { promisify } = require("util");
 
 const { formatMembers } = require("../src/format.js");
+const { palette } = require("./donutUtils.js");
+const { findCategoryMetadata } = require("./searchTableUtils.js");
 const { loadImages, createDonut } = require("./buildImages.js");
 
 module.exports = function build() {
@@ -44,7 +46,6 @@ async function main() {
   let cleanMembers = formatMembers(members);
 
   const tree = await yaml.load(fs.readFileSync(treeUrl, "utf-8"));
-  const mainSkills = Object.keys(tree);
 
   await buildJavascript({
     entry: path.join(siteUrl, "js", "search.js"),
@@ -120,11 +121,19 @@ async function main() {
     );
   }
 
+  const [categories, subcategories, subsubcategories] = findCategoryMetadata(
+    tree,
+    membersWithAvatar,
+    palette
+  );
+
   fs.outputFileSync(
     path.join(baseUrl, "index.html"),
     mainPageTemplate.render({
       items: sortBy(membersWithAvatar, ["rank"]),
-      skills: mainSkills,
+      categories: categories,
+      subcategories: subcategories,
+      subsubcategories: subsubcategories,
     })
   );
 
