@@ -44,13 +44,13 @@ describe("Members", function () {
   describe("uniqueSlugs", function () {
     it("should add numerical suffix if slug already exists", function () {
       const updatedSlugs = createNewSlug(existingSlugs, duplicateName);
-      assert.equal(updatedSlugs[0], "first-member-1");
+      assert.strictEqual(updatedSlugs[0], "first-member-1");
     });
   });
   const formattedMembers = formatMembers(formInput);
   describe("formattedMembers", function () {
     it("should remap field names, add rank and slug", function () {
-      for (formattedMember of formattedMembers) {
+      for (const formattedMember of formattedMembers) {
         assert(Number.isInteger(formattedMember.rank));
         assert("slug" in formattedMember);
         assert("timestamp" in formattedMember);
@@ -59,7 +59,7 @@ describe("Members", function () {
   });
   describe("filterMembers", function () {
     it("should filter members if 'À afficher dans l'annuaire' is not 'oui'", function () {
-      assert.equal(formattedMembers.length, 2);
+      assert.strictEqual(formattedMembers.length, 2);
     });
   });
 });
