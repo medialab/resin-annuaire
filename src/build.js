@@ -113,7 +113,7 @@ async function main() {
     })
   );
 
-  for (member of membersWithAvatar) {
+  for (const member of membersWithAvatar) {
     fs.outputFileSync(
       path.join(baseUrl, member.slug + ".html"),
       memberPageTemplate.render({ member })
