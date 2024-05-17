@@ -1,4 +1,4 @@
-function loadJSON(callback) {
+export function loadJSON(callback) {
   var request = new XMLHttpRequest();
   request.overrideMimeType("application/json");
   request.open("GET", "assets/members.json", true);
@@ -9,5 +9,3 @@ function loadJSON(callback) {
   };
   request.send(null);
 }
-
-module.exports = loadJSON;

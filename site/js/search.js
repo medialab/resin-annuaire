@@ -1,7 +1,7 @@
 import { sortBy } from "lodash";
 import unidecode from "unidecode";
 
-import loadJSON from "./loadMembers";
+import {loadJSON} from "./loadMembers";
 import cardsTemplate from "../templates/cards.html";
 
 const SEARCH_STATE = {
