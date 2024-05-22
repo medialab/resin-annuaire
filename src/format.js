@@ -37,8 +37,8 @@ exports.formatMembers = function (formItems) {
           }
           return paths;
         });
-      cleanItem.lastSkillsArray = cleanItem.allSkillsArray.map((item) => {
-        return last(item.split("/"));
+      cleanItem.lastSkillsArray = cleanItem.allSkills.split(",").map((item) => {
+        return last(item.split("/")).trim();
       });
 
       cleanItem.firstSkillsArray = Array.from(
