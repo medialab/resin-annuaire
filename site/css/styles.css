@@ -6,6 +6,7 @@
 
 body {
   --primary-color: #333;
+  --border-color: #8f8f9d;
   --sciencespo-color: #e42229;
   --collecte: #51394e;
   --curation: #f6de7d;
@@ -95,7 +96,8 @@ button {
   font-size: medium;
   background: none;
   color: var(--primary-color);
-  border: thin solid grey;
+  border: thin solid var(--border-color);
+  border-radius: 5%;
 }
 
 button:hover {
@@ -117,19 +119,17 @@ button:hover {
   flex-shrink: 1;
   flex-basis: 0;
   min-width: 500px;
-  min-height: 275px;
+  min-height: 200px;
   margin: var(--gutter-basis);
   padding: calc(8 * var(--gutter-basis));
   padding-left: calc(4 * var(--gutter-basis));
   justify-content: center;
   transition: background 0.5s ease;
-  box-sizing: border-box;
 }
 @media only screen and (max-width: 1000px) {
   .card {
     max-width: 100vw;
-    min-height: unset;
-    box-sizing: border-box;
+    min-height: 200px;
     margin-left: 0;
     margin-right: 0;
   }
