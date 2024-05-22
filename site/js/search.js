@@ -1,7 +1,7 @@
 import { sortBy } from "lodash";
 import unidecode from "unidecode";
 
-import {loadJSON} from "./loadMembers";
+import { loadJSON } from "./loadMembers";
 import cardsTemplate from "../templates/cards.html";
 
 const SEARCH_STATE = {
@@ -34,7 +34,6 @@ function normalizeString(string) {
 }
 
 function searchPeople(members, query, selectedSkills) {
-  console.log(query, selectedSkills);
   query = normalizeString(query);
   return members.filter((member) => {
     return (
@@ -43,7 +42,7 @@ function searchPeople(members, query, selectedSkills) {
           query
         )) &&
       (!selectedSkills.size ||
-        member.skillsArray.some((skill) => selectedSkills.has(skill)))
+        member.allSkillsArray.some((skill) => selectedSkills.has(skill)))
     );
   });
 }
@@ -61,11 +60,12 @@ loadJSON(function (data) {
       $skillsToggle.textContent = "-";
     }
   });
-  document.querySelectorAll("#skills-selector button").forEach((e) => {
+  document.querySelectorAll("#skills-selector").forEach((e) => {
     e.addEventListener("click", () => {
       const skill = e.textContent;
-      if (!SEARCH_STATE.selectedSkills.has(skill)) {
-        SEARCH_STATE.selectedSkills.add(skill);
+      const path = e.dataset.path;
+      if (!SEARCH_STATE.selectedSkills.has(path)) {
+        SEARCH_STATE.selectedSkills.add(path);
         const $skillLabel = document.createElement("li");
         $skillLabel.textContent = skill;
         const $closeButton = document.createElement("button");
@@ -74,7 +74,7 @@ loadJSON(function (data) {
         $selectedSkillsUl.appendChild($skillLabel);
         updateSearchResults();
         $closeButton.addEventListener("click", () => {
-          SEARCH_STATE.selectedSkills.delete(skill);
+          SEARCH_STATE.selectedSkills.delete(path);
           $selectedSkillsUl.removeChild($skillLabel);
           updateSearchResults();
         });

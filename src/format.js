@@ -27,9 +27,16 @@ exports.formatMembers = function (formItems) {
       for (const key in item) {
         cleanItem[remap[key]] = item[key];
       }
-      cleanItem.allSkillsArray = cleanItem.allSkills.split(",").map((item) => {
-        return item.trim();
-      });
+      cleanItem.allSkillsArray = cleanItem.allSkills
+        .split(",")
+        .flatMap((item) => {
+          let paths = [];
+          const splittedPath = item.trim().split("/");
+          for (let i = 0; i < splittedPath.length; i++) {
+            paths.push(splittedPath.slice(0, i + 1).join("/"));
+          }
+          return paths;
+        });
       cleanItem.lastSkillsArray = cleanItem.allSkillsArray.map((item) => {
         return last(item.split("/"));
       });

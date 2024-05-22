@@ -7,14 +7,10 @@ function findCategoryMetadata(tree, members, palette) {
 
   for (const member of members) {
     for (const skill of member.allSkillsArray) {
-      const paths = skill.split("/");
-      for (let i = 0; i < paths.length; i++) {
-        const path = paths.slice(0, i + 1).join("/");
-        if (!(path in memberCounts)) {
-          memberCounts[path] = 0;
-        }
-        memberCounts[path] += 1;
+      if (!(skill in memberCounts)) {
+        memberCounts[skill] = 0;
       }
+      memberCounts[skill] += 1;
     }
   }
 
