@@ -13,7 +13,7 @@ const SEARCH_STATE = {
 let MEMBERS = null;
 
 const $searchInput = document.querySelector(".input");
-const $grid = document.querySelector(".cardsWrapper");
+const $grid = document.querySelector(".cards-wrapper");
 const $skillsToggle = document.querySelector("#skills-toggle");
 const $searchTable = document.querySelector(".search-table");
 const $selectedSkillsUl = document.querySelector("#selected-skills");

@@ -42,6 +42,12 @@ a#home {
   color: var(--primary-color);
 }
 
+.container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
 .navbar {
   padding: 10px;
   display: inline-flex;
@@ -58,20 +64,45 @@ a#home {
   margin: 5px;
 }
 
-.container {
+.search-container {
   display: flex;
-  min-height: 100vh;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
+  align-self: center;
+  max-width: 1200px;
+  padding-top: calc(4 * var(--gutter-basis));
+  margin-right: calc(4 * var(--gutter-basis));
+  margin-left: calc(4 * var(--gutter-basis));
+}
+
+.search-line {
+  min-width: 100%;
 }
 
 input {
-  margin: calc(4 * var(--gutter-basis));
-  padding: var(--gutter-basis);
-  height: 20px;
+  height: 40px;
+  min-width: calc(100% - 50px);
+  box-sizing: border-box;
 }
 
-.cardsWrapper {
+input:focus {
+  outline: none;
+}
+
+button {
+  height: 40px;
+  width: 45px;
+  font-size: medium;
+  background: none;
+  color: var(--primary-color);
+  border: thin solid grey;
+}
+
+button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.cards-wrapper {
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
@@ -336,7 +367,7 @@ input {
 }
 
 label {
-  border: thin solid black;
+  border: thin solid var(--primary-color);
   padding: var(--gutter-basis);
   margin: calc(2 * var(--gutter-basis));
   background-color: var(--valorisation);
