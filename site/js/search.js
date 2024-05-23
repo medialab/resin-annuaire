@@ -33,6 +33,23 @@ function normalizeString(string) {
   return unidecode(string.trim().toLowerCase());
 }
 
+function changeOpacity(event, value) {
+  const path = event.target.dataset.path;
+  document.querySelectorAll("#skills-selector").forEach((e) => {
+    if (!e.dataset.path.startsWith(path)) {
+      e.style.opacity = value;
+    }
+  });
+}
+
+function lowerOpacity(event) {
+  changeOpacity(event, "0.5");
+}
+
+function restoreOpacity(event) {
+  changeOpacity(event, "1");
+}
+
 function searchPeople(members, query, selectedSkills) {
   query = normalizeString(query);
   return members.filter((member) => {
@@ -61,23 +78,27 @@ loadJSON(function (data) {
     }
   });
   document.querySelectorAll("#skills-selector").forEach((e) => {
-    e.addEventListener("click", () => {
-      const skill = e.textContent;
-      const path = e.dataset.path;
+    e.addEventListener("mouseenter", lowerOpacity);
+    e.addEventListener("mouseleave", restoreOpacity);
+    e.addEventListener("click", (event) => {
+      const skill = event.target.textContent;
+      const path = event.target.dataset.path;
       if (!SEARCH_STATE.selectedSkills.has(path)) {
         SEARCH_STATE.selectedSkills.add(path);
-        const $skillLabel = document.createElement("li");
-        $skillLabel.textContent = skill;
-        const $closeButton = document.createElement("button");
-        $closeButton.textContent = "x";
-        $skillLabel.appendChild($closeButton);
-        $selectedSkillsUl.appendChild($skillLabel);
+        lowerOpacity(event);
         updateSearchResults();
-        $closeButton.addEventListener("click", () => {
-          SEARCH_STATE.selectedSkills.delete(path);
-          $selectedSkillsUl.removeChild($skillLabel);
-          updateSearchResults();
+        document.querySelectorAll("#skills-selector").forEach((e) => {
+          e.removeEventListener("mouseenter", lowerOpacity);
+          e.removeEventListener("mouseleave", restoreOpacity);
         });
+      } else {
+        restoreOpacity(event);
+        SEARCH_STATE.selectedSkills.delete(path);
+        document.querySelectorAll("#skills-selector").forEach((e) => {
+          e.addEventListener("mouseenter", lowerOpacity);
+          e.addEventListener("mouseleave", restoreOpacity);
+        });
+        updateSearchResults();
       }
     });
   });
