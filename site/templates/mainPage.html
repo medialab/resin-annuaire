@@ -34,45 +34,46 @@
         </div>
         <ul id="selected-skills"></ul>
         <div class="search-table" style="display: none">
-          <div class="categories">
-            <ul>
-              {% for category in categories %}
-              <li
-                style="height:{{ category.height }}px ; color:{{category.color}}"
-                data-path="{{ category.path }}"
-                id="skills-selector"
-              >
-                {{ category.label }}
-              </li>
-              {% endfor %}
-            </ul>
-          </div>
-          <div class="sub-categories"></div>
           <ul>
-            {% for category in subcategories %}
+            {% for category in categories %}
             <li
-              style="height:{{ category.height }}px ; color:{{category.color}}"
+              style="height:{{ category.height }}px ; background-color:{{category.color}}"
               data-path="{{ category.path }}"
               id="skills-selector"
             >
-              {{ category.label }}
+              <div class="text-with-ellipsis">
+                {% if category.height > 15 %} {{ category.label }} {% endif %}
+              </div>
             </li>
             {% endfor %}
           </ul>
-          <div class="sub-sub-categories"></div>
           <ul>
-            {% for category in subsubcategories %}
+            {% for category in subcategories %}
             <li
-              style="height:{{ category.height }}px ; color:{{category.color}}"
+              style="height:{{ category.height }}px ; background-color:{{category.color}}"
               data-path="{{ category.path }}"
               id="skills-selector"
             >
-              {{ category.label }}
+              <div class="text-with-ellipsis">
+                {% if category.height > 15 %} {{ category.label }} {% endif %}
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+          <ul>
+            {% for category in subsubcategories %}
+            <li
+              style="height:{{ category.height }}px ; background-color:{{category.color}}"
+              data-path="{{ category.path }}"
+              id="skills-selector"
+            >
+              <div class="text-with-ellipsis">
+                {% if category.height > 15 %} {{ category.label }} {% endif %}
+              </div>
             </li>
             {% endfor %}
           </ul>
         </div>
-
         {% include "cards.html" %} {% include "footer.html" %} {% endblock %}
       </div>
     </div>

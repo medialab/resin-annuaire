@@ -104,6 +104,34 @@ button:hover {
   background: rgba(0, 0, 0, 0.05);
 }
 
+.search-table {
+  gap: 1px;
+  width: 75%;
+  margin: var(--gutter-basis);
+}
+
+.search-table > ul {
+  width: 33%;
+  padding-left: 1px;
+  margin: 0px;
+  border-bottom: solid thin white;
+}
+
+.search-table > ul > li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: solid thin white;
+  color: white;
+  white-space: nowrap;
+  padding: 0 var(--gutter-basis);
+}
+
+.text-with-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .cards-wrapper {
   display: flex;
   flex-flow: row wrap;
