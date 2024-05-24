@@ -98,6 +98,7 @@ button {
   color: var(--primary-color);
   border: thin solid var(--border-color);
   border-radius: 5%;
+  cursor: pointer;
 }
 
 button:hover {

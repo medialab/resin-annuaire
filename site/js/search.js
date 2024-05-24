@@ -34,7 +34,7 @@ function normalizeString(string) {
 }
 
 function changeOpacity(event, value) {
-  const path = event.target.dataset.path;
+  const path = event.target.closest(".skills-selector").dataset.path;
   document.querySelectorAll(".skills-selector").forEach((e) => {
     if (!e.dataset.path.startsWith(path)) {
       e.style.opacity = value;
@@ -91,12 +91,9 @@ loadJSON(function (data) {
   document.querySelectorAll(".skills-selector").forEach((e) => {
     shineOnHover(e);
     e.addEventListener("click", (event) => {
-      const path = event.target.dataset.path;
-      console.log(event.target);
-      console.log("path", path);
+      const path = event.target.closest(".skills-selector").dataset.path;
       if (SEARCH_STATE.selectedSkill != path) {
         SEARCH_STATE.selectedSkill = path;
-        console.log("selected", SEARCH_STATE.selectedSkill);
         lowerOpacity(event);
         updateSearchResults();
 
@@ -106,7 +103,6 @@ loadJSON(function (data) {
       } else {
         restoreOpacity(event);
         SEARCH_STATE.selectedSkill = "";
-        console.log("unselected", SEARCH_STATE.selectedSkill);
         updateSearchResults();
 
         document.querySelectorAll(".skills-selector").forEach((e) => {
