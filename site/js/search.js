@@ -69,7 +69,9 @@ function searchPeople(members, query, selectedSkill) {
       (!query ||
         normalizeString(member.firstName + " " + member.lastName).includes(
           query
-        )) &&
+        ) ||
+        normalizeString(member.allSkills).includes(query) ||
+        normalizeString(member.organization).includes(query)) &&
       (!selectedSkill || member.allSkillsArray.includes(selectedSkill))
     );
   });
