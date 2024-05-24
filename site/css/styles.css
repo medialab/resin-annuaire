@@ -47,6 +47,7 @@ a#home {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  margin: 0 calc(3 * var(--gutter-basis));
 }
 
 .navbar {
