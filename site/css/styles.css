@@ -72,12 +72,11 @@ a#home {
   align-self: center;
   max-width: 1200px;
   padding-top: calc(4 * var(--gutter-basis));
-  margin-right: calc(4 * var(--gutter-basis));
-  margin-left: calc(4 * var(--gutter-basis));
+  min-width: calc(min(100%, 1200px));
 }
 
 .search-line {
-  min-width: 100%;
+  min-width: calc(100% - 2 * var(--gutter-basis));
 }
 
 input {
@@ -109,6 +108,7 @@ button:hover {
   gap: 1px;
   width: 75%;
   margin: var(--gutter-basis);
+  padding-bottom: calc(4 * var(--gutter-basis));
 }
 
 .search-table > ul {
@@ -151,6 +151,7 @@ button:hover {
   flex-basis: 0;
   min-width: 500px;
   min-height: 200px;
+  max-width: 500px;
   margin: var(--gutter-basis);
   padding: calc(8 * var(--gutter-basis));
   padding-left: calc(4 * var(--gutter-basis));
@@ -425,6 +426,7 @@ label {
   padding: 10px 10px;
   align-items: end;
   justify-content: space-evenly;
+  margin-top: auto;
 }
 
 #logo-medialab {
