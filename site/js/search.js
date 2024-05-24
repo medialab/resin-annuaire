@@ -92,7 +92,7 @@ loadJSON(function (data) {
     shineOnHover(e);
     e.addEventListener("click", (event) => {
       const path = event.target.closest(".skills-selector").dataset.path;
-      if (SEARCH_STATE.selectedSkill != path) {
+      if (SEARCH_STATE.selectedSkill !== path) {
         SEARCH_STATE.selectedSkill = path;
         lowerOpacity(event);
         updateSearchResults();
