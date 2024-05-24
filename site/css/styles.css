@@ -125,11 +125,13 @@ button:hover {
   color: white;
   white-space: nowrap;
   padding: 0 var(--gutter-basis);
+  cursor: pointer;
 }
 
 .text-with-ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
+  text-shadow: 1px 0px 1px gray;
 }
 
 .cards-wrapper {

@@ -7,7 +7,7 @@ import cardsTemplate from "../templates/cards.html";
 const SEARCH_STATE = {
   query: "",
   skillsToggled: false,
-  selectedSkills: new Set(),
+  selectedSkill: "",
 };
 
 let MEMBERS = null;
@@ -22,7 +22,7 @@ function updateSearchResults() {
   const searchResults = searchPeople(
     MEMBERS,
     SEARCH_STATE.query,
-    SEARCH_STATE.selectedSkills
+    SEARCH_STATE.selectedSkill
   );
   $grid.innerHTML = cardsTemplate({
     items: sortBy(searchResults, ["rank"]),
@@ -35,9 +35,11 @@ function normalizeString(string) {
 
 function changeOpacity(event, value) {
   const path = event.target.dataset.path;
-  document.querySelectorAll("#skills-selector").forEach((e) => {
+  document.querySelectorAll(".skills-selector").forEach((e) => {
     if (!e.dataset.path.startsWith(path)) {
       e.style.opacity = value;
+    } else {
+      e.style.opacity = "1";
     }
   });
 }
@@ -50,7 +52,17 @@ function restoreOpacity(event) {
   changeOpacity(event, "1");
 }
 
-function searchPeople(members, query, selectedSkills) {
+function shineOnHover(e) {
+  e.addEventListener("mouseenter", lowerOpacity);
+  e.addEventListener("mouseleave", restoreOpacity);
+}
+
+function dontShineOnHover(e) {
+  e.removeEventListener("mouseenter", lowerOpacity);
+  e.removeEventListener("mouseleave", restoreOpacity);
+}
+
+function searchPeople(members, query, selectedSkill) {
   query = normalizeString(query);
   return members.filter((member) => {
     return (
@@ -58,8 +70,7 @@ function searchPeople(members, query, selectedSkills) {
         normalizeString(member.firstName + " " + member.lastName).includes(
           query
         )) &&
-      (!selectedSkills.size ||
-        member.allSkillsArray.some((skill) => selectedSkills.has(skill)))
+      (!selectedSkill || member.allSkillsArray.includes(selectedSkill))
     );
   });
 }
@@ -77,28 +88,30 @@ loadJSON(function (data) {
       $skillsToggle.textContent = "-";
     }
   });
-  document.querySelectorAll("#skills-selector").forEach((e) => {
-    e.addEventListener("mouseenter", lowerOpacity);
-    e.addEventListener("mouseleave", restoreOpacity);
+  document.querySelectorAll(".skills-selector").forEach((e) => {
+    shineOnHover(e);
     e.addEventListener("click", (event) => {
-      const skill = event.target.textContent;
       const path = event.target.dataset.path;
-      if (!SEARCH_STATE.selectedSkills.has(path)) {
-        SEARCH_STATE.selectedSkills.add(path);
+      console.log(event.target);
+      console.log("path", path);
+      if (SEARCH_STATE.selectedSkill != path) {
+        SEARCH_STATE.selectedSkill = path;
+        console.log("selected", SEARCH_STATE.selectedSkill);
         lowerOpacity(event);
         updateSearchResults();
-        document.querySelectorAll("#skills-selector").forEach((e) => {
-          e.removeEventListener("mouseenter", lowerOpacity);
-          e.removeEventListener("mouseleave", restoreOpacity);
+
+        document.querySelectorAll(".skills-selector").forEach((e) => {
+          dontShineOnHover(e);
         });
       } else {
         restoreOpacity(event);
-        SEARCH_STATE.selectedSkills.delete(path);
-        document.querySelectorAll("#skills-selector").forEach((e) => {
-          e.addEventListener("mouseenter", lowerOpacity);
-          e.addEventListener("mouseleave", restoreOpacity);
-        });
+        SEARCH_STATE.selectedSkill = "";
+        console.log("unselected", SEARCH_STATE.selectedSkill);
         updateSearchResults();
+
+        document.querySelectorAll(".skills-selector").forEach((e) => {
+          shineOnHover(e);
+        });
       }
     });
   });
