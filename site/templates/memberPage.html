@@ -17,22 +17,31 @@
           {{ member.firstName }} {{ member.lastName }}
         </h5>
         {% if member.shortBio %}
-        <p>&laquo; {{ member.shortBio }} &raquo;</p>
+        <p class="short-bio">&laquo; {{ member.shortBio }} &raquo;</p>
         {% endif %}
-        <p>Genre&nbsp;: {{ member.gender }}</p>
-        <p>Langues&nbsp;: {{ member.languages }}</p>
-      </div>
-    </div>
-    <div class="contact-line">
-      <div>{{ member.organization }}, {{ member.city }}</div>
-      <label for="toggle">Contacter</label>
-      <input type="checkbox" id="toggle" class="visually-hidden" />
-      <div class="contact-info">
-        {% if member.phone %} {{ member.phone }}, {% endif %}{{ member.email }}
+        <p>
+          <span class="metadata-title">Genre</span>&nbsp;: {{ member.gender }}
+        </p>
+        <p>
+          <span class="metadata-title">Langues</span>&nbsp;: {{ member.languages
+          }}
+        </p>
+        <p>
+          <span class="metadata-title">Institution</span>&nbsp;: {{
+          member.organization }}, {{ member.city }}
+        </p>
+        <div class="contact-line">
+          <label for="toggle">Contacter</label>
+          <input type="checkbox" id="toggle" class="visually-hidden" />
+          <div class="contact-info">
+            {% if member.phone %} {{ member.phone }}, {% endif %}{{ member.email
+            }}
+          </div>
+        </div>
       </div>
     </div>
 
-    <p>{{ member.longBio }}</p>
+    <p class="long-bio">{{ member.longBio }}</p>
     <p>Compétences&nbsp;: {{ member.lastSkillsArray | join(", ") }}</p>
     <p>Fonction / Titre&nbsp;: {{ member.title }}</p>
     {% if member.education %}
