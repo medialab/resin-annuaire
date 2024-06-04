@@ -5,7 +5,7 @@ const remap = {
   "Ville de l'institution": "city",
   "Adresse mail professionnelle": "email",
   "Téléphone professionnel": "phone",
-  Fonction: "title",
+  "Fonction principale": "title",
   "Institution de rattachement": "organization",
   "Langues parlées": "languages",
   "Phrase courte de présentation": "shortBio",
