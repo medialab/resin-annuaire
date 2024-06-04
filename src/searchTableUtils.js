@@ -62,7 +62,7 @@ function findCategoryMetadata(tree, members, palette) {
       total += item.height;
     }
     for (item of skillCategory) {
-      item.height = (300 * item.height) / total - 1;
+      item.height = (350 * item.height) / total - 1;
     }
     return skillCategory;
   });
