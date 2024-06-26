@@ -7,9 +7,9 @@
   "scripts": {
     "build": "node ./scripts/build.js",
     "prettier": "prettier 'scripts/*.js' 'src/*.js' 'site/js/*.js' --write",
-    "serve": "npm run build && http-server build -p 8000 -o",
+    "serve": "npm run build && http-server build -p 3000 -o",
     "test": "mocha",
-    "dev": "concurrently \"http-server build -p 8000 -o\" \"nodemon scripts/build.js --ignore ./build\""
+    "dev": "concurrently \"http-server build -p 3000 -o\" \"nodemon scripts/build.js --ignore ./build\""
   },
   "nodemonConfig": {
     "ext": "js,json,css,html"

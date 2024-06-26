@@ -1,0 +1,6 @@
+skills-conversion.txt
+.git*
+*.md
+build/
+.vscode
+node_modules
