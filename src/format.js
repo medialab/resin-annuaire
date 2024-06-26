@@ -17,42 +17,38 @@ exports.createNewSlug = function (uniqueSlugs, member) {
   return [nameSlug, uniqueSlugs];
 };
 
-exports.formatMembers = function (formItems) {
+exports.formatMembers = function (formItems, skillsMap) {
   const ranks = pandemonium.shuffle(range(formItems.length));
   let uniqueSlugs = new Set();
 
-  cleanItems = formItems
-    .map((item, index) => {
-      let cleanItem = {};
-      for (const key in item) {
-        cleanItem[remap[key]] = item[key];
+  cleanItems = formItems.map((item, index) => {
+    let cleanItem = {};
+    for (const key in item) {
+      cleanItem[remap[key]] = item[key];
+    }
+    cleanItem.allSkillsArray = cleanItem.allSkills.flatMap((item) => {
+      let paths = [];
+      let skillDetails = skillsMap.get(item);
+      console.log(skillDetails);
+      for (let i = 0; i < skillDetails.length; i++) {
+        paths.push(skillDetails.slice(0, i + 1).join("/"));
       }
-      cleanItem.allSkillsArray = cleanItem.allSkills
-        .split(",")
-        .flatMap((item) => {
-          let paths = [];
-          const splittedPath = item.trim().split("/");
-          for (let i = 0; i < splittedPath.length; i++) {
-            paths.push(splittedPath.slice(0, i + 1).join("/"));
-          }
-          return paths;
-        });
-      cleanItem.lastSkillsArray = cleanItem.allSkills.split(",").map((item) => {
-        return last(item.split("/")).trim();
-      });
+      return paths;
+    });
+    cleanItem.lastSkillsArray = cleanItem.allSkills.map((item) => {
+      return last(skillsMap.get(item));
+    });
 
-      cleanItem.firstSkillsArray = Array.from(
-        new Set(
-          cleanItem.allSkillsArray.map((item) => {
-            return first(item.split("/"));
-          })
-        )
-      );
-      cleanItem.rank = ranks[index];
-      cleanItem.keep = cleanItem.keep.toLowerCase() == "oui";
-      return cleanItem;
-    })
-    .filter((item) => item.keep);
+    cleanItem.firstSkillsArray = Array.from(
+      new Set(
+        cleanItem.allSkillsArray.map((item) => {
+          return first(item.split("/"));
+        })
+      )
+    );
+    cleanItem.rank = ranks[index];
+    return cleanItem;
+  });
 
   sortedItems = sortBy(cleanItems, function (o) {
     return new Date(o.timestamp);

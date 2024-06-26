@@ -25,9 +25,7 @@ const siteUrl = path.join(__dirname, "..", "site");
 const imageFolder = path.join("assets", "images");
 const baseImageFolder = path.join(baseUrl, imageFolder);
 
-const formUrl =
-  "https://docs.google.com/spreadsheets/d/1Wner4VHEAGfxmqJ5uLT-n5PJoZKYLUzLs9-_J1PMfq0/export?exportFormat=csv";
-const treeUrl = path.join(siteUrl, "data", "tree.yaml");
+const apiUrl = "http://localhost:8000/api";
 
 // Configure nunjucks
 const env = nunjucks.configure(path.join(siteUrl, "templates"));
@@ -40,12 +38,21 @@ async function main() {
   fs.removeSync(baseUrl);
   await fs.ensureDir(baseImageFolder);
 
-  const response = await fetch(formUrl);
-  const body = await response.text();
-  const members = await csv().fromString(body);
-  let cleanMembers = formatMembers(members);
+  const skillsTree = await fetch(path.join(apiUrl, "skills"));
+  const skillsTreeArray = await skillsTree.json();
+  const skillsMap = new Map();
+  skillsTreeArray.map((obj) => {
+    detail = obj.detail;
+    value = [obj.field, obj.skill];
+    if (detail) {
+      value.push(detail);
+    }
+    skillsMap.set(obj.id, value);
+  });
 
-  const tree = await yaml.load(fs.readFileSync(treeUrl, "utf-8"));
+  const members = await fetch(path.join(apiUrl, "members"));
+  const membersJson = await members.json();
+  let cleanMembers = formatMembers(membersJson, skillsMap);
 
   await buildJavascript({
     entry: path.join(siteUrl, "js", "search.js"),
