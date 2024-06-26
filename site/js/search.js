@@ -2,6 +2,7 @@ import { sortBy } from "lodash";
 import unidecode from "unidecode";
 
 import { loadJSON } from "./loadMembers";
+import ResinFormulaire from "@medialab/resin-formulaire";
 import cardsTemplate from "../templates/cards.html";
 
 const SEARCH_STATE = {
