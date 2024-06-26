@@ -18,10 +18,11 @@
         </h5>
         {% if member.shortBio %}
         <p class="short-bio">&laquo; {{ member.shortBio }} &raquo;</p>
-        {% endif %}
+        {% endif %} {% if member.gender %}
         <p>
           <span class="metadata-title">Genre</span>&nbsp;: {{ member.gender }}
         </p>
+        {% endif %}
         <p>
           <span class="metadata-title">Langues</span>&nbsp;: {{ member.languages
           }}
