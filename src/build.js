@@ -129,7 +129,7 @@ async function main() {
   }
 
   const [categories, subcategories, subsubcategories] = findCategoryMetadata(
-    tree,
+    skillsMap,
     membersWithAvatar,
     palette
   );

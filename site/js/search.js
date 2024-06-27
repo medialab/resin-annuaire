@@ -71,9 +71,9 @@ function searchPeople(members, query, selectedSkill) {
         normalizeString(member.firstName + " " + member.lastName).includes(
           query
         ) ||
-        normalizeString(member.allSkills).includes(query) ||
+        normalizeString(member.lastSkills).includes(query) ||
         normalizeString(member.organization).includes(query)) &&
-      (!selectedSkill || member.allSkillsArray.includes(selectedSkill))
+      (!selectedSkill || member.allSkills.includes(selectedSkill))
     );
   });
 }

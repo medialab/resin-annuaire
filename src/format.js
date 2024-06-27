@@ -26,26 +26,16 @@ exports.formatMembers = function (formItems, skillsMap) {
     for (const key in item) {
       cleanItem[remap[key]] = item[key];
     }
-    cleanItem.allSkillsArray = cleanItem.allSkills.flatMap((item) => {
-      let paths = [];
-      let skillDetails = skillsMap.get(item);
-      console.log(skillDetails);
-      for (let i = 0; i < skillDetails.length; i++) {
-        paths.push(skillDetails.slice(0, i + 1).join("/"));
-      }
-      return paths;
-    });
-    cleanItem.lastSkillsArray = cleanItem.allSkills.map((item) => {
-      return last(skillsMap.get(item));
-    });
 
-    cleanItem.firstSkillsArray = Array.from(
-      new Set(
-        cleanItem.allSkillsArray.map((item) => {
-          return first(item.split("/"));
-        })
-      )
-    );
+    cleanItem.lastSkills = cleanItem.allSkills
+      .map((item) => {
+        return last(skillsMap.get(item));
+      })
+      .join(", ");
+
+    cleanItem.firstSkillsArray = cleanItem.allSkills.map((item) => {
+      return first(skillsMap.get(item));
+    });
     cleanItem.rank = ranks[index];
     return cleanItem;
   });
