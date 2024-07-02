@@ -85,6 +85,7 @@ input {
   min-width: calc(100% - 50px);
   box-sizing: border-box;
   padding-left: 10px;
+  border: thin solid var(--border-color);
 }
 
 input:focus {
@@ -420,6 +421,55 @@ label {
   background-color: var(--valorisation);
   color: white;
   cursor: pointer;
+}
+
+resin-formulaire label {
+  display: inline-block;
+  background: none;
+  color: var(--primary-color);
+  font-weight: 600;
+  margin-left: 0;
+  padding-left: 0;
+  margin-bottom: calc(var(--gutter-basis) / 2);
+  /* padding-bottom: calc(2 * var(--gutter-basis)); */
+}
+
+resin-formulaire .form-text {
+  margin-top: var(--gutter-basis);
+}
+
+resin-formulaire small {
+  font-size: 1rem;
+}
+
+resin-formulaire input[type="file"] {
+  padding-left: 0;
+  border: none;
+}
+
+resin-formulaire .form-group {
+  margin-bottom: 2rem;
+}
+
+resin-formulaire select {
+  background-color: white;
+  border-radius: 0;
+  padding: calc(1.5 * var(--gutter-basis));
+  border: thin solid var(--border-color);
+}
+
+resin-formulaire .selection {
+  padding-left: 0;
+}
+
+resin-formulaire .selection button {
+  font-weight: 800;
+}
+
+resin-formulaire textarea {
+  resize: none;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .contact-info {
