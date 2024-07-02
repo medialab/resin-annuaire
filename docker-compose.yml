@@ -17,6 +17,8 @@ services:
     # ports:
     #   - 8000:8000
     # image: scpomedialab/resin_api:${TAG}
+    env_file:
+      - ./backend/.env
     volumes:
       - database:/app/data # where the sqlite database will be stored (it should be backed up)
       - uploads:/app/uploads # user uploads, will be shared with the caddy server (it should be backed up)
