@@ -468,7 +468,8 @@ resin-formulaire .selection button {
 
 resin-formulaire textarea {
   resize: none;
-  width: 100%;
+  min-width: calc(100% - 50px);
+  min-height: 10rem;
   box-sizing: border-box;
 }
 
