@@ -1,7 +1,7 @@
 services:
   frontend:
     # restart: "${RESTART_POLICY}"
-    # image: scpomedialab/resin_frontend:${TAG}
+    # image: scpomedialab/resin-annuaire
     build: .
     ports:
       # - "${PUBLIC_PORT}:80"
@@ -14,9 +14,7 @@ services:
 
   django:
     build: ./backend
-    # ports:
-    #   - 8000:8000
-    # image: scpomedialab/resin_api:${TAG}
+    # image: scpomedialab/resin-annuaire-backend
     env_file:
       - ./backend/.env
     volumes:

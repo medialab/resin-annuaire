@@ -1,0 +1,70 @@
+image: docker:stable
+
+stages:
+  - build
+  - deploy
+  - move_ns
+  - update
+
+variables:
+  IMAGE_NAME: $CI_REGISTRY/scpomedialab/resin-annuaire
+
+before_script:
+  - VERSION=$(echo $CI_COMMIT_TAG | sed -nre 's/^v([0-9.]+)$/\1/p')
+  - if [ -n "${VERSION}" ]; then IMAGE_TAG=${VERSION}; else IMAGE_TAG=${CI_COMMIT_REF_SLUG}; fi
+  - STACKS=$(ls "k8s/overlays/$CI_COMMIT_REF_SLUG/" 2> /dev/null || echo)
+  - export KUBECONFIG=$kubeconfig_file
+
+build:
+  stage: build
+  script:
+    - docker build -t $IMAGE_NAME:$IMAGE_TAG -f ./Dockerfile .
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
+    - docker push $IMAGE_NAME:$IMAGE_TAG
+  environment:
+    name: $CI_COMMIT_REF_SLUG
+  only:
+    - tags
+  except:
+    - schedules
+
+deploy:
+  image:
+    name: jrisp/kubehelper:latest
+    entrypoint: [""]
+  stage: deploy
+  script:
+    - for stack in $STACKS; do echo "Deploying resin-$stack overlay..."; kubectl apply -f k8s/overlays/$CI_COMMIT_REF_SLUG/$stack/ns.yml; kubectl apply -k k8s/overlays/$CI_COMMIT_REF_SLUG/$stack; done
+  environment:
+    name: $CI_COMMIT_REF_SLUG
+  only:
+    - prod
+  except:
+    - schedules
+
+move_ns:
+  image:
+    name: rancher/cli2:v2.4.5
+    entrypoint: [""]
+  stage: move_ns
+  script:
+    - rancher login $RANCHER_URL --token $RANCHER_TOKEN --context $RANCHER_CONTEXT
+    - for stack in $STACKS; do rancher namespaces move resin-$stack $RANCHER_CONTEXT; done
+  environment:
+    name: $CI_COMMIT_REF_SLUG
+  only:
+    - prod
+  except:
+    - schedules
+
+update:
+  image:
+    name: jrisp/kubehelper:latest
+    entrypoint: [""]
+  stage: update
+  script:
+    - for stack in $STACKS; do echo "Redeploying resin-$stack overlay..."; kubectl -n resin-$stack rollout restart deployment resin; done
+  environment:
+    name: $CI_COMMIT_REF_SLUG
+  only:
+    - schedules
