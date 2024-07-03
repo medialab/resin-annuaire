@@ -14,6 +14,6 @@ RUN npm ci
 
 RUN rm /etc/nginx/nginx.conf
 
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf.template
 
 ENTRYPOINT ./docker-entrypoint.sh
