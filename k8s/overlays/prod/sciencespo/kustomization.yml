@@ -19,4 +19,4 @@ images:
   - name: scpomedialab/resin-annuaire-backend
     newTag: "0.0.3"
   - name: scpomedialab/resin-annuaire
-    newTag: "0.0.1"
+    newTag: "0.0.2"
