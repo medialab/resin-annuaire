@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: django
+  template:
+    metadata:
+      labels:
+        component: django
+    spec:
+      containers:
+        - name: django
+          image: scpomedialab/resin-annuaire-backend
+          env:
+            - name: RESIN_DOCKER_CONTAINER
+              value: "django"
+            - name: RESIN_DEBUG
+              value: "false"
+          imagePullPolicy: Always
