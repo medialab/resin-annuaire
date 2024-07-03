@@ -21,3 +21,20 @@ spec:
             - name: RESIN_DEBUG
               value: "false"
           imagePullPolicy: Always
+          volumeMounts:
+            - name: resin-database-vol
+              mountPath: /app/data
+            - name: resin-uploads-vol
+              mountPath: /app/uploads
+            - name: resin-staticfiles-vol
+              mountPath: /app/static
+      volumes:
+        - name: resin-database-vol
+          persistentVolumeClaim:
+            claimName: resin-database-pvc
+        - name: resin-uploads-vol
+          persistentVolumeClaim:
+            claimName: resin-uploads-pvc
+        - name: resin-staticfiles-vol
+          persistentVolumeClaim:
+            claimName: resin-staticfiles-pvc

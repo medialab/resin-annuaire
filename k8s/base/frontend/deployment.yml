@@ -20,3 +20,15 @@ spec:
         - name: frontend
           image: scpomedialab/resin-annuaire
           imagePullPolicy: Always
+          volumeMounts:
+            - name: resin-uploads-vol
+              mountPath: /resin-backend/uploads
+            - name: resin-staticfiles-vol
+              mountPath: /resin-backend/static
+      volumes:
+        - name: resin-uploads-vol
+          persistentVolumeClaim:
+            claimName: resin-uploads-pvc
+        - name: resin-staticfiles-vol
+          persistentVolumeClaim:
+            claimName: resin-staticfiles-pvc
