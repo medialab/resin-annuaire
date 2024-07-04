@@ -17,6 +17,6 @@ commonLabels:
 
 images:
   - name: scpomedialab/resin-annuaire-backend
-    newTag: "0.0.3"
+    newTag: "0.0.4"
   - name: scpomedialab/resin-annuaire
     newTag: "0.0.3"
