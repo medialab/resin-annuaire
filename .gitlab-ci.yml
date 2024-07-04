@@ -1,0 +1,76 @@
+image: docker:stable
+
+stages:
+  - build
+  - deploy
+  - move_ns
+  - update
+
+variables:
+  IMAGE_NAME: $CI_REGISTRY/scpomedialab/resin-annuaire
+
+before_script:
+  - VERSION=$(echo $CI_COMMIT_TAG | sed -nre 's/^v([0-9.]+)$/\1/p')
+  - if [ -n "${VERSION}" ]; then IMAGE_TAG=${VERSION}; else IMAGE_TAG=${CI_COMMIT_REF_SLUG}; fi
+  - export KUBECONFIG=$kubeconfig_file
+
+build:
+  stage: build
+  script:
+    - docker build -t $IMAGE_NAME:$IMAGE_TAG -f ./Dockerfile .
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
+    - docker push $IMAGE_NAME:$IMAGE_TAG
+  environment:
+    name: $CI_COMMIT_REF_SLUG
+  only:
+    - tags
+  except:
+    - schedules
+
+deploy:
+  image:
+    name: jrisp/kubehelper:latest
+    entrypoint: [""]
+  stage: deploy
+  script:
+    - echo "Deploying resin-sciencespo overlay..."
+    - cp ${RESIN_SECRETS} k8s/overlays/prod/sciencespo/secrets.env
+    - kubectl apply -f k8s/overlays/prod/sciencespo/ns.yml
+    - kubectl apply -k k8s/overlays/prod/sciencespo
+
+  environment:
+    name: $CI_COMMIT_REF_SLUG
+  only:
+    - prod
+  except:
+    - schedules
+
+move_ns:
+  image:
+    name: rancher/cli2:v2.4.5
+    entrypoint: [""]
+  stage: move_ns
+  script:
+    - rancher login $RANCHER_URL --token $RANCHER_TOKEN --context $RANCHER_CONTEXT
+    - rancher namespaces move resin-sciencespo $RANCHER_CONTEXT
+  environment:
+    name: $CI_COMMIT_REF_SLUG
+  only:
+    - prod
+  except:
+    - schedules
+
+update:
+  image:
+    name: jrisp/kubehelper:latest
+    entrypoint: [""]
+  stage: update
+  script:
+    - echo "Redeploying resin-sciencespo overlay..."
+    - kubectl -n resin-sciencespo rollout restart deployment django
+    - kubectl -n resin-sciencespo rollout restart deployment frontend
+
+  environment:
+    name: $CI_COMMIT_REF_SLUG
+  only:
+    - schedules

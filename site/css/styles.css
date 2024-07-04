@@ -85,6 +85,7 @@ input {
   min-width: calc(100% - 50px);
   box-sizing: border-box;
   padding-left: 10px;
+  border: thin solid var(--border-color);
 }
 
 input:focus {
@@ -92,14 +93,17 @@ input:focus {
 }
 
 button {
-  height: 40px;
-  width: 45px;
   font-size: medium;
   background: none;
   color: var(--primary-color);
   border: thin solid var(--border-color);
-  border-radius: 5%;
+  border-radius: 0;
   cursor: pointer;
+}
+
+.search-line > button {
+  height: 40px;
+  width: 45px;
 }
 
 button:hover {
@@ -420,6 +424,76 @@ label {
   background-color: var(--valorisation);
   color: white;
   cursor: pointer;
+}
+
+resin-formulaire label {
+  display: inline-block;
+  background: none;
+  color: var(--primary-color);
+  font-weight: 600;
+  margin-left: 0;
+  padding-left: 0;
+  margin-bottom: calc(var(--gutter-basis) / 2);
+  /* padding-bottom: calc(2 * var(--gutter-basis)); */
+}
+
+resin-formulaire .form-text {
+  margin-top: var(--gutter-basis);
+}
+
+resin-formulaire small {
+  font-size: 1rem;
+}
+
+resin-formulaire .text-muted {
+  width: calc(100% - 50px);
+}
+
+resin-formulaire input[type="file"] {
+  padding-left: 0;
+  border: none;
+}
+
+resin-formulaire .form-group {
+  margin-bottom: 2rem;
+}
+
+resin-formulaire select {
+  background-color: white;
+  border-radius: 0;
+  padding: calc(1.5 * var(--gutter-basis));
+  border: thin solid var(--border-color);
+}
+
+resin-formulaire button {
+  padding: var(--gutter-basis);
+  margin-bottom: calc(2 * var(--gutter-basis));
+}
+
+resin-formulaire input::file-selector-button {
+  background-color: white;
+  border-radius: 0;
+  border: thin solid var(--border-color);
+  cursor: pointer;
+  padding: var(--gutter-basis);
+}
+
+resin-formulaire input::file-selector-button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+resin-formulaire .selection button {
+  font-weight: 800;
+}
+
+resin-formulaire textarea {
+  resize: none;
+  min-width: calc(100% - 50px);
+  min-height: 10rem;
+  box-sizing: border-box;
+  border-radius: 0;
+  border: thin solid var(--border-color);
+  outline: none;
 }
 
 .contact-info {

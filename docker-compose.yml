@@ -1,0 +1,28 @@
+services:
+  frontend:
+    # restart: "${RESTART_POLICY}"
+    # image: scpomedialab/resin-annuaire
+    build: .
+    ports:
+      # - "${PUBLIC_PORT}:80"
+      - 3001:80
+    volumes:
+      - uploads:/resin-backend/uploads
+      - staticfiles:/resin-backend/static
+    # env_file:
+    #   - config-frontend.env
+
+  django:
+    build: ./backend
+    # image: scpomedialab/resin-annuaire-backend
+    env_file:
+      - ./backend/.env
+    volumes:
+      - database:/app/data # where the sqlite database will be stored (it should be backed up)
+      - uploads:/app/uploads # user uploads, will be shared with the caddy server (it should be backed up)
+      - staticfiles:/app/static # will be shared with the caddy server, rebuilt on every deployment
+
+volumes:
+  uploads:
+  database:
+  staticfiles:
