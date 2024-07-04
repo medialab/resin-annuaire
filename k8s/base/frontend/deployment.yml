@@ -20,6 +20,9 @@ spec:
         - name: frontend
           image: scpomedialab/resin-annuaire
           imagePullPolicy: Always
+          env:
+            - name: BACKEND_PORT
+              value: '8000'
           volumeMounts:
             - name: resin-uploads-vol
               mountPath: /resin-backend/uploads
