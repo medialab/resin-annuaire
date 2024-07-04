@@ -15,6 +15,10 @@ patchesStrategicMerge:
 commonLabels:
   stage: prod
 
+secretGenerator:
+  - name: secrets
+    env: secrets.env
+
 images:
   - name: scpomedialab/resin-annuaire-backend
     newTag: "0.0.4"
