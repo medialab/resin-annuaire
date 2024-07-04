@@ -16,8 +16,6 @@ spec:
         - name: django
           image: scpomedialab/resin-annuaire-backend
           env:
-            - name: RESIN_DOCKER_CONTAINER
-              value: "django"
             - name: RESIN_DEBUG
               value: "false"
           imagePullPolicy: Always
