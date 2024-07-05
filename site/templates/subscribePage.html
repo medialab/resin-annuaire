@@ -1,4 +1,4 @@
-{% extends "mainPage.html" %} {% block body %}
+{% extends "main.html" %} {% block body %}
 <div className="text-content">
   <h1>Bienvenue sur l'annuaire de l'ingénierie de recherche !</h1>
   <p>
@@ -8,4 +8,7 @@
   <!-- <resin-formulaire apiServer="http://localhost:8000" /> -->
   <resin-formulaire />
 </div>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="js/form.js"></script>
 {% endblock %}

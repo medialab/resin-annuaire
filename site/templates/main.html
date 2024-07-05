@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>{% block title %} Annuaire RésIn {% endblock %}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navbar">
+        <a href="/" id="home">RéSin</a>
+        <ul class="nav-links">
+          <li><a href="#">Projet</a></li>
+          <li><a href="s-inscrire">S'inscrire</a></li>
+        </ul>
+      </nav>
+      {% block body %}{% endblock %}
+      {% include "footer.html" %}
+    </div>
+    {% block scripts %}{% endblock %}
+  </body>
+</html>
