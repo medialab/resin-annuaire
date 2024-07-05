@@ -31,10 +31,10 @@ const treeUrl = path.join(siteUrl, "data", "tree.yaml");
 
 // Configure nunjucks
 const env = nunjucks.configure(path.join(siteUrl, "templates"));
-const mainPageTemplate = env.getTemplate("mainPage.html");
+const searchPageTemplate = env.getTemplate("searchPage.html");
 const memberPageTemplate = env.getTemplate("memberPage.html");
-const legalTemplate = env.getTemplate("legal.html");
-const subscribeTemplate = env.getTemplate("subscribe.html");
+const legalPageTemplate = env.getTemplate("legalPage.html");
+const subscribePageTemplate = env.getTemplate("subscribePage.html");
 
 async function main() {
   fs.removeSync(baseUrl);
@@ -48,8 +48,11 @@ async function main() {
   const tree = await yaml.load(fs.readFileSync(treeUrl, "utf-8"));
 
   await buildJavascript({
-    entry: path.join(siteUrl, "js", "search.js"),
-    output: path.join(baseUrl, "js", "bundle.js"),
+    entry: {
+      search: path.join(siteUrl, "js", "search.js"),
+      form: path.join(siteUrl, "js", "formulaire.js"),
+    },
+    output: path.join(baseUrl, "js", "[name].js"),
     quiet: true,
     sourceMaps: false,
     config: {
@@ -73,12 +76,12 @@ async function main() {
 
   fs.outputFileSync(
     path.join(baseUrl, "mentions-legales.html"),
-    legalTemplate.render()
+    legalPageTemplate.render()
   );
 
   fs.outputFileSync(
     path.join(baseUrl, "s-inscrire.html"),
-    subscribeTemplate.render()
+    subscribePageTemplate.render()
   );
 
   fs.copySync(
@@ -129,7 +132,7 @@ async function main() {
 
   fs.outputFileSync(
     path.join(baseUrl, "index.html"),
-    mainPageTemplate.render({
+    searchPageTemplate.render({
       items: sortBy(membersWithAvatar, ["rank"]),
       categories: categories,
       subcategories: subcategories,

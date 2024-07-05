@@ -1,0 +1,62 @@
+{% extends "main.html" %} {% block body %}
+<div class="search-container">
+  <div class="search-line">
+    <input
+      type="text"
+      id="searchBar"
+      class="input"
+      placeholder="Rechercher"
+    />
+    <button id="skills-toggle" type="button">+</button>
+  </div>
+  <ul id="selected-skills"></ul>
+  <div class="search-table" style="display: none">
+    <ul>
+      {% for category in categories %}
+      <li
+        style="height:{{ category.height }}px; background-color:{{category.color}}"
+        data-path="{{ category.path }}"
+        class="skills-selector"
+        title="{{ category.label }}"
+      >
+        <div class="text-with-ellipsis">
+          {% if category.height > 15 %} {{ category.label }} {% endif %}
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+    <ul>
+      {% for category in subcategories %}
+      <li
+        style="height:{{ category.height }}px; background-color:{{category.color}}"
+        data-path="{{ category.path }}"
+        class="skills-selector"
+        title="{{ category.label }}"
+      >
+        <div class="text-with-ellipsis">
+          {% if category.height > 15 %} {{ category.label }} {% endif %}
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+    <ul>
+      {% for category in subsubcategories %}
+      <li
+        style="height:{{ category.height }}px; background-color:{{category.color}}"
+        data-path="{{ category.path }}"
+        class="skills-selector"
+        title="{{ category.label }}"
+      >
+        <div class="text-with-ellipsis">
+          {% if category.height > 15 %} {{ category.label }} {% endif %}
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% include "cards.html" %}
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="js/search.js"></script>
+{% endblock %}

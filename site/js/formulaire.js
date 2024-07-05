@@ -1,0 +1,1 @@
+import "@medialab/resin-formulaire";
