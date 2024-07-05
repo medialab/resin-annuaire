@@ -38,21 +38,52 @@ async function main() {
   fs.removeSync(baseUrl);
   await fs.ensureDir(baseImageFolder);
 
-  const skillsTree = await fetch(path.join(apiUrl, "skills"));
-  const skillsTreeArray = await skillsTree.json();
-  const skillsMap = new Map();
-  skillsTreeArray.map((obj) => {
-    detail = obj.detail;
-    value = [obj.field, obj.skill];
-    if (detail) {
-      value.push(detail);
+  const fieldsTreeResponse = await fetch(path.join(apiUrl, "fields"));
+  const skillsTreeResponse = await fetch(path.join(apiUrl, "skills"));
+  const fieldsTree = await fieldsTreeResponse.json();
+  const skillsTree = await skillsTreeResponse.json();
+
+  const idToLabel = new Map();
+  const labelToId = new Map(
+    Object.entries({
+      fields: {},
+      skills: {},
+      details: {},
+    })
+  );
+  fieldsTree.forEach((obj) => {
+    idToLabel.set(obj.id, { path: [obj.id], label: obj.field });
+    labelToId.get("fields")[obj.field] = obj.id;
+  });
+  skillsTree.forEach((obj) => {
+    if (obj.detail) {
+      labelToId.get("details")[obj.detail] = obj.id;
     }
-    skillsMap.set(obj.id, value);
+    if (obj.skill) {
+      if (!idToLabel.has(obj.id)) {
+        parentId = labelToId.get("fields")[obj.field];
+        idToLabel.set(obj.id, {
+          path: [parentId, obj.id],
+          label: obj.skill,
+        });
+        labelToId.get("skills")[obj.skill] = obj.id;
+      }
+    }
+  });
+  skillsTree.forEach((obj) => {
+    if (obj.detail) {
+      grandParentId = labelToId.get("fields")[obj.field];
+      parentId = labelToId.get("skills")[obj.skill];
+      idToLabel.set(obj.id, {
+        path: [grandParentId, parentId, obj.id],
+        label: obj.detail,
+      });
+    }
   });
 
   const members = await fetch(path.join(apiUrl, "members"));
   const membersJson = await members.json();
-  let cleanMembers = formatMembers(membersJson, skillsMap);
+  let cleanMembers = formatMembers(membersJson, idToLabel);
 
   await buildJavascript({
     entry: path.join(siteUrl, "js", "search.js"),
@@ -129,7 +160,7 @@ async function main() {
   }
 
   const [categories, subcategories, subsubcategories] = findCategoryMetadata(
-    skillsMap,
+    idToLabel,
     membersWithAvatar,
     palette
   );

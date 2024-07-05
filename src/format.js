@@ -17,7 +17,7 @@ exports.createNewSlug = function (uniqueSlugs, member) {
   return [nameSlug, uniqueSlugs];
 };
 
-exports.formatMembers = function (formItems, skillsMap) {
+exports.formatMembers = function (formItems, idToLabel) {
   const ranks = pandemonium.shuffle(range(formItems.length));
   let uniqueSlugs = new Set();
 
@@ -29,13 +29,13 @@ exports.formatMembers = function (formItems, skillsMap) {
 
     cleanItem.lastSkills = cleanItem.allSkills
       .map((item) => {
-        return last(skillsMap.get(item));
+        return idToLabel.get(item).label;
       })
       .join(", ");
 
     cleanItem.firstSkillsSet = new Set(
       cleanItem.allSkills.map((item) => {
-        return first(skillsMap.get(item));
+        return idToLabel.get(idToLabel.get(item).path[0]).label;
       })
     );
     cleanItem.rank = ranks[index];
