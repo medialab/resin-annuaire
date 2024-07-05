@@ -29,13 +29,13 @@ exports.formatMembers = function (formItems, idToLabel) {
 
     cleanItem.lastSkills = cleanItem.allSkills
       .map((item) => {
-        return idToLabel.get(item).label;
+        return idToLabel[item].label;
       })
       .join(", ");
 
     cleanItem.firstSkillsSet = new Set(
       cleanItem.allSkills.map((item) => {
-        return idToLabel.get(idToLabel.get(item).path[0]).label;
+        return idToLabel[idToLabel[item].path[0]].label;
       }),
     );
     cleanItem.rank = ranks[index];
@@ -56,41 +56,38 @@ exports.formatMembers = function (formItems, idToLabel) {
 };
 
 exports.formatSkills = function (fieldsTree, skillsTree) {
-  const idToLabel = new Map();
-  const labelToId = new Map(
-    Object.entries({
-      fields: {},
-      skills: {},
-      details: {},
-    }),
-  );
+  const idToLabel = {};
+  const labelToId = {
+    fields: {},
+    skills: {},
+    details: {},
+  };
   fieldsTree.forEach((obj) => {
-    idToLabel.set(obj.id, { path: [obj.id], label: obj.field });
-    labelToId.get("fields")[obj.field] = obj.id;
+    idToLabel[obj.id] = { path: [obj.id], label: obj.field };
+    labelToId["fields"][obj.field] = obj.id;
   });
   skillsTree.forEach((obj) => {
-    if (obj.detail) {
-      labelToId.get("details")[obj.detail] = obj.id;
-    }
-    if (obj.skill) {
-      if (!idToLabel.has(obj.id)) {
-        parentId = labelToId.get("fields")[obj.field];
-        idToLabel.set(obj.id, {
+    if (!obj.detail) {
+      if (!(obj.id in idToLabel)) {
+        parentId = labelToId["fields"][obj.field];
+        idToLabel[obj.id] = {
           path: [parentId, obj.id],
           label: obj.skill,
-        });
-        labelToId.get("skills")[obj.skill] = obj.id;
+        };
+        labelToId["skills"][obj.skill] = obj.id;
       }
     }
   });
+  console.log(labelToId);
   skillsTree.forEach((obj) => {
     if (obj.detail) {
-      grandParentId = labelToId.get("fields")[obj.field];
-      parentId = labelToId.get("skills")[obj.skill];
-      idToLabel.set(obj.id, {
+      labelToId["details"][obj.detail] = obj.id;
+      grandParentId = labelToId["fields"][obj.field];
+      parentId = labelToId["skills"][obj.skill];
+      idToLabel[obj.id] = {
         path: [grandParentId, parentId, obj.id],
         label: obj.detail,
-      });
+      };
     }
   });
   return idToLabel;

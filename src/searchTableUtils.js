@@ -6,7 +6,7 @@ function findCategoryMetadata(idToLabel, members, palette) {
   for (const member of members) {
     let skillSet = new Set();
     for (const skillId of member.allSkills) {
-      const path = idToLabel.get(skillId).path;
+      const path = idToLabel[skillId].path;
       path.forEach((id) => skillSet.add(id));
     }
     skillSet.forEach((id) => {
@@ -17,14 +17,14 @@ function findCategoryMetadata(idToLabel, members, palette) {
     });
   }
 
-  for (const [skillId, obj] of idToLabel.entries()) {
+  for (const [skillId, obj] of Object.entries(idToLabel)) {
     index = obj.path.length - 1;
     if (memberCounts[skillId]) {
       metadata[index].push({
         label: obj.label,
         path: obj.path,
         height: memberCounts[skillId],
-        color: palette[idToLabel.get(obj.path[0]).label],
+        color: palette[idToLabel[obj.path[0]].label],
       });
     }
   }
