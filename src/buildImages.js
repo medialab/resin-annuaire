@@ -39,11 +39,11 @@ exports.createDonut = async function (imageFileName, member, baseImageFolder) {
       const arcD = createArcD(
         size,
         angle * currentIndex,
-        angle * (currentIndex + 1)
+        angle * (currentIndex + 1),
       );
       return `${accumulator}<path d="${arcD}" fill="${palette[currentValue]}" fill-rule="evenodd"/>`;
     },
-    ""
+    "",
   );
 
   let svg = `<?xml version="1.0" standalone="yes"?>
@@ -83,7 +83,7 @@ exports.loadImages = async function (member, imageFolder) {
       member.slug + "'s",
       "image at ",
       member.avatar,
-      ": " + error
+      ": " + error,
     );
     return "";
   }

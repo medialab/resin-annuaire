@@ -36,7 +36,7 @@ exports.formatMembers = function (formItems, idToLabel) {
     cleanItem.firstSkillsSet = new Set(
       cleanItem.allSkills.map((item) => {
         return idToLabel.get(idToLabel.get(item).path[0]).label;
-      })
+      }),
     );
     cleanItem.rank = ranks[index];
     return cleanItem;

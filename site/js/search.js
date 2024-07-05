@@ -22,7 +22,7 @@ function updateSearchResults() {
   const searchResults = searchPeople(
     MEMBERS,
     SEARCH_STATE.query,
-    SEARCH_STATE.selectedSkill
+    SEARCH_STATE.selectedSkill,
   );
   $grid.innerHTML = cardsTemplate({
     items: sortBy(searchResults, ["rank"]),
@@ -68,7 +68,7 @@ function searchPeople(members, query, selectedSkill) {
     return (
       (!query ||
         normalizeString(member.firstName + " " + member.lastName).includes(
-          query
+          query,
         ) ||
         normalizeString(member.lastSkills).includes(query) ||
         normalizeString(member.organization).includes(query)) &&

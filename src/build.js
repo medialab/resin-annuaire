@@ -49,7 +49,7 @@ async function main() {
       fields: {},
       skills: {},
       details: {},
-    })
+    }),
   );
   fieldsTree.forEach((obj) => {
     idToLabel.set(obj.id, { path: [obj.id], label: obj.field });
@@ -114,22 +114,22 @@ async function main() {
 
   fs.outputFileSync(
     path.join(baseUrl, "mentions-legales.html"),
-    legalPageTemplate.render()
+    legalPageTemplate.render(),
   );
 
   fs.outputFileSync(
     path.join(baseUrl, "s-inscrire.html"),
-    subscribePageTemplate.render()
+    subscribePageTemplate.render(),
   );
 
   fs.copySync(
     path.join(siteUrl, "css", "styles.css"),
-    path.join(baseUrl, "css", "styles.css")
+    path.join(baseUrl, "css", "styles.css"),
   );
 
   fs.copySync(
     path.join(siteUrl, "css", "normalize.css"),
-    path.join(baseUrl, "css", "normalize.css")
+    path.join(baseUrl, "css", "normalize.css"),
   );
 
   const membersWithAvatar = await Promise.all(
@@ -138,7 +138,7 @@ async function main() {
       let donutFileName = await createDonut(
         imageFileName,
         member,
-        baseImageFolder
+        baseImageFolder,
       );
       if (imageFileName) {
         return {
@@ -152,20 +152,20 @@ async function main() {
         donutFilePath: path.join(imageFolder, donutFileName),
         imageFilePath: "",
       };
-    })
+    }),
   );
 
   for (const member of membersWithAvatar) {
     fs.outputFileSync(
       path.join(baseUrl, member.slug + ".html"),
-      memberPageTemplate.render({ member })
+      memberPageTemplate.render({ member }),
     );
   }
 
   const [categories, subcategories, subsubcategories] = findCategoryMetadata(
     idToLabel,
     membersWithAvatar,
-    palette
+    palette,
   );
 
   fs.outputFileSync(
@@ -175,7 +175,7 @@ async function main() {
       categories: categories,
       subcategories: subcategories,
       subsubcategories: subsubcategories,
-    })
+    }),
   );
 
   fs.outputJSONSync(
@@ -183,6 +183,6 @@ async function main() {
     membersWithAvatar,
     {
       spaces: 2,
-    }
+    },
   );
 }
