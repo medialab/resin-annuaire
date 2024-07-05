@@ -23,27 +23,25 @@
     "url": "https://github.com/medialab/resin-annuaire/issues"
   },
   "homepage": "https://github.com/medialab/resin-annuaire#readme",
-  "devDependencies": {
+  "dependencies": {
+    "@medialab/resin-formulaire": "github:medialab/resin-formulaire",
     "concurrently": "^8.2.2",
     "csvtojson": "^2.0.10",
     "fs-extra": "^11.1.1",
     "http-server": "^14.1.1",
+    "js-yaml": "^4.1.0",
     "kotatsu": "^0.23.1",
     "lodash": "^4.17.21",
     "mime": "^3.0.0",
     "mocha": "^10.2.0",
     "node-fetch": "^2.6.12",
+    "nodemon": "^3.0.2",
     "nunjucks": "^3.2.4",
     "pandemonium": "^2.4.1",
     "prettier": "^3.0.0",
     "simple-nunjucks-loader": "^3.2.0",
     "slug": "^8.2.3",
+    "svg-arc": "^1.0.2",
     "unidecode": "^0.1.8"
-  },
-  "dependencies": {
-    "@medialab/resin-formulaire": "github:medialab/resin-formulaire",
-    "js-yaml": "^4.1.0",
-    "nodemon": "^3.0.2",
-    "svg-arc": "^1.0.2"
   }
 }
