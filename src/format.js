@@ -54,3 +54,44 @@ exports.formatMembers = function (formItems, idToLabel) {
 
   return sortedItems;
 };
+
+exports.formatSkills = function (fieldsTree, skillsTree) {
+  const idToLabel = new Map();
+  const labelToId = new Map(
+    Object.entries({
+      fields: {},
+      skills: {},
+      details: {},
+    }),
+  );
+  fieldsTree.forEach((obj) => {
+    idToLabel.set(obj.id, { path: [obj.id], label: obj.field });
+    labelToId.get("fields")[obj.field] = obj.id;
+  });
+  skillsTree.forEach((obj) => {
+    if (obj.detail) {
+      labelToId.get("details")[obj.detail] = obj.id;
+    }
+    if (obj.skill) {
+      if (!idToLabel.has(obj.id)) {
+        parentId = labelToId.get("fields")[obj.field];
+        idToLabel.set(obj.id, {
+          path: [parentId, obj.id],
+          label: obj.skill,
+        });
+        labelToId.get("skills")[obj.skill] = obj.id;
+      }
+    }
+  });
+  skillsTree.forEach((obj) => {
+    if (obj.detail) {
+      grandParentId = labelToId.get("fields")[obj.field];
+      parentId = labelToId.get("skills")[obj.skill];
+      idToLabel.set(obj.id, {
+        path: [grandParentId, parentId, obj.id],
+        label: obj.detail,
+      });
+    }
+  });
+  return idToLabel;
+};

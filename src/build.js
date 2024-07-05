@@ -8,7 +8,7 @@ const nunjucks = require("nunjucks");
 const { sortBy } = require("lodash");
 const { promisify } = require("util");
 
-const { formatMembers } = require("../src/format.js");
+const { formatMembers, formatSkills } = require("../src/format.js");
 const { palette } = require("./donutUtils.js");
 const { findCategoryMetadata } = require("./searchTableUtils.js");
 const { loadImages, createDonut } = require("./buildImages.js");
@@ -42,44 +42,7 @@ async function main() {
   const skillsTreeResponse = await fetch(path.join(apiUrl, "skills"));
   const fieldsTree = await fieldsTreeResponse.json();
   const skillsTree = await skillsTreeResponse.json();
-
-  const idToLabel = new Map();
-  const labelToId = new Map(
-    Object.entries({
-      fields: {},
-      skills: {},
-      details: {},
-    }),
-  );
-  fieldsTree.forEach((obj) => {
-    idToLabel.set(obj.id, { path: [obj.id], label: obj.field });
-    labelToId.get("fields")[obj.field] = obj.id;
-  });
-  skillsTree.forEach((obj) => {
-    if (obj.detail) {
-      labelToId.get("details")[obj.detail] = obj.id;
-    }
-    if (obj.skill) {
-      if (!idToLabel.has(obj.id)) {
-        parentId = labelToId.get("fields")[obj.field];
-        idToLabel.set(obj.id, {
-          path: [parentId, obj.id],
-          label: obj.skill,
-        });
-        labelToId.get("skills")[obj.skill] = obj.id;
-      }
-    }
-  });
-  skillsTree.forEach((obj) => {
-    if (obj.detail) {
-      grandParentId = labelToId.get("fields")[obj.field];
-      parentId = labelToId.get("skills")[obj.skill];
-      idToLabel.set(obj.id, {
-        path: [grandParentId, parentId, obj.id],
-        label: obj.detail,
-      });
-    }
-  });
+  const idToLabel = formatSkills(fieldsTree, skillsTree);
 
   const members = await fetch(path.join(apiUrl, "members"));
   const membersJson = await members.json();
