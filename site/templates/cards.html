@@ -11,7 +11,7 @@
           alt="Avatar de {{ item.firstName }} {{ item.lastName }}"
         />
         <div class="tooltip">
-          {% for skill in item.firstSkillsArray %}
+          {% for skill in item.firstSkillsSet %}
           <div class="skill-group">
             <div
               class="skill-color {{ skill | replace(' ', '-') | lower }}"

@@ -33,9 +33,11 @@ exports.formatMembers = function (formItems, skillsMap) {
       })
       .join(", ");
 
-    cleanItem.firstSkillsArray = cleanItem.allSkills.map((item) => {
-      return first(skillsMap.get(item));
-    });
+    cleanItem.firstSkillsSet = new Set(
+      cleanItem.allSkills.map((item) => {
+        return first(skillsMap.get(item));
+      })
+    );
     cleanItem.rank = ranks[index];
     return cleanItem;
   });
