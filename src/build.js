@@ -25,7 +25,7 @@ const siteUrl = path.join(__dirname, "..", "site");
 const imageFolder = path.join("assets", "images");
 const baseImageFolder = path.join(baseUrl, imageFolder);
 
-const apiUrl = process.env.API_URL || "http://localhost:8000/api";
+const apiUrl = process.env.API_URL || "http://localhost:8000";
 
 // Configure nunjucks
 const env = nunjucks.configure(path.join(siteUrl, "templates"));
@@ -38,13 +38,13 @@ async function main() {
   fs.removeSync(baseUrl);
   await fs.ensureDir(baseImageFolder);
 
-  const fieldsTreeResponse = await fetch(path.join(apiUrl, "fields"));
-  const skillsTreeResponse = await fetch(path.join(apiUrl, "skills"));
+  const fieldsTreeResponse = await fetch(path.join(apiUrl, "api", "fields"));
+  const skillsTreeResponse = await fetch(path.join(apiUrl, "api", "skills"));
   const fieldsTree = await fieldsTreeResponse.json();
   const skillsTree = await skillsTreeResponse.json();
   const idToLabel = formatSkills(fieldsTree, skillsTree);
 
-  const members = await fetch(path.join(apiUrl, "members"));
+  const members = await fetch(path.join(apiUrl, "api", "members"));
   const membersJson = await members.json();
   let cleanMembers = formatMembers(membersJson, idToLabel);
 
