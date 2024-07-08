@@ -38,6 +38,14 @@ exports.formatMembers = function (formItems, idToLabel) {
         return idToLabel[idToLabel[item].path[0]].label;
       }),
     );
+
+    let skillSet = new Set();
+    cleanItem.allSkills.forEach((item) => {
+      const path = idToLabel[item].path;
+      path.forEach((id) => skillSet.add(id));
+    });
+    cleanItem.allSkills = Array.from(skillSet);
+
     cleanItem.rank = ranks[index];
     return cleanItem;
   });
@@ -78,7 +86,6 @@ exports.formatSkills = function (fieldsTree, skillsTree) {
       }
     }
   });
-  console.log(labelToId);
   skillsTree.forEach((obj) => {
     if (obj.detail) {
       labelToId["details"][obj.detail] = obj.id;

@@ -4,12 +4,7 @@ function findCategoryMetadata(idToLabel, members, palette) {
   let memberCounts = {};
 
   for (const member of members) {
-    let skillSet = new Set();
-    for (const skillId of member.allSkills) {
-      const path = idToLabel[skillId].path;
-      path.forEach((id) => skillSet.add(id));
-    }
-    skillSet.forEach((id) => {
+    member.allSkills.forEach((id) => {
       if (!(id in memberCounts)) {
         memberCounts[id] = 0;
       }
@@ -22,7 +17,7 @@ function findCategoryMetadata(idToLabel, members, palette) {
     if (memberCounts[skillId]) {
       metadata[index].push({
         label: obj.label,
-        path: obj.path,
+        path: obj.path.join("/") + "/",
         height: memberCounts[skillId],
         color: palette[idToLabel[obj.path[0]].label],
       });

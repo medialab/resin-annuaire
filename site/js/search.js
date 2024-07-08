@@ -93,9 +93,11 @@ loadJSON(function (data) {
   document.querySelectorAll(".skills-selector").forEach((e) => {
     shineOnHover(e);
     e.addEventListener("click", (event) => {
-      const path = event.target.closest(".skills-selector").dataset.path;
-      if (SEARCH_STATE.selectedSkill !== path) {
-        SEARCH_STATE.selectedSkill = path;
+      const selectedSkill = parseInt(
+        event.target.closest(".skills-selector").dataset.path.split("/").at(-2),
+      );
+      if (SEARCH_STATE.selectedSkill !== selectedSkill) {
+        SEARCH_STATE.selectedSkill = selectedSkill;
         lowerOpacity(event);
         updateSearchResults();
 
