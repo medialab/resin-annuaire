@@ -25,7 +25,7 @@ const siteUrl = path.join(__dirname, "..", "site");
 const imageFolder = path.join("assets", "images");
 const baseImageFolder = path.join(baseUrl, imageFolder);
 
-const apiUrl = "http://localhost:8000/api";
+const apiUrl = process.env.API_URL || "http://localhost:8000/api";
 
 // Configure nunjucks
 const env = nunjucks.configure(path.join(siteUrl, "templates"));
@@ -82,7 +82,7 @@ async function main() {
 
   fs.outputFileSync(
     path.join(baseUrl, "s-inscrire.html"),
-    subscribePageTemplate.render(),
+    subscribePageTemplate.render({ apiUrl }),
   );
 
   fs.copySync(
