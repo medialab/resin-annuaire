@@ -8,6 +8,7 @@ const SEARCH_STATE = {
   query: "",
   skillsToggled: false,
   selectedSkill: "",
+  frozen: false,
 };
 
 let MEMBERS = null;
@@ -16,7 +17,7 @@ const $searchInput = document.querySelector(".input");
 const $grid = document.querySelector(".cards-wrapper");
 const $skillsToggle = document.querySelector("#skills-toggle");
 const $searchTable = document.querySelector(".search-table");
-const $selectedSkillsUl = document.querySelector("#selected-skills");
+const $container = document.querySelector(".container");
 
 function updateSearchResults() {
   const searchResults = searchPeople(
@@ -33,33 +34,37 @@ function normalizeString(string) {
   return unidecode(string.trim().toLowerCase());
 }
 
-function changeOpacity(event, value) {
-  const path = event.target.closest(".skills-selector").dataset.path;
-  document.querySelectorAll(".skills-selector").forEach((e) => {
-    if (!e.dataset.path.startsWith(path)) {
-      e.style.opacity = value;
-    } else {
-      e.style.opacity = "1";
-    }
-  });
-}
-
 function lowerOpacity(event) {
-  changeOpacity(event, "0.5");
+  if (!SEARCH_STATE.frozen) {
+    const path = event.target.closest(".skills-selector").dataset.path;
+    $searchTable.querySelectorAll(".skills-selector").forEach((e) => {
+      if (!e.dataset.path.startsWith(path)) {
+        e.style.opacity = 0.5;
+      } else {
+        e.style.opacity = "1";
+      }
+    });
+  }
 }
 
-function restoreOpacity(event) {
-  changeOpacity(event, "1");
+function restoreOpacity() {
+  if (!SEARCH_STATE.frozen) {
+    $searchTable.querySelectorAll(".skills-selector").forEach((e) => {
+      e.style.opacity = "1";
+    });
+  }
+}
+
+function unfreeze() {
+  SEARCH_STATE.frozen = false;
+  SEARCH_STATE.selectedSkill = "";
+  restoreOpacity();
+  updateSearchResults();
 }
 
 function shineOnHover(e) {
   e.addEventListener("mouseenter", lowerOpacity);
   e.addEventListener("mouseleave", restoreOpacity);
-}
-
-function dontShineOnHover(e) {
-  e.removeEventListener("mouseenter", lowerOpacity);
-  e.removeEventListener("mouseleave", restoreOpacity);
 }
 
 function searchPeople(members, query, selectedSkill) {
@@ -90,31 +95,30 @@ loadJSON(function (data) {
       $skillsToggle.textContent = "-";
     }
   });
-  document.querySelectorAll(".skills-selector").forEach((e) => {
+
+  $searchTable.querySelectorAll(".skills-selector").forEach((e) => {
     shineOnHover(e);
-    e.addEventListener("click", (event) => {
+  });
+
+  $container.addEventListener("click", (event) => {
+    if (!event.target.closest(".search-table")) {
+      unfreeze();
+    } else {
       const selectedSkill = parseInt(
         event.target.closest(".skills-selector").dataset.path.split("/").at(-2),
       );
       if (SEARCH_STATE.selectedSkill !== selectedSkill) {
-        SEARCH_STATE.selectedSkill = selectedSkill;
+        SEARCH_STATE.frozen = false;
         lowerOpacity(event);
+        SEARCH_STATE.selectedSkill = selectedSkill;
         updateSearchResults();
-
-        document.querySelectorAll(".skills-selector").forEach((e) => {
-          dontShineOnHover(e);
-        });
+        SEARCH_STATE.frozen = true;
       } else {
-        restoreOpacity(event);
-        SEARCH_STATE.selectedSkill = "";
-        updateSearchResults();
-
-        document.querySelectorAll(".skills-selector").forEach((e) => {
-          shineOnHover(e);
-        });
+        unfreeze();
       }
-    });
+    }
   });
+
   $searchInput.addEventListener("input", (e) => {
     let value = e.target.value;
     SEARCH_STATE.query = value;
