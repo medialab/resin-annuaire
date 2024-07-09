@@ -33,6 +33,7 @@ const searchPageTemplate = env.getTemplate("searchPage.html");
 const memberPageTemplate = env.getTemplate("memberPage.html");
 const legalPageTemplate = env.getTemplate("legalPage.html");
 const subscribePageTemplate = env.getTemplate("subscribePage.html");
+const notFoundPageTemplate = env.getTemplate("notFoundPage.html");
 
 async function main() {
   fs.removeSync(baseUrl);
@@ -83,6 +84,11 @@ async function main() {
   fs.outputFileSync(
     path.join(baseUrl, "s-inscrire.html"),
     subscribePageTemplate.render({ apiUrl }),
+  );
+
+  fs.outputFileSync(
+    path.join(baseUrl, "404.html"),
+    notFoundPageTemplate.render(),
   );
 
   fs.copySync(
