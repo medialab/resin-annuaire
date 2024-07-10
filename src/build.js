@@ -8,7 +8,11 @@ const nunjucks = require("nunjucks");
 const { sortBy } = require("lodash");
 const { promisify } = require("util");
 
-const { formatMembers, formatSkills } = require("../src/format.js");
+const {
+  formatMembers,
+  formatSkills,
+  formatLanguages,
+} = require("../src/format.js");
 const { palette } = require("./donutUtils.js");
 const { findCategoryMetadata } = require("./searchTableUtils.js");
 const { loadImages, createDonut } = require("./buildImages.js");
@@ -47,7 +51,12 @@ async function main() {
 
   const members = await fetch(path.join(apiUrl, "api", "members"));
   const membersJson = await members.json();
-  let cleanMembers = formatMembers(membersJson, idToLabel);
+
+  const languages = await fetch(path.join(apiUrl, "api", "languages"));
+  const languagesJson = await languages.json();
+  const idToLanguage = formatLanguages(languagesJson);
+
+  let cleanMembers = formatMembers(membersJson, idToLanguage, idToLabel);
 
   await buildJavascript({
     entry: {

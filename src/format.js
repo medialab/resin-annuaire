@@ -17,7 +17,7 @@ exports.createNewSlug = function (uniqueSlugs, member) {
   return [nameSlug, uniqueSlugs];
 };
 
-exports.formatMembers = function (formItems, idToLabel) {
+exports.formatMembers = function (formItems, idToLanguage, idToLabel) {
   const ranks = pandemonium.shuffle(range(formItems.length));
   let uniqueSlugs = new Set();
 
@@ -46,6 +46,10 @@ exports.formatMembers = function (formItems, idToLabel) {
     });
     cleanItem.allSkills = Array.from(skillSet);
 
+    cleanItem.languages = cleanItem.languages.map((lang) => {
+      return idToLanguage[lang];
+    });
+
     cleanItem.rank = ranks[index];
     return cleanItem;
   });
@@ -61,6 +65,14 @@ exports.formatMembers = function (formItems, idToLabel) {
   }
 
   return sortedItems;
+};
+
+exports.formatLanguages = function (languagesJson) {
+  const idToLanguages = {};
+  languagesJson.forEach((obj) => {
+    idToLanguages[obj.pt2b] = obj.name;
+  });
+  return idToLanguages;
 };
 
 exports.formatSkills = function (fieldsTree, skillsTree) {
