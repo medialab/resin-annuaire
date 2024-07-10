@@ -32,8 +32,7 @@
           member.organization }}, {{ member.city }}
         </p>
         <div class="contact-line">
-          <label for="toggle">Contacter</label>
-          <input type="checkbox" id="toggle" class="visually-hidden" />
+          <button id="contact-button">Contacter</button>
           <div class="contact-info">
             {% if member.email %}{{ member.email }}{% endif %}
           </div>

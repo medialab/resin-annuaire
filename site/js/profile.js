@@ -1,34 +1,32 @@
 import "@medialab/resin-formulaire";
 
-let MODAL_OPENED = false;
 const $modal = document.querySelector(".modal-content");
 const $modalBackground = document.querySelector(".modal-background");
-
+const $contactButton = document.querySelector("#contact-button");
+const $contactInfo = document.querySelector(".contact-info");
 const $editButton = document.querySelector("#edit-button");
 const $span = document.querySelector(".close");
 
 function openModal() {
   $modal.style.display = "block";
   $modalBackground.style.display = "block";
-  MODAL_OPENED = true;
 }
 
 function closeModal() {
   $modal.style.display = "none";
   $modalBackground.style.display = "none";
-  MODAL_OPENED = false;
 }
 
-$editButton.onclick = function () {
-  openModal();
+$contactButton.onclick = function () {
+  $contactInfo.style.display = "inline";
 };
 
+$editButton.onclick = openModal;
+
 $modalBackground.onclick = function (event) {
-  if (MODAL_OPENED && event.target !== $modal) {
+  if (event.target !== $modal && event.target !== $contactButton) {
     closeModal();
   }
 };
 
-$span.onclick = function () {
-  closeModal();
-};
+$span.onclick = closeModal;

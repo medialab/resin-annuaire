@@ -62,7 +62,7 @@ async function main() {
     entry: {
       search: path.join(siteUrl, "js", "search.js"),
       form: path.join(siteUrl, "js", "formulaire.js"),
-      edit: path.join(siteUrl, "js", "editProfile.js"),
+      edit: path.join(siteUrl, "js", "profile.js"),
     },
     output: path.join(baseUrl, "js", "[name].js"),
     quiet: true,

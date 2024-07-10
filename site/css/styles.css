@@ -410,12 +410,21 @@ button:hover {
   margin: var(--gutter-basis);
 }
 
-.contact-line label {
+.contact-info {
+  display: none;
+}
+
+.long-bio {
+  margin: 60px 0 30px 0;
+}
+
+.contact-line #contact-button {
   margin-left: 0;
   padding: var(--gutter-basis);
   background-color: var(--valorisation);
   color: white;
   cursor: pointer;
+  border: none;
 }
 
 .member-container #edit-button {
@@ -539,23 +548,6 @@ resin-formulaire textarea {
   border-radius: 0;
   border: thin solid var(--border-color);
   outline: none;
-}
-
-.contact-info {
-  display: none;
-}
-
-#toggle:checked ~ .contact-info {
-  display: inline;
-}
-
-.visually-hidden {
-  position: absolute;
-  left: -100vw;
-}
-
-.long-bio {
-  margin: 60px 0 30px 0;
 }
 
 .footer {
