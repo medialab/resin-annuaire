@@ -53,6 +53,7 @@ async function main() {
     entry: {
       search: path.join(siteUrl, "js", "search.js"),
       form: path.join(siteUrl, "js", "formulaire.js"),
+      edit: path.join(siteUrl, "js", "editProfile.js"),
     },
     output: path.join(baseUrl, "js", "[name].js"),
     quiet: true,
@@ -127,7 +128,7 @@ async function main() {
   for (const member of membersWithAvatar) {
     fs.outputFileSync(
       path.join(baseUrl, member.slug + ".html"),
-      memberPageTemplate.render({ member }),
+      memberPageTemplate.render({ member: member, apiUrl: apiUrl }),
     );
   }
 

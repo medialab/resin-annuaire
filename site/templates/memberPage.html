@@ -35,8 +35,7 @@
           <label for="toggle">Contacter</label>
           <input type="checkbox" id="toggle" class="visually-hidden" />
           <div class="contact-info">
-            {% if member.phone %} {{ member.phone }}, {% endif %}{{ member.email
-            }}
+            {% if member.email %}{{ member.email }}{% endif %}
           </div>
         </div>
       </div>
@@ -54,6 +53,19 @@
     {% endif %} {% if member.distinctions %}
     <p>Distinctions&nbsp;: {{ member.distinctions }}</p>
     {% endif %}
+
+    <button id="edit-button">
+      Je suis cette personne, je souhaite modifier mon profil
+    </button>
+
+    <div class="modal-background"></div>
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <resin-formulaire-edit apiServer="{{ apiUrl }}" />
+    </div>
   </div>
 </div>
+
+{% endblock %} {% block scripts %}
+<script type="text/javascript" src="js/edit.js"></script>
 {% endblock %}
