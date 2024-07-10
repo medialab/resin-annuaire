@@ -25,7 +25,7 @@
         {% endif %}
         <p>
           <span class="metadata-title">Langues</span>&nbsp;: {{ member.languages
-          }}
+          | join(", ") }}
         </p>
         <p>
           <span class="metadata-title">Institution</span>&nbsp;: {{
