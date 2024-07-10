@@ -489,6 +489,19 @@ resin-formulaire label {
   margin-bottom: calc(var(--gutter-basis) / 2);
 }
 
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  max-width: 1000px;
+  padding-top: calc(4 * var(--gutter-basis));
+  min-width: calc(min(100%, 1000px));
+}
+
+resin-formulaire {
+  padding-top: calc(4 * var(--gutter-basis));
+}
+
 resin-formulaire .form-text {
   margin-top: var(--gutter-basis);
 }
