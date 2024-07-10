@@ -18,6 +18,7 @@ function closeModal() {
 }
 
 $contactButton.onclick = function () {
+  $contactInfo.textContent = $contactInfo.textContent.replace("¤", "@");
   $contactInfo.style.display = "inline";
 };
 

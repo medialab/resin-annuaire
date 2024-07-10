@@ -22,21 +22,23 @@
         <p>
           <span class="metadata-title">Genre</span>&nbsp;: {{ member.gender }}
         </p>
-        {% endif %}
+        {% endif %} {% if member.languages %}
         <p>
           <span class="metadata-title">Langues</span>&nbsp;: {{ member.languages
           | join(", ") }}
         </p>
+        {% endif %} {% if member.organization %}
         <p>
           <span class="metadata-title">Institution</span>&nbsp;: {{
-          member.organization }}, {{ member.city }}
+          member.organization }}{% if member.city %}, {{ member.city }}{% endif
+          %}
         </p>
+        {% endif %} {% if member.email %}
         <div class="contact-line">
           <button id="contact-button">Contacter</button>
-          <div class="contact-info">
-            {% if member.email %}{{ member.email }}{% endif %}
-          </div>
+          <div class="contact-info">{{ member.email | replace("@", "¤")}}</div>
         </div>
+        {% endif %}
       </div>
     </div>
 
