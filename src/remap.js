@@ -16,6 +16,7 @@ const remap = {
   gender: "gender",
   institution_city: "city",
   slug: "slug",
+  rank: "rank",
 };
 
 module.exports = remap;

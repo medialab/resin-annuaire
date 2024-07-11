@@ -4,9 +4,26 @@ const { sortBy, range, first, last } = require("lodash");
 const remap = require("./remap.js");
 
 exports.formatMembers = function (formItems, idToLanguage, idToLabel) {
-  const ranks = pandemonium.shuffle(range(formItems.length));
+  let genderCounter = 0;
+  formItems.forEach((item) => {
+    if (item.gender == "M") {
+      genderCounter += 1;
+    }
+  });
+  const ranks = pandemonium.shuffle(range(formItems.length - genderCounter));
+  const ranksM = pandemonium.shuffle(
+    range(formItems.length - genderCounter, formItems.length),
+  );
 
+  genderCounter = 0;
   cleanItems = formItems.map((item, index) => {
+    if (item.gender == "M") {
+      item.rank = ranksM[genderCounter];
+      genderCounter += 1;
+    } else {
+      item.rank = ranks[index - genderCounter];
+    }
+
     let cleanItem = {};
     for (const key in item) {
       cleanItem[remap[key]] = item[key];
