@@ -1,5 +1,4 @@
 const remap = {
-  Horodateur: "timestamp",
   last_name: "lastName",
   first_name: "firstName",
   institution_city: "city",
@@ -16,6 +15,7 @@ const remap = {
   photo: "avatar",
   gender: "gender",
   institution_city: "city",
+  slug: "slug",
 };
 
 module.exports = remap;
