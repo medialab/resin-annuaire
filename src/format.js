@@ -14,7 +14,6 @@ exports.formatMembers = function (formItems, idToLanguage, idToLabel) {
   const ranksM = pandemonium.shuffle(
     range(formItems.length - genderCounter, formItems.length),
   );
-
   genderCounter = 0;
   cleanItems = formItems.map((item, index) => {
     if (item.gender == "M") {
@@ -52,7 +51,6 @@ exports.formatMembers = function (formItems, idToLanguage, idToLabel) {
       return idToLanguage[lang];
     });
 
-    cleanItem.rank = ranks[index];
     return cleanItem;
   });
 
