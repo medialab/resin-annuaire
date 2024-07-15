@@ -16,6 +16,8 @@ const {
 const { palette } = require("./donutUtils.js");
 const { findCategoryMetadata } = require("./searchTableUtils.js");
 const { loadImages, createDonut } = require("./buildImages.js");
+const http = require("node:http");
+const https = require("node:https");
 
 module.exports = function build() {
   main();
@@ -39,20 +41,26 @@ const legalPageTemplate = env.getTemplate("legalPage.html");
 const subscribePageTemplate = env.getTemplate("subscribePage.html");
 const notFoundPageTemplate = env.getTemplate("notFoundPage.html");
 
+const httpAgent = new http.Agent({ keepAlive: true });
+const httpsAgent = new https.Agent({ keepAlive: true });
+const agent = (_parsedURL) => _parsedURL.protocol === 'http:' ? httpAgent : httpsAgent;
+
+
 async function main() {
   fs.removeSync(baseUrl);
   await fs.ensureDir(baseImageFolder);
 
-  const fieldsTreeResponse = await fetch(path.join(apiUrl, "api", "fields"));
-  const skillsTreeResponse = await fetch(path.join(apiUrl, "api", "skills"));
+  const fieldsTreeResponse = await fetch(apiUrl + "/api/fields/", { agent });
   const fieldsTree = await fieldsTreeResponse.json();
+
+  const skillsTreeResponse = await fetch(apiUrl + "/api/skills/", { agent });
   const skillsTree = await skillsTreeResponse.json();
   const idToLabel = formatSkills(fieldsTree, skillsTree);
 
-  const members = await fetch(path.join(apiUrl, "api", "members"));
+  const members = await fetch(apiUrl + "/api/members/", { agent });
   const membersJson = await members.json();
 
-  const languages = await fetch(path.join(apiUrl, "api", "languages"));
+  const languages = await fetch(apiUrl + "/api/languages/", { agent });
   const languagesJson = await languages.json();
   const idToLanguage = formatLanguages(languagesJson);
 
