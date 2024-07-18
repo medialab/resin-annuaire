@@ -22,13 +22,13 @@ spec:
           imagePullPolicy: Always
           env:
             - name: BACKEND_PORT
-              value: '8000'
+              value: "8000"
           volumeMounts:
             - name: resin-uploads-vol
               mountPath: /resin-backend/uploads
             - name: resin-staticfiles-vol
               mountPath: /resin-backend/static
-          readinessProbe:
+          startupProbe:
             httpGet:
               path: /
               port: 80
