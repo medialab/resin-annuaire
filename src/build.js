@@ -43,8 +43,8 @@ const notFoundPageTemplate = env.getTemplate("notFoundPage.html");
 
 const httpAgent = new http.Agent({ keepAlive: true });
 const httpsAgent = new https.Agent({ keepAlive: true });
-const agent = (_parsedURL) => _parsedURL.protocol === 'http:' ? httpAgent : httpsAgent;
-
+const agent = (_parsedURL) =>
+  _parsedURL.protocol === "http:" ? httpAgent : httpsAgent;
 
 async function main() {
   fs.removeSync(baseUrl);
