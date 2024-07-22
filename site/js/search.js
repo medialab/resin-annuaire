@@ -101,7 +101,10 @@ loadJSON(function (data) {
   });
 
   $container.addEventListener("click", (event) => {
-    if (!event.target.closest(".search-table")) {
+    if (
+      !event.target.closest(".search-table") &&
+      !event.target.closest(".search-line")
+    ) {
       unfreeze();
     } else {
       const selectedSkill = parseInt(
