@@ -32,6 +32,7 @@ const imageFolder = path.join("assets", "images");
 const baseImageFolder = path.join(baseUrl, imageFolder);
 
 const apiUrl = process.env.API_URL || "http://localhost:8000";
+const internalApiUrl = process.env.INTERNAL_API_URL || "http://localhost:8000";
 
 // Configure nunjucks
 const env = nunjucks.configure(path.join(siteUrl, "templates"));
@@ -50,17 +51,21 @@ async function main() {
   fs.removeSync(baseUrl);
   await fs.ensureDir(baseImageFolder);
 
-  const fieldsTreeResponse = await fetch(apiUrl + "/api/fields/", { agent });
+  const fieldsTreeResponse = await fetch(internalApiUrl + "/api/fields/", {
+    agent,
+  });
   const fieldsTree = await fieldsTreeResponse.json();
 
-  const skillsTreeResponse = await fetch(apiUrl + "/api/skills/", { agent });
+  const skillsTreeResponse = await fetch(internalApiUrl + "/api/skills/", {
+    agent,
+  });
   const skillsTree = await skillsTreeResponse.json();
   const idToLabel = formatSkills(fieldsTree, skillsTree);
 
-  const members = await fetch(apiUrl + "/api/members/", { agent });
+  const members = await fetch(internalApiUrl + "/api/members/", { agent });
   const membersJson = await members.json();
 
-  const languages = await fetch(apiUrl + "/api/languages/", { agent });
+  const languages = await fetch(internalApiUrl + "/api/languages/", { agent });
   const languagesJson = await languages.json();
   const idToLanguage = formatLanguages(languagesJson);
 
