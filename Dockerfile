@@ -6,8 +6,7 @@ RUN mkdir /resin-backend
 
 RUN apk update && \
     apk add nodejs=~20 npm=~10 && \
-    apk add bash && \
-    apk add at
+    apk add bash
 
 ENV BACKEND_PORT=8000
 ENV BACKEND_HOST=django
