@@ -51,6 +51,17 @@ exports.formatMembers = function (formItems, idToLanguage, idToLabel) {
       return idToLanguage[lang];
     });
 
+    const genders = {
+      F: "Femme",
+      H: "Homme",
+    };
+
+    if (cleanItem.gender in genders) {
+      cleanItem.gender = genders[cleanItem.gender];
+    } else {
+      cleanItem.gender = null;
+    }
+
     return cleanItem;
   });
 
