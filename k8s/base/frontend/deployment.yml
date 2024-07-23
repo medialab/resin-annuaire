@@ -32,10 +32,18 @@ spec:
             httpGet:
               path: /
               port: 80
-            initialDelaySeconds: 1
-            periodSeconds: 5
+            initialDelaySeconds: 5
+            periodSeconds: 1
             timeoutSeconds: 5
-            failureThreshold: 5
+            failureThreshold: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 60
+            timeoutSeconds: 5
+            failureThreshold: 10
       volumes:
         - name: resin-uploads-vol
           persistentVolumeClaim:
