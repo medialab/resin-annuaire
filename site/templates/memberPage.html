@@ -22,7 +22,7 @@
         <p>
           <span class="metadata-title">Genre</span>&nbsp;: {{ member.gender }}
         </p>
-        {% endif %} {% if member.languages %}
+        {% endif %} {% if member.languages|length %}
         <p>
           <span class="metadata-title">Langues</span>&nbsp;: {{ member.languages
           | join(", ") }}
@@ -41,11 +41,13 @@
         {% endif %}
       </div>
     </div>
-
+    {% if member.longBio %}
     <p class="long-bio">{{ member.longBio }}</p>
+    {% endif %}
     <p>Compétences&nbsp;: {{ member.lastSkills}}</p>
+    {% if member.title %}
     <p>Fonction / Titre&nbsp;: {{ member.title }}</p>
-    {% if member.education %}
+    {% endif %} {% if member.education %}
     <p>Formation&nbsp;: {{ member.education }}</p>
     {% endif %} {% if member.activities %}
     <p>Autres activités&nbsp;: {{ member.activities }}</p>
