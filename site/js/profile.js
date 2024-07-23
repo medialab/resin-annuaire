@@ -17,10 +17,12 @@ function closeModal() {
   $modalBackground.style.display = "none";
 }
 
-$contactButton.onclick = function () {
-  $contactInfo.textContent = $contactInfo.textContent.replace("¤", "@");
-  $contactInfo.style.display = "inline";
-};
+if ($contactButton) {
+  $contactButton.onclick = function () {
+    $contactInfo.textContent = $contactInfo.textContent.replace("¤", "@");
+    $contactInfo.style.display = "inline";
+  };
+}
 
 $editButton.onclick = openModal;
 
