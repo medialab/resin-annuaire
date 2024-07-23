@@ -489,6 +489,13 @@ resin-formulaire label {
   margin-bottom: calc(var(--gutter-basis) / 2);
 }
 
+resin-formulaire label[for="display_email"] {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  width: 100px;
+}
+
 .form-container {
   display: flex;
   flex-direction: column;
@@ -517,6 +524,10 @@ resin-formulaire .text-muted {
 resin-formulaire input[type="file"] {
   padding-left: 0;
   border: none;
+}
+
+resin-formulaire input[type="checkbox"] {
+  transform: scale(0.5);
 }
 
 resin-formulaire .form-group,
