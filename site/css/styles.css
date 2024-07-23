@@ -527,6 +527,29 @@ resin-formulaire-edit .form-group {
   margin-bottom: 2rem;
 }
 
+resin-formulaire textarea {
+  resize: none;
+  min-width: calc(100% - 50px);
+  min-height: 10rem;
+  box-sizing: border-box;
+  border-radius: 0;
+  border: thin solid var(--border-color);
+  outline: none;
+}
+
+resin-formulaire button.svelte-jlcweo {
+  margin-bottom: 0;
+}
+
+resin-formulaire a {
+  text-decoration: underline dotted;
+  font-style: italic;
+}
+
+resin-formulaire a:hover {
+  font-weight: 500;
+}
+
 resin-formulaire select,
 resin-formulaire-edit select {
   background-color: white;
@@ -581,16 +604,6 @@ resin-formulaire button[type="submit"] {
   font-weight: 600;
   padding: calc(2 * var(--gutter-basis)) calc(3 * var(--gutter-basis));
   margin-bottom: 30px;
-}
-
-resin-formulaire textarea {
-  resize: none;
-  min-width: calc(100% - 50px);
-  min-height: 10rem;
-  box-sizing: border-box;
-  border-radius: 0;
-  border: thin solid var(--border-color);
-  outline: none;
 }
 
 .footer {
