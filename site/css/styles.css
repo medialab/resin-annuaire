@@ -577,6 +577,12 @@ resin-formulaire .selection button {
   font-weight: 800;
 }
 
+resin-formulaire button[type="submit"] {
+  font-weight: 600;
+  padding: calc(2 * var(--gutter-basis)) calc(3 * var(--gutter-basis));
+  margin-bottom: 30px;
+}
+
 resin-formulaire textarea {
   resize: none;
   min-width: calc(100% - 50px);
