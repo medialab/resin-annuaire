@@ -25,7 +25,7 @@
   "homepage": "https://github.com/medialab/resin-annuaire#readme",
   "dependencies": {
     "@adobe/node-fetch-retry": "^2.2.0",
-    "@medialab/resin-formulaire": "github:medialab/resin-formulaire#v1.3.2",
+    "@medialab/resin-formulaire": "github:medialab/resin-formulaire#v1.3.5",
     "concurrently": "^8.2.2",
     "csvtojson": "^2.0.10",
     "fs-extra": "^11.1.1",
