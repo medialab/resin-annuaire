@@ -487,6 +487,7 @@ resin-formulaire label {
   margin-left: 0;
   padding-left: 0;
   margin-bottom: calc(var(--gutter-basis) / 2);
+  margin-right: var(--gutter-basis);
 }
 
 resin-formulaire label[for="display_email"] {
@@ -521,15 +522,6 @@ resin-formulaire .text-muted {
   width: calc(100% - 50px);
 }
 
-resin-formulaire input[type="file"] {
-  padding-left: 0;
-  border: none;
-}
-
-resin-formulaire input[type="checkbox"] {
-  transform: scale(0.5);
-}
-
 resin-formulaire .form-group,
 resin-formulaire-edit .form-group {
   margin-bottom: 2rem;
@@ -548,12 +540,33 @@ resin-formulaire button {
   margin-bottom: calc(2 * var(--gutter-basis));
 }
 
+resin-formulaire input::placeholder {
+  font-weight: 400;
+  color: grey;
+  opacity: 1;
+}
+
+resin-formulaire input[type="file"] {
+  padding-left: 0;
+  border: none;
+}
+
+resin-formulaire input[type="checkbox"] {
+  height: calc(4 * var(--gutter-basis));
+}
+
 resin-formulaire input::file-selector-button {
   background-color: white;
   border-radius: 0;
   border: thin solid var(--border-color);
   cursor: pointer;
   padding: var(--gutter-basis);
+  font-weight: 400;
+  height: 100%;
+  padding: 0px calc(2 * var(--gutter-basis));
+  color: grey;
+  font-family: "Montserrat", sans-serif;
+  opacity: 1;
 }
 
 resin-formulaire input::file-selector-button:hover {
