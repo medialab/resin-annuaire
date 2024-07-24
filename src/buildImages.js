@@ -70,7 +70,10 @@ exports.loadImages = async function (member, imageFolder) {
     if (member.avatar) {
       let imageUrl = member.avatar;
       if (imageUrl.includes(backendHost))
-        imageUrl = imageUrl.replace(/^https?:\/\/[^\/]*\//, internalApiUrl + "/");
+        imageUrl = imageUrl.replace(
+          /^https?:\/\/[^\/]*\//,
+          internalApiUrl + "/",
+        );
       let response = await fetch(imageUrl);
       const contentType = response.headers.get("content-type");
       if (validImageTypes.includes(contentType)) {
@@ -84,7 +87,7 @@ exports.loadImages = async function (member, imageFolder) {
         "There was a problem while building",
         member.slug + "'s",
         "image from ",
-        imageUrl
+        imageUrl,
       );
     }
     return "";

@@ -9,7 +9,9 @@
     "prettier": "prettier 'scripts/*.js' 'src/*.js' 'site/js/*.js' --write",
     "serve": "npm run build && http-server build -p 3000 -o",
     "test": "mocha",
-    "dev": "concurrently \"http-server build -p 3000 -o\" \"nodemon scripts/build.js --ignore ./build\""
+    "dev": "concurrently \"http-server build -p 3000 -o\" \"nodemon scripts/build.js --ignore ./build\"",
+    "push": "git checkout main && npm run build && npm run prettier && git add -p && git commit && git pull && git push origin main",
+    "upgrade:prod": "git checkout prod && git pull && git merge main && git push && git checkout main"
   },
   "nodemonConfig": {
     "ext": "js,json,css,html"
