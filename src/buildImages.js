@@ -62,10 +62,16 @@ exports.createDonut = async function (imageFileName, member, baseImageFolder) {
   return donutFileName;
 };
 
+const backendHost = process.env.BACKEND_HOST || "localhost";
+const internalApiUrl = process.env.INTERNAL_API_URL || "http://localhost:8000";
+
 exports.loadImages = async function (member, imageFolder) {
   try {
     if (member.avatar) {
-      let response = await fetch(member.avatar);
+      let imageUrl = member.avatar;
+      if (imageUrl.includes(backendHost))
+        imageUrl = imageUrl.replace(/^https?:\/\/[^\/]*\//, internalApiUrl + "/");
+      let response = await fetch(imageUrl);
       const contentType = response.headers.get("content-type");
       if (validImageTypes.includes(contentType)) {
         const imageFileName =
@@ -74,7 +80,12 @@ exports.loadImages = async function (member, imageFolder) {
         await createImageFile(response, imagePath);
         return imageFileName;
       }
-      return "";
+      console.log(
+        "There was a problem while building",
+        member.slug + "'s",
+        "image from ",
+        imageUrl
+      );
     }
     return "";
   } catch (error) {
