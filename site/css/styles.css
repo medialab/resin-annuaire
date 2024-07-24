@@ -47,7 +47,7 @@ a#home {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-  margin: 0 calc(3 * var(--gutter-basis));
+  margin: 0 calc(4 * var(--gutter-basis));
 }
 
 .navbar {
@@ -104,6 +104,7 @@ button {
 .search-line > button {
   height: 40px;
   width: 45px;
+  margin-top: 1px;
 }
 
 button:hover {
