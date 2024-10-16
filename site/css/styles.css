@@ -498,7 +498,7 @@ resin-formulaire label[for="display_email"] {
   width: 100px;
 }
 
-.form-container {
+.page-container {
   display: flex;
   flex-direction: column;
   align-self: center;

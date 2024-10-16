@@ -17,12 +17,11 @@
       <nav class="navbar">
         <a href="/" id="home">RésIn</a>
         <ul class="nav-links">
-          <li><a href="#">Projet</a></li>
+          <li><a href="projet">Projet</a></li>
           <li><a href="s-inscrire">S'inscrire</a></li>
         </ul>
       </nav>
-      {% block body %}{% endblock %}
-      {% include "footer.html" %}
+      {% block body %}{% endblock %} {% include "footer.html" %}
     </div>
     {% block scripts %}{% endblock %}
   </body>
