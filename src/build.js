@@ -40,6 +40,7 @@ const searchPageTemplate = env.getTemplate("searchPage.html");
 const memberPageTemplate = env.getTemplate("memberPage.html");
 const legalPageTemplate = env.getTemplate("legalPage.html");
 const subscribePageTemplate = env.getTemplate("subscribePage.html");
+const projectPageTemplate = env.getTemplate("projectPage.html");
 const notFoundPageTemplate = env.getTemplate("notFoundPage.html");
 
 const httpAgent = new http.Agent({ keepAlive: true });
@@ -107,6 +108,11 @@ async function main() {
   fs.outputFileSync(
     path.join(baseUrl, "s-inscrire.html"),
     subscribePageTemplate.render({ apiUrl }),
+  );
+
+  fs.outputFileSync(
+    path.join(baseUrl, "projet.html"),
+    projectPageTemplate.render(),
   );
 
   fs.outputFileSync(
