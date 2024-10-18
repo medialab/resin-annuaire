@@ -5,6 +5,8 @@ const csv = require("csvtojson");
 const kotatsu = require("kotatsu");
 const fetch = require("@adobe/node-fetch-retry");
 const nunjucks = require("nunjucks");
+const markdown = require("nunjucks-markdown");
+const marked = require("marked");
 const { sortBy } = require("lodash");
 const { promisify } = require("util");
 
@@ -36,6 +38,7 @@ const internalApiUrl = process.env.INTERNAL_API_URL || "http://localhost:8000";
 
 // Configure nunjucks
 const env = nunjucks.configure(path.join(siteUrl, "templates"));
+markdown.register(env, marked.parse);
 const searchPageTemplate = env.getTemplate("searchPage.html");
 const memberPageTemplate = env.getTemplate("memberPage.html");
 const legalPageTemplate = env.getTemplate("legalPage.html");

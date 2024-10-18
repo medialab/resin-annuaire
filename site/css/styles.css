@@ -33,14 +33,14 @@ body {
 }
 
 a {
-  text-decoration: none;
   color: var(--primary-color);
-  margin: var(--gutter-basis);
+  text-decoration: none;
 }
 
 a#home {
   font-size: x-large;
   color: var(--primary-color);
+  text-decoration: none;
 }
 
 .container {
@@ -63,6 +63,7 @@ a#home {
 }
 
 .nav-links a {
+  margin: var(--gutter-basis);
   margin: 5px;
 }
 
@@ -314,6 +315,10 @@ button:hover {
   max-width: 1000px;
   padding: 10px;
   padding-top: 0;
+}
+
+.member-container a {
+  text-decoration-style: dotted;
 }
 
 @media only screen and (max-width: 1000px) {
