@@ -42,13 +42,18 @@
       </div>
     </div>
     {% if member.longBio %}
-    <p class="long-bio">{{ member.longBio }}</p>
+    <p class="long-bio">
+      {% markdown %} {{ member.longBio }} {% endmarkdown %}
+    </p>
     {% endif %}
     <p>Compétences&nbsp;: {{ member.lastSkills}}</p>
     {% if member.title %}
     <p>Fonction / Titre&nbsp;: {{ member.title }}</p>
-    {% endif %} {% if member.education %}
-    <p>Formation&nbsp;: {{ member.education }}</p>
+    {% endif %} {% if member.publications %}
+    <p>
+      Formation&nbsp;: {% markdown %} {{ member.publications }} {% endmarkdown
+      %}
+    </p>
     {% endif %} {% if member.activities %}
     <p>Autres activités&nbsp;: {{ member.activities }}</p>
     {% endif %} {% if member.responsabilities %}
