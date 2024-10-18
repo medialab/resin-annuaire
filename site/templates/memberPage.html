@@ -46,12 +46,18 @@
       {% markdown %} {{ member.longBio }} {% endmarkdown %}
     </p>
     {% endif %}
+
     <p>Compétences&nbsp;: {{ member.lastSkills}}</p>
+
     {% if member.title %}
     <p>Fonction / Titre&nbsp;: {{ member.title }}</p>
+    {% endif %} {% if member.education %}
+    <p>
+      Formation&nbsp;: {% markdown %} {{ member.education }} {% endmarkdown %}
+    </p>
     {% endif %} {% if member.publications %}
     <p>
-      Formation&nbsp;: {% markdown %} {{ member.publications }} {% endmarkdown
+      Publications&nbsp;: {% markdown %} {{ member.publications }} {%endmarkdown
       %}
     </p>
     {% endif %} {% if member.activities %}
