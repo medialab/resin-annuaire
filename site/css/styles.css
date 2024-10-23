@@ -34,7 +34,6 @@ body {
 
 a {
   color: var(--primary-color);
-  text-decoration: none;
 }
 
 a#home {
@@ -65,6 +64,7 @@ a#home {
 .nav-links a {
   margin: var(--gutter-basis);
   margin: 5px;
+  text-decoration: none;
 }
 
 .search-container {
@@ -150,6 +150,10 @@ button:hover {
   padding: 0;
   margin: 0;
   list-style: none;
+}
+
+.cards-wrapper a {
+  text-decoration: none;
 }
 
 .card {
@@ -512,6 +516,10 @@ resin-formulaire label[for="display_email"] {
   min-width: calc(min(100%, 1000px));
 }
 
+.page-container a {
+  text-decoration-style: dotted;
+}
+
 resin-formulaire {
   padding-top: calc(4 * var(--gutter-basis));
 }
@@ -549,7 +557,6 @@ resin-formulaire button.svelte-jlcweo {
 
 resin-formulaire a {
   text-decoration: underline dotted;
-  font-style: italic;
 }
 
 resin-formulaire a:hover {
@@ -617,14 +624,17 @@ resin-formulaire button[type="submit"] {
   width: 100%;
   text-align: right;
   padding: 10px 10px;
-  align-items: end;
+  align-items: center;
   justify-content: space-evenly;
   margin-top: auto;
 }
 
+.footer a {
+  text-decoration: none;
+}
+
 #logo-medialab {
   width: 100px;
-  padding-bottom: 8px;
 }
 
 #logo-upc {
