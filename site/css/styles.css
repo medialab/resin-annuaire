@@ -624,7 +624,7 @@ resin-formulaire button[type="submit"] {
   width: 100%;
   text-align: right;
   padding: 10px 10px;
-  align-items: end;
+  align-items: center;
   justify-content: space-evenly;
   margin-top: auto;
 }
@@ -635,7 +635,6 @@ resin-formulaire button[type="submit"] {
 
 #logo-medialab {
   width: 100px;
-  padding-bottom: 8px;
 }
 
 #logo-upc {
