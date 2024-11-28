@@ -21,6 +21,6 @@ secretGenerator:
 
 images:
   - name: scpomedialab/resin-annuaire-backend
-    newTag: "0.2.3"
+    newTag: "0.2.4"
   - name: scpomedialab/resin-annuaire
-    newTag: "0.5.1"
+    newTag: "0.5.2"
