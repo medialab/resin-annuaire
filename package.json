@@ -1,6 +1,6 @@
 {
   "name": "resin-annuaire",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "private": true,
   "description": "Site de l'annuaire des expertises du Réseau d'Ingenieur USPC/SciencesPo",
   "main": "index.js",
