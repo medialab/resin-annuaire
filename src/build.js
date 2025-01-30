@@ -135,7 +135,7 @@ async function main() {
 
   fs.copySync(
     path.join(siteUrl, "data", "logo_resin_transparent_backround.png"),
-    path.join(baseImageFolder, "logo-resin.png")
+    path.join(baseImageFolder, "logo-resin.png"),
   );
 
   const membersWithAvatar = await Promise.all(
