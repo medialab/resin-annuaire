@@ -27,6 +27,7 @@ body {
   --member-donut-size: 18px;
   --card-image-size: 130px;
   --member-image-size: 200px;
+  --main-logo-size: 250px;
 
   color: var(--primary-color);
   font-family: "Montserrat", sans-serif;
@@ -36,10 +37,15 @@ a {
   color: var(--primary-color);
 }
 
-a#home {
+/* a#home {
   font-size: x-large;
   color: var(--primary-color);
   text-decoration: none;
+} */
+
+.main-logo {
+  width: var(--main-logo-size);
+  height: var(--main-logo-size);
 }
 
 .container {

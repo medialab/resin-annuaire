@@ -133,6 +133,11 @@ async function main() {
     path.join(baseUrl, "css", "normalize.css"),
   );
 
+  fs.copySync(
+    path.join(siteUrl, "data", "logo_resin_transparent_backround.png"),
+    path.join(baseImageFolder, "logo-resin.png")
+  );
+
   const membersWithAvatar = await Promise.all(
     cleanMembers.map(async (member) => {
       let imageFileName = await loadImages(member, baseImageFolder);
