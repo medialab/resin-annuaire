@@ -533,10 +533,16 @@ resin-formulaire label[for="display_email"] {
 .page-container {
   display: flex;
   flex-direction: column;
-  align-self: center;
+  margin: 0 calc(var(--main-logo-size) + 11 * var(--gutter-basis));
   max-width: 1000px;
   padding-top: calc(4 * var(--gutter-basis));
   min-width: calc(min(100%, 1000px));
+}
+
+@media only screen and (max-width: 1200px) {
+  .page-container {
+    align-self: center;
+  }
 }
 
 .page-container a {
