@@ -27,7 +27,7 @@ body {
   --member-donut-size: 18px;
   --card-image-size: 130px;
   --member-image-size: 200px;
-  --main-logo-size: 250px;
+  --main-logo-size: 130px;
 
   color: var(--primary-color);
   font-family: "Montserrat", sans-serif;
@@ -37,15 +37,11 @@ a {
   color: var(--primary-color);
 }
 
-/* a#home {
-  font-size: x-large;
-  color: var(--primary-color);
-  text-decoration: none;
-} */
-
 .main-logo {
   width: var(--main-logo-size);
   height: var(--main-logo-size);
+  position: relative;
+  top: 4px;
 }
 
 .container {
@@ -53,12 +49,13 @@ a {
   min-height: 100vh;
   flex-direction: column;
   margin: 0 calc(4 * var(--gutter-basis));
+  max-width: 100%;
 }
 
 .navbar {
   padding: 10px;
   display: inline-flex;
-  justify-content: space-between;
+  justify-content: start;
   align-items: center;
 }
 
@@ -68,9 +65,10 @@ a {
 }
 
 .nav-links a {
-  margin: var(--gutter-basis);
-  margin: 5px;
+  margin-left: var(--gutter-basis);
+  margin-right: calc(4 * var(--gutter-basis));
   text-decoration: none;
+  font-size: 18px;
 }
 
 .search-container {
@@ -78,9 +76,14 @@ a {
   flex-direction: column;
   align-items: center;
   align-self: center;
-  max-width: 1200px;
+  margin: 0 calc(var(--main-logo-size) + 9 * var(--gutter-basis));
   padding-top: calc(4 * var(--gutter-basis));
-  min-width: calc(min(100%, 1200px));
+}
+/* logo is too big to remain in the margin on small screens */
+@media only screen and (max-width: 1200px) {
+  .search-container {
+    margin: 5 * var(--gutter-basis);
+  }
 }
 
 .search-line {
@@ -167,9 +170,8 @@ button:hover {
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: 0;
-  min-width: 500px;
+  min-width: 450px;
   min-height: 200px;
-  max-width: 500px;
   margin: var(--gutter-basis);
   padding: calc(8 * var(--gutter-basis));
   padding-left: calc(4 * var(--gutter-basis));
@@ -182,6 +184,7 @@ button:hover {
     min-height: 200px;
     margin-left: 0;
     margin-right: 0;
+    padding-left: calc(2 * var(--gutter-basis));
   }
 }
 
@@ -201,8 +204,8 @@ button:hover {
   height: 100%;
   overflow: visible;
   align-items: flex-start;
-  min-width: 30%;
-  max-width: 30%;
+  min-width: var(--main-logo-size);
+  max-width: var(--main-logo-size);
   position: relative;
 }
 
@@ -291,7 +294,7 @@ button:hover {
 }
 
 .card-text {
-  margin-left: calc(2 * var(--gutter-basis));
+  margin-left: calc(4 * var(--gutter-basis));
   text-decoration: none;
   min-width: 70%;
 }

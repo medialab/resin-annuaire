@@ -134,7 +134,7 @@ async function main() {
   );
 
   fs.copySync(
-    path.join(siteUrl, "data", "logo_resin_transparent_backround.png"),
+    path.join(siteUrl, "data", "logo_resin_transparent_backround_annuaire.png"),
     path.join(baseImageFolder, "logo-resin.png"),
   );
 
