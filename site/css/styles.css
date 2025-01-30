@@ -78,16 +78,25 @@ a {
   align-self: center;
   margin: 0 calc(var(--main-logo-size) + 9 * var(--gutter-basis));
   padding-top: calc(4 * var(--gutter-basis));
+  min-width: 1000px;
 }
 /* logo is too big to remain in the margin on small screens */
 @media only screen and (max-width: 1200px) {
   .search-container {
     margin: 5 * var(--gutter-basis);
+    min-width: 100%;
   }
 }
 
 .search-line {
   min-width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.input-div {
+  border: thin solid var(--primary-color);
+  min-width: calc(100% - 50px);
 }
 
 input {
@@ -95,11 +104,21 @@ input {
   min-width: calc(100% - 50px);
   box-sizing: border-box;
   padding-left: 10px;
-  border: thin solid var(--border-color);
+}
+
+.input-div > input {
+  border: none;
+  /* min-width: 600px; */
 }
 
 input:focus {
   outline: none;
+}
+
+.button-div {
+  border: thin solid var(--primary-color);
+  width: 40px;
+  margin: 0 calc(2 * var(--gutter-basis));
 }
 
 button {
@@ -111,10 +130,12 @@ button {
   cursor: pointer;
 }
 
-.search-line > button {
+.button-div > button {
   height: 40px;
-  width: 45px;
-  margin-top: 1px;
+  width: 40px;
+  border: none;
+  font-weight: 600;
+  font-size: larger;
 }
 
 button:hover {
