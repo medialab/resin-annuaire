@@ -315,16 +315,24 @@ button:hover {
 }
 
 .member-wrapper {
-  justify-content: center;
+  margin: calc(5 * var(--gutter-basis))
+    calc(var(--main-logo-size) + 9 * var(--gutter-basis));
   display: flex;
   height: 100%;
   top: 100px;
   width: calc(100% - 6 * var(--gutter-basis));
 }
+/* logo is too big to remain in the margin on small screens */
+@media only screen and (max-width: 1000px) {
+  .member-wrapper {
+    margin: calc(5 * var(--gutter-basis)) 0;
+  }
+}
 
 .member-container {
   position: relative;
   max-width: 1000px;
+  margin-right: calc(var(--main-logo-size) + 9 * var(--gutter-basis));
   padding: 10px;
   padding-top: 0;
 }
@@ -337,6 +345,7 @@ button:hover {
   .member-container {
     max-width: 100%;
     box-sizing: border-box;
+    margin-right: 0;
   }
 }
 
@@ -392,6 +401,11 @@ button:hover {
   flex-direction: column;
   justify-content: flex-start;
   margin-left: calc(3 * var(--gutter-basis));
+}
+@media only screen and (max-width: 1000px) {
+  .member-summary {
+    margin: var(--gutter-basis) 0;
+  }
 }
 
 .member-summary .short-bio {
