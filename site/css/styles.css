@@ -444,6 +444,11 @@ button:hover {
   }
 }
 
+.member-summary .metadata-title {
+  padding-right: calc(2 * var(--gutter-basis));
+  font-weight: 550;
+}
+
 .member-summary h5 {
   margin: 0;
 }
@@ -467,8 +472,13 @@ button:hover {
   display: none;
 }
 
-.long-bio {
-  margin: 60px 0 30px 0;
+.member-long-bio {
+  margin: calc(8 * var(--gutter-basis)) 0;
+}
+
+.form-key {
+  font-weight: 550;
+  padding-right: calc(2 * var(--gutter-basis));
 }
 
 .contact-line #contact-button {

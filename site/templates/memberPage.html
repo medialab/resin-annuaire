@@ -19,19 +19,16 @@
         {% if member.shortBio %}
         <p class="short-bio">&laquo; {{ member.shortBio }} &raquo;</p>
         {% endif %} {% if member.gender %}
-        <p>
-          <span class="metadata-title">Genre</span>&nbsp;: {{ member.gender }}
-        </p>
+        <p><span class="metadata-title">Genre</span> {{ member.gender }}</p>
         {% endif %} {% if member.languages|length %}
         <p>
-          <span class="metadata-title">Langues</span>&nbsp;: {{ member.languages
-          | join(", ") }}
+          <span class="metadata-title">Langues</span> {{ member.languages |
+          join(", ") }}
         </p>
         {% endif %} {% if member.organization %}
         <p>
-          <span class="metadata-title">Institution</span>&nbsp;: {{
-          member.organization }}{% if member.city %}, {{ member.city }}{% endif
-          %}
+          <span class="metadata-title">Institution</span> {{ member.organization
+          }}{% if member.city %}, {{ member.city }}{% endif %}
         </p>
         {% endif %} {% if member.email %}
         <div class="contact-line">
@@ -41,31 +38,37 @@
         {% endif %}
       </div>
     </div>
-    {% if member.longBio %}
-    <p class="long-bio">
-      {% markdown %} {{ member.longBio }} {% endmarkdown %}
-    </p>
-    {% endif %}
+    <div class="member-long-bio">
+      {% if member.longBio %}
+      <p>{% markdown %} {{ member.longBio }} {% endmarkdown %}</p>
+      {% endif %}
+    </div>
 
-    <p>Compétences&nbsp;: {{ member.lastSkills}}</p>
+    <p><span class="form-key">Compétences</span> {{ member.lastSkills}}</p>
 
     {% if member.title %}
-    <p>Fonction / Titre&nbsp;: {{ member.title }}</p>
+    <p><span class="form-key">Fonction / Titre</span> {{ member.title }}</p>
     {% endif %} {% if member.education %}
     <p>
-      Formation&nbsp;: {% markdown %} {{ member.education }} {% endmarkdown %}
+      <span class="form-key">Formation</span> {% markdown %} {{ member.education
+      }} {% endmarkdown %}
     </p>
     {% endif %} {% if member.publications %}
     <p>
-      Publications&nbsp;: {% markdown %} {{ member.publications }} {%endmarkdown
-      %}
+      <span class="form-key">Publications</span> {% markdown %} {{
+      member.publications }} {%endmarkdown %}
     </p>
     {% endif %} {% if member.activities %}
-    <p>Autres activités&nbsp;: {{ member.activities }}</p>
+    <p>
+      <span class="form-key">Autres activités</span> {{ member.activities }}
+    </p>
     {% endif %} {% if member.responsabilities %}
-    <p>Responsabilités&nbsp;: {{ member.responsabilities }}</p>
+    <p>
+      <span class="form-key">Responsabilités</span> {{ member.responsabilities
+      }}
+    </p>
     {% endif %} {% if member.distinctions %}
-    <p>Distinctions&nbsp;: {{ member.distinctions }}</p>
+    <p><span class="form-key">Distinctions</span> {{ member.distinctions }}</p>
     {% endif %}
 
     <button id="edit-button">
