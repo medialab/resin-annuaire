@@ -101,14 +101,14 @@ a {
 
 input {
   height: 40px;
-  min-width: calc(100% - 50px);
   box-sizing: border-box;
   padding-left: 10px;
+  min-width: 100%;
 }
 
 .input-div > input {
   border: none;
-  /* min-width: 600px; */
+  min-width: calc(100% - 50px);
 }
 
 input:focus {
@@ -601,7 +601,7 @@ resin-formulaire-edit .form-group {
 
 resin-formulaire textarea {
   resize: none;
-  min-width: calc(100% - 50px);
+  min-width: 100%;
   min-height: 10rem;
   box-sizing: border-box;
   border-radius: 0;
@@ -647,6 +647,8 @@ resin-formulaire input[type="file"] {
 
 resin-formulaire input[type="checkbox"] {
   height: calc(4 * var(--gutter-basis));
+  min-width: calc(4 * var(--gutter-basis));
+  margin: 0 calc(2 * var(--gutter-basis));
 }
 
 resin-formulaire input::file-selector-button {
