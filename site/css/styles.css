@@ -445,7 +445,6 @@ button:hover {
 }
 
 .member-summary .metadata-title {
-  padding-right: calc(2 * var(--gutter-basis));
   font-weight: 550;
 }
 
@@ -478,7 +477,6 @@ button:hover {
 
 .form-key {
   font-weight: 550;
-  padding-right: calc(2 * var(--gutter-basis));
 }
 
 .contact-line #contact-button {
