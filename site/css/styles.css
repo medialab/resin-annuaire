@@ -452,6 +452,11 @@ button:hover {
   margin: 0;
 }
 
+.member-summary h5 > span {
+  font-weight: 400;
+  font-size: 1.3rem;
+}
+
 .member-summary p {
   margin: 0;
   margin-block: var(--gutter-basis);
