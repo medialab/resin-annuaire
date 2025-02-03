@@ -41,31 +41,45 @@
         {% endif %}
       </div>
     </div>
-    {% if member.longBio %}
-    <p class="long-bio">
-      {% markdown %} {{ member.longBio }} {% endmarkdown %}
-    </p>
-    {% endif %}
+    <div class="member-long-bio">
+      {% if member.longBio %}
+      <p>{% markdown %} {{ member.longBio }} {% endmarkdown %}</p>
+      {% endif %}
+    </div>
 
-    <p>Compétences&nbsp;: {{ member.lastSkills}}</p>
+    <p>
+      <span class="form-key">Compétences</span>&nbsp;: {{ member.lastSkills}}
+    </p>
 
     {% if member.title %}
-    <p>Fonction / Titre&nbsp;: {{ member.title }}</p>
+    <p>
+      <span class="form-key">Fonction / Titre</span>&nbsp;: {{ member.title }}
+    </p>
     {% endif %} {% if member.education %}
     <p>
-      Formation&nbsp;: {% markdown %} {{ member.education }} {% endmarkdown %}
+      <span class="form-key">Formation</span>&nbsp;: {% markdown %} {{
+      member.education }} {% endmarkdown %}
     </p>
     {% endif %} {% if member.publications %}
     <p>
-      Publications&nbsp;: {% markdown %} {{ member.publications }} {%endmarkdown
-      %}
+      <span class="form-key">Publications</span>&nbsp;: {% markdown %} {{
+      member.publications }} {%endmarkdown %}
     </p>
     {% endif %} {% if member.activities %}
-    <p>Autres activités&nbsp;: {{ member.activities }}</p>
+    <p>
+      <span class="form-key">Autres activités</span>&nbsp;: {{ member.activities
+      }}
+    </p>
     {% endif %} {% if member.responsabilities %}
-    <p>Responsabilités&nbsp;: {{ member.responsabilities }}</p>
+    <p>
+      <span class="form-key">Responsabilités</span>&nbsp;: {{
+      member.responsabilities }}
+    </p>
     {% endif %} {% if member.distinctions %}
-    <p>Distinctions&nbsp;: {{ member.distinctions }}</p>
+    <p>
+      <span class="form-key">Distinctions</span>&nbsp;: {{ member.distinctions
+      }}
+    </p>
     {% endif %}
 
     <button id="edit-button">

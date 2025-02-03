@@ -27,6 +27,7 @@ body {
   --member-donut-size: 18px;
   --card-image-size: 130px;
   --member-image-size: 200px;
+  --main-logo-size: 130px;
 
   color: var(--primary-color);
   font-family: "Montserrat", sans-serif;
@@ -36,10 +37,11 @@ a {
   color: var(--primary-color);
 }
 
-a#home {
-  font-size: x-large;
-  color: var(--primary-color);
-  text-decoration: none;
+.main-logo {
+  width: var(--main-logo-size);
+  height: var(--main-logo-size);
+  position: relative;
+  top: 4px;
 }
 
 .container {
@@ -47,12 +49,13 @@ a#home {
   min-height: 100vh;
   flex-direction: column;
   margin: 0 calc(4 * var(--gutter-basis));
+  max-width: 100%;
 }
 
 .navbar {
   padding: 10px;
   display: inline-flex;
-  justify-content: space-between;
+  justify-content: start;
   align-items: center;
 }
 
@@ -62,9 +65,10 @@ a#home {
 }
 
 .nav-links a {
-  margin: var(--gutter-basis);
-  margin: 5px;
+  margin-left: var(--gutter-basis);
+  margin-right: calc(4 * var(--gutter-basis));
   text-decoration: none;
+  font-size: 18px;
 }
 
 .search-container {
@@ -72,25 +76,49 @@ a#home {
   flex-direction: column;
   align-items: center;
   align-self: center;
-  max-width: 1200px;
+  margin: 0 calc(var(--main-logo-size) + 9 * var(--gutter-basis));
   padding-top: calc(4 * var(--gutter-basis));
-  min-width: calc(min(100%, 1200px));
+  min-width: 1000px;
+}
+/* logo is too big to remain in the margin on small screens */
+@media only screen and (max-width: 1200px) {
+  .search-container {
+    margin: 5 * var(--gutter-basis);
+    min-width: 100%;
+  }
 }
 
 .search-line {
   min-width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.input-div {
+  border: thin solid var(--primary-color);
+  min-width: calc(100% - 50px);
 }
 
 input {
   height: 40px;
-  min-width: calc(100% - 50px);
   box-sizing: border-box;
   padding-left: 10px;
-  border: thin solid var(--border-color);
+  min-width: 100%;
+}
+
+.input-div > input {
+  border: none;
+  min-width: calc(100% - 50px);
 }
 
 input:focus {
   outline: none;
+}
+
+.button-div {
+  border: thin solid var(--primary-color);
+  width: 40px;
+  margin: 0 calc(2 * var(--gutter-basis));
 }
 
 button {
@@ -102,10 +130,12 @@ button {
   cursor: pointer;
 }
 
-.search-line > button {
+.button-div > button {
   height: 40px;
-  width: 45px;
-  margin-top: 1px;
+  width: 40px;
+  border: none;
+  font-weight: 600;
+  font-size: larger;
 }
 
 button:hover {
@@ -161,9 +191,8 @@ button:hover {
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: 0;
-  min-width: 500px;
+  min-width: 450px;
   min-height: 200px;
-  max-width: 500px;
   margin: var(--gutter-basis);
   padding: calc(8 * var(--gutter-basis));
   padding-left: calc(4 * var(--gutter-basis));
@@ -176,6 +205,7 @@ button:hover {
     min-height: 200px;
     margin-left: 0;
     margin-right: 0;
+    padding-left: calc(2 * var(--gutter-basis));
   }
 }
 
@@ -195,8 +225,8 @@ button:hover {
   height: 100%;
   overflow: visible;
   align-items: flex-start;
-  min-width: 30%;
-  max-width: 30%;
+  min-width: var(--main-logo-size);
+  max-width: var(--main-logo-size);
   position: relative;
 }
 
@@ -285,7 +315,7 @@ button:hover {
 }
 
 .card-text {
-  margin-left: calc(2 * var(--gutter-basis));
+  margin-left: calc(4 * var(--gutter-basis));
   text-decoration: none;
   min-width: 70%;
 }
@@ -306,16 +336,24 @@ button:hover {
 }
 
 .member-wrapper {
-  justify-content: center;
+  margin: calc(5 * var(--gutter-basis))
+    calc(var(--main-logo-size) + 9 * var(--gutter-basis));
   display: flex;
   height: 100%;
   top: 100px;
   width: calc(100% - 6 * var(--gutter-basis));
 }
+/* logo is too big to remain in the margin on small screens */
+@media only screen and (max-width: 1000px) {
+  .member-wrapper {
+    margin: calc(5 * var(--gutter-basis)) 0;
+  }
+}
 
 .member-container {
   position: relative;
   max-width: 1000px;
+  margin-right: calc(var(--main-logo-size) + 9 * var(--gutter-basis));
   padding: 10px;
   padding-top: 0;
 }
@@ -328,6 +366,7 @@ button:hover {
   .member-container {
     max-width: 100%;
     box-sizing: border-box;
+    margin-right: 0;
   }
 }
 
@@ -384,6 +423,11 @@ button:hover {
   justify-content: flex-start;
   margin-left: calc(3 * var(--gutter-basis));
 }
+@media only screen and (max-width: 1000px) {
+  .member-summary {
+    margin: var(--gutter-basis) 0;
+  }
+}
 
 .member-summary .short-bio {
   font-size: 1.3em;
@@ -398,6 +442,10 @@ button:hover {
   .member-summary .member-name {
     margin-top: var(--gutter-basis);
   }
+}
+
+.member-summary .metadata-title {
+  font-weight: 550;
 }
 
 .member-summary h5 {
@@ -423,8 +471,12 @@ button:hover {
   display: none;
 }
 
-.long-bio {
-  margin: 60px 0 30px 0;
+.member-long-bio {
+  margin: calc(8 * var(--gutter-basis)) 0;
+}
+
+.form-key {
+  font-weight: 550;
 }
 
 .contact-line #contact-button {
@@ -510,10 +562,16 @@ resin-formulaire label[for="display_email"] {
 .page-container {
   display: flex;
   flex-direction: column;
-  align-self: center;
+  margin: 0 calc(var(--main-logo-size) + 11 * var(--gutter-basis));
   max-width: 1000px;
   padding-top: calc(4 * var(--gutter-basis));
   min-width: calc(min(100%, 1000px));
+}
+
+@media only screen and (max-width: 1200px) {
+  .page-container {
+    align-self: center;
+  }
 }
 
 .page-container a {
@@ -543,7 +601,7 @@ resin-formulaire-edit .form-group {
 
 resin-formulaire textarea {
   resize: none;
-  min-width: calc(100% - 50px);
+  min-width: 100%;
   min-height: 10rem;
   box-sizing: border-box;
   border-radius: 0;
@@ -589,6 +647,8 @@ resin-formulaire input[type="file"] {
 
 resin-formulaire input[type="checkbox"] {
   height: calc(4 * var(--gutter-basis));
+  min-width: calc(4 * var(--gutter-basis));
+  margin: 0 calc(2 * var(--gutter-basis));
 }
 
 resin-formulaire input::file-selector-button {
