@@ -14,6 +14,7 @@ const remap = {
   publications: "publications",
   photo: "avatar",
   gender: "gender",
+  pronouns: "pronouns",
   institution_city: "city",
   slug: "slug",
   rank: "rank",

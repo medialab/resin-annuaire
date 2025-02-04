@@ -14,15 +14,12 @@
 
       <div class="member-summary">
         <h5 class="member-name">
-          {{ member.firstName }} {{ member.lastName }}
+          {{ member.firstName }} {{ member.lastName }} {% if member.pronouns
+          %}<span> ({{member.pronouns}}) </span>{% endif %}
         </h5>
         {% if member.shortBio %}
         <p class="short-bio">&laquo; {{ member.shortBio }} &raquo;</p>
-        {% endif %} {% if member.gender %}
-        <p>
-          <span class="metadata-title">Genre</span>&nbsp;: {{ member.gender }}
-        </p>
-        {% endif %} {% if member.languages|length %}
+        {% endif %}{% if member.languages|length %}
         <p>
           <span class="metadata-title">Langues</span>&nbsp;: {{ member.languages
           | join(", ") }}
