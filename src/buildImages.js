@@ -32,9 +32,9 @@ function createArcD(size, start, end) {
 
 exports.createDonut = async function (imageFileName, member, baseImageFolder) {
   const size = 500;
-  const angle = 360 / member.firstSkillsSet.size;
+  const angle = 360 / member.firstSkills.length;
 
-  let donut = [...member.firstSkillsSet].reduce(
+  let donut = [...member.firstSkills].reduce(
     (accumulator, currentValue, currentIndex) => {
       const arcD = createArcD(
         size,
