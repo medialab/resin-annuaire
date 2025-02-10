@@ -10,17 +10,35 @@ exports.formatMembers = function (formItems, idToLanguage, idToLabel) {
       genderCounter += 1;
     }
   });
-  const ranks = pandemonium.shuffle(range(formItems.length - genderCounter));
-  const ranksM = pandemonium.shuffle(
-    range(formItems.length - genderCounter, formItems.length),
-  );
-  genderCounter = 0;
-  cleanItems = formItems.map((item, index) => {
-    if (item.gender == "M") {
-      item.rank = ranksM[genderCounter];
-      genderCounter += 1;
+
+  const imbalancedM = genderCounter > formItems.length / 2;
+
+  filtered = function (item, imbalanced) {
+    return (
+      ((item.gender == "M") & imbalanced) | ((item.gender != "M") & !imbalanced)
+    );
+  };
+  const exceedingCount = imbalancedM
+    ? genderCounter - (formItems.length - genderCounter)
+    : formItems.length - 2 * genderCounter;
+
+  const ranks = pandemonium.shuffle(range(formItems.length));
+
+  let lastRank = formItems.length;
+  const cleanItems = formItems.map((item, index) => {
+    if (filtered(item, imbalancedM)) {
+      draw = pandemonium.weightedRandomIndex([
+        1 - exceedingCount / formItems.length,
+        exceedingCount / formItems.length,
+      ]);
+      if (draw) {
+        item.rank = lastRank;
+        lastRank += 1;
+      } else {
+        item.rank = ranks[index];
+      }
     } else {
-      item.rank = ranks[index - genderCounter];
+      item.rank = ranks[index];
     }
 
     let cleanItem = {};
