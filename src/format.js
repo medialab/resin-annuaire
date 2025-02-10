@@ -52,10 +52,12 @@ exports.formatMembers = function (formItems, idToLanguage, idToLabel) {
       })
       .join(", ");
 
-    cleanItem.firstSkillsSet = new Set(
-      cleanItem.allSkills.map((item) => {
-        return idToLabel[idToLabel[item].path[0]].label;
-      }),
+    cleanItem.firstSkills = Array.from(
+      new Set(
+        cleanItem.allSkills.map((item) => {
+          return idToLabel[idToLabel[item].path[0]].label;
+        }),
+      ),
     );
 
     let skillSet = new Set();
