@@ -1,5 +1,5 @@
 const pandemonium = require("pandemonium");
-const { sortBy, range, first, last } = require("lodash");
+const { range } = require("lodash");
 
 const remap = require("./remap.js");
 
@@ -10,36 +10,19 @@ exports.formatMembers = function (formItems, idToLanguage, idToLabel) {
       genderCounter += 1;
     }
   });
-
-  const imbalancedM = genderCounter > formItems.length / 2;
-
-  filtered = function (item, imbalanced) {
-    return (
-      ((item.gender == "M") & imbalanced) | ((item.gender != "M") & !imbalanced)
-    );
-  };
-  const exceedingCount = imbalancedM
-    ? genderCounter - (formItems.length - genderCounter)
-    : formItems.length - 2 * genderCounter;
-
-  const ranks = pandemonium.shuffle(range(formItems.length));
-
-  let lastRank = formItems.length;
-  const cleanItems = formItems.map((item, index) => {
-    if (filtered(item, imbalancedM)) {
-      draw = pandemonium.weightedRandomIndex([
-        1 - exceedingCount / formItems.length,
-        exceedingCount / formItems.length,
-      ]);
-      if (draw) {
-        item.rank = lastRank;
-        lastRank += 1;
-      } else {
-        item.rank = ranks[index];
-      }
+  const ranks = pandemonium.shuffle(range(formItems.length - genderCounter));
+  const ranksM = pandemonium.shuffle(
+    range(formItems.length - genderCounter, formItems.length),
+  );
+  genderCounter = 0;
+  cleanItems = formItems.map((item, index) => {
+    if (item.gender == "M") {
+      item.rank = ranksM[genderCounter];
+      genderCounter += 1;
     } else {
-      item.rank = ranks[index];
+      item.rank = ranks[index - genderCounter];
     }
+    delete item.gender;
 
     let cleanItem = {};
     for (const key in item) {
@@ -70,17 +53,6 @@ exports.formatMembers = function (formItems, idToLanguage, idToLabel) {
     cleanItem.languages = cleanItem.languages.map((lang) => {
       return idToLanguage[lang];
     });
-
-    const genders = {
-      F: "Femme",
-      H: "Homme",
-    };
-
-    if (cleanItem.gender in genders) {
-      cleanItem.gender = genders[cleanItem.gender];
-    } else {
-      cleanItem.gender = null;
-    }
 
     return cleanItem;
   });
