@@ -191,12 +191,12 @@ button:hover {
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: 0;
-  min-width: 450px;
+  min-width: 500px;
+  max-width: 575px;
   min-height: 200px;
   margin: var(--gutter-basis);
   padding: calc(8 * var(--gutter-basis));
   padding-left: calc(4 * var(--gutter-basis));
-  justify-content: center;
   transition: background 0.5s ease;
 }
 @media only screen and (max-width: 1200px) {
