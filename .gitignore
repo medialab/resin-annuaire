@@ -2,3 +2,9 @@ node_modules
 build
 site/js/templates.js
 .vscode
+
+src/build.js
+package.json
+package-lock.json
+.DS_store
+site/assets/*
