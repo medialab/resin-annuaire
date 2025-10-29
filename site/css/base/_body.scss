@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -o-font-smoothing: antialiased
+}
+a {
+    color: currentColor;
+}
+
+body{
+    font-family: var(--font);
+    line-height: var(--leading-normal);
+    font-size: var(--font-size);
+
+    color: var(--color-txt);
+    background-color: var(--color-bg)
+}
+

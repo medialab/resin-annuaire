@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+}
+
+a {
+  color: currentColor;
+  color: red;
+}
+
+body {
+  color: red;
+}
+
+.navbar {
+  display: none;
+}
+
+@media screen and (max-width: 1200px) {
+  :root {
+    --padding: 16px;
+    --padding-cards: 0.75rem;
+    --padding-cards-small: 0.5rem;
+  }
+}/*# sourceMappingURL=style.css.map */
