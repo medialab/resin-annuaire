@@ -9,26 +9,10 @@
   --leading-tight: 1.15;
   --leading-normal: 1.5;
   --leading-loose: 1.75;
-  --color-bg: #ffffff;
-  --color-text: #111827;
-  --color-secondary-50: #fff7ed;
-  --color-secondary-100: #ffedd4;
-  --color-secondary-300: #ffb76a;
-  --color-secondary-400: #ff8805;
-  --color-secondary-500: #ff6800;
-  --color-secondary-600: #fa4900;
-  --color-secondary-700: #ce3500;
-  --color-secondary-800: #a32d00;
-  --color-secondary-900: #812a0b;
   --color-50: #F5F3F0;
   --color-600: #CC3400;
   --color-400: #F26B4F;
   --color-800: #7A1E21;
-  --skill-1: #ffd85c;
-  --skill-2: #78ab48;
-  --skill-3: #00788a;
-  --skill-4: #a06f90;
-  --skill-5: #f39aa8;
   --color-txt: var(--color-800);
   --color-bg: var(--color-50);
 }
@@ -55,24 +39,62 @@ body {
   padding: 30px;
 }
 
+body {
+  --skill-1-dark: #7b556f;
+  --skill-1: #a06f90;
+  --skill-1-light: #e4c5d8;
+  --skill-1-xlight: #f3e3ed;
+  --skill-2-dark: #5c8437;
+  --skill-2: #78ab48;
+  --skill-2-light: #c3e5a1;
+  --skill-2-xlight: #e3f3ce;
+  --skill-3-dark: #d4ae2d;
+  --skill-3: #ffd85c;
+  --skill-3-light: #fff2bd;
+  --skill-3-xlight: #fff9dc;
+  --skill-4-dark: #cc7b89;
+  --skill-4: #f39aa8;
+  --skill-4-light: #fde0e4;
+  --skill-4-xlight: #fff0f2;
+  --skill-5-dark: #005663;
+  --skill-5: #00788a;
+  --skill-5-light: #7ed0d9;
+  --skill-5-xlight: #b8e9ef;
+}
+
 [data-field=field-1] {
-  --color: var(--skill-4);
+  --color-dark: var(--skill-1-dark);
+  --color: var(--skill-1);
+  --color-light: var(--skill-1-light);
+  --color-xlight: var(--skill-1-xlight);
 }
 
 [data-field=field-2] {
+  --color-dark: var(--skill-2-dark);
   --color: var(--skill-2);
+  --color-light: var(--skill-2-light);
+  --color-xlight: var(--skill-2-xlight);
 }
 
 [data-field=field-3] {
-  --color: var(--skill-5);
+  --color-dark: var(--skill-3-dark);
+  --color: var(--skill-3);
+  --color-light: var(--skill-3-light);
+  --color-xlight: var(--skill-3-xlight);
 }
 
 [data-field=field-4] {
-  --color: var(--skill-1);
+  --color-dark: var(--skill-4-dark);
+  --color: var(--skill-4);
+  --color-light: var(--skill-4-light);
+  --color-xlight: var(--skill-4-xlight);
 }
 
 [data-field=field-5] {
-  --color: var(--skill-3);
+  --color-dark: var(--skill-5-dark);
+  --color: var(--skill-5);
+  --color-light: var(--skill-5-light);
+  --color-xlight: var(--skill-5-xlight);
 }
 
 #site-header {
@@ -119,6 +141,18 @@ body {
   display: flex;
   justify-content: space-between;
   margin-bottom: 4px;
+}
+.skills-tree .item .count {
+  display: none;
+}
+.skills-tree .item .icon {
+  display: none;
+}
+.skills-tree .item:hover {
+  background-color: var(--color-xlight);
+}
+.skills-tree .has-child > .item .icon {
+  display: block;
 }
 .skills-tree .field__item .name {
   text-transform: uppercase;

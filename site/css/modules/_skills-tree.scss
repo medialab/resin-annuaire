@@ -26,6 +26,21 @@
         display: flex;
         justify-content: space-between;
         margin-bottom: 4px;
+
+
+        .count{ display: none; }
+
+        .icon{ display: none; }
+
+    
+
+        &:hover{
+            background-color: var(--color-xlight);
+        }
+    }
+
+    .has-child > .item{
+        .icon{ display: block; }
     }
 
     .field__item .name{

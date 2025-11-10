@@ -1,0 +1,37 @@
+body {
+
+    --skill-1-dark: #7b556f;
+    --skill-1: #a06f90;
+    --skill-1-light: #e4c5d8;
+    --skill-1-xlight: #f3e3ed;
+    
+    --skill-2-dark: #5c8437;
+    --skill-2: #78ab48;
+    --skill-2-light: #c3e5a1;
+    --skill-2-xlight: #e3f3ce;
+    
+    --skill-3-dark: #d4ae2d;
+    --skill-3: #ffd85c;
+    --skill-3-light: #fff2bd;
+    --skill-3-xlight: #fff9dc;
+    
+    --skill-4-dark: #cc7b89;
+    --skill-4: #f39aa8;
+    --skill-4-light: #fde0e4;
+    --skill-4-xlight: #fff0f2;
+    
+    --skill-5-dark: #005663;
+    --skill-5: #00788a;
+    --skill-5-light: #7ed0d9;
+    --skill-5-xlight: #b8e9ef;
+    ;
+}
+
+@for $i from 1 through 5 {
+    [data-field="field-#{$i}"] {
+      --color-dark: var(--skill-#{$i}-dark);
+      --color: var(--skill-#{$i});
+      --color-light: var(--skill-#{$i}-light);
+      --color-xlight: var(--skill-#{$i}-xlight);
+    }
+  }

@@ -2,30 +2,46 @@
   <!-- <h2>Arbre de compétences</h2> -->
   <ul class="level-1 is-open">
     {% for category in categories %}
-    <li class="field__container" data-path="{{ category.path }}" data-field="field-{{ loop.index }}">
+    {% set hasChildren = false %}
+    {% for subcategory in subcategories %}
+      {% if subcategory.path.startsWith(category.path) %}
+        {% set hasChildren = true %}
+      {% endif %}
+    {% endfor %}
 
-      <div class="item field__item">
+    <li class="field__container{% if hasChildren %} has-child{% endif %}" data-path="{{ category.path }}" data-field="field-{{ loop.index }}">
+
+      <div class="item field__item" data-count="{{ category.count }}">
         <span class="name">{{ category.label }}</span>
         <span class="count">{{ category.count }}</span>
+        <span class="icon">&gt;</span>
       </div>
     
       <ul class="level-2 is-collapsed">
         {% for subcategory in subcategories %}
         {% if subcategory.path.startsWith(category.path) %}
+        {% set hasChildren = false %}
+        {% for subsubcategory in subsubcategories %}
+          {% if subsubcategory.path.startsWith(subcategory.path) %}
+            {% set hasChildren = true %}
+          {% endif %}
+        {% endfor %}
 
-        <li class="skill__container" data-path="{{ subcategory.path }}">
-          <div class="item skill__item">
+        <li class="skill__container{% if hasChildren %} has-child{% endif %}" data-path="{{ subcategory.path }}">
+          <div class="item skill__item" data-count="{{ subcategory.count }}">
             <span class="name">{{ subcategory.label }}</span>
             <span class="count">{{ subcategory.count }}</span>
+            <span class="icon">&gt;</span>
           </div>
 
           <ul class="level-3 is-collapsed">
             {% for subsubcategory in subsubcategories %}
             {% if subsubcategory.path.startsWith(subcategory.path) %}
             <li class="detail__container" data-path="{{ subsubcategory.path }}">
-              <div class="item detail__item">
+              <div class="item detail__item" data-count="{{ subsubcategory.count }}">
                 <span class="name">{{ subsubcategory.label }}</span>
                 <span class="count">{{ subsubcategory.count }}</span>
+                <span class="icon">&gt;</span>
               </div>
             </li>
             {% endif %}
