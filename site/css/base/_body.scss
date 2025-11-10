@@ -16,6 +16,15 @@ body{
     font-size: var(--font-size);
 
     color: var(--color-txt);
-    background-color: var(--color-bg)
+    background-color: var(--color-bg);
+
+    padding: 30px;
 }
 
+
+
+[data-field="field-1"]{ --color: var(--skill-4); }
+[data-field="field-2"]{ --color: var(--skill-2); }
+[data-field="field-3"]{ --color: var(--skill-5); }
+[data-field="field-4"]{ --color: var(--skill-1); }
+[data-field="field-5"]{ --color: var(--skill-3); }

@@ -1,0 +1,46 @@
+.skills-tree{
+    max-width: 400px;
+    font-family: var(--mono);
+    font-weight: var(--fw-mono);
+    ul {
+        list-style: none;
+    
+
+        ul{
+            margin-left: 2em;
+        }
+    }
+
+    .is-collapsed {
+        display: none;
+    }
+
+    .is-open{
+        display: block;
+    }
+
+
+    .item{
+        border: 1px solid var(--color);
+        padding: 2px 1ch;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 4px;
+    }
+
+    .field__item .name{
+        text-transform: uppercase;
+
+    }
+
+    // .field-item{
+    //     display: grid;
+    //     grid-template-columns: 1fr 2fr;
+    // }
+
+
+    // .skill-item{
+    //     display: grid;
+    //     grid-template-columns: 1fr 2fr;
+    // }
+}

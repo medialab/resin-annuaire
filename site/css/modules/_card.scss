@@ -1,0 +1,41 @@
+.card{
+
+    margin-bottom: 4em;
+
+    .tooltip{ 
+        display: none;
+    }
+    .card-image{
+        max-width: 100px;
+
+        img{
+            width: 100%;
+        }
+    }
+
+    .member-skills{
+        ul{
+            margin-left: 2em;
+        }
+    }
+
+
+
+    h2{
+        font-family: 'Edgar';
+        font-weight: 500;
+        font-style: italic;
+        color: var(--color-600);
+        font-size: 2em;
+
+        a{
+            text-decoration: none;
+        }
+    }
+
+    .p__institution{
+        font-family: var(--mono);
+        font-weight: var(--fw-mono);
+        margin-bottom: 0.5em;
+    }
+}

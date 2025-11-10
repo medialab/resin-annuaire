@@ -12,12 +12,7 @@ const SEARCH_STATE = {
 };
 
 let MEMBERS = null;
-
-const $searchInput = document.querySelector(".input");
-const $grid = document.querySelector(".cards-wrapper");
-const $skillsToggle = document.querySelector("#skills-toggle");
-const $searchTable = document.querySelector(".search-table");
-const $container = document.querySelector(".container");
+let $searchInput, $grid, $skillsToggle, $searchTable, $container;
 
 function updateSearchResults() {
   const searchResults = searchPeople(
@@ -84,6 +79,14 @@ function searchPeople(members, query, selectedSkill) {
 
 loadJSON(function (data) {
   MEMBERS = data;
+
+  // Initialize DOM selectors
+  $searchInput = document.querySelector(".input");
+  $grid = document.querySelector(".cards-wrapper");
+  $skillsToggle = document.querySelector("#skills-toggle");
+  $searchTable = document.querySelector(".search-table");
+  $container = document.querySelector(".container");
+
   $skillsToggle.addEventListener("click", () => {
     if (SEARCH_STATE.skillsToggled) {
       $searchTable.style.display = "none";

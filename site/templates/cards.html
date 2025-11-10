@@ -1,7 +1,10 @@
 <div class="cards-wrapper">
   {% for item in items %}
-  <a href="{{ item.slug }}" class="card">
+
+  
+  <div class="card">
     <div class="inner-card">
+      
       <div class="card-image">
         {% if item.imageFilePath %}
         <img class="card-photo" src="{{ item.imageFilePath }}" />
@@ -21,16 +24,58 @@
           {% endfor %}
         </div>
       </div>
+
       <div class="card-text">
-        <h5 class="member-name">{{ item.firstName }} {{ item.lastName }}</h5>
-        <h6 class="institution">{{ item.organization }}</h6>
-        <p>
+
+        <h2 class="member-name"><a href="{{ item.slug }}">{{ item.firstName }} {{ item.lastName }}</a></h2>
+        <p class="p__institution">{{ item.organization }}</p>
+        <p class="p__short-bio">
           {% if item.shortBio %} {{ item.shortBio }} {% else %}
           {{item.lastSkills}} {% endif %}
         </p>
+
+        <div class="member-skills">
+          <ul class="level-1">
+            {% for fieldId, field in item.structuredSkills %}
+            <li class="field__container">
+              <div class="field__item">
+                <span class="name">{{ field.label }}</span>
+              </div>
+
+              {% if field.skills %}
+              <ul class="level-2">
+                {% for skillId, skill in field.skills %}
+                <li class="skill__container">
+                  <div class="skill__item">
+                    <span class="name">{{ skill.label }}</span>
+                  </div>
+
+                  {% if skill.details.length > 0 %}
+                  <ul class="level-3">
+                    {% for detail in skill.details %}
+                    <li class="detail__container">
+                      <div class="detail__item">
+                        <span class="name">{{ detail.label }}</span>
+                      </div>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
+                </li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+
       </div>
+
+      <a class="link-block" href="{{ item.slug }}"></a>
     </div>
-  </a>
+  </div>
+
   {% else %}
   <div>Pas de résultat</div>
   {% endfor %}

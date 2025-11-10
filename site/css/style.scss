@@ -1,6 +1,10 @@
 @charset "UTF-8";
-@import "../fonts/GeistMono/stylesheet.css";
-@import "../fonts/Edgar/stylesheet.css";
 @import "base/responsive";
 @import "base/var";
 @import "base/body";
+
+
+
+@import "modules/site-header";
+@import "modules/skills-tree";
+@import "modules/card";

@@ -5,30 +5,30 @@
     <link rel="stylesheet" href="/css/style.css" />
     <title>{% block title %} Annuaire RésIn {% endblock %}</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="stylesheet" href="/fonts/Edgar/stylesheet.css">
+    <link rel="stylesheet" href="/fonts/GeistMono/stylesheet.css">
   </head>
   <body>
-    <div class="container">
-      <nav class="navbar">
-        <a href="/" id="home">
-          <img
-            class="main-logo"
-            src="/assets/images/logo-resin.png"
-            alt="Logo du projet ResIn"
-          />
+
+    <header id="site-header">
+      <h1 id="site-title">
+        <a href="/" aria-label="Retour à l’accueil">
+          {% include "resin-logo.svg" %}
+          <span style="display: none;">RésIn, Réseau d’ingénieur·es</span>
         </a>
-        <ul class="nav-links">
+      </h1>
+      <nav id="site-nav">
+        <ul >
           <li><a href="projet">À propos</a></li>
           <li><a href="s-inscrire">Créer son profil</a></li>
         </ul>
       </nav>
+    </header>
+
+    
+    <main>
       {% block body %}{% endblock %} {% include "footer.html" %}
-    </div>
+    </main>
     {% block scripts %}{% endblock %}
   </body>
 </html>

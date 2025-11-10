@@ -1,0 +1,32 @@
+#site-header{
+    // display: none;
+    background-color: var(--color-bg);
+
+
+    svg{
+        max-width: 300px;
+    }
+
+   
+}
+
+
+#site-nav{
+    font-family: var(--mono);
+    font-weight: var(--fw-mono);
+    text-transform: uppercase;
+
+    ul{ 
+        display: flex;
+        gap: 2ch;
+        list-style-type: none;
+    }
+
+    a{
+        text-decoration: none;
+    }
+}
+
+
+
+.search-container{}

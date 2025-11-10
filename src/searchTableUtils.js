@@ -19,6 +19,7 @@ function findCategoryMetadata(idToLabel, members, palette) {
         label: obj.label,
         path: obj.path.join("/") + "/",
         height: memberCounts[skillId],
+        count: memberCounts[skillId],
         color: palette[idToLabel[obj.path[0]].label],
       });
     }

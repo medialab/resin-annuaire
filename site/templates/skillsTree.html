@@ -1,19 +1,32 @@
 <div class="skills-tree">
-  <h2>Arbre de compétences</h2>
-  <ul class="level-1">
+  <!-- <h2>Arbre de compétences</h2> -->
+  <ul class="level-1 is-open">
     {% for category in categories %}
-    <li class="field-item" data-path="{{ category.path }}">
-      <span class="field">{{ category.label }}</span>
-      <ul class="level-2">
+    <li class="field__container" data-path="{{ category.path }}" data-field="field-{{ loop.index }}">
+
+      <div class="item field__item">
+        <span class="name">{{ category.label }}</span>
+        <span class="count">{{ category.count }}</span>
+      </div>
+    
+      <ul class="level-2 is-collapsed">
         {% for subcategory in subcategories %}
         {% if subcategory.path.startsWith(category.path) %}
-        <li class="skill-item" data-path="{{ subcategory.path }}">
-          <span class="skill">{{ subcategory.label }}</span>
-          <ul class="level-3">
+
+        <li class="skill__container" data-path="{{ subcategory.path }}">
+          <div class="item skill__item">
+            <span class="name">{{ subcategory.label }}</span>
+            <span class="count">{{ subcategory.count }}</span>
+          </div>
+
+          <ul class="level-3 is-collapsed">
             {% for subsubcategory in subsubcategories %}
             {% if subsubcategory.path.startsWith(subcategory.path) %}
-            <li class="detail-item" data-path="{{ subsubcategory.path }}">
-              <span class="detail">{{ subsubcategory.label }}</span>
+            <li class="detail__container" data-path="{{ subsubcategory.path }}">
+              <div class="item detail__item">
+                <span class="name">{{ subsubcategory.label }}</span>
+                <span class="count">{{ subsubcategory.count }}</span>
+              </div>
             </li>
             {% endif %}
             {% endfor %}
