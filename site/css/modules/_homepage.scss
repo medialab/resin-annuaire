@@ -1,17 +1,25 @@
 main{
     position: relative;
-    padding: var(--padding-body);
+    padding-top: calc(var(--padding-body)*2);
+    padding-left: calc(var(--padding-body)*3);
+    margin-top: var(--header-h);
 }
 
 #section__skills-tree{
     width: calc(100vw - var(--padding-body)*2);
     position: fixed; 
     left: var(--padding-body);
-    top: calc(var(--header-h) + var(--padding-body));
+    top: var(--header-h);
+    padding-top: calc(var(--padding-body)*2);
     height: calc(100vh - var(--header-h) - var(--padding-body));
     overflow: scroll;
     padding-right: var(--padding-body);
     padding-bottom: 20vh;
+    z-index: 8000;
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
     
 
     #skills-tree__nav{
@@ -26,5 +34,44 @@ main{
 
 #section__cards{
     margin-left: var(--tree-w);
-    display: none;
+    padding-left: var(--padding-body);
+    // display: none;
+
+
+    .cards-wrapper{
+        display: grid;
+       grid-template-columns: 1fr 1fr;
+       column-gap: 2em;
+       position: relative;
+       top: -100vh;
+    }
+
+    position: relative;
+
+    .hidden-div{
+        width: 100%;
+        height: 100vh;
+        background-color: var(--color-bg);
+        opacity: 0.9;
+        position: sticky;
+        top: 0;
+        left: 0;
+        z-index: 100;
+    }
+
+}
+
+body{
+
+    .hidden-div{
+        display: none;
+    }
+
+}
+
+body.graph-view{
+    overflow: hidden;
+    .hidden-div{
+        display: block;
+    }
 }

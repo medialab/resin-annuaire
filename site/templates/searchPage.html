@@ -1,5 +1,4 @@
 {% extends "main.html" %} {% block body %}
-<main>
   <section id="section__search">
     <form>
       <div class="search-line">
@@ -68,9 +67,12 @@
   </section>
 
   <section id="section__cards">
+    <div class="hidden-div"></div>
     {% include "cards.html" %}
+   
   </section>
-</main>
+
+  
 {% endblock %} 
 {% block scripts %}
 <script type="text/javascript" src="js/search.js"></script>

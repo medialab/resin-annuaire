@@ -1,10 +1,11 @@
+@charset "UTF-8";
 :root {
   --font: "Edgar", Arial, sans-serif;
   --mono: "Geist Mono", monospace;
   --fw-mono: 500;
   --fs-small: 9px;
   --font-size: 12px;
-  --fs-medium: 18px;
+  --fs-medium: 16px;
   --fs-big: 24px;
   --leading-tight: 1.15;
   --leading-normal: 1.5;
@@ -22,7 +23,7 @@
   --tree-item-h: 24px;
   --tree-indent: 24px;
   --padding-body: 18px;
-  --header-h: 60px;
+  --header-h: 80px;
   --block-graph: 12px;
 }
 
@@ -114,18 +115,26 @@ body {
 
 #site-header {
   background-color: var(--color-bg);
-  width: 100%;
+  height: var(--header-h);
+  width: 100vw;
   display: flex;
   justify-content: space-between;
+  padding: 0 var(--padding-body);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  border-bottom: 1px solid var(--color-100);
 }
 #site-header svg {
-  width: 140px;
+  height: calc(var(--header-h) - 10px);
 }
 
 #site-nav {
   font-family: var(--mono);
   font-weight: var(--fw-mono);
   text-transform: uppercase;
+  display: none;
 }
 #site-nav ul {
   display: flex;
@@ -179,36 +188,36 @@ body {
 #skills-tree .item .name {
   flex-grow: 3;
   white-space: nowrap;
+  display: flex;
+  cursor: pointer;
 }
 #skills-tree .item .item__checkbox {
   display: none;
 }
-#skills-tree .item .item__label {
-  width: 10px;
-  height: 10px;
-  background-color: var(--color-200);
-  border-radius: 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
+#skills-tree .item .name::before {
+  content: "✔";
+  display: block;
+  padding-right: 1ch;
   color: transparent;
 }
-#skills-tree .item .item__checkbox:checked + .item__label {
-  background-color: var(--color-400);
+#skills-tree .item .item__checkbox:checked + .name::before {
   color: var(--color-txt) !important;
 }
 #skills-tree .item .count {
   display: none;
 }
 #skills-tree .item .btn__toggle {
-  width: 1.5ch;
+  width: 3ch;
   font-size: 1.2em;
   line-height: 1;
   align-items: center;
   justify-content: center;
   font-family: var(--mono);
   font-weight: var(--fw-mono);
+  cursor: pointer;
+}
+#skills-tree .item:hover {
+  background-color: var(--color-100);
 }
 #skills-tree .skill__item {
   width: calc(var(--tree-w) - var(--tree-indent));
@@ -222,7 +231,6 @@ body {
   text-transform: uppercase;
 }
 #skills-tree .item__graph {
-  display: flex;
   flex-wrap: wrap;
   gap: 2px;
   position: absolute;
@@ -242,8 +250,10 @@ body {
 
 #skills-tree__nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  align-items: center;
   margin-bottom: calc(var(--tree-item-h) * 0.5);
+  gap: 6px;
 }
 #skills-tree__nav .toggle-all {
   color: var(--color-50);
@@ -319,17 +329,49 @@ body {
   display: inline;
 }
 
+body #section__skills-tree {
+  width: calc(var(--tree-w) + var(--padding-body) * 1);
+}
+body .item__graph {
+  display: none;
+}
+
+body.graph-view #section__skills-tree {
+  width: 100vw;
+}
+body.graph-view .item__graph {
+  display: flex;
+}
+
 .card {
   margin-bottom: 4em;
+  max-width: 400px;
+}
+.card .inner-card {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  padding-top: var(--padding-body);
+}
+.card .title {
+  grid-column: 2;
+  grid-row: 1;
+}
+.card .p__short-bio {
+  grid-column: 2;
 }
 .card .tooltip {
   display: none;
 }
 .card .card-image {
-  max-width: 100px;
+  max-width: 80px;
+  grid-column: 1;
+  grid-row: 1/3;
 }
 .card .card-image img {
-  width: 100%;
+  width: 70px;
+}
+.card .member-skills {
+  display: none;
 }
 .card .member-skills ul {
   margin-left: 2em;
@@ -356,18 +398,25 @@ body {
 
 main {
   position: relative;
-  padding: var(--padding-body);
+  padding-top: calc(var(--padding-body) * 2);
+  padding-left: calc(var(--padding-body) * 3);
+  margin-top: var(--header-h);
 }
 
 #section__skills-tree {
   width: calc(100vw - var(--padding-body) * 2);
   position: fixed;
   left: var(--padding-body);
-  top: calc(var(--header-h) + var(--padding-body));
+  top: var(--header-h);
+  padding-top: calc(var(--padding-body) * 2);
   height: calc(100vh - var(--header-h) - var(--padding-body));
   overflow: scroll;
   padding-right: var(--padding-body);
   padding-bottom: 20vh;
+  z-index: 8000;
+}
+#section__skills-tree ::-webkit-scrollbar {
+  display: none;
 }
 #section__skills-tree #skills-tree__nav {
   width: var(--tree-w);
@@ -376,5 +425,35 @@ main {
 
 #section__cards {
   margin-left: var(--tree-w);
+  padding-left: var(--padding-body);
+  position: relative;
+}
+#section__cards .cards-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  -moz-column-gap: 2em;
+       column-gap: 2em;
+  position: relative;
+  top: -100vh;
+}
+#section__cards .hidden-div {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--color-bg);
+  opacity: 0.9;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+body .hidden-div {
   display: none;
+}
+
+body.graph-view {
+  overflow: hidden;
+}
+body.graph-view .hidden-div {
+  display: block;
 }/*# sourceMappingURL=style.css.map */

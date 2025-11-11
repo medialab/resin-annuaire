@@ -2,6 +2,7 @@
 document.addEventListener("DOMContentLoaded", function() {
   const skillsTree = document.querySelector("#skills-tree");
   const toggleAllButton = document.querySelector(".toggle-all");
+  const toggleGraphButton = document.querySelector("#toggle-graph");
   const countNumber = document.querySelector(".count-number");
 
   if (!skillsTree) return;
@@ -45,13 +46,13 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  // Toggle individuel : clic sur un item
+  // Toggle individuel : clic sur le bouton toggle
   skillsTree.addEventListener("click", function(event) {
-    const item = event.target.closest(".item");
-    if (!item) return;
+    const toggleButton = event.target.closest(".btn__toggle");
+    if (!toggleButton) return;
 
     // Find the direct child list (level-2 or level-3)
-    const parentLi = item.closest("li");
+    const parentLi = toggleButton.closest("li");
     const childList = parentLi.querySelector(":scope > ul");
 
     if (childList) {
@@ -134,6 +135,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
       // Mettre à jour le compteur
       updateVisibleCount();
+    });
+  }
+
+  // Toggle graph view : afficher/masquer les graphiques
+  if (toggleGraphButton) {
+    toggleGraphButton.addEventListener("click", function() {
+      document.body.classList.toggle("graph-view");
     });
   }
 

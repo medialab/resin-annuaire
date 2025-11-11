@@ -25,10 +25,13 @@
         </div>
       </div>
 
-      <div class="card-text">
+      <div class="title">
 
         <h2 class="member-name"><a href="{{ item.slug }}">{{ item.firstName }} {{ item.lastName }}</a></h2>
         <p class="p__institution">{{ item.organization }}</p>
+
+      </div>
+      
         <p class="p__short-bio">
           {% if item.shortBio %} {{ item.shortBio }} {% else %}
           {{item.lastSkills}} {% endif %}
@@ -70,7 +73,7 @@
           </ul>
         </div>
 
-      </div>
+     
 
       <a class="link-block" href="{{ item.slug }}"></a>
     </div>

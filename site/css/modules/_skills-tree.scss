@@ -36,47 +36,52 @@
                 transform-origin: center center;
                 background-color: var(--color-bg);
 
+
         }
 
         .name{
             flex-grow: 3;
             white-space: nowrap;
+            display: flex;
+            cursor: pointer;
         }
         .item__checkbox{
             display: none;
         }
+    
 
-        .item__label{
-            width: 10px;
-            height: 10px;
-            background-color: var(--color-200);
-            border-radius: 2px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 1;
+        .name::before{
+            content: "✔";
+            display: block;
+            padding-right: 1ch;
             color: transparent;
+            // width: 10px;
+            // height: var(--tree-item-h);
+            // background-color: var(--color);
+
         }
 
-        .item__checkbox:checked + .item__label{
-            background-color: var(--color-400);
+     
+        .item__checkbox:checked + .name::before{
             color: var(--color-txt)!important;
         }
         .count{ display: none; }
 
         .btn__toggle{
-            width: 1.5ch;
+            width: 3ch;
             font-size: 1.2em;
             line-height: 1;
             align-items: center;
             justify-content: center;
             font-family: var(--mono);
             font-weight: var(--fw-mono);
+            cursor: pointer;
+            // background-color: red;
         }
       
         cursor: pointer;
         &:hover{
-            // background-color: var(--color-xlight);
+            background-color: var(--color-100);
         }
     }
 
@@ -95,7 +100,6 @@
     }
 
     .item__graph{
-        display: flex;
         flex-wrap: wrap;
         gap: 2px;
         position: absolute;
@@ -122,8 +126,10 @@
 
 #skills-tree__nav{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+    align-items: center;
     margin-bottom: calc(var(--tree-item-h)*0.5);
+    gap: 6px;
     .toggle-all{
         color: var(--color-50);
         background-color: var(--color-600);
@@ -214,4 +220,29 @@
         .when-expanded{ display: inline; }
     }
 }
+
+
+
+
+body {
+
+    #section__skills-tree{
+        width: calc(var(--tree-w) + var(--padding-body)*1);
+    }
+  
+    .item__graph{
+        display: none;
+    }
+}
+
+body.graph-view {
+    #section__skills-tree{
+        width: 100vw;
+    }
+
+    .item__graph {
+        display: flex;
+      }
+  }
+
 

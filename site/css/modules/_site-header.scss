@@ -1,14 +1,26 @@
 #site-header{
     // display: none;
     background-color: var(--color-bg);
-    width: 100%;
+    height: var(--header-h);
+    width: 100vw;
     display: flex;
     // align-items: flex-end;
     justify-content: space-between;
+    padding: 0 var(--padding-body);
+    
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+
+    border-bottom: 1px solid var(--color-100);
+
+    
 
 
     svg{
-        width: 140px;
+        height: calc(var(--header-h) - 10px);
+        
     }
 
    
@@ -19,6 +31,7 @@
     font-family: var(--mono);
     font-weight: var(--fw-mono);
     text-transform: uppercase;
+    display: none;
 
     ul{ 
         display: flex;
