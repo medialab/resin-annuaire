@@ -68,3 +68,14 @@
         display: block;
     }
 }
+
+
+#skills-tree__nav .is-all-open{
+    .all-closed{ display: none; }
+    .all-open{ display: inline; }
+}
+
+#skills-tree__nav .is-all-closed{
+    .all-closed{ display: inline; }
+    .all-open{ display: none; }
+}

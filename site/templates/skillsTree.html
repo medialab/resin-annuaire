@@ -1,4 +1,13 @@
-<div class="skills-tree">
+<nav id="skills-tree__nav">
+  <button class="is-all-open">
+    <span class="icon all-open">+</span>
+    <span class="icon all-closed">-</span>
+    <span class="text all-open">Tout déplier</span>
+    <span class="text all-closed">Tout replier</span>
+  </button>
+</nav>
+
+<div class="skills-tree is-all-closed">
   <!-- <h2>Arbre de compétences</h2> -->
   <ul class="level-1 is-open">
     {% for category in categories %}

@@ -102,7 +102,6 @@ body {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  background-color: red;
 }
 #site-header svg {
   width: 140px;
@@ -180,6 +179,20 @@ body {
   display: block;
 }
 
+#skills-tree__nav .is-all-open .all-closed {
+  display: none;
+}
+#skills-tree__nav .is-all-open .all-open {
+  display: inline;
+}
+
+#skills-tree__nav .is-all-closed .all-closed {
+  display: inline;
+}
+#skills-tree__nav .is-all-closed .all-open {
+  display: none;
+}
+
 .card {
   margin-bottom: 4em;
 }
@@ -209,4 +222,8 @@ body {
   font-family: var(--mono);
   font-weight: var(--fw-mono);
   margin-bottom: 0.5em;
+}
+
+#section__search {
+  display: none;
 }/*# sourceMappingURL=style.css.map */
