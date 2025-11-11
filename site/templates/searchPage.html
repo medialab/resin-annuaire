@@ -1,66 +1,76 @@
 {% extends "main.html" %} {% block body %}
-<div class="search-container">
-  <div class="search-line">
-    <div class="input-div">
-      <input
-        type="text"
-        id="searchBar"
-        class="input"
-        placeholder="Rechercher"
-      />
-    </div>
-    <div class="button-div">
-      <button id="skills-toggle" type="button">+</button>
-    </div>
-  </div>
-  <ul id="selected-skills"></ul>
-  <div class="search-table" style="display: none">
-    <ul>
-      {% for category in categories %}
-      <li
-        style="height:{{ category.height }}px; background-color:{{category.color}}"
-        data-path="{{ category.path }}"
-        class="skills-selector"
-        title="{{ category.label }}"
-      >
-        <div class="text-with-ellipsis">
-          {% if category.height > 15 %} {{ category.label }} {% endif %}
+<main>
+  <section id="section__search">
+    <form>
+      <div class="search-line">
+        <div class="input-div">
+          <input
+            type="text"
+            id="searchBar"
+            class="input"
+            placeholder="Rechercher"
+          />
         </div>
-      </li>
-      {% endfor %}
-    </ul>
-    <ul>
-      {% for category in subcategories %}
-      <li
-        style="height:{{ category.height }}px; background-color:{{category.color}}"
-        data-path="{{ category.path }}"
-        class="skills-selector"
-        title="{{ category.label }}"
-      >
-        <div class="text-with-ellipsis">
-          {% if category.height > 15 %} {{ category.label }} {% endif %}
+        <div class="button-div">
+          <button id="skills-toggle" type="button">+</button>
         </div>
-      </li>
-      {% endfor %}
-    </ul>
-    <ul>
-      {% for category in subsubcategories %}
-      <li
-        style="height:{{ category.height }}px; background-color:{{category.color}}"
-        data-path="{{ category.path }}"
-        class="skills-selector"
-        title="{{ category.label }}"
-      >
-        <div class="text-with-ellipsis">
-          {% if category.height > 15 %} {{ category.label }} {% endif %}
-        </div>
-      </li>
-      {% endfor %}
-    </ul>
-  </div>
-  {% include "skillsTree.html" %}
-  {% include "cards.html" %}
-</div>
+      </div>
+      <ul id="selected-skills"></ul>
+      <div class="search-table" style="display: none">
+        <ul>
+          {% for category in categories %}
+          <li
+            style="height:{{ category.height }}px; background-color:{{category.color}}"
+            data-path="{{ category.path }}"
+            class="skills-selector"
+            title="{{ category.label }}"
+          >
+            <div class="text-with-ellipsis">
+              {% if category.height > 15 %} {{ category.label }} {% endif %}
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+        <ul>
+          {% for category in subcategories %}
+          <li
+            style="height:{{ category.height }}px; background-color:{{category.color}}"
+            data-path="{{ category.path }}"
+            class="skills-selector"
+            title="{{ category.label }}"
+          >
+            <div class="text-with-ellipsis">
+              {% if category.height > 15 %} {{ category.label }} {% endif %}
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+        <ul>
+          {% for category in subsubcategories %}
+          <li
+            style="height:{{ category.height }}px; background-color:{{category.color}}"
+            data-path="{{ category.path }}"
+            class="skills-selector"
+            title="{{ category.label }}"
+          >
+            <div class="text-with-ellipsis">
+              {% if category.height > 15 %} {{ category.label }} {% endif %}
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </form>
+  </section>
+
+  <section id="section__skills-tree">
+    {% include "skillsTree.html" %}
+  </section>
+
+  <section id="section__cards">
+    {% include "cards.html" %}
+  </section>
+</main>
 {% endblock %} 
 {% block scripts %}
 <script type="text/javascript" src="js/search.js"></script>
