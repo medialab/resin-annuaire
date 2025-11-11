@@ -1,0 +1,30 @@
+main{
+    position: relative;
+    padding: var(--padding-body);
+}
+
+#section__skills-tree{
+    width: calc(100vw - var(--padding-body)*2);
+    position: fixed; 
+    left: var(--padding-body);
+    top: calc(var(--header-h) + var(--padding-body));
+    height: calc(100vh - var(--header-h) - var(--padding-body));
+    overflow: scroll;
+    padding-right: var(--padding-body);
+    padding-bottom: 20vh;
+    
+
+    #skills-tree__nav, #skills-tree .item{
+        width: var(--tree-w);
+        position: relative;
+    }
+
+
+   
+}
+
+
+#section__cards{
+    margin-left: var(--tree-w);
+    display: none;
+}

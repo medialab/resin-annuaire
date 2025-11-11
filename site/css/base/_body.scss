@@ -10,6 +10,13 @@ a {
     color: currentColor;
 }
 
+button{
+    border: none;
+    outline: none;
+    color: var(--color-txt);
+    background: none;
+}
+
 body{
     font-family: var(--font);
     line-height: var(--leading-normal);
@@ -18,7 +25,6 @@ body{
     color: var(--color-txt);
     background-color: var(--color-bg);
 
-    padding: 30px;
 }
 
 

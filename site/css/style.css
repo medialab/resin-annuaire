@@ -10,11 +10,19 @@
   --leading-normal: 1.5;
   --leading-loose: 1.75;
   --color-50: #F5F3F0;
-  --color-600: #CC3400;
+  --color-100: #F0E6E1;
+  --color-200: #E5CFC5;
+  --color-300: #D9A998;
   --color-400: #F26B4F;
+  --color-600: #CC3400;
   --color-800: #7A1E21;
   --color-txt: var(--color-800);
   --color-bg: var(--color-50);
+  --tree-w: 360px;
+  --tree-item-h: 24px;
+  --padding-body: 18px;
+  --header-h: 60px;
+  --block-graph: 12px;
 }
 
 * {
@@ -30,13 +38,19 @@ a {
   color: currentColor;
 }
 
+button {
+  border: none;
+  outline: none;
+  color: var(--color-txt);
+  background: none;
+}
+
 body {
   font-family: var(--font);
   line-height: var(--leading-normal);
   font-size: var(--font-size);
   color: var(--color-txt);
   background-color: var(--color-bg);
-  padding: 30px;
 }
 
 body {
@@ -121,30 +135,38 @@ body {
   text-decoration: none;
 }
 
+#site-footer {
+  display: none;
+}
 #site-footer svg {
   width: 100px;
 }
 
-.skills-tree {
-  max-width: 400px;
+#skills-tree {
   font-family: var(--mono);
   font-weight: var(--fw-mono);
 }
-.skills-tree ul {
+#skills-tree ul {
   list-style: none;
 }
-.skills-tree ul ul {
+#skills-tree ul ul {
   margin-left: 2em;
 }
-.skills-tree .item {
+#skills-tree ul, #skills-tree li {
+  position: relative;
+}
+#skills-tree .item {
+  height: var(--tree-item-h);
   border: 1px solid var(--color);
   padding: 2px 1ch;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 4px;
   position: relative;
+  cursor: pointer;
 }
-.skills-tree .item::after {
+#skills-tree .item::after {
   content: "";
   position: absolute;
   bottom: -2px;
@@ -156,41 +178,107 @@ body {
   transform-origin: center center;
   background-color: var(--color-bg);
 }
-.skills-tree .item .count {
+#skills-tree .item .count {
   display: none;
 }
-.skills-tree .item .icon {
-  display: none;
+#skills-tree .item .btn__toggle {
+  width: 1.5ch;
+  font-size: 1.2em;
+  line-height: 1;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
 }
-.skills-tree .item:hover {
+#skills-tree .item:hover {
   background-color: var(--color-xlight);
 }
-.skills-tree .has-child > .item .icon {
-  display: block;
-}
-.skills-tree .field__item .name {
+#skills-tree .field__item .name {
   text-transform: uppercase;
 }
+#skills-tree .item__graph {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  position: absolute;
+  left: calc(var(--tree-w) + var(--padding-body) * 0.5);
+  top: calc((var(--tree-item-h) - var(--block-graph)) * 0.5);
+}
+#skills-tree .item__graph .info {
+  font-size: var(--fs-small);
+  color: var(--color-200);
+  padding-left: 1ch;
+}
+#skills-tree .item__graph .block {
+  height: var(--block-graph);
+  width: var(--block-graph);
+  background-color: var(--color);
+}
 
-.skills-tree .is-collapsed {
+#skills-tree__nav {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: calc(var(--tree-item-h) * 0.5);
+}
+#skills-tree__nav .toggle-all {
+  color: var(--color-50);
+  background-color: var(--color-600);
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
+  height: 18px;
+  border-radius: 9px;
+  padding: 0 1ch;
+  display: flex;
+  align-items: center;
+  gap: 1ch;
+  cursor: pointer;
+}
+#skills-tree__nav .toggle-all:hover {
+  background-color: var(--color-400);
+}
+#skills-tree__nav #toggle-graph {
+  position: absolute;
+  right: -30px;
+}
+#skills-tree__nav #toggle-graph svg {
+  width: 20px;
+  fill: var(--color-600);
+  transform: rotate(90deg);
+}
+
+#skills-tree ul.is-collapsed {
   display: none;
 }
-.skills-tree .is-open {
+#skills-tree ul.is-open {
   display: block;
 }
-
-#skills-tree__nav .is-all-open .all-closed {
+#skills-tree .btn__toggle {
   display: none;
 }
-#skills-tree__nav .is-all-open .all-open {
+#skills-tree .has-child > .item .btn__toggle {
+  display: flex;
+}
+#skills-tree .has-child > .item .btn__toggle .when-expanded {
+  display: none;
+}
+#skills-tree li.is-open > .item .btn__toggle .when-expanded {
   display: inline;
+}
+#skills-tree li.is-open > .item .btn__toggle .when-collapsed {
+  display: none;
 }
 
-#skills-tree__nav .is-all-closed .all-closed {
+#skills-tree__nav .toggle-all.is-collapsed .when-expanded {
+  display: none;
+}
+#skills-tree__nav .toggle-all.is-collapsed .when-collapsed {
   display: inline;
 }
-#skills-tree__nav .is-all-closed .all-open {
+#skills-tree__nav .toggle-all.is-expanded .when-collapsed {
   display: none;
+}
+#skills-tree__nav .toggle-all.is-expanded .when-expanded {
+  display: inline;
 }
 
 .card {
@@ -225,5 +313,30 @@ body {
 }
 
 #section__search {
+  display: none;
+}
+
+main {
+  position: relative;
+  padding: var(--padding-body);
+}
+
+#section__skills-tree {
+  width: calc(100vw - var(--padding-body) * 2);
+  position: fixed;
+  left: var(--padding-body);
+  top: calc(var(--header-h) + var(--padding-body));
+  height: calc(100vh - var(--header-h) - var(--padding-body));
+  overflow: scroll;
+  padding-right: var(--padding-body);
+  padding-bottom: 20vh;
+}
+#section__skills-tree #skills-tree__nav, #section__skills-tree #skills-tree .item {
+  width: var(--tree-w);
+  position: relative;
+}
+
+#section__cards {
+  margin-left: var(--tree-w);
   display: none;
 }/*# sourceMappingURL=style.css.map */

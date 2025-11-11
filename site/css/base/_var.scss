@@ -13,12 +13,22 @@
     --leading-loose: 1.75;
 
     --color-50: #F5F3F0;
-    --color-600: #CC3400;
+    --color-100: #F0E6E1;
+    --color-200: #E5CFC5;
+    --color-300: #D9A998;
     --color-400: #F26B4F;
+    --color-600: #CC3400;
     --color-800: #7A1E21;
 
     --color-txt: var(--color-800);
     --color-bg: var(--color-50);
+
+    --tree-w: 360px;
+    --tree-item-h: 24px;
+    --padding-body: 18px;
+
+    --header-h: 60px;
+    --block-graph: 12px;
 
     
 }

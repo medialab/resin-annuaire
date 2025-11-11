@@ -1,13 +1,20 @@
 <nav id="skills-tree__nav">
-  <button class="is-all-open">
-    <span class="icon all-open">+</span>
-    <span class="icon all-closed">-</span>
-    <span class="text all-open">Tout déplier</span>
-    <span class="text all-closed">Tout replier</span>
+  <button class="toggle-all is-collapsed">
+    <span class="icon when-collapsed">+</span>
+    <span class="icon when-expanded">-</span>
+    <span class="text when-collapsed">Tout déplier</span>
+    <span class="text when-expanded">Tout replier</span>
+  </button>
+  <!-- <span class="visible-count">
+    <span class="count-number">0</span> compétences
+  </span> -->
+
+  <button id="toggle-graph">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7 19h-6v-11h6v11zm8-18h-6v18h6v-18zm8 11h-6v7h6v-7zm1 9h-24v2h24v-2z"/></svg>
   </button>
 </nav>
 
-<div class="skills-tree is-all-closed">
+<div id="skills-tree" class="is-collapsed">
   <!-- <h2>Arbre de compétences</h2> -->
   <ul class="level-1 is-open">
     {% for category in categories %}
@@ -23,7 +30,14 @@
       <div class="item field__item" data-count="{{ category.count }}">
         <span class="name">{{ category.label }}</span>
         <span class="count">{{ category.count }}</span>
-        <span class="icon">&gt;</span>
+        <button class="btn__toggle"><span class="when-collapsed">+</span><span class="when-expanded">-</span></button>
+      </div>
+
+      <div class="item__graph">
+        {% for i in range(category.count) %}
+        <div class="block"></div>
+        {% endfor %}
+        <div class="info">{{ category.count }} ingénieur·es</div>
       </div>
     
       <ul class="level-2 is-collapsed">
@@ -40,7 +54,15 @@
           <div class="item skill__item" data-count="{{ subcategory.count }}">
             <span class="name">{{ subcategory.label }}</span>
             <span class="count">{{ subcategory.count }}</span>
-            <span class="icon">&gt;</span>
+            <button class="btn__toggle"><span class="when-collapsed">+</span><span class="when-expanded">-</span></button>
+          </div>
+
+
+          <div class="item__graph">
+            {% for i in range(subcategory.count) %}
+            <div class="block"></div>
+            {% endfor %}
+            <div class="info">{{ subcategory.count }}</div>
           </div>
 
           <ul class="level-3 is-collapsed">
@@ -50,7 +72,14 @@
               <div class="item detail__item" data-count="{{ subsubcategory.count }}">
                 <span class="name">{{ subsubcategory.label }}</span>
                 <span class="count">{{ subsubcategory.count }}</span>
-                <span class="icon">&gt;</span>
+                <button class="btn__toggle"><span class="when-collapsed">+</span><span class="when-expanded">-</span></button>
+              </div>
+
+              <div class="item__graph">
+                {% for i in range(subsubcategory.count) %}
+                <div class="block"></div>
+                {% endfor %}
+                <div class="info">{{ subsubcategory.count }}</div>
               </div>
             </li>
             {% endif %}
