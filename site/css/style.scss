@@ -2,9 +2,9 @@
 @import "base/responsive";
 @import "base/var";
 @import "base/body";
+@import "base/colors-skills";
 
-
-@import "modules/color-skills";
 @import "modules/site-header";
+@import "modules/site-footer";
 @import "modules/skills-tree";
 @import "modules/card";

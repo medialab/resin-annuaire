@@ -99,9 +99,13 @@ body {
 
 #site-header {
   background-color: var(--color-bg);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background-color: red;
 }
 #site-header svg {
-  max-width: 300px;
+  width: 140px;
 }
 
 #site-nav {
@@ -118,6 +122,10 @@ body {
   text-decoration: none;
 }
 
+#site-footer svg {
+  width: 100px;
+}
+
 .skills-tree {
   max-width: 400px;
   font-family: var(--mono);
@@ -129,18 +137,25 @@ body {
 .skills-tree ul ul {
   margin-left: 2em;
 }
-.skills-tree .is-collapsed {
-  display: none;
-}
-.skills-tree .is-open {
-  display: block;
-}
 .skills-tree .item {
   border: 1px solid var(--color);
   padding: 2px 1ch;
   display: flex;
   justify-content: space-between;
   margin-bottom: 4px;
+  position: relative;
+}
+.skills-tree .item::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: -3px;
+  width: 4px;
+  height: 8px;
+  border-right: 1px solid var(--color);
+  transform: translate(1px, 1px) rotate(-45deg);
+  transform-origin: center center;
+  background-color: var(--color-bg);
 }
 .skills-tree .item .count {
   display: none;
@@ -156,6 +171,13 @@ body {
 }
 .skills-tree .field__item .name {
   text-transform: uppercase;
+}
+
+.skills-tree .is-collapsed {
+  display: none;
+}
+.skills-tree .is-open {
+  display: block;
 }
 
 .card {

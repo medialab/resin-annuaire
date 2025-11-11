@@ -4,20 +4,12 @@
     font-weight: var(--fw-mono);
     ul {
         list-style: none;
-    
-
         ul{
             margin-left: 2em;
         }
     }
 
-    .is-collapsed {
-        display: none;
-    }
-
-    .is-open{
-        display: block;
-    }
+  
 
 
     .item{
@@ -26,13 +18,26 @@
         display: flex;
         justify-content: space-between;
         margin-bottom: 4px;
+        position: relative;
+
+        &::after{
+                content: "";
+                position: absolute;
+                bottom: -2px;
+                left: -3px;
+                width: 4px;
+                height: 8px;
+                // border-bottom: 2px solid black;
+                border-right: 1px solid var(--color);
+                transform: translate(1px, 1px) rotate(-45deg);
+                transform-origin: center center;
+                background-color: var(--color-bg);
+            
+        }
 
 
         .count{ display: none; }
-
         .icon{ display: none; }
-
-    
 
         &:hover{
             background-color: var(--color-xlight);
@@ -45,17 +50,21 @@
 
     .field__item .name{
         text-transform: uppercase;
-
     }
 
-    // .field-item{
-    //     display: grid;
-    //     grid-template-columns: 1fr 2fr;
-    // }
+    
+}
 
 
-    // .skill-item{
-    //     display: grid;
-    //     grid-template-columns: 1fr 2fr;
-    // }
+
+// Interactions
+
+.skills-tree{
+    .is-collapsed {
+        display: none;
+    }
+    
+    .is-open{
+        display: block;
+    }
 }
