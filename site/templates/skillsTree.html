@@ -1,4 +1,11 @@
 <nav id="skills-tree__nav">
+
+
+  <button id="toggle-graph">
+    <!-- Vue graph -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7 19h-6v-11h6v11zm8-18h-6v18h6v-18zm8 11h-6v7h6v-7zm1 9h-24v2h24v-2z"/></svg>
+  </button>
+
   <button class="toggle-all is-collapsed">
     <span class="icon when-collapsed">+</span>
     <span class="icon when-expanded">-</span>
@@ -9,9 +16,6 @@
     <span class="count-number">0</span> compétences
   </span> -->
 
-  <button id="toggle-graph">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7 19h-6v-11h6v11zm8-18h-6v18h6v-18zm8 11h-6v7h6v-7zm1 9h-24v2h24v-2z"/></svg>
-  </button>
 </nav>
 
 <div id="skills-tree" class="is-collapsed">
@@ -28,6 +32,8 @@
     <li class="field__container{% if hasChildren %} has-child{% endif %}" data-path="{{ category.path }}" data-field="field-{{ loop.index }}">
 
       <div class="item field__item" data-count="{{ category.count }}">
+        <input class="item__checkbox" id="cb-{{ category.path }}" type="checkbox" value="{{ category.path }}">
+        <label class="item__label" for="cb-{{ category.path }}">✔</label>
         <span class="name">{{ category.label }}</span>
         <span class="count">{{ category.count }}</span>
         <button class="btn__toggle"><span class="when-collapsed">+</span><span class="when-expanded">-</span></button>
@@ -52,6 +58,8 @@
 
         <li class="skill__container{% if hasChildren %} has-child{% endif %}" data-path="{{ subcategory.path }}">
           <div class="item skill__item" data-count="{{ subcategory.count }}">
+            <input class="item__checkbox" id="cb-{{ subcategory.path }}" type="checkbox" value="{{ subcategory.path }}">
+            <label class="item__label" for="cb-{{ subcategory.path }}">✔</label>
             <span class="name">{{ subcategory.label }}</span>
             <span class="count">{{ subcategory.count }}</span>
             <button class="btn__toggle"><span class="when-collapsed">+</span><span class="when-expanded">-</span></button>
@@ -70,6 +78,8 @@
             {% if subsubcategory.path.startsWith(subcategory.path) %}
             <li class="detail__container" data-path="{{ subsubcategory.path }}">
               <div class="item detail__item" data-count="{{ subsubcategory.count }}">
+                <input class="item__checkbox" id="cb-{{ subsubcategory.path }}" type="checkbox" value="{{ subsubcategory.path }}">
+                <label class="item__label" for="cb-{{ subsubcategory.path }}">✔</label>
                 <span class="name">{{ subsubcategory.label }}</span>
                 <span class="count">{{ subsubcategory.count }}</span>
                 <button class="btn__toggle"><span class="when-collapsed">+</span><span class="when-expanded">-</span></button>
