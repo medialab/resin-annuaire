@@ -1,3 +1,31 @@
 #section__search{
-    display: none;
+
+   
+
+    svg{
+        width: 24px;
+        height: 24px;
+        fill: var(--accent-soft);
+    }
+
+    form{
+        display: flex;
+        align-items: center;
+        gap: 2ch;
+    }
+    
+    input{
+        height: 60px;
+        // width: 100%;
+        flex-grow: 3;
+        border: none;
+        background: none;
+        &::placeholder{
+            color: var(--accent-soft);
+            font-family: var(--mono);
+            font-weight: var(--fw-mono);
+            font-size: var(--fs-medium);
+
+        }
+    }
 }

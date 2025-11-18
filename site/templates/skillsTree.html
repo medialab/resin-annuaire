@@ -7,10 +7,10 @@
   </button>
 
   <button class="toggle-all is-collapsed">
-    <span class="icon when-collapsed">+</span>
-    <span class="icon when-expanded">-</span>
     <span class="text when-collapsed">Tout déplier</span>
     <span class="text when-expanded">Tout replier</span>
+    <span class="icon when-collapsed">+</span>
+    <span class="icon when-expanded">-</span>
   </button>
   <!-- <span class="visible-count">
     <span class="count-number">0</span> compétences
@@ -33,7 +33,10 @@
 
       <div class="item field__item" data-count="{{ category.count }}">
         <input class="item__checkbox" id="cb-{{ category.path }}" type="checkbox" value="{{ category.path }}">
-        <label class="name" for="cb-{{ category.path }}">{{ category.label }}</label>
+        <label for="cb-{{ category.path }}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9 22l-10-10.598 2.798-2.859 7.149 7.473 13.144-14.016 2.909 2.806z"/></svg>
+        </label>
+        <span class="name" >{{ category.label }}</span>
         <span class="count">{{ category.count }}</span>
         <button class="btn__toggle"><span class="when-collapsed">+</span><span class="when-expanded">-</span></button>
       </div>
@@ -57,8 +60,11 @@
 
         <li class="skill__container{% if hasChildren %} has-child{% endif %}" data-path="{{ subcategory.path }}">
           <div class="item skill__item" data-count="{{ subcategory.count }}">
-            <input class="item__checkbox" id="cb-{{ subcategory.path }}" type="checkbox" value="{{ subcategory.path }}">
-            <label class="name" for="cb-{{ subcategory.path }}">{{ subcategory.label }}</label>
+            <input class="item__checkbox" id="cb-{{ subcategory.path }}" type="checkbox" value="{{ subcategory.path }}">  
+            <label for="cb-{{ subcategory.path }}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9 22l-10-10.598 2.798-2.859 7.149 7.473 13.144-14.016 2.909 2.806z"/></svg>
+            </label>
+            <span class="name">{{ subcategory.label }}</span>
             <span class="count">{{ subcategory.count }}</span>
             <button class="btn__toggle"><span class="when-collapsed">+</span><span class="when-expanded">-</span></button>
           </div>
@@ -77,7 +83,10 @@
             <li class="detail__container" data-path="{{ subsubcategory.path }}">
               <div class="item detail__item" data-count="{{ subsubcategory.count }}">
                 <input class="item__checkbox" id="cb-{{ subsubcategory.path }}" type="checkbox" value="{{ subsubcategory.path }}">
-                <label class="name" for="cb-{{ subsubcategory.path }}">{{ subsubcategory.label }}</label>
+                <label for="cb-{{ subsubcategory.path }}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9 22l-10-10.598 2.798-2.859 7.149 7.473 13.144-14.016 2.909 2.806z"/></svg>
+                </label>
+                <span class="name">{{ subsubcategory.label }}</span>
                 <span class="count">{{ subsubcategory.count }}</span>
                 <button class="btn__toggle"><span class="when-collapsed">+</span><span class="when-expanded">-</span></button>
               </div>

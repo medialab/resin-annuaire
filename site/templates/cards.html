@@ -41,7 +41,7 @@
           <ul class="level-1">
             {% for fieldId, field in item.structuredSkills %}
             <li class="field__container">
-              <div class="field__item">
+              <div class="field__item item">
                 <span class="name">{{ field.label }}</span>
               </div>
 
@@ -49,7 +49,7 @@
               <ul class="level-2">
                 {% for skillId, skill in field.skills %}
                 <li class="skill__container">
-                  <div class="skill__item">
+                  <div class="skill__item item">
                     <span class="name">{{ skill.label }}</span>
                   </div>
 
@@ -57,7 +57,7 @@
                   <ul class="level-3">
                     {% for detail in skill.details %}
                     <li class="detail__container">
-                      <div class="detail__item">
+                      <div class="detail__item item">
                         <span class="name">{{ detail.label }}</span>
                       </div>
                     </li>

@@ -3,10 +3,10 @@
     --mono: 'Geist Mono', monospace;
     --fw-mono: 500;
 
-    --fs-small: 9px;
-    --font-size: 12px;
-    --fs-medium: 16px;
-    --fs-big: 24px;
+    --fs-small: 12px;
+    --font-size: 14px;
+    --fs-medium: 20px;
+    --fs-big: 26px;
 
     --leading-tight: 1.15;
     --leading-normal: 1.5;
@@ -19,8 +19,41 @@
     --color-400: #F26B4F;
     --color-600: #CC3400;
     --color-800: #7A1E21;
+    --color-800: #3E0D0F;
 
-    --color-txt: var(--color-800);
+
+
+    // --color-50: #F5F3F0;
+    // --color-100: #F0E9E4;
+    // --color-200: #E8D8D0;
+    // --color-300: #DFC6B8;
+    // --color-400: #D4A892;
+    // --color-500: #C88A6C;
+    // --color-600: #B86C46;
+    // --color-700: #9E5030;
+    // --color-800: #84341A;
+    // --color-900: #6A2510;
+    // --color-950: #3E0D0F;
+
+
+
+    --color-100: #F0E6E1;
+    --color-200: #E8D4CB;
+    --color-300: #DEB9A8;
+    --color-400: #D49F85;
+    --color-600: #C86E40;
+    --color-700: #B0552D;
+    --color-800: #9A3E22;
+    --color-900: #7A2A18;
+    --color-950: #3E0D0F;
+
+
+
+    --accent-soft: #c83200;
+    --accent: #ef5515;
+
+
+    --color-txt: var(--color-950);
     --color-bg: var(--color-50);
 
     --tree-w: 360px;
@@ -31,5 +64,8 @@
     --header-h: 80px;
     --block-graph: 12px;
 
+    --border-light: 1px solid var(--color-100);
+
     
+    --radius-small: 4px;
 }
