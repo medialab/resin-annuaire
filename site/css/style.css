@@ -174,6 +174,10 @@ body {
   list-style: none;
   position: relative;
 }
+#skills-tree ul.level-1 {
+  border-top: 1px solid var(--color-100);
+  padding-top: 4px;
+}
 #skills-tree .item {
   --size-label: 14px;
   width: var(--tree-w);
@@ -193,6 +197,9 @@ body {
   white-space: nowrap;
   cursor: pointer;
   padding-left: 1ch;
+  text-overflow: ellipsis;
+  max-width: calc(100% - var(--size-label) * 2);
+  overflow: hidden;
 }
 #skills-tree .item .item__checkbox {
   display: none;
@@ -239,6 +246,10 @@ body {
   justify-content: flex-end;
   cursor: pointer;
 }
+#skills-tree .item .btn__toggle svg {
+  width: 9px;
+  fill: var(--color-800);
+}
 #skills-tree .skill__item {
   width: calc(var(--tree-w) - var(--tree-indent));
   margin-left: var(--tree-indent);
@@ -256,7 +267,7 @@ body {
 }
 #skills-tree .item__graph .info {
   font-size: var(--fs-small);
-  color: var(--color-300);
+  color: var(--color-400);
   padding-left: 1ch;
   background-color: var(--color-bg);
 }

@@ -9,6 +9,10 @@
     }
 
 
+    ul.level-1{
+        border-top: 1px solid var(--color-100);
+        padding-top: 4px;
+    }
 
     .item{
         --size-label: 14px;
@@ -31,6 +35,9 @@
             white-space: nowrap;
             cursor: pointer;
             padding-left: 1ch;
+            text-overflow: ellipsis;
+            max-width: calc(100% - var(--size-label)*2);
+            overflow: hidden;
         }
         .item__checkbox{
             display: none;
@@ -38,8 +45,6 @@
     
 
 
-
-     
 
         .item__checkbox + label{
 
@@ -91,6 +96,11 @@
      
             cursor: pointer;
             // background-color: red;
+
+            svg{
+                width: 9px;
+                fill: var(--color-800);
+            }
         }
       
         cursor: pointer;
@@ -120,7 +130,7 @@
 
         .info{
             font-size: var(--fs-small);
-            color: var( --color-300);
+            color: var(--color-400);
             padding-left: 1ch;
             background-color: var(--color-bg);
         }
