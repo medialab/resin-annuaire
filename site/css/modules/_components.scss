@@ -3,3 +3,20 @@
     scrollbar-width: none;     /* Firefox */
     &::-webkit-scrollbar { display: none;  /* Chrome, Safari, Opera */ }
 }
+
+
+
+@mixin button-small(){
+    color: var(--color-900);
+    border: 1px solid var(--color-200);
+    font-family: var(--mono);
+    font-weight: var(--fw-mono);
+    font-size: var(--fs-small);
+    height: 20px;
+    border-radius: var(--radius-small);
+    padding: 0 1ch;
+    display: flex;
+    align-items: center;
+    gap: 1ch;
+    cursor: pointer;
+}

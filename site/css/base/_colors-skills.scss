@@ -40,6 +40,8 @@ body {
 
 }
 
+
+
 @for $i from 1 through 5 {
     [data-field="field-#{$i}"] {
       --color-dark: var(--skill-#{$i}-dark);
@@ -48,3 +50,44 @@ body {
       --color-xlight: var(--skill-#{$i}-xlight);
     }
   }
+
+
+
+
+[data-field="analyse"]{
+  --color-dark: var(--skill-1-dark);
+  --color: var(--skill-1);
+  --color-light: var(--skill-1-light);
+  --color-xlight: var(--skill-1-xlight);
+}
+
+
+[data-field="collecte"]{
+  --color-dark: var(--skill-2-dark);
+  --color: var(--skill-2);
+  --color-light: var(--skill-2-light);
+  --color-xlight: var(--skill-2-xlight);
+}
+
+[data-field="curation"]{
+  --color-dark: var(--skill-3-dark);
+      --color: var(--skill-3);
+      --color-light: var(--skill-3-light);
+      --color-xlight: var(--skill-3-xlight);
+}
+
+
+[data-field="outils"]{
+  --color-dark: var(--skill-4-dark);
+  --color: var(--skill-4);
+  --color-light: var(--skill-4-light);
+  --color-xlight: var(--skill-4-xlight);
+}
+
+
+[data-field="valorisation"]{
+  --color-dark: var(--skill-5-dark);
+  --color: var(--skill-5);
+  --color-light: var(--skill-5-light);
+  --color-xlight: var(--skill-5-xlight);
+}

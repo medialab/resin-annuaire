@@ -6,37 +6,25 @@ main{
 }
 
 #section__skills-tree{
-    width: calc(100vw - var(--padding-body)*2);
+    width: calc(var(--tree-w) + var(--padding-body));
+    border-right: var(--border-light);
     position: fixed; 
     left: var(--padding-body);
     top: var(--header-h);
-    padding-top: calc(var(--padding-body)*2);
     height: calc(100vh - var(--header-h) - var(--padding-body));
     overflow: scroll;
     @include hide-scroll();
-    padding-right: var(--padding-body);
     padding-bottom: 20vh;
-    z-index: 8000;
-
- 
-
-
-    
-
-    #skills-tree__nav{
-        width: var(--tree-w);
-        position: relative;
-    }
-
+    z-index: 1000;
+    background-color: var(--color-bg-alpha);
 
    
 }
 
 
 #section__search{
-    margin-left: var(--tree-w);
-    padding-left: calc(var(--padding-body)*4);
-    border-left: var(--border-light);
+    margin-left: calc(var(--tree-w) - var(--padding-body));
+    padding-left: calc(var(--padding-body)*2);
     border-bottom: var(--border-light);
     background-color: var(--color-bg);
     height: 60px;
@@ -47,17 +35,16 @@ main{
 }
 
 #section__cards{
-    margin-left: var(--tree-w);
-    padding-left: calc(var(--padding-body)*4);
-    padding-top: calc(var(--padding-body)*4);
-    border-left: var(--border-light);
-    // display: none;
+    margin-left: calc(var(--tree-w) - var(--padding-body));
+    padding: calc(var(--padding-body)*2) calc(var(--padding-body)*3);
+    padding-bottom: 30vh;
 
 
     .cards-wrapper{
         display: grid;
        grid-template-columns: 1fr 1fr;
-       column-gap: 2em;
+       column-gap: calc(var(--padding-body)*1);
+       row-gap: calc(var(--padding-body)*1);
        position: relative;
     //    top: -80vh;
     }
@@ -69,28 +56,4 @@ main{
 }
 
 
-.hidden-div{
-    width: 100%;
-    height: 100vh;
-    background-color: var(--color-bg);
-    opacity: 0.95;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 100;
-}
 
-body{
-
-    .hidden-div{
-        display: none;
-    }
-
-}
-
-body.graph-view{
-    overflow: hidden;
-    .hidden-div{
-        display: block!important;
-    }
-}

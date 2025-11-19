@@ -20,12 +20,22 @@
         flex-grow: 3;
         border: none;
         background: none;
+
+        color: var(--accent-soft);
+        font-family: var(--mono);
+        font-weight: var(--fw-mono);
+        font-size: var(--fs-medium);
+
         &::placeholder{
             color: var(--accent-soft);
             font-family: var(--mono);
             font-weight: var(--fw-mono);
             font-size: var(--fs-medium);
 
+        }
+
+        &:focus{
+            outline: none;
         }
     }
 }

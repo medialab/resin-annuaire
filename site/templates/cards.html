@@ -6,25 +6,39 @@
     <div class="inner-card">
       
       <div class="card-image">
-        {% if item.imageFilePath %}
-        <img class="card-photo" src="{{ item.imageFilePath }}" />
+        {% if item.avatar %}
+        <img class="card-photo" src="{{ item.avatar | replace('http://', 'https://') }}" />
+        {% else %}
+        <div class="avatar-default">
+          {% include "resin-logo-icon.svg" %}
+        </div>
         {% endif %}
-        <img
+        <!-- <img
           src="{{ item.donutFilePath }}"
           alt="Avatar de {{ item.firstName }} {{ item.lastName }}"
-        />
-        <div class="tooltip">
+        />-->
+        <!-- <div class="tooltips">
           {% for skill in item.firstSkills %}
           <div class="skill-group">
-            <div
-              class="skill-color {{ skill | replace(' ', '-') | lower }}"
-            ></div>
+            <div class="skill-color {{ skill | replace(' ', '-') | lower }}" data-field="{{ skill | replace(' ', '-') | lower }}"></div>
             <div class="skill-text">{{skill}}</div>
           </div>
           {% endfor %}
-        </div>
+        </div>  -->
+
       </div>
 
+
+      <div class="skills-container">
+        {% for skill in item.firstSkills %}
+        <div class="skill-group" data-field="{{ skill | replace(' ', '-') | lower }}">
+          <div class="skill-color"></div>
+          <div class="skill-text">{{skill}}</div>
+        </div>
+        {% endfor %}
+      </div> 
+
+      
       <div class="title">
 
         <h2 class="member-name"><a href="{{ item.slug }}">{{ item.firstName }} {{ item.lastName }}</a></h2>
@@ -32,43 +46,16 @@
 
       </div>
       
+      {% if item.shortBio %}
         <p class="p__short-bio">
-          {% if item.shortBio %} {{ item.shortBio }} {% else %}
-          {{item.lastSkills}} {% endif %}
+          {{ item.shortBio }} 
         </p>
+        {% endif %}
 
         <div class="member-skills">
-          <ul class="level-1">
-            {% for fieldId, field in item.structuredSkills %}
-            <li class="field__container">
-              <div class="field__item item">
-                <span class="name">{{ field.label }}</span>
-              </div>
-
-              {% if field.skills %}
-              <ul class="level-2">
-                {% for skillId, skill in field.skills %}
-                <li class="skill__container">
-                  <div class="skill__item item">
-                    <span class="name">{{ skill.label }}</span>
-                  </div>
-
-                  {% if skill.details.length > 0 %}
-                  <ul class="level-3">
-                    {% for detail in skill.details %}
-                    <li class="detail__container">
-                      <div class="detail__item item">
-                        <span class="name">{{ detail.label }}</span>
-                      </div>
-                    </li>
-                    {% endfor %}
-                  </ul>
-                  {% endif %}
-                </li>
-                {% endfor %}
-              </ul>
-              {% endif %}
-            </li>
+          <ul>
+            {% for skill in item.lastSkills.split(', ') %}
+            <li>{{ skill }}</li>
             {% endfor %}
           </ul>
         </div>

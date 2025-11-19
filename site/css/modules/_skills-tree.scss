@@ -2,26 +2,29 @@
   
     font-family: var(--mono);
     font-weight: var(--fw-mono);
+    padding-right: var(--padding-body);
+    padding-top: 0;
 
     ul, li{
         list-style: none;
         position: relative;
+        width: 100%;
+    }
+
+    ul{
+        width: 100%;
     }
 
 
-    ul.level-1{
-        border-top: 1px solid var(--color-100);
-        padding-top: 4px;
-    }
 
     .item{
         --size-label: 14px;
+        // width: calc(var(--tree-w) - var(--padding-body));
         width: var(--tree-w);
         height: var(--tree-item-h);
-        border-bottom: 1px solid var(--color-100);
+        border-bottom: var(--border-light);
         padding: 2px 0px;
         display: flex;
-
 
         justify-content: flex-start;
         align-items: center;
@@ -33,7 +36,6 @@
         .name{
             flex-grow: 3;
             white-space: nowrap;
-            cursor: pointer;
             padding-left: 1ch;
             text-overflow: ellipsis;
             max-width: calc(100% - var(--size-label)*2);
@@ -47,8 +49,6 @@
 
 
         .item__checkbox + label{
-
-       
             height: var(--size-label);
             width: var(--size-label);
             background-color: var(--color-100);
@@ -84,6 +84,7 @@
             width: calc(100% - var(--size-label)*1.5);
             position: absolute;
             left: calc(var(--size-label)*1.5);
+            padding-right: 7px;
 
             font-size: 1.2em;
             line-height: 1;
@@ -101,12 +102,11 @@
                 width: 9px;
                 fill: var(--color-800);
             }
+            &:hover svg{
+                fill: var(--color);
+            }
         }
       
-        cursor: pointer;
-        // &:hover{
-        //     background-color: var(--color-100);
-        // }
     }
 
     .skill__item{
@@ -122,11 +122,15 @@
 
 
     .item__graph{
-        flex-wrap: wrap;
-        gap: 2px;
+        // flex-wrap: wrap;
+        gap: 3px;
         position: absolute;
-        left: calc(var(--tree-w) + var(--padding-body)*0.5);
+        align-items: center;
+        left: calc(var(--tree-w) + var(--padding-body)*2);
         top: calc((var(--tree-item-h) - var(--block-graph))*0.5);
+        height: calc(var(--block-graph)*1.5);
+    
+
 
         .info{
             font-size: var(--fs-small);
@@ -141,6 +145,7 @@
         height: var(--block-graph);
         width: var(--block-graph);
         background-color: var(--color);
+        border-radius: var(--radius-small);
     }
 
 
@@ -148,25 +153,29 @@
 
 
 #skills-tree__nav{
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-bottom: calc(var(--tree-item-h)*0.5);
-    gap: 6px;
+    border-bottom: 1px solid transparent;
+       
+    position: sticky!important;
+    top: 0;
+    background-color: var(--color-bg);
+    z-index: 200;
+   
+
+    .container{
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        gap: 6px;
+        width: var(--tree-w);
+        height: 60px;
+        padding-bottom: calc(var(--tree-item-h)*0.5);
+    }
+   
+  
+
 
     .toggle-all, #toggle-graph{
-        color: var(--color-900);
-        border: 1px solid var(--color-200);
-        font-family: var(--mono);
-        font-weight: var(--fw-mono);
-        height: 20px;
-        border-radius: var(--radius-small);
-        padding: 0 1ch;
-        display: flex;
-        align-items: center;
-        gap: 1ch;
-        cursor: pointer;
-        
+        @include button-small();
     }
 
     #toggle-graph{
@@ -177,6 +186,15 @@
             transform: rotate(90deg);
         }
     }
+
+    .toggle-all{
+        svg{
+            position: relative;
+            top: 3px;
+            width: 9px;
+            fill: var(--color-800);
+        }
+    }
 }
 
 
@@ -184,6 +202,7 @@
 
 // Lists
 #skills-tree{
+    padding-top: 4px;
     ul.is-collapsed {
         display: none;
     }
@@ -230,24 +249,46 @@
 
 
 body {
-
-    #section__skills-tree{
-        width: calc(var(--tree-w) + var(--padding-body)*1);
-    }
-  
     .item__graph{
         display: none;
+        opacity: 0;
     }
 }
 
+
+#section__skills-tree{
+    transition: width .3s ease-in;
+}
+
+.item__graph{
+    transition: opacity .3s ease-in 1s;
+}
+
 body.graph-view {
+    overflow: hidden;
+
+    // #section__search,
+    // #section__cards{
+    //     opacity: 0.05;
+    //     z-index: 0;
+    // }
+
+
     #section__skills-tree{
         width: 100vw;
+        transition: width .3s ease-out;
+    }
+    #skills-tree__nav{
+        border-bottom: var(--border-light)
     }
 
     .item__graph {
         display: flex;
-      }
+        opacity: 1;
+        transition: opacity .3s ease-out 1s;
+    }
   }
+
+
 
 

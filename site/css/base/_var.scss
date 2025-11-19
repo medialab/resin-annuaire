@@ -1,18 +1,19 @@
 :root{
-    --font: 'Edgar', Arial, sans-serif;
+    --font: 'Edgar', Georgia, sans-serif;
     --mono: 'Geist Mono', monospace;
     --fw-mono: 500;
 
     --fs-small: 12px;
     --font-size: 14px;
     --fs-medium: 20px;
-    --fs-big: 26px;
+    --fs-big: 24px;
 
     --leading-tight: 1.15;
     --leading-normal: 1.5;
     --leading-loose: 1.75;
 
     --color-50: #F5F3F0;
+    --color-50-alpha: #F5F3F0F2;
     --color-100: #F0E6E1;
     --color-200: #E5CFC5;
     --color-300: #D9A998;
@@ -55,6 +56,7 @@
 
     --color-txt: var(--color-950);
     --color-bg: var(--color-50);
+    --color-bg-alpha: var(--color-50-alpha);
 
     --tree-w: 360px;
     --tree-item-h: 24px;
@@ -65,6 +67,8 @@
     --block-graph: 12px;
 
     --border-light: 1px solid var(--color-100);
+
+    --spacing: 12px;
 
     
     --radius-small: 4px;
