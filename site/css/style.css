@@ -37,7 +37,8 @@
   --tree-item-h: 24px;
   --tree-indent: 24px;
   --padding-body: 18px;
-  --header-h: 80px;
+  --header-h: 120px;
+  --header-h-small: 60px;
   --block-graph: 12px;
   --border-light: 1px solid var(--color-100);
   --spacing: 12px;
@@ -172,7 +173,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 var(--padding-body);
+  padding-left: var(--padding-body);
+  padding-right: calc(var(--padding-body) * 3);
   position: fixed;
   top: 0;
   left: 0;
@@ -180,22 +182,62 @@ body {
   border-bottom: var(--border-light);
 }
 #site-header svg {
-  height: calc(var(--header-h) - 16px);
+  height: calc(var(--header-h) - 30px);
 }
 
 #site-nav {
   font-family: var(--mono);
   font-weight: var(--fw-mono);
-  text-transform: uppercase;
-  display: none;
 }
 #site-nav ul {
   display: flex;
-  gap: 2ch;
+  gap: 5ch;
   list-style-type: none;
+  color: var(--color-900);
 }
 #site-nav a {
   text-decoration: none;
+}
+#site-nav a:hover {
+  color: var(--accent);
+}
+
+#site-header {
+  transition: height 0.4s ease-in;
+}
+#site-header svg {
+  transition: height 0.4s ease-in, top 0.2s ease-in;
+}
+#site-header svg #baseline {
+  opacity: 1;
+  transition: opacity 0.2s ease-in;
+}
+#site-header svg #logo-text {
+  transform: translate(0, 0);
+  transition: transform 0.4s ease-in;
+}
+
+#section__search {
+  transition: top 0.4s ease-in;
+}
+
+#section__skills-tree {
+  transition: top 0.4s ease-in, width 0.3s ease-in;
+}
+
+body.is-header-shrinked {
+  --header-h: var(--header-h-small);
+}
+body.is-header-shrinked #site-header svg {
+  height: calc(var(--header-h) - 15px);
+  position: relative;
+  top: 3px;
+}
+body.is-header-shrinked #site-header svg #baseline {
+  opacity: 0 !important;
+}
+body.is-header-shrinked #site-header svg #logo-text {
+  transform: translate(5%, 11%) !important;
 }
 
 #site-footer {
@@ -405,10 +447,6 @@ body {
 body .item__graph {
   display: none;
   opacity: 0;
-}
-
-#section__skills-tree {
-  transition: width 0.3s ease-in;
 }
 
 .item__graph {
@@ -625,11 +663,11 @@ main {
   position: fixed;
   left: var(--padding-body);
   top: var(--header-h);
-  height: calc(100vh - var(--header-h) - var(--padding-body));
+  height: calc(100vh - var(--header-h));
   overflow: scroll;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
-  padding-bottom: 20vh;
+  padding-bottom: calc(var(--padding-body) * 2);
   z-index: 1000;
   background-color: var(--color-bg-alpha);
 }

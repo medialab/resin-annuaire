@@ -29,6 +29,9 @@
     <main>
       {% block body %}{% endblock %} {% include "footer.html" %}
     </main>
-    {% block scripts %}{% endblock %}
+    {% block scripts %}
+    <script type="text/javascript" src="js/search.js"></script>
+    <script type="text/javascript" src="js/header.js"></script>
+    {% endblock %}
   </body>
 </html>

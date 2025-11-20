@@ -11,10 +11,10 @@ main{
     position: fixed; 
     left: var(--padding-body);
     top: var(--header-h);
-    height: calc(100vh - var(--header-h) - var(--padding-body));
+    height: calc(100vh - var(--header-h));
     overflow: scroll;
     @include hide-scroll();
-    padding-bottom: 20vh;
+    padding-bottom: calc(var(--padding-body)*2);
     z-index: 1000;
     background-color: var(--color-bg-alpha);
 

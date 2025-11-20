@@ -1,15 +1,40 @@
 {% extends "main.html" %} {% block body %}
 <div class="member-wrapper">
   <div class="member-container">
+
+
+    <header>
+
+      <!-- {% if member.imageFilePath %}
+      <img class="member-photo" src="{{ member.imageFilePath }}" />
+      {% else %}
+      <div class="avatar-default">
+        {% include "resin-logo-icon.svg" %}
+      </div>
+      {% endif %} -->
+
+
+      <figure class="member-fig">
+        {% if member.avatar %}
+        <img class="member-photo" src="{{ member.avatar | replace('http://', 'https://') }}" />
+        {% else %}
+        <div class="avatar-default">
+          {% include "resin-logo-icon.svg" %}
+        </div>
+        {% endif %}
+      </figure>
+    </header>
+
+
     <div class="member-header">
+      
+      
+      
       <div class="member-image">
         {% if member.imageFilePath %}
         <img class="member-photo" src="{{ member.imageFilePath }}" />
         {% endif %}
-        <img
-          src="{{ member.donutFilePath }}"
-          alt="Avatar de {{ member.firstName }} {{ member.lastName }}"
-        />
+     
       </div>
 
       <div class="member-summary">
@@ -91,6 +116,9 @@
   </div>
 </div>
 
-{% endblock %} {% block scripts %}
+{% endblock %} 
+
+{% block scripts %}
+<script type="text/javascript" src="js/header.js"></script>
 <script type="text/javascript" src="js/edit.js"></script>
 {% endblock %}
