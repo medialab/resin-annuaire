@@ -2,15 +2,10 @@
 
     --size-img: 90px;
 
-
-
-    // padding-bottom: 2em;
-    // margin-bottom: 4em;
-    // max-width: 400px;
-
     .inner-card{
         display: grid;
-        grid-template-columns: 1fr var(--size-img);
+        grid-template-columns: var(--size-img) 1fr ;
+        column-gap: calc(var(--spacing)*0.75);
         height: 100%;
 
         outline: var(--border-light);
@@ -26,21 +21,23 @@
         
     }
  
-    .skills-container{
-        grid-column: 1;
+    .skills-block{
+        grid-column: 2;
         grid-row: 1;
         align-self: end;
         z-index: 100;
         cursor: pointer;
+    
     }
 
     .card-image{
-        grid-column: 2;
+        grid-column: 1;
         grid-row: 1;
         justify-self: end;
+        display: flex;
     }
 
-    .title, .p__short-bio, .member-skills{
+    .title, .p__short-bio, .skills-list{
         grid-column: span 2;
     }
 
@@ -50,31 +47,17 @@
         display: none;
     }
 
-    .skills-container{
-        display: flex;
-        flex-wrap: wrap;
+    .skills-block{
+        @include skills-block();
+        justify-content: flex-end;
         transition: all .3s ease-in;
-        // gap: 3px;
-        width: 100%;
-
-        .skill-group{ 
-            height: 100%;
-            display: flex;
-            align-items: center;
-            gap: 3px;
-            
-        }
+    
         .skill-text{ 
-            // display: none; 
-            // padding-left: 0.5ch;
-            // padding-right: 1ch;
-            font-family: var(--mono);
-            font-weight: var(--fw-mono);
-            font-size: var(--fs-small);
-            color: var(--color);
             max-width: 0;
             transition: max-width .4s ease-in;
             overflow: hidden;
+            position: relative;
+            left: -4px;
             &::before{
                 content: '\00a0';
             }
@@ -82,55 +65,28 @@
                 content: '\00a0\00a0';
             }
         }
-
-        .skill-color{
-            height: var(--block-graph);
-            width: var(--block-graph);
-            background-color: var(--color);
-            border-radius: var(--radius-small);
-        }
-
         &:hover{
+            position: relative;
+            left: 16px;
             .skill-text{
                 max-width: 15ch;
-        }
-
+            }
         }
     }
 
 
     .card-image{
-
+       
+        @include figure();
         img, svg{
             width: var(--size-img);
         }
-
-        img{
-            aspect-ratio: 1/1;
-            object-fit: cover;
-            border-radius: var(--radius-small);
-            border: var(--border-light);
-            filter: contrast(90%);
-        }
-
-        svg path{
-            fill: var(--color-300)!important;
-        }
     }
 
-    .member-skills{
+    .skills-list{
         margin-top: calc(var(--spacing)*3);
         z-index: 100;
-        ul{
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 3px;
-        }
-
-        li{
-            @include button-small();
-        }
+        @include skills-tags();
     }
 
 

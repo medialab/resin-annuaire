@@ -20,3 +20,64 @@
     gap: 1ch;
     cursor: pointer;
 }
+
+
+
+@mixin figure(){
+    img{
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        border-radius: var(--radius-small);
+        border: var(--border-light);
+        filter: contrast(90%);
+    } 
+    svg path{
+        fill: var(--color-300)!important;
+    }
+}
+
+
+
+
+@mixin skills-block(){
+    display: flex;
+    flex-wrap: wrap;
+  
+    width: 100%;
+
+    .skill-group{ 
+        height: 100%;
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        white-space: nowrap;
+    }
+
+    .skill-text{ 
+        font-family: var(--mono);
+        font-weight: var(--fw-mono);
+        font-size: var(--fs-small);
+        color: var(--color);
+      
+    }
+
+    .skill-color{
+        height: var(--block-graph);
+        width: var(--block-graph);
+        background-color: var(--color);
+        border-radius: var(--radius-small);
+    }
+}
+
+
+@mixin skills-tags(){
+    ul{
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3px;
+    }
+    li{
+        @include button-small();
+    }
+}

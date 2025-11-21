@@ -29,7 +29,7 @@
       </div>
 
 
-      <div class="skills-container">
+      <div class="skills-block">
         {% for skill in item.firstSkills %}
         <div class="skill-group" data-field="{{ skill | replace(' ', '-') | lower }}">
           <div class="skill-color"></div>
@@ -52,7 +52,7 @@
         </p>
         {% endif %}
 
-        <div class="member-skills">
+        <div class="skills-list">
           <ul>
             {% for skill in item.lastSkills.split(', ') %}
             <li>{{ skill }}</li>

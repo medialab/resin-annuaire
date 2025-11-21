@@ -1,21 +1,22 @@
 {% extends "main.html" %} {% block body %}
-<div class="member-wrapper">
-  <div class="member-container">
+<div id="member">
 
 
-    <header>
 
-      <!-- {% if member.imageFilePath %}
-      <img class="member-photo" src="{{ member.imageFilePath }}" />
-      {% else %}
-      <div class="avatar-default">
-        {% include "resin-logo-icon.svg" %}
-      </div>
-      {% endif %} -->
+    <header class="member__header">
 
 
-      <figure class="member-fig">
-        {% if member.avatar %}
+
+      <figure>
+
+        <!-- {% if member.imageFilePath %}
+        <img class="member-photo" src="{{ member.imageFilePath }}" />
+        {% else %}
+        <div class="avatar-default">
+          {% include "resin-logo-icon.svg" %}
+        </div>
+        {% endif %} -->
+          {% if member.avatar %}
         <img class="member-photo" src="{{ member.avatar | replace('http://', 'https://') }}" />
         {% else %}
         <div class="avatar-default">
@@ -23,86 +24,154 @@
         </div>
         {% endif %}
       </figure>
+
+
+      <div class="skills-block">
+        {% for skill in member.firstSkills %}
+        <div class="skill-group" data-field="{{ skill | replace(' ', '-') | lower }}">
+          <div class="skill-color"></div>
+          <div class="skill-text">{{skill}}</div>
+        </div>
+        {% endfor %}
+      </div> 
+
+
+      <div class="title-group">
+        <h2>
+          {{ member.firstName }} {{ member.lastName }} 
+          {% if member.pronouns %}<small> ({{member.pronouns}}) </small>{% endif %}
+        </h2>
+        {% if member.organization %}
+        <p class="organization">{{ member.organization }}{% if member.city %}, {{ member.city }}{% endif %}</p>
+        {% endif %}
+      </div>
+
+
+    
+
+      
+      <section class="member__hero">
+
+        {% if member.shortBio %}
+        <p class="short-bio">{{ member.shortBio }}</p>
+        {% endif %}
+  
+  
+        <div class="skills-list">
+          <ul>
+            {% for skill in member.lastSkills.split(', ') %}
+            <li>{{ skill }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </section>
+  
+
+
+
     </header>
 
 
-    <div class="member-header">
-      
-      
-      
-      <div class="member-image">
-        {% if member.imageFilePath %}
-        <img class="member-photo" src="{{ member.imageFilePath }}" />
-        {% endif %}
-     
-      </div>
 
-      <div class="member-summary">
-        <h5 class="member-name">
-          {{ member.firstName }} {{ member.lastName }} {% if member.pronouns
-          %}<span> ({{member.pronouns}}) </span>{% endif %}
-        </h5>
-        {% if member.shortBio %}
-        <p class="short-bio">&laquo; {{ member.shortBio }} &raquo;</p>
-        {% endif %}{% if member.languages|length %}
-        <p>
-          <span class="metadata-title">Langues</span>&nbsp;: {{ member.languages
-          | join(", ") }}
-        </p>
-        {% endif %} {% if member.organization %}
-        <p>
-          <span class="metadata-title">Institution</span>&nbsp;: {{
-          member.organization }}{% if member.city %}, {{ member.city }}{% endif
-          %}
-        </p>
-        {% endif %} {% if member.email %}
-        <div class="contact-line">
-          <button id="contact-button">Contacter</button>
-          <div class="contact-info">{{ member.email | replace("@", "¤")}}</div>
-        </div>
-        {% endif %}
-      </div>
-    </div>
-    <div class="member-long-bio">
-      {% if member.longBio %}
-      <p>{% markdown %} {{ member.longBio }} {% endmarkdown %}</p>
-      {% endif %}
-    </div>
 
-    <p>
-      <span class="form-key">Compétences</span>&nbsp;: {{ member.lastSkills}}
-    </p>
+  
+
+
+    
+
+    <section class="member__details">
+
+
+      {% if member.organization %}
+      <dl class="organization">
+        <dt>Institution</dt>
+        <dd>{{ member.organization }}{% if member.city %}, {{ member.city }}{% endif %}</dd>
+      </dl>
+      {% endif %} 
+
 
     {% if member.title %}
-    <p>
-      <span class="form-key">Fonction / Titre</span>&nbsp;: {{ member.title }}
-    </p>
-    {% endif %} {% if member.education %}
-    <p>
-      <span class="form-key">Formation</span>&nbsp;: {% markdown %} {{
-      member.education }} {% endmarkdown %}
-    </p>
-    {% endif %} {% if member.publications %}
-    <p>
-      <span class="form-key">Publications</span>&nbsp;: {% markdown %} {{
-      member.publications }} {%endmarkdown %}
-    </p>
-    {% endif %} {% if member.activities %}
-    <p>
-      <span class="form-key">Autres activités</span>&nbsp;: {{ member.activities
-      }}
-    </p>
-    {% endif %} {% if member.responsabilities %}
-    <p>
-      <span class="form-key">Responsabilités</span>&nbsp;: {{
-      member.responsabilities }}
-    </p>
-    {% endif %} {% if member.distinctions %}
-    <p>
-      <span class="form-key">Distinctions</span>&nbsp;: {{ member.distinctions
-      }}
-    </p>
+    <dl class="title">
+      <dt>Fonction / Titre</dt>
+      <dd>{{ member.title }}</dd>
+    </dl>
+    {% endif %} 
+
+      {% if member.languages|length %}
+      <dl class="languages">
+        <dt>Langues</dt>
+        <dd>{{ member.languages | join(", ") }}</dd>
+      </dl>
+      {% endif %} 
+
+
+      {% if member.email %}
+      <dl class="contact">
+        <dt>Contacter</dt>
+        <dd>{{ member.email | replace("@", "¤")}}</dd>
+      </dl>
+      {% endif %} 
+
+    </section>
+
+
+    <section class="member__content">
+ 
+      <div class="content-section" id="long-bio">
+        {% if member.longBio %}
+        <h3>Biographie</h3>
+        <div class="text-md">{% markdown %} {{ member.longBio }} {% endmarkdown %}</div>
+        {% endif %}
+      </div>
+
+
+
+    
+    
+    {% if member.education %}
+    <div class="content-section" id="education">
+      <h3>Formation</h3>
+      <div class="text-md">{% markdown %} {{ member.education }} {% endmarkdown %}</div>
+    </div>
+    {% endif %} 
+    
+    
+    
+    
+    {% if member.publications %}
+    <div class="content-section" id="publications">
+      <h3>Publications</h3>
+      <div class="text-md">{% markdown %} {{ member.publications }} {%endmarkdown %}</div>
+    </div>
+    {% endif %} 
+    
+    
+    {% if member.activities %}
+    <div class="content-section" id="activities">
+      <h3>Autres activité</h3>
+      <div class="text-md">{% markdown %} {{ member.activities }} {%endmarkdown %}</div>
+    </div>
+    {% endif %} 
+    
+    
+    
+    {% if member.responsabilities %}
+    <div class="content-section" id="responsabilities">
+      <h3>Responsabilités</h3>
+      <div class="text-md">{% markdown %} {{ member.activities }} {%endmarkdown %}</div>
+    </div>
+    {% endif %} 
+    
+    
+    
+    {% if member.distinctions %}
+    <div class="content-section" id="distinctions">
+      <h3>Distinctions</h3>
+      <div class="text-md">{% markdown %} {{ member.activities }} {%endmarkdown %}</div>
+    </div>
     {% endif %}
+
+    </section>
 
     <button id="edit-button">
       Je suis cette personne, je souhaite modifier mon profil
@@ -113,7 +182,7 @@
       <span class="close">&times;</span>
       <resin-formulaire-edit apiServer="{{ apiUrl }}" />
     </div>
-  </div>
+
 </div>
 
 {% endblock %} 

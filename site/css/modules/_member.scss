@@ -1,0 +1,211 @@
+#member{
+
+
+    .member__header{
+
+
+        figure{
+            @include figure();
+            width: 100%;
+            img, svg{
+                width: 100%;
+            }
+        }
+
+
+        .skills-block{
+            @include skills-block();
+            .skill-text{
+                padding-left: 0.25ch;
+                padding-right: 2ch;
+            }
+            border-bottom: var(--border-light);
+            padding-bottom:  calc(var(--spacing)*0.5);
+        }
+
+
+        .title-group{
+            padding-bottom: calc(var(--spacing)*2);
+            // border-bottom: var(--border-light);
+            margin-bottom: calc(var(--spacing)*2);
+        }
+        h2{
+            font-weight: 500;
+            color: var(--color-900);
+            font-size: var(--fs-xbig);
+            line-height: 1.2;
+            margin-top:  calc(var(--spacing)*2);
+        
+      
+
+            small{
+                font-size: var(--fs-big);
+            }
+          
+        }
+
+        .organization{
+            // font-size: var(--fs-medium);
+            font-weight: 500;
+            color: var(--color-900);
+            padding-top: 2px;
+            line-height: 1.2;
+            max-width: 42ch;
+            margin-top: calc(var(--spacing)*0.5);
+        }
+
+  
+      
+
+    }
+
+    .member__hero{
+        .short-bio{
+            font-size: var(--fs-big);
+            line-height: 1.2;
+            font-style: italic;
+            max-width: 640px;
+            margin-bottom: calc(var(--spacing)*2);
+        }
+    
+    
+    
+        .skills-list{
+            @include skills-tags();
+            max-width: 640px;
+        }
+    }
+
+
+    .member__details{
+        // padding-top:  calc(var(--spacing)*1.5);
+       dl{
+        // border-top: var(--border-light);
+        // border-bottom: var(--border-light);
+        // padding: calc(var(--spacing)*1) 0px;
+        margin-bottom: calc(var(--spacing)*1);
+       }
+       dl + dl{
+        border-top: none;
+       }
+
+       dt{
+        font-family: var(--mono);
+        font-weight: var(--fw-mono);
+        font-size: var(--fs-small);
+        color: var(--color-800);
+       }
+
+       dd{
+        font-size: var(--f/s-medium);
+        // font-weight: 500;
+       }
+    }
+
+
+    .member__content{
+        font-size: var(--fs-medium);
+    }
+
+
+
+    .content-section{
+        margin-bottom: calc(var(--spacing)*5);
+
+        & > h3{
+            font-family: var(--mono);
+            font-weight: var(--fw-mono);
+            color: var(--color-800);
+            font-size: var(--fs-medium);
+            border-bottom: 1px solid var(--color-200);
+            margin-bottom: calc(var(--spacing)*1.5);
+
+        }
+
+        p{
+            margin: calc(var(--spacing)*1) 0;
+        }
+
+
+        ol, li{
+         margin-left: 2ch;
+        }
+
+        ol li{
+            margin-top:  calc(var(--spacing)*2);
+            font-weight: 500;
+        }
+    }
+   
+
+
+
+}
+
+
+// LAYOUT
+
+#member{
+    --fig-w: 240px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding-top: calc(var(--padding-body)*4);
+
+    display: grid;
+    grid-template-columns: var(--fig-w) 1fr;
+    grid-gap: calc(var(--spacing)*3);
+
+    .member__header{
+        grid-column: span 2;
+    }
+
+    // .member__hero{
+    //     margin-bottom: calc(var(--spacing)*4);
+    //     grid-column: span 2;
+    // }
+
+
+
+    .member__header{
+  
+        display: grid;
+        grid-template-columns: var(--fig-w) 2fr ;
+        grid-template-rows: calc(var(--spacing)*2) 1fr;
+        align-content: start;
+        column-gap: calc(var(--spacing)*3);
+        // grid-template-rows: auto auto auto auto 1fr;
+        margin-bottom: calc(var(--spacing)*4);
+
+        min-height: var(--fig-w);
+
+        figure{
+            grid-column: 1;
+            grid-row: 1/4;
+            display: flex;
+            align-self: start;
+        }
+
+        .skills-block{ 
+            grid-row: 1; 
+            grid-column: 2;
+        }
+
+
+
+        .title-group{
+            grid-row: 2;
+            grid-column: 2;
+        }
+
+   
+        .member__hero{
+            grid-row: 3;
+            grid-column: 2;
+        }
+       
+
+
+
+
+    }
+}
