@@ -17,6 +17,9 @@ button{
     background: none;
 }
 
+
+html { scroll-behavior: smooth; }
+
 body{
     font-family: var(--font);
     line-height: var(--leading-normal);

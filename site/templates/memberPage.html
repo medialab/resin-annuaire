@@ -73,109 +73,128 @@
 
 
 
-
-  
-
-
+    <div class="col-left">
     
-
-    <section class="member__details">
-
-
-      {% if member.organization %}
-      <dl class="organization">
-        <dt>Institution</dt>
-        <dd>{{ member.organization }}{% if member.city %}, {{ member.city }}{% endif %}</dd>
-      </dl>
-      {% endif %} 
+      <section class="member__details">
 
 
-    {% if member.title %}
-    <dl class="title">
-      <dt>Fonction / Titre</dt>
-      <dd>{{ member.title }}</dd>
-    </dl>
-    {% endif %} 
-
-      {% if member.languages|length %}
-      <dl class="languages">
-        <dt>Langues</dt>
-        <dd>{{ member.languages | join(", ") }}</dd>
-      </dl>
-      {% endif %} 
+        {% if member.organization %}
+        <dl class="organization">
+          <dt>Institution</dt>
+          <dd>{{ member.organization }}{% if member.city %}, {{ member.city }}{% endif %}</dd>
+        </dl>
+        {% endif %} 
 
 
-      {% if member.email %}
-      <dl class="contact">
-        <dt>Contacter</dt>
-        <dd>{{ member.email | replace("@", "¤")}}</dd>
-      </dl>
-      {% endif %} 
+        {% if member.title %}
+        <dl class="title">
+          <dt>Fonction / Titre</dt>
+          <dd>{{ member.title }}</dd>
+        </dl>
+        {% endif %} 
 
-    </section>
+        {% if member.languages|length %}
+        <dl class="languages">
+          <dt>Langues</dt>
+          <dd>{{ member.languages | join(", ") }}</dd>
+        </dl>
+        {% endif %} 
+
+
+        {% if member.email %}
+        <dl class="contact">
+          <dt>Contacter</dt>
+          <dd>{{ member.email | replace("@", "¤")}}</dd>
+        </dl>
+        {% endif %} 
+
+      </section>
+
+      <nav class="member__toc">
+        <ul>
+          {% set firstItem = true %}
+          {% if member.longBio %}
+          <li{% if firstItem %} class="is-selected"{% endif %}><a href="#long-bio">Biographie</a></li>
+          {% set firstItem = false %}
+          {% endif %}
+          {% if member.education %}
+          <li{% if firstItem %} class="is-selected"{% endif %}><a href="#education">Formation</a></li>
+          {% set firstItem = false %}
+          {% endif %}
+          {% if member.publications %}
+          <li{% if firstItem %} class="is-selected"{% endif %}><a href="#education">Publications</a></li>
+          {% set firstItem = false %}
+          {% endif %}
+          {% if member.activities %}
+          <li{% if firstItem %} class="is-selected"{% endif %}><a href="#activities">Autres activités</a></li>
+          {% set firstItem = false %}
+          {% endif %}
+          {% if member.responsabilities %}
+          <li{% if firstItem %} class="is-selected"{% endif %}><a href="#responsabilities">Responsabilités</a></li>
+          {% set firstItem = false %}
+          {% endif %}
+          {% if member.distinctions %}
+          <li{% if firstItem %} class="is-selected"{% endif %}><a href="#distinctions">Distinctions</a></li>
+          {% set firstItem = false %}
+          {% endif %}
+
+        </ul>
+      </nav>
+
+    </div>
 
 
     <section class="member__content">
  
+      {% if member.longBio %}
       <div class="content-section" id="long-bio">
-        {% if member.longBio %}
         <h3>Biographie</h3>
         <div class="text-md">{% markdown %} {{ member.longBio }} {% endmarkdown %}</div>
-        {% endif %}
       </div>
+      {% endif %}
 
+      {% if member.education %}
+      <div class="content-section" id="education">
+        <h3>Formation</h3>
+        <div class="text-md">{% markdown %} {{ member.education }} {% endmarkdown %}</div>
+      </div>
+      {% endif %} 
+    
+      {% if member.publications %}
+      <div class="content-section" id="publications">
+        <h3>Publications</h3>
+        <div class="text-md">{% markdown %} {{ member.publications }} {%endmarkdown %}</div>
+      </div>
+      {% endif %} 
+      
+      {% if member.activities %}
+      <div class="content-section" id="activities">
+        <h3>Autres activités</h3>
+        <div class="text-md">{% markdown %} {{ member.activities }} {%endmarkdown %}</div>
+      </div>
+      {% endif %} 
+    
+      {% if member.responsabilities %}
+      <div class="content-section" id="responsabilities">
+        <h3>Responsabilités</h3>
+        <div class="text-md">{% markdown %} {{ member.activities }} {%endmarkdown %}</div>
+      </div>
+      {% endif %} 
+    
+      {% if member.distinctions %}
+      <div class="content-section" id="distinctions">
+        <h3>Distinctions</h3>
+        <div class="text-md">{% markdown %} {{ member.activities }} {%endmarkdown %}</div>
+      </div>
+      {% endif %}
 
-
-    
-    
-    {% if member.education %}
-    <div class="content-section" id="education">
-      <h3>Formation</h3>
-      <div class="text-md">{% markdown %} {{ member.education }} {% endmarkdown %}</div>
-    </div>
-    {% endif %} 
-    
-    
-    
-    
-    {% if member.publications %}
-    <div class="content-section" id="publications">
-      <h3>Publications</h3>
-      <div class="text-md">{% markdown %} {{ member.publications }} {%endmarkdown %}</div>
-    </div>
-    {% endif %} 
-    
-    
-    {% if member.activities %}
-    <div class="content-section" id="activities">
-      <h3>Autres activité</h3>
-      <div class="text-md">{% markdown %} {{ member.activities }} {%endmarkdown %}</div>
-    </div>
-    {% endif %} 
-    
-    
-    
-    {% if member.responsabilities %}
-    <div class="content-section" id="responsabilities">
-      <h3>Responsabilités</h3>
-      <div class="text-md">{% markdown %} {{ member.activities }} {%endmarkdown %}</div>
-    </div>
-    {% endif %} 
-    
-    
-    
-    {% if member.distinctions %}
-    <div class="content-section" id="distinctions">
-      <h3>Distinctions</h3>
-      <div class="text-md">{% markdown %} {{ member.activities }} {%endmarkdown %}</div>
-    </div>
-    {% endif %}
+      <button id="edit-button">
+        Je suis cette personne, je souhaite modifier mon profil
+      </button>
+  
 
     </section>
 
-    <button id="edit-button">
-      Je suis cette personne, je souhaite modifier mon profil
-    </button>
 
     <div class="modal-background"></div>
     <div class="modal-content">
@@ -190,4 +209,5 @@
 {% block scripts %}
 <script type="text/javascript" src="js/header.js"></script>
 <script type="text/javascript" src="js/edit.js"></script>
+<script type="text/javascript" src="js/memberPage.js"></script>
 {% endblock %}
