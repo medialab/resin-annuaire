@@ -1,4 +1,16 @@
 {% extends "main.html" %} {% block body %}
+
+<div id="sub-header" aria-hidden="true">
+  <div class="container">
+    <p><a href="/" aria-label="Retour à l’accueil">Ingénieur·es</a></p>
+    <p>&gt;</p>
+    <p><a href="#" aria-label="Retour en haut de la page">{{ member.firstName }} {{ member.lastName }}</a></p>
+  <!-- <button><a href="/" aria-label="Retour à l’accueil">
+    <svg aria-hidden="true" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg>
+  </a></button> -->
+</div>
+</div>
+
 <div id="member">
 
 
@@ -71,6 +83,8 @@
 
     </header>
 
+    
+
 
 
     <div class="col-left">
@@ -111,7 +125,7 @@
       </section>
 
       <nav class="member__toc">
-        <ul>
+        <ul aria-label="Table des matières">
           {% if member.longBio %}
           <li><a href="#long-bio">Biographie</a></li>
           {% endif %}
@@ -182,7 +196,11 @@
       </div>
       {% endif %}
 
+
+     
+
       <button id="edit-button">
+        <span class="icon">{% include "icons/edit.svg" %}</span>
         Je suis cette personne, je souhaite modifier mon profil
       </button>
   
@@ -190,11 +208,11 @@
     </section>
 
 
-    <div class="modal-background"></div>
+    <!-- <div class="modal-background"></div>
     <div class="modal-content">
       <span class="close">&times;</span>
       <resin-formulaire-edit apiServer="{{ apiUrl }}" />
-    </div>
+    </div> -->
 
 </div>
 

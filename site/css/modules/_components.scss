@@ -18,7 +18,10 @@
     display: flex;
     align-items: center;
     gap: 1ch;
+
     a{ text-decoration: none; }
+
+
 
 
     cursor: pointer;
@@ -39,7 +42,7 @@
         filter: contrast(90%);
     } 
     svg path{
-        fill: var(--color-300)!important;
+        fill: var(--color-avatar)!important;
     }
 }
 
