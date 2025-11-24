@@ -98,7 +98,7 @@
         h2{
             font-weight: 500;
             // font-style: italic;
-            color: var(--color-900);
+            color: var(--color-txt);
             font-size: var(--fs-big);
             line-height: 1.2;
     
@@ -117,7 +117,7 @@
     }
     .p__institution{
         font-weight: 500;
-        color: var(--color-900);
+        color: var(--color-txt);
         padding-top: 2px;
         line-height: 1.2;
     }
@@ -143,7 +143,7 @@
         }
 
         .title{
-            border-color: var(--color-200);
+            border-color: var(--color-300);
         }
 
         // .title h2, .p__institution{

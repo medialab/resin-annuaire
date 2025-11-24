@@ -72,13 +72,6 @@
             }
 
         }
-        // &[data-checked-by="user"] .item__checkbox:checked  + label,
-        // &[data-checked-by="propagation"] .item__checkbox:checked  + label{
-        //     background-color: var(--color)!important;
-        //     svg{
-        //         fill: var(--color-bg);
-        //     }
-        // }
 
         &.is-checked .item__checkbox:checked  + label{
             background-color: var(--color)!important;
@@ -99,7 +92,6 @@
             line-height: 1;
             font-family: var(--mono);
             font-weight: var(--fw-mono);
-            color: var(--color-600);
 
             align-items: center;
             justify-content: flex-end;
@@ -143,7 +135,7 @@
 
         .info{
             font-size: var(--fs-small);
-            color: var(--color-400);
+            color: var(--color-300);
             padding-left: 1ch;
             background-color: var(--color-bg);
         }
@@ -191,7 +183,7 @@
         svg{
             width: 12px;
             
-            fill: var(--color-900);
+            fill: var(--color-txt);
             transform: rotate(90deg);
         }
     }

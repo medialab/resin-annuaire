@@ -31,7 +31,7 @@
         }
         h2{
             font-weight: 500;
-            color: var(--color-900);
+            color: var(--color-txt);
             font-size: var(--fs-xbig);
             line-height: 1.2;
             margin-top:  calc(var(--spacing)*2);
@@ -47,7 +47,7 @@
         .organization{
             // font-size: var(--fs-medium);
             font-weight: 500;
-            color: var(--color-900);
+            color: var(--color-txt);
             padding-top: 2px;
             line-height: 1.2;
             max-width: 42ch;
@@ -117,7 +117,7 @@
             font-weight: var(--fw-mono);
             color: var(--color-800);
             font-size: var(--fs-medium);
-            border-bottom: 1px solid var(--color-200);
+            border-bottom: 1px solid var(--color-100);
             margin-bottom: calc(var(--spacing)*1.5);
 
         }

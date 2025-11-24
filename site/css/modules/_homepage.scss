@@ -10,9 +10,7 @@
     @include hide-scroll();
     padding-bottom: calc(var(--padding-body)*2);
     z-index: 1000;
-    background-color: var(--color-bg);
-
-   
+    background-color: var(--color-bg-alpha);
 }
 
 
@@ -36,7 +34,7 @@
         font-weight: var(--fw-mono);
         text-align: right;
         margin-bottom: calc(var(--spacing)*1);
-        color: var(--color-900);
+        color: var(--color-txt);
     }
     margin-left: calc(var(--tree-w) + var(--padding-body));
     // width: calc(100% + var(--padding-body));

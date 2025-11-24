@@ -11,32 +11,13 @@
   --leading-tight: 1.15;
   --leading-normal: 1.5;
   --leading-loose: 1.75;
-  --color-50: #F5F3F0;
-  --color-50-alpha: #F5F3F0F2;
   --color-100: #F0E6E1;
-  --color-200: #E5CFC5;
-  --color-300: #D9A998;
-  --color-400: #F26B4F;
-  --color-600: #CC3400;
-  --color-800: #7A1E21;
-  --color-800: #3E0D0F;
-  --color-100: #F0E6E1;
-  --color-50: white;
-  --color-200: #E8D4CB;
   --color-300: #DEB9A8;
-  --color-400: #D49F85;
-  --color-600: #C86E40;
-  --color-700: #B0552D;
-  --color-800: #9A3E22;
-  --color-900: #7A2A18;
-  --color-900: #3E0D0F;
-  --color-950: #3E0D0F;
   --accent-soft: #c83200;
   --accent: #ef5515;
-  --color-txt: var(--color-950);
-  --color-bg: var(--color-50);
+  --color-txt: #3E0D0F;
   --color-bg: white;
-  --color-bg-alpha: var(--color-50-alpha);
+  --color-bg-alpha: #fffffff2;
   --tree-w: 360px;
   --tree-item-h: 24px;
   --tree-indent: 24px;
@@ -203,7 +184,7 @@ body {
   display: flex;
   gap: 5ch;
   list-style-type: none;
-  color: var(--color-900);
+  color: var(--color-txt);
 }
 #site-nav a {
   text-decoration: none;
@@ -332,7 +313,6 @@ body.is-header-shrinked #site-header svg #logo-text {
   line-height: 1;
   font-family: var(--mono);
   font-weight: var(--fw-mono);
-  color: var(--color-600);
   align-items: center;
   justify-content: flex-end;
   cursor: pointer;
@@ -362,7 +342,7 @@ body.is-header-shrinked #site-header svg #logo-text {
 }
 #skills-tree .item__graph .info {
   font-size: var(--fs-small);
-  color: var(--color-400);
+  color: var(--color-300);
   padding-left: 1ch;
   background-color: var(--color-bg);
 }
@@ -390,8 +370,8 @@ body.is-header-shrinked #site-header svg #logo-text {
   padding-bottom: calc(var(--tree-item-h) * 0.5);
 }
 #skills-tree__nav .toggle-all, #skills-tree__nav #toggle-graph {
-  color: var(--color-900);
-  border: 1px solid var(--color-200);
+  color: var(--color-txt);
+  border: 1px solid var(--color-100);
   font-family: var(--mono);
   font-weight: var(--fw-mono);
   font-size: var(--fs-small);
@@ -405,7 +385,7 @@ body.is-header-shrinked #site-header svg #logo-text {
 }
 #skills-tree__nav #toggle-graph svg {
   width: 12px;
-  fill: var(--color-900);
+  fill: var(--color-txt);
   transform: rotate(90deg);
 }
 #skills-tree__nav .toggle-all svg {
@@ -584,8 +564,8 @@ body.graph-view .item__graph {
   gap: 3px;
 }
 .card .skills-list li {
-  color: var(--color-900);
-  border: 1px solid var(--color-200);
+  color: var(--color-txt);
+  border: 1px solid var(--color-100);
   font-family: var(--mono);
   font-weight: var(--fw-mono);
   font-size: var(--fs-small);
@@ -605,7 +585,7 @@ body.graph-view .item__graph {
 }
 .card .title h2 {
   font-weight: 500;
-  color: var(--color-900);
+  color: var(--color-txt);
   font-size: var(--fs-big);
   line-height: 1.2;
 }
@@ -617,7 +597,7 @@ body.graph-view .item__graph {
 }
 .card .p__institution {
   font-weight: 500;
-  color: var(--color-900);
+  color: var(--color-txt);
   padding-top: 2px;
   line-height: 1.2;
 }
@@ -634,7 +614,7 @@ body.graph-view .item__graph {
   background-color: var(--color-100);
 }
 .card:hover .title {
-  border-color: var(--color-200);
+  border-color: var(--color-300);
 }
 
 #section__search svg {
@@ -685,7 +665,7 @@ body.graph-view .item__graph {
   scrollbar-width: none; /* Firefox */
   padding-bottom: calc(var(--padding-body) * 2);
   z-index: 1000;
-  background-color: var(--color-bg);
+  background-color: var(--color-bg-alpha);
 }
 #section__skills-tree::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
@@ -714,7 +694,7 @@ body.graph-view .item__graph {
   font-weight: var(--fw-mono);
   text-align: right;
   margin-bottom: calc(var(--spacing) * 1);
-  color: var(--color-900);
+  color: var(--color-txt);
 }
 #section__cards .cards-wrapper {
   display: grid;
@@ -778,7 +758,7 @@ body.graph-view .item__graph {
 }
 #member .member__header h2 {
   font-weight: 500;
-  color: var(--color-900);
+  color: var(--color-txt);
   font-size: var(--fs-xbig);
   line-height: 1.2;
   margin-top: calc(var(--spacing) * 2);
@@ -788,7 +768,7 @@ body.graph-view .item__graph {
 }
 #member .member__header .organization {
   font-weight: 500;
-  color: var(--color-900);
+  color: var(--color-txt);
   padding-top: 2px;
   line-height: 1.2;
   max-width: 42ch;
@@ -811,8 +791,8 @@ body.graph-view .item__graph {
   gap: 3px;
 }
 #member .member__hero .skills-list li {
-  color: var(--color-900);
-  border: 1px solid var(--color-200);
+  color: var(--color-txt);
+  border: 1px solid var(--color-100);
   font-family: var(--mono);
   font-weight: var(--fw-mono);
   font-size: var(--fs-small);
@@ -850,7 +830,7 @@ body.graph-view .item__graph {
   font-weight: var(--fw-mono);
   color: var(--color-800);
   font-size: var(--fs-medium);
-  border-bottom: 1px solid var(--color-200);
+  border-bottom: 1px solid var(--color-100);
   margin-bottom: calc(var(--spacing) * 1.5);
 }
 #member .content-section p {
