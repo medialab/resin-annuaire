@@ -18,7 +18,14 @@
     display: flex;
     align-items: center;
     gap: 1ch;
+    a{ text-decoration: none; }
+
+
     cursor: pointer;
+    &:hover{
+        background-color: var(--color-100);
+        border-color: var(--color-300);
+    }
 }
 
 

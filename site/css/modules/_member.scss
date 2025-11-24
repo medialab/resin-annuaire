@@ -77,11 +77,7 @@
 
 
     .member__details{
-        // padding-top:  calc(var(--spacing)*1.5);
        dl{
-        // border-top: var(--border-light);
-        // border-bottom: var(--border-light);
-        // padding: calc(var(--spacing)*1) 0px;
         margin-bottom: calc(var(--spacing)*1);
        }
        dl + dl{
@@ -91,8 +87,11 @@
        dt{
         font-family: var(--mono);
         font-weight: var(--fw-mono);
+        // font-weight: 600;
         font-size: var(--fs-small);
-        color: var(--color-800);
+        // color: var(--color-300);
+        // text-decoration: underline var(--color-100);
+        // text-underline-offset: 4px;
        }
 
        dd{
@@ -110,29 +109,37 @@
         li{
             font-family: var(--mono);
             font-weight: var(--fw-mono);
-            font-size: var(--font-size);
+            font-size: var(--fs-small);
             margin-bottom:  calc(var(--spacing)*0.75);
             position: relative;
             a{ text-decoration: none;}
-        }
-        li.is-selected{
-            // font-weight: 700;
-            // color: red;
             &::before{
                 content: "→";
                 display: block;
-                // border-radius: var(--radius-small);
-                // width: 8px;
-                // height: 8px;
-                // background-color: var(--color-300);
                 position: absolute;
                 left: -20px;
-                // top: 5px;
-
-                
+                opacity: 0;
             }
-       
 
+            &:hover{
+                color: var(--accent-soft);
+                &::before{ opacity: 0.9; }
+            }
+
+        }
+        li.is-selected::before{
+                opacity: 1;
+    
+        }
+
+        .back-to-top{
+            @include button-small();
+            // color: var(--color-300);
+            display: inline-flex;
+            margin-top:  calc(var(--spacing)*2);
+            &::before{
+                display: none;
+            }
         }
     }
 
@@ -246,7 +253,7 @@
         padding-top: calc(var(--spacing)*3);
     }
 
-    .content-section:target{
-        padding-top: calc(var(--header-h) + var(--spacing)*2);
-    }
+    // .content-section:target{
+    //     padding-top: calc(var(--header-h) + var(--spacing)*2);
+    // }
 }
