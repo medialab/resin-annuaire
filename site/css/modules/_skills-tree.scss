@@ -65,19 +65,28 @@
             }
 
             &:hover{
-                background-color: var(--color-light);
+                background-color: var(--color-xlight);
                 svg{
                     fill: var(--color-bg);
                 }
             }
 
         }
-        .item__checkbox:checked  + label{
-            background-color: var(--color);
+        // &[data-checked-by="user"] .item__checkbox:checked  + label,
+        // &[data-checked-by="propagation"] .item__checkbox:checked  + label{
+        //     background-color: var(--color)!important;
+        //     svg{
+        //         fill: var(--color-bg);
+        //     }
+        // }
+
+        &.is-checked .item__checkbox:checked  + label{
+            background-color: var(--color)!important;
             svg{
                 fill: var(--color-bg);
             }
         }
+
         .count{ display: none; }
 
         .btn__toggle{

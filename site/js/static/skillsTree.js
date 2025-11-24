@@ -147,4 +147,152 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Initialiser le compteur au chargement
   updateVisibleCount();
+
+  // ======== GESTION DES CHECKBOXES ========
+
+  // Fonction pour cocher tous les enfants par propagation
+  function checkChildrenByPropagation(parentLi) {
+    const childList = parentLi.querySelector(":scope > ul");
+    if (!childList) return;
+
+    const childItems = childList.querySelectorAll(":scope > li");
+    childItems.forEach(function(childLi) {
+      const childItem = childLi.querySelector(".item");
+      const childCheckbox = childLi.querySelector(".item__checkbox");
+
+      if (childCheckbox && !childCheckbox.checked) {
+        childCheckbox.checked = true;
+        childItem.dataset.checkedBy = "propagation";
+        childItem.classList.add("is-checked");
+
+        // Récursion : cocher les enfants de cet enfant par propagation aussi
+        checkChildrenByPropagation(childLi);
+      }
+    });
+  }
+
+  // Fonction pour décocher tous les enfants
+  function uncheckAllChildren(parentLi) {
+    const childList = parentLi.querySelector(":scope > ul");
+    if (!childList) return;
+
+    const childItems = childList.querySelectorAll(":scope > li");
+    childItems.forEach(function(childLi) {
+      const childItem = childLi.querySelector(".item");
+      const childCheckbox = childLi.querySelector(".item__checkbox");
+
+      if (childCheckbox && childCheckbox.checked) {
+        childCheckbox.checked = false;
+        delete childItem.dataset.checkedBy;
+        childItem.classList.remove("is-checked");
+
+        // Récursion : décocher les enfants de cet enfant
+        uncheckAllChildren(childLi);
+      }
+    });
+  }
+
+  // Fonction pour décocher tous les parents ET leurs autres enfants (sauf la branche de l'élément cliqué)
+  function uncheckParentsAndSiblings(clickedLi) {
+    // Remonter au <ul> parent
+    let parentUl = clickedLi.parentElement;
+
+    // Puis remonter au <li> parent
+    let parentLi = parentUl ? parentUl.parentElement : null;
+    let childLiToKeep = clickedLi; // On garde la trace de la branche à conserver
+
+    while (parentLi && parentLi.tagName === "LI") {
+      const parentItem = parentLi.querySelector(":scope > .item");
+      const parentCheckbox = parentItem ? parentItem.querySelector(".item__checkbox") : null;
+
+      // Décocher le parent (peu importe si "user" ou "propagation")
+      if (parentCheckbox && parentCheckbox.checked) {
+        parentCheckbox.checked = false;
+        delete parentItem.dataset.checkedBy;
+        parentItem.classList.remove("is-checked");
+      }
+
+      // Décocher SEULEMENT les frères/sœurs qui sont "propagation" (pas les "user")
+      const siblingsUl = childLiToKeep.parentElement;
+      if (siblingsUl) {
+        const siblings = siblingsUl.querySelectorAll(":scope > li");
+        siblings.forEach(function(siblingLi) {
+          if (siblingLi === childLiToKeep) return; // Ne pas décocher la branche à conserver
+
+          const siblingItem = siblingLi.querySelector(":scope > .item");
+          const siblingCheckbox = siblingItem ? siblingItem.querySelector(".item__checkbox") : null;
+
+          // Ne décocher que si c'est "propagation"
+          if (siblingCheckbox && siblingCheckbox.checked && siblingItem.dataset.checkedBy === "propagation") {
+            siblingCheckbox.checked = false;
+            delete siblingItem.dataset.checkedBy;
+            siblingItem.classList.remove("is-checked");
+
+            // Décocher tous ses descendants
+            uncheckAllChildren(siblingLi);
+          }
+        });
+      }
+
+      // Continuer à remonter
+      childLiToKeep = parentLi;
+      parentUl = parentLi.parentElement;
+      parentLi = parentUl ? parentUl.parentElement : null;
+    }
+  }
+
+  // Intercepter le clic pour gérer le cas spécial : clic sur élément coché par propagation
+  skillsTree.addEventListener("click", function(event) {
+    // Vérifier si on a cliqué sur un label
+    const label = event.target.closest("label");
+    if (!label) return;
+
+    // Récupérer la checkbox associée
+    const checkboxId = label.getAttribute("for");
+    if (!checkboxId) return;
+
+    const checkbox = document.getElementById(checkboxId);
+    if (!checkbox) return;
+
+    const item = checkbox.closest(".item");
+    const parentLi = checkbox.closest("li");
+
+    // Si la checkbox est actuellement cochée et cochée par propagation
+    if (checkbox.checked && item.dataset.checkedBy === "propagation") {
+      // Empêcher le décochage
+      event.preventDefault();
+
+      // La transformer en check direct (user)
+      item.dataset.checkedBy = "user";
+
+      // Décocher tous les parents ET leurs autres enfants (sauf la branche de l'élément cliqué)
+      uncheckParentsAndSiblings(parentLi);
+    }
+  });
+
+  // Écouter les changements sur toutes les checkboxes
+  skillsTree.addEventListener("change", function(event) {
+    const checkbox = event.target;
+    if (!checkbox.classList.contains("item__checkbox")) return;
+
+    const parentLi = checkbox.closest("li");
+    const item = checkbox.closest(".item");
+
+    if (checkbox.checked) {
+      // La checkbox est cochée directement par l'utilisateur
+      item.dataset.checkedBy = "user";
+      item.classList.add("is-checked");
+
+      // Cocher tous les enfants par propagation
+      checkChildrenByPropagation(parentLi);
+
+    } else {
+      // La checkbox est décochée
+      delete item.dataset.checkedBy;
+      item.classList.remove("is-checked");
+
+      // Décocher tous les enfants
+      uncheckAllChildren(parentLi);
+    }
+  });
 });

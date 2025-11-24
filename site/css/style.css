@@ -21,6 +21,7 @@
   --color-800: #7A1E21;
   --color-800: #3E0D0F;
   --color-100: #F0E6E1;
+  --color-50: white;
   --color-200: #E8D4CB;
   --color-300: #DEB9A8;
   --color-400: #D49F85;
@@ -28,11 +29,13 @@
   --color-700: #B0552D;
   --color-800: #9A3E22;
   --color-900: #7A2A18;
+  --color-900: #3E0D0F;
   --color-950: #3E0D0F;
   --accent-soft: #c83200;
   --accent: #ef5515;
   --color-txt: var(--color-950);
   --color-bg: var(--color-50);
+  --color-bg: white;
   --color-bg-alpha: var(--color-50-alpha);
   --tree-w: 360px;
   --tree-item-h: 24px;
@@ -306,15 +309,15 @@ body.is-header-shrinked #site-header svg #logo-text {
   width: 9px;
 }
 #skills-tree .item .item__checkbox + label:hover {
-  background-color: var(--color-light);
+  background-color: var(--color-xlight);
 }
 #skills-tree .item .item__checkbox + label:hover svg {
   fill: var(--color-bg);
 }
-#skills-tree .item .item__checkbox:checked + label {
-  background-color: var(--color);
+#skills-tree .item.is-checked .item__checkbox:checked + label {
+  background-color: var(--color) !important;
 }
-#skills-tree .item .item__checkbox:checked + label svg {
+#skills-tree .item.is-checked .item__checkbox:checked + label svg {
   fill: var(--color-bg);
 }
 #skills-tree .item .count {
@@ -682,7 +685,7 @@ body.graph-view .item__graph {
   scrollbar-width: none; /* Firefox */
   padding-bottom: calc(var(--padding-body) * 2);
   z-index: 1000;
-  background-color: var(--color-bg-alpha);
+  background-color: var(--color-bg);
 }
 #section__skills-tree::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
