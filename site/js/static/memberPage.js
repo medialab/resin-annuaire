@@ -101,8 +101,8 @@ if (toc) {
 
         if (targetSection) {
           const headerHeight = parseInt(getComputedStyle(document.body).getPropertyValue('--header-h')) || 0;
-          const targetPosition = targetSection.offsetTop - headerHeight + 20;
-          console.log("targetSection.offsetTop - headerHeight + 20");
+          const targetPosition = targetSection.offsetTop - headerHeight;
+          console.log("targetSection.offsetTop - headerHeight + 0");
 
           window.scrollTo({
             top: targetPosition,
@@ -146,8 +146,7 @@ if(btnContact){
 
 
 btnCopy.addEventListener("click", () => {
-  const originalHTML = btnCopy.innerHTML; // on garde le contenu actuel
-  const email = emailElement.textContent.replace("¤", "@");
+  const originalHTML = btnCopy.innerHTML; 
 
   navigator.clipboard.writeText(email).then(() => {
       btnCopy.innerHTML = "&nbsp;Copié dans le presse-papier !";

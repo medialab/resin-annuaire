@@ -130,6 +130,15 @@
 
       </section>
 
+      {% set tocCount = 0 %}
+      {% if member.longBio %}{% set tocCount = tocCount + 1 %}{% endif %}
+      {% if member.education %}{% set tocCount = tocCount + 1 %}{% endif %}
+      {% if member.publications %}{% set tocCount = tocCount + 1 %}{% endif %}
+      {% if member.activities %}{% set tocCount = tocCount + 1 %}{% endif %}
+      {% if member.responsabilities %}{% set tocCount = tocCount + 1 %}{% endif %}
+      {% if member.distinctions %}{% set tocCount = tocCount + 1 %}{% endif %}
+
+      {% if tocCount > 1 %}
       <nav class="member__toc">
         <ul aria-label="Table des matières">
           {% if member.longBio %}
@@ -154,6 +163,7 @@
         <button class="back-to-top"><a href="#">↑ Revenir en haut</a></button>
 
       </nav>
+      {% endif %}
 
     </div>
 
