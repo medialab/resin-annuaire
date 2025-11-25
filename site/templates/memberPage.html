@@ -41,12 +41,17 @@
       <div class="skills-block">
         {% for skill in member.firstSkills %}
         <div class="skill-group" data-field="{{ skill | replace(' ', '-') | lower }}">
-          <div class="skill-color"></div>
+          <div class="skill-color" aria-hidden="true"></div>
           <div class="skill-text">{{skill}}</div>
         </div>
         {% endfor %}
       </div> 
 
+
+      <button id="header__edit-button" aria-label="Je suis cette personne, je souhaite modifier mon profil">
+        <span class="icon" aria-hidden="true">{% include "icons/edit.svg" %}</span>
+        <span class="text">Je suis cette personne, je souhaite modifier mon profil</span>
+      </button>
 
       <div class="title-group">
         <h2>
@@ -57,6 +62,8 @@
         <p class="organization">{{ member.organization }}{% if member.city %}, {{ member.city }}{% endif %}</p>
         {% endif %}
       </div>
+
+
 
 
     
@@ -120,9 +127,9 @@
         <label for="btn-contact">Contacter</label>
 
         <div id="contact__group">
-          <button id="contact__copy" aria-label="Copier mail dans le presse papier"><span class="icon">{% include "icons/copy.svg" %}</span></button>
           <p id="contact">{{ member.email | replace("@", "¤")}}</p>
-
+          <button id="contact__copy" aria-label="Copier mail dans le presse papier"><span class="icon">{% include "icons/copy.svg" %}</span></button>
+          <p class="success">{% include "icons/check-mark.svg" %} Copié dans le presse papier</p>
         </div>
         
         
@@ -216,8 +223,8 @@
      
 
       <button id="edit-button">
-        <span class="icon">{% include "icons/edit.svg" %}</span>
-        Je suis cette personne, je souhaite modifier mon profil
+        <span class="icon" aria-hidden="true">{% include "icons/edit.svg" %}</span>
+        <span class="text">Je suis cette personne, je souhaite modifier mon profil</span>
       </button>
   
 

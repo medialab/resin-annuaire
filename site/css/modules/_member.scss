@@ -23,10 +23,26 @@
             padding-bottom:  calc(var(--spacing)*0.5);
         }
 
+        #header__edit-button{
+            @include button();
+            width: var(--button-h);
+            padding: 0;
+            align-items: center;
+            justify-content: center;
+
+            .icon svg{ 
+                width: 16px;
+                fill: var(--color-300);
+                position: relative;
+                top: 1px;
+                
+            }
+            .text{ display: none; }
+        }
+
 
         .title-group{
             padding-bottom: calc(var(--spacing)*2);
-            // border-bottom: var(--border-light);
             margin-bottom: calc(var(--spacing)*2);
         }
         h2{
@@ -101,47 +117,27 @@
         #btn-contact + label{
             @include button-bold();
             display: inline-flex;
+            margin-bottom: calc(var(--spacing)*1);
         }
 
-        #contact{
-            // display: none;
-       
+        #contact{       
             font-family: var(--mono);
             font-size: var(--fs-small);
             color: var(--accent-soft);
             font-weight: 600;
             display: block;
+            min-width: calc(100% - var(--button-h) - 2px);
+            padding-right: 1ch;
+            white-space: nowrap;
         }
-
-        #contact__group{
-            position: relative;
-            padding-right: calc(var(--button-h) + 1ch);
-            border-top: var(--border-light);
-            border-bottom: var(--border-light);
-            padding-top: calc(var(--spacing)*0.5);
-            padding-bottom: calc(var(--spacing)*0.5); 
-        }
-        #contact__group{
-            display: none;
-        }
-        #btn-contact:checked ~ #contact__group{
-            display: block;
-        
-        }
-
-        #btn-contact:checked ~ label{
-            display: none;
-        
-        }
-
-
 
         #contact__copy{
             @include button-color();
-            position: absolute;
-            top: 5px;
+            position: relative;
+            top: 0px;
             right: 0px;
             padding: 0 2px;
+            white-space: nowrap;
             svg{
                 width: 16px;
                 fill: var(--color-300);
@@ -152,6 +148,53 @@
 
         }
 
+
+        #contact__group{
+            position: relative;
+            border-top: var(--border-light);
+            border-bottom: var(--border-light);
+            padding-top: calc(var(--spacing)*0.5);
+            padding-bottom: calc(var(--spacing)*0.5); 
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            row-gap: 4px;
+
+            .success{
+                position: absolute;
+                bottom: calc(var(--spacing)*-2);
+                color: var(--success);
+                font-family: var(--mono);
+                font-size: var(--fs-small);
+                font-weight: var(--fw-mono);
+                white-space: nowrap;
+                display: none;
+
+                svg{
+                    width: 14px;
+                    fill: var(--success);
+                    position: relative;
+                    top: 6px;
+                }
+            }
+        }
+ 
+        #btn-contact ~ #contact__group{
+            display: none;
+        }
+
+        #btn-contact:checked ~ #contact__group{
+            display: flex;
+        }
+
+        #btn-contact:checked ~ label{
+            display: none;
+        }
+
+
+
+        
 
 
         
@@ -269,8 +312,8 @@
 // LAYOUT
 
 #member{
-    --fig-w: 240px;
-    max-width: 900px;
+    --fig-w: 260px;
+    max-width: var(--max-width);
     margin: 0 auto;
     padding-top: calc(var(--padding-body)*5);
 
@@ -297,6 +340,7 @@
         margin-bottom: calc(var(--spacing)*4);
 
         min-height: var(--fig-w);
+        position: relative;
 
         figure{
             grid-column: 1;
@@ -308,6 +352,14 @@
         .skills-block{ 
             grid-row: 1; 
             grid-column: 2;
+        }
+
+
+        #header__edit-button{
+            grid-row: 1; 
+            grid-column: 2;
+            position: absolute;
+            right: 0;
         }
 
 

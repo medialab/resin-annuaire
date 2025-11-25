@@ -102,7 +102,6 @@ if (toc) {
         if (targetSection) {
           const headerHeight = parseInt(getComputedStyle(document.body).getPropertyValue('--header-h')) || 0;
           const targetPosition = targetSection.offsetTop - headerHeight;
-          console.log("targetSection.offsetTop - headerHeight + 0");
 
           window.scrollTo({
             top: targetPosition,
@@ -139,20 +138,19 @@ if(btnContact){
   btnContact.addEventListener("click", function(event) {
     let mail = document.querySelector("#contact");
     mail.innerHTML = mail.innerHTML.replace("¤", "@");
-    console.log(mail)
-
   });
 }
 
 
 btnCopy.addEventListener("click", () => {
-  const originalHTML = btnCopy.innerHTML; 
+  const email = emailElement.textContent.replace("¤", "@");
+  const successMessage = document.querySelector('#contact__group .success');
 
   navigator.clipboard.writeText(email).then(() => {
-      btnCopy.innerHTML = "&nbsp;Copié dans le presse-papier !";
+      successMessage.style.display = 'block';
 
       setTimeout(() => {
-          btnCopy.innerHTML = originalHTML;
-      }, 1500);
+          successMessage.style.display = 'none';
+      }, 1000);
   });
 });

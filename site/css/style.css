@@ -17,6 +17,7 @@
   --color-avatar: #DEB9A8;
   --accent-soft: #c83200;
   --accent: #ef5515;
+  --success: #11554b;
   --color-txt: #3E0D0F;
   --color-txt-light: #B49B9D;
   --color-txt-light: #D1B1B3;
@@ -807,6 +808,37 @@ body.graph-view .item__graph {
   padding-left: 0.25ch;
   padding-right: 2ch;
 }
+#member .member__header #header__edit-button {
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
+  font-size: var(--fs-small);
+  height: var(--button-h);
+  border-radius: var(--radius-small);
+  padding: 0 1ch;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: var(--color-txt);
+  border: 1px solid var(--color-100);
+  background-color: var(--color-bg);
+  width: var(--button-h);
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+}
+#member .member__header #header__edit-button:hover {
+  background-color: var(--color-100);
+  border-color: var(--color-300);
+}
+#member .member__header #header__edit-button .icon svg {
+  width: 16px;
+  fill: var(--color-300);
+  position: relative;
+  top: 1px;
+}
+#member .member__header #header__edit-button .text {
+  display: none;
+}
 #member .member__header .title-group {
   padding-bottom: calc(var(--spacing) * 2);
   margin-bottom: calc(var(--spacing) * 2);
@@ -896,6 +928,7 @@ body.graph-view .item__graph {
   color: var(--color-050);
   background-color: var(--accent-soft);
   display: inline-flex;
+  margin-bottom: calc(var(--spacing) * 1);
 }
 #member .member__details #btn-contact + label:hover {
   background-color: var(--accent);
@@ -906,23 +939,9 @@ body.graph-view .item__graph {
   color: var(--accent-soft);
   font-weight: 600;
   display: block;
-}
-#member .member__details #contact__group {
-  position: relative;
-  padding-right: calc(var(--button-h) + 1ch);
-  border-top: var(--border-light);
-  border-bottom: var(--border-light);
-  padding-top: calc(var(--spacing) * 0.5);
-  padding-bottom: calc(var(--spacing) * 0.5);
-}
-#member .member__details #contact__group {
-  display: none;
-}
-#member .member__details #btn-contact:checked ~ #contact__group {
-  display: block;
-}
-#member .member__details #btn-contact:checked ~ label {
-  display: none;
+  min-width: calc(100% - var(--button-h) - 2px);
+  padding-right: 1ch;
+  white-space: nowrap;
 }
 #member .member__details #contact__copy {
   font-family: var(--mono);
@@ -938,10 +957,11 @@ body.graph-view .item__graph {
   color: var(--accent-soft);
   background-color: var(--color-bg);
   cursor: pointer;
-  position: absolute;
-  top: 5px;
+  position: relative;
+  top: 0px;
   right: 0px;
   padding: 0 2px;
+  white-space: nowrap;
 }
 #member .member__details #contact__copy:hover {
   background-color: var(--color-100);
@@ -953,6 +973,43 @@ body.graph-view .item__graph {
   position: relative;
   top: 2px;
   left: 0px;
+}
+#member .member__details #contact__group {
+  position: relative;
+  border-top: var(--border-light);
+  border-bottom: var(--border-light);
+  padding-top: calc(var(--spacing) * 0.5);
+  padding-bottom: calc(var(--spacing) * 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  row-gap: 4px;
+}
+#member .member__details #contact__group .success {
+  position: absolute;
+  bottom: calc(var(--spacing) * -2);
+  color: var(--success);
+  font-family: var(--mono);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-mono);
+  white-space: nowrap;
+  display: none;
+}
+#member .member__details #contact__group .success svg {
+  width: 14px;
+  fill: var(--success);
+  position: relative;
+  top: 6px;
+}
+#member .member__details #btn-contact ~ #contact__group {
+  display: none;
+}
+#member .member__details #btn-contact:checked ~ #contact__group {
+  display: flex;
+}
+#member .member__details #btn-contact:checked ~ label {
+  display: none;
 }
 #member .member__toc ul {
   list-style: none;
@@ -1069,8 +1126,8 @@ body.graph-view .item__graph {
 }
 
 #member {
-  --fig-w: 240px;
-  max-width: 900px;
+  --fig-w: 260px;
+  max-width: var(--max-width);
   margin: 0 auto;
   padding-top: calc(var(--padding-body) * 5);
   display: grid;
@@ -1091,6 +1148,7 @@ body.graph-view .item__graph {
        column-gap: calc(var(--spacing) * 3);
   margin-bottom: calc(var(--spacing) * 4);
   min-height: var(--fig-w);
+  position: relative;
 }
 #member .member__header figure {
   grid-column: 1;
@@ -1101,6 +1159,12 @@ body.graph-view .item__graph {
 #member .member__header .skills-block {
   grid-row: 1;
   grid-column: 2;
+}
+#member .member__header #header__edit-button {
+  grid-row: 1;
+  grid-column: 2;
+  position: absolute;
+  right: 0;
 }
 #member .member__header .title-group {
   grid-row: 2;
