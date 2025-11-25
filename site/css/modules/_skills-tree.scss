@@ -176,7 +176,7 @@
 
 
     .toggle-all, #toggle-graph{
-        @include button-small();
+        @include button();
     }
 
     #toggle-graph{

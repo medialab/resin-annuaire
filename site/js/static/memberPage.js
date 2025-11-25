@@ -125,3 +125,35 @@ if (toc) {
   updateTocPosition();
   updateActiveSection();
 }
+
+
+
+
+
+const btnContact = document.querySelector('#btn-contact');
+const btnCopy = document.getElementById("contact__copy");
+const emailElement = document.getElementById("contact");
+
+
+if(btnContact){
+  btnContact.addEventListener("click", function(event) {
+    let mail = document.querySelector("#contact");
+    mail.innerHTML = mail.innerHTML.replace("¤", "@");
+    console.log(mail)
+
+  });
+}
+
+
+btnCopy.addEventListener("click", () => {
+  const originalHTML = btnCopy.innerHTML; // on garde le contenu actuel
+  const email = emailElement.textContent.replace("¤", "@");
+
+  navigator.clipboard.writeText(email).then(() => {
+      btnCopy.innerHTML = "&nbsp;Copié dans le presse-papier !";
+
+      setTimeout(() => {
+          btnCopy.innerHTML = originalHTML;
+      }, 1500);
+  });
+});

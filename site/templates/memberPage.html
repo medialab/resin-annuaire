@@ -116,10 +116,16 @@
 
 
         {% if member.email %}
-        <dl class="contact">
-          <dt>Contacter</dt>
-          <dd>{{ member.email | replace("@", "¤")}}</dd>
-        </dl>
+        <input type="checkbox" id="btn-contact" name="contacter" />
+        <label for="btn-contact">Contacter</label>
+
+        <div id="contact__group">
+          <button id="contact__copy" aria-label="Copier mail dans le presse papier"><span class="icon">{% include "icons/copy.svg" %}</span></button>
+          <p id="contact">{{ member.email | replace("@", "¤")}}</p>
+
+        </div>
+        
+        
         {% endif %} 
 
       </section>
@@ -145,7 +151,7 @@
           <li><a href="#distinctions">Distinctions</a></li>
           {% endif %}
         </ul>
-        <button class="back-to-top"><a href="#">Revenir en haut ↑</a></button>
+        <button class="back-to-top"><a href="#">↑ Revenir en haut</a></button>
 
       </nav>
 
