@@ -34,11 +34,11 @@
       {% endif %}
     {% endfor %}
 
-    <li class="field__container{% if hasChildren %} has-child{% endif %}" data-path="{{ category.path }}" data-field="field-{{ loop.index }}">
+    <li class="field__container{% if hasChildren %} has-child{% endif %}" data-path="{{ category.path }}" data-skill-id="{{ category.skillId }}" data-children-ids="{{ category.childrenIds | join(',') }}" data-field="field-{{ loop.index }}">
 
       <div class="item field__item" data-count="{{ category.count }}">
-        <input class="item__checkbox" id="cb-{{ category.path }}" type="checkbox" value="{{ category.path }}">
-        <label for="cb-{{ category.path }}">
+        <input class="item__checkbox" id="cb-{{ category.skillId }}" type="checkbox" value="{{ category.skillId }}">
+        <label for="cb-{{ category.skillId }}">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9 22l-10-10.598 2.798-2.859 7.149 7.473 13.144-14.016 2.909 2.806z"/></svg>
         </label>
         <span class="name" >{{ category.label }}</span>
@@ -70,10 +70,10 @@
           {% endif %}
         {% endfor %}
 
-        <li class="skill__container{% if hasChildren %} has-child{% endif %}" data-path="{{ subcategory.path }}">
+        <li class="skill__container{% if hasChildren %} has-child{% endif %}" data-path="{{ subcategory.path }}" data-skill-id="{{ subcategory.skillId }}" data-children-ids="{{ subcategory.childrenIds | join(',') }}">
           <div class="item skill__item" data-count="{{ subcategory.count }}">
-            <input class="item__checkbox" id="cb-{{ subcategory.path }}" type="checkbox" value="{{ subcategory.path }}">  
-            <label for="cb-{{ subcategory.path }}">
+            <input class="item__checkbox" id="cb-{{ subcategory.skillId }}" type="checkbox" value="{{ subcategory.skillId }}">
+            <label for="cb-{{ subcategory.skillId }}">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9 22l-10-10.598 2.798-2.859 7.149 7.473 13.144-14.016 2.909 2.806z"/></svg>
             </label>
             <span class="name">{{ subcategory.label }}</span>
@@ -99,10 +99,10 @@
           <ul class="level-3 is-collapsed">
             {% for subsubcategory in subsubcategories %}
             {% if subsubcategory.path.startsWith(subcategory.path) %}
-            <li class="detail__container" data-path="{{ subsubcategory.path }}">
+            <li class="detail__container" data-path="{{ subsubcategory.path }}" data-skill-id="{{ subsubcategory.skillId }}" data-children-ids="{{ subsubcategory.childrenIds | join(',') }}">
               <div class="item detail__item" data-count="{{ subsubcategory.count }}">
-                <input class="item__checkbox" id="cb-{{ subsubcategory.path }}" type="checkbox" value="{{ subsubcategory.path }}">
-                <label for="cb-{{ subsubcategory.path }}">
+                <input class="item__checkbox" id="cb-{{ subsubcategory.skillId }}" type="checkbox" value="{{ subsubcategory.skillId }}">
+                <label for="cb-{{ subsubcategory.skillId }}">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9 22l-10-10.598 2.798-2.859 7.149 7.473 13.144-14.016 2.909 2.806z"/></svg>
                 </label>
                 <span class="name">{{ subsubcategory.label }}</span>

@@ -633,6 +633,9 @@ body.graph-view .item__graph {
   background-color: var(--color-100);
   border-color: var(--color-300);
 }
+.card .skills-list li.is-selected {
+  background-color: red;
+}
 .card .title {
   border-top: var(--border-light);
   margin-top: calc(var(--spacing) * 0.5);
@@ -709,6 +712,83 @@ body.graph-view .item__graph {
   outline: none;
 }
 
+#research-items {
+  width: 100%;
+  min-height: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px;
+  align-items: center;
+}
+
+.research-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  line-height: 1.4;
+  transition: all 0.2s ease;
+}
+.research-tag .tag-label {
+  display: inline-block;
+}
+.research-tag .tag-remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  padding: 0;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+.research-tag .tag-remove:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.research-tag--skill {
+  background-color: var(--color-primary, #e3f2fd);
+  color: var(--color-primary-dark, #1565c0);
+  border: 1px solid var(--color-primary-dark, #1565c0);
+}
+.research-tag--skill .tag-remove {
+  color: var(--color-primary-dark, #1565c0);
+}
+.research-tag--free {
+  background-color: var(--color-secondary, #f5f5f5);
+  color: var(--color-text, #333);
+  border: 1px solid var(--color-border, #ccc);
+}
+.research-tag--free .tag-remove {
+  color: var(--color-text, #333);
+}
+
+.reset-button {
+  margin-left: auto;
+  padding: 8px 16px;
+  background-color: var(--color-error, #f44336);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+.reset-button:hover {
+  background-color: var(--color-error-dark, #d32f2f);
+}
+.reset-button span {
+  display: inline-block;
+}
+
 #section__skills-tree {
   width: calc(var(--tree-w) + var(--padding-body));
   border-right: var(--border-light);
@@ -746,6 +826,7 @@ body.graph-view .item__graph {
   position: relative;
 }
 #section__cards #count-members {
+  padding-top: 100px;
   font-family: var(--mono);
   font-weight: var(--fw-mono);
   text-align: right;

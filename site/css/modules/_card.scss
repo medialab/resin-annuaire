@@ -87,6 +87,10 @@
         margin-top: calc(var(--spacing)*3);
         z-index: 100;
         @include skills-tags();
+
+        li.is-selected{
+            background-color: red;
+        }
     }
 
 

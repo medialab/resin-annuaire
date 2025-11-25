@@ -1,8 +1,8 @@
 <div class="cards-wrapper">
   {% for item in items %}
 
-  
-  <div class="card">
+
+  <div class="card" data-skills="{{ item.allSkills | join(',') }}">
     <div class="inner-card">
       
       <div class="card-image">
@@ -52,10 +52,13 @@
         </p>
         {% endif %}
 
+        <div class="research-extract">
+          
+        </div>
         <div class="skills-list">
           <ul>
-            {% for skill in item.lastSkills.split(', ') %}
-            <li>{{ skill }}</li>
+            {% for skill in item.lastSkillsWithIds %}
+            <li data-skill-id="{{ skill.id }}">{{ skill.label }}</li>
             {% endfor %}
           </ul>
         </div>

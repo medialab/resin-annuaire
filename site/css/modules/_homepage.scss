@@ -30,6 +30,7 @@
 #section__cards{
 
     #count-members{
+        padding-top: 100px;
         font-family: var(--mono);
         font-weight: var(--fw-mono);
         text-align: right;
@@ -49,6 +50,7 @@
        column-gap: calc(var(--padding-body)*1);
        row-gap: calc(var(--padding-body)*1);
        position: relative;
+    
     //    top: -80vh;
     }
 
