@@ -1,8 +1,10 @@
+
+
 #skills-tree{
-  
+
     font-family: var(--mono);
     font-weight: var(--fw-mono);
-    padding-right: var(--padding-body);
+    // padding-right: var(--padding-body);
     padding-top: 0;
 
     ul, li{
@@ -15,11 +17,8 @@
         width: 100%;
     }
 
-
-
     .item{
         --size-label: 14px;
-        // width: calc(var(--tree-w) - var(--padding-body));
         width: var(--tree-w);
         height: var(--tree-item-h);
         border-bottom: var(--border-light);
@@ -45,9 +44,6 @@
             display: none;
         }
     
-
-
-
         .item__checkbox + label{
             height: var(--size-label);
             width: var(--size-label);
@@ -75,6 +71,7 @@
 
         &.is-checked .item__checkbox:checked  + label{
             background-color: var(--color)!important;
+            outline: 2px solid var(--color-xlight);
             svg{
                 fill: var(--color-bg);
             }
@@ -123,30 +120,51 @@
 
 
     .item__graph{
-        // flex-wrap: wrap;
+        display: flex;
+        flex-wrap: wrap;
         gap: 3px;
-        position: absolute;
         align-items: center;
-        left: calc(var(--tree-w) + var(--padding-body)*2);
-        top: calc((var(--tree-item-h) - var(--block-graph))*0.5);
-        height: calc(var(--block-graph)*1.5);
+ 
+
+        .block{
+            height: var(--block-graph);
+            width: var(--block-graph);
+            background-color: var(--color);
+        
+        }
     
-
-
+    
         .info{
             font-size: var(--fs-small);
-            color: var(--color-300);
+            // color: var(--color-300);
             padding-left: 1ch;
             background-color: var(--color-bg);
+            white-space: nowrap;
+            color: var(--color-light);
         }
+
+    
+
         
     }
+    @media #{$small}{
+        .item__graph{
+            margin-top: calc(var(--spacing)*0.5);
+            margin-bottom: calc(var(--spacing)*1);
+            padding-left:  var(--tree-indent);
 
-    .item__graph .block{
-        height: var(--block-graph);
-        width: var(--block-graph);
-        background-color: var(--color);
-        border-radius: var(--radius-small);
+            .block{
+                border-radius: 1px;
+            }
+
+
+        }
+        .level-2 .item__graph{ margin-left: var(--tree-indent); }
+        .level-3 .item__graph{ margin-left: calc(var(--tree-indent)*2); }
+
+      
+
+
     }
 
 
@@ -154,26 +172,42 @@
 
 
 #skills-tree__nav{
-    border-bottom: 1px solid transparent;
-       
+
+    border-bottom: 1px solid transparent;  
     position: sticky!important;
     top: 0;
     background-color: var(--color-bg);
     z-index: 200;
+
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: calc(var(--tree-item-h)*0.5);
+
+    @media #{$small-up}{
+        height: 60px;
+    }
+
+    @media #{$small}{
+        border-color: var(--color-100);
+    }
    
 
     .container{
         display: flex;
         justify-content: flex-end;
-        align-items: flex-end;
+        align-items: center;
         gap: 6px;
         width: var(--tree-w);
-        height: 60px;
-        padding-bottom: calc(var(--tree-item-h)*0.5);
+        // height: var(--tree-item-h);
     }
    
-  
 
+    .title{
+        @include title-home();
+        width: 100%;
+        flex-grow: 1;
+
+    }
 
     .toggle-all, #toggle-graph{
         @include button();
@@ -181,14 +215,16 @@
 
     #toggle-graph{
         svg{
-            width: 12px;
-            
+            width: 12px;          
             fill: var(--color-txt);
             transform: rotate(90deg);
         }
     }
 
     .toggle-all{
+        gap: 1ch;
+        flex-grow: 1;
+        white-space: nowrap;
         svg{
             position: relative;
             top: 3px;
@@ -196,10 +232,28 @@
             fill: var(--color-800);
         }
     }
+
+
+
+    @media #{$small}{
+        .container{
+            flex-wrap: wrap;
+            .toggle-all{
+                flex-grow: 0;
+            }
+            .title{
+                margin-bottom: calc(var(--spacing)*1);
+            }
+        }
+    }
 }
 
 
-// Interactions
+
+
+
+// Interactions ------------------------------------------------
+// -------------------------------------------------------------
 
 // Lists
 #skills-tree{
@@ -249,43 +303,92 @@
 
 
 
-body {
-    .item__graph{
-        display: none;
-        opacity: 0;
-    }
-}
-
-
-.item__graph{
-    transition: opacity .3s ease-in 1s;
-}
+// see graph
 
 body.graph-view {
-    overflow: hidden;
-
-    // #section__search,
-    // #section__cards{
-    //     opacity: 0.05;
-    //     z-index: 0;
-    // }
-
-
-    #section__skills-tree{
-        width: 100vw;
-        transition: width .3s ease-out;
+    #section__skills-tree #toggle-graph{
+        background-color: var(--color-txt);
+        border-color: var(--color-txt);
+        svg{
+            fill: var(--color-bg);
+        }
     }
-    #skills-tree__nav{
-        border-bottom: var(--border-light)
+}
+
+
+@media #{$small}{
+
+    body{ 
+        #skills-tree .item__graph{
+            display: none;
+        }
     }
 
-    .item__graph {
-        display: flex;
-        opacity: 1;
-        transition: opacity .3s ease-out 1s;
-    }
-  }
+    body.graph-view {
 
+        #skills-tree .item__graph{
+            display: flex;
+        }
+
+       
+    }
+}
+
+
+// see skills-tree
+
+// @media #{$small}{
+
+//     body{
+//         #section__skills-tree{
+//             top: calc(100vh*-1 + var(--header-h));
+//         }
+      
+//     }
+
+
+//     body.has-skillTree{
+//         #section__skills-tree{
+//             top: var(--header-h);
+//         }
+//     }
+// }
+
+@media #{$small-up}{
+
+    body{
+
+        // #section__skills-tree{
+        //     transition: width .3s ease-out;
+        // }
+
+        .item__graph{
+            position: absolute;
+            left: calc(var(--tree-w) + var(--padding-body)*2);
+            top: calc((var(--tree-item-h) - var(--block-graph))*0.5);
+            height: calc(var(--block-graph)*1.5);
+            opacity: 0;
+            transition: opacity 0.5s ease-in 0.2s;
+        }
+
+    } 
+
+    
+    body.graph-view {
+        overflow: hidden;
+        #section__skills-tree{
+            width: 100vw;
+        }
+        #skills-tree__nav{
+            border-bottom: var(--border-light)
+        }
+
+        .item__graph {
+            opacity: 1;
+        }
+    }
+
+}
 
 
 

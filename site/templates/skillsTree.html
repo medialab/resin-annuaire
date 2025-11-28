@@ -1,6 +1,8 @@
+
+
 <nav id="skills-tree__nav">
   <div class="container">
-
+    <p class="title">Compétences</p>
 
   <button id="toggle-graph">
     <!-- Vue graph -->
@@ -57,7 +59,7 @@
         {% for i in range(category.count) %}
         <div class="block"></div>
         {% endfor %}
-        <div class="info">{{ category.count }} ingénieur·es</div>
+        <div class="info">{{ category.count }}<span class="txt"> ingénieur·es</span></div>
       </div>
     
       <ul class="level-2 is-collapsed">

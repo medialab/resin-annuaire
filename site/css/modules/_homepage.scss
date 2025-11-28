@@ -1,64 +1,93 @@
 
 #section__skills-tree{
-    width: calc(var(--tree-w) + var(--padding-body));
-    border-right: var(--border-light);
-    position: fixed; 
-    left: var(--padding-body);
-    top: var(--header-h);
-    height: calc(100vh - var(--header-h));
-    overflow: scroll;
+    z-index: 1000;
+    overflow-y: scroll;
+    overflow-x: hidden;
     @include hide-scroll();
     padding-bottom: calc(var(--padding-body)*2);
-    z-index: 1000;
-    background-color: var(--color-bg-alpha);
+
+    @media #{$small-up}{
+        width: calc(var(--tree-w) + var(--padding-body));
+        border-right: var(--border-light);
+        position: fixed; 
+        left: var(--padding-body);
+        top: var(--header-h);
+        height: calc(100vh - var(--header-h));
+        background-color: var(--color-bg-alpha);
+    }
+
+    @media #{$small}{
+        padding-top: calc(var(--spacing)*6);
+        width: 100%;
+        background-color: var(--color-bg);
+    }
+    
 }
 
 
 #section__search{
-    margin-left: calc(var(--tree-w) + var(--padding-body));
-    padding-left: calc(var(--padding-body)*2);
+
     border-bottom: var(--border-light);
     background-color: var(--color-bg);
-    height: 60px;
-    width: calc(100vw - var(--tree-w) - var(--padding-body)*2);
-
-    position: sticky;
-    top: var(--header-h);
     z-index: 800;
+
+    @media #{$small-up}{
+        margin-left: calc(var(--tree-w) + var(--padding-body));
+        width: calc(100vw - var(--tree-w) - var(--padding-body)*2);
+        position: sticky;
+        top: var(--header-h);
+        padding-left: calc(var(--padding-body)*2);
+        height: 60px;
+    }
+
+    @media #{$small}{
+        width: 100vw;
+        position: fixed;
+        left: 0;
+        top: var(--header-h);
+        height: 40px;
+        padding: 0px var(--padding-body);
+    }
+   
 }
 
 #section__cards{
 
-    #count-members{
-        padding-top: 100px;
-        font-family: var(--mono);
-        font-weight: var(--fw-mono);
-        text-align: right;
-        margin-bottom: calc(var(--spacing)*1);
-        color: var(--color-txt);
-    }
-    margin-left: calc(var(--tree-w) + var(--padding-body));
-    // width: calc(100% + var(--padding-body));
-    padding: calc(var(--padding-body)*2);
-    // padding-left: calc(var(--padding-body)*3);
+    position: relative;
     padding-bottom: 30vh;
+    z-index: 100;
+  
+    @media #{$small}{
+        padding-top: calc(var(--spacing)*1);
+    }
+
+    @media #{$small-up}{
+        margin-left: calc(var(--tree-w) + var(--padding-body));
+        padding: calc(var(--padding-body)*1.5);
+    }
+
+    #count-members{
+        @include title-home();
+        margin-bottom: calc(var(--spacing)*2);
+    }
 
 
     .cards-wrapper{
         display: grid;
-       grid-template-columns: 1fr 1fr;
-       column-gap: calc(var(--padding-body)*1);
-       row-gap: calc(var(--padding-body)*1);
-       position: relative;
-    
-    //    top: -80vh;
+        @media #{$small-up}{
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+        }
+        column-gap: calc(var(--padding-body)*1);
+        row-gap: calc(var(--padding-body)*1);
+        position: relative;  
     }
 
-    position: relative;
+   
 
    
 
 }
+
 
 
 

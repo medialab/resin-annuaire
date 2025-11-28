@@ -30,3 +30,10 @@ function headerShrink() {
         body.classList.add('is-header-shrinked');
     }
 }
+
+
+
+// Responsive
+
+const screenSmall = 920;
+const screenPhone = 560;

@@ -30,7 +30,7 @@
     font-family: var(--mono);
     font-weight: var(--fw-mono);
     // text-transform: uppercase;
-    // display: none;
+    display: none;
 
     ul{ 
         display: flex;
@@ -67,13 +67,13 @@
         }   
     }
 }
+
 #section__search{
     transition: top .4s ease-in;
 }
 
 #section__skills-tree{
-    transition: top .4s ease-in,
-                width .3s ease-in;
+    transition: top .4s ease-in, width .3s ease-in;
 }
 
 

@@ -6,6 +6,20 @@ document.addEventListener("DOMContentLoaded", function() {
   const countSpan = document.querySelector("#count-members > span");
   const skillsTree = document.querySelector("#skills-tree");
 
+
+  // open/close one phone ----------------------------------------
+
+  // btnToggle.addEventListener("click", function(event) {
+  //   if(window.innerWidth < screenSmall){
+  //     document.body.classList.add("has-skillTree");
+  //   }
+  // });
+
+
+
+
+
+
   if (!researchItems || !searchBar || !cardsWrapper) return;
 
   // État de la recherche

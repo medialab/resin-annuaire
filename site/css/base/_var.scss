@@ -48,3 +48,18 @@
     --radius-small: 4px;
     --max-width: 900px;
 }
+
+
+@media #{$small}{
+    :root{
+        --tree-w: 100%;
+
+        --fs-small: 12px;
+        --font-size: 13px;
+        --fs-medium: 16px;
+        --fs-big: 20px;
+        --fs-xbig: 28px;
+
+        --block-graph: 8px;
+    }
+}

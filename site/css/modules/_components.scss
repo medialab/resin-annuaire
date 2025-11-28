@@ -5,6 +5,36 @@
 }
 
 
+@mixin title-home(){
+    font-family: var(--mono);
+    font-weight: var(--fw-mono);
+    color: var(--color-txt);
+  
+    // background-color: var(--color-050);
+    background-color: var(--color-100);
+    height: var(--tree-item-h);
+    padding: 0px 1ch;
+    display: flex;
+    align-items: center;
+    gap: 1ch;
+    border-radius: var(--radius-small);
+    text-transform: uppercase;
+    font-size: var(--fs-small);
+    letter-spacing: 0.01rem;
+
+    @media #{$small-up}{
+        font-size: var(--fs-small);
+    }
+
+    @media #{$small}{
+        font-size: var(--font-size);
+    }
+
+
+}
+
+
+
 @mixin button-common(){
     font-family: var(--mono);
     font-weight: var(--fw-mono);
@@ -127,3 +157,5 @@
         @include button();
     }
 }
+
+
