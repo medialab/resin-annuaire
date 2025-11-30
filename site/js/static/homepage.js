@@ -1,5 +1,5 @@
-const skillTree = document.querySelector("#section__skills-tree");
-const skillTreeTitle = document.querySelector("#section__skills-tree .section--title");
+const skillTree = document.querySelector("#skills-tree");
+const skillTreeTitle = document.querySelector("#title__skills-tree");
 
 const skillCards = document.querySelector("#section__cards");
 const skillCardsTitle = document.querySelector("#title__cards");
@@ -19,7 +19,7 @@ if (skillCardsTitle) {
     const spacing = parseInt(styles.getPropertyValue('--spacing'));
 
     return {
-      cardsTop: headerH + searchH + (spacing * 3)
+      cardsTop: headerH + searchH + (spacing * 3.5)
     };
   };
 
@@ -126,142 +126,46 @@ if (skillCardsTitle) {
   }, 100);
 }
 
+// Action au clic sur skillTreeTitle pour mobile
+if (skillTreeTitle) {
+  skillTreeTitle.addEventListener('click', function() {
+    if (window.innerWidth < screenSmall) {
+      // Si #section__skills-tree a un scroll interne, le remettre à 0
+      if (skillTree) {
+        skillTree.scrollTop = 0;
+      }
 
-// const countMembers = document.getElementById('count-members');
+      // Scroller en haut de la page
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  }, false);
+}
 
-// if (countMembers) {
-//   let placeholder = null;
-//   let initialOffset = null;
+// Action au clic sur skillCardsTitle pour mobile
+if (skillCardsTitle) {
+  skillCardsTitle.addEventListener('click', function() {
+    if (window.innerWidth < screenSmall) {
+      const styles = getComputedStyle(document.documentElement);
+      const headerH = parseInt(styles.getPropertyValue('--header-h'));
+      const searchH = parseInt(styles.getPropertyValue('--search-h'));
+      const spacing = parseInt(styles.getPropertyValue('--spacing'));
+      const cardsTop = headerH + searchH + (spacing * 3);
 
+      // Obtenir la position actuelle de skillCardsTitle
+      const rect = skillCardsTitle.getBoundingClientRect();
+      const currentScrollY = window.scrollY;
 
-//   // Calculer la position seuil a partir des variables CSS
-//   const getThresholdPosition = () => {
-//     const styles = getComputedStyle(document.documentElement);
-//     const headerH = parseInt(styles.getPropertyValue('--header-h'));
-//     const searchH = parseInt(styles.getPropertyValue('--search-h'));
-//     const spacing = parseInt(styles.getPropertyValue('--spacing'));
-//     const result = headerH + searchH;
-//     return result;
-//   };
+      // Calculer la position de scroll pour que skillCardsTitle arrive à cardsTop
+      const targetScrollY = currentScrollY + rect.top - cardsTop;
 
-//   // Calculer la position initiale de l'element par rapport au document
-//   const getInitialOffset = () => {
-//     if (placeholder) {
-//       return placeholder.offsetTop;
-//     }
-//     return countMembers.offsetTop;
-//   };
-
-//   const handleScroll = () => {
-//     // Sur grand ecran, reinitialiser
-//     if (window.innerWidth >= screenSmall) {
-//       if (countMembers.classList.contains('is-fixed')) {
-//         countMembers.classList.remove('is-fixed');
-//         countMembers.style.position = '';
-//         countMembers.style.top = '';
-//         countMembers.style.left = '';
-//         countMembers.style.width = '';
-//         countMembers.style.zIndex = '';
-//         if (placeholder) {
-//           placeholder.remove();
-//           placeholder = null;
-//         }
-//         initialOffset = null;
-//       }
-//       return;
-//     }
-
-//     const threshold = getThresholdPosition();
-//     const isFixed = countMembers.classList.contains('is-fixed');
-
-//     // Utiliser la position actuelle de l'element (ou du placeholder)
-//     let elementTop;
-//     if (placeholder) {
-//       elementTop = placeholder.getBoundingClientRect().top;
-//     } else {
-//       elementTop = countMembers.getBoundingClientRect().top;
-//     }
-
-//     const shouldBeFixed = elementTop <= threshold;
-
-//     console.log('[Homepage] Scroll check:', {
-//       screenWidth: window.innerWidth,
-//       elementTop,
-//       threshold,
-//       shouldBeFixed,
-//       isFixed
-//     });
-
-//     if (shouldBeFixed && !isFixed) {
-//       // Obtenir les dimensions avant de devenir fixed
-//       const rect = countMembers.getBoundingClientRect();
-//       const styles = getComputedStyle(countMembers);
-
-//       // Creer un placeholder pour eviter le saut de layout
-//       placeholder = document.createElement('div');
-//       placeholder.style.height = rect.height + 'px';
-//       placeholder.style.marginBottom = styles.marginBottom;
-//       placeholder.className = 'count-members-placeholder';
-//       countMembers.parentNode.insertBefore(placeholder, countMembers);
-
-//       // Appliquer le positionnement fixed
-//       countMembers.classList.add('is-fixed');
-//       countMembers.style.position = 'fixed';
-//       countMembers.style.top = threshold + 'px';
-//       countMembers.style.left = rect.left + 'px';
-//       countMembers.style.width = rect.width + 'px';
-//       countMembers.style.zIndex = '800';
-
-//     } else if (!shouldBeFixed && isFixed) {
-//       // Retirer le fixed
-//       countMembers.classList.remove('is-fixed');
-//       countMembers.style.position = '';
-//       countMembers.style.top = '';
-//       countMembers.style.left = '';
-//       countMembers.style.width = '';
-//       countMembers.style.zIndex = '';
-
-//       if (placeholder) {
-//         placeholder.remove();
-//         placeholder = null;
-//       }
-//     }
-//   };
-
-//   // Gerer le redimensionnement de la fenetre
-//   const handleResize = () => {
-//     // Reinitialiser l'offset pour recalculer
-//     initialOffset = null;
-
-//     // Si on passe en grand ecran, nettoyer
-//     if (window.innerWidth >= screenSmall && placeholder) {
-//       countMembers.classList.remove('is-fixed');
-//       countMembers.style.position = '';
-//       countMembers.style.top = '';
-//       countMembers.style.left = '';
-//       countMembers.style.width = '';
-//       countMembers.style.zIndex = '';
-//       placeholder.remove();
-//       placeholder = null;
-//     } else if (window.innerWidth < screenSmall && countMembers.classList.contains('is-fixed')) {
-//       // Recalculer la position et largeur en mode fixed
-//       const rect = placeholder ? placeholder.getBoundingClientRect() : countMembers.getBoundingClientRect();
-//       countMembers.style.left = rect.left + 'px';
-//       countMembers.style.width = rect.width + 'px';
-//     }
-
-//     handleScroll();
-//   };
-
-//   window.addEventListener('scroll', handleScroll, { passive: true });
-//   window.addEventListener('resize', handleResize);
-
-//   // Initialiser au chargement
-//   setTimeout(() => {
-//     initialOffset = getInitialOffset();
-//     handleScroll();
-//   }, 100);
-// }
-
-
+      window.scrollTo({
+        top: targetScrollY,
+        behavior: 'smooth'
+      });
+    }
+  }, false);
+}
 

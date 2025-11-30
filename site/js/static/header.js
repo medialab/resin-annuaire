@@ -36,5 +36,5 @@ function headerShrink() {
 
 // Responsive
 
-const screenSmall = 920;
+const screenSmall = 820;
 const screenPhone = 560;

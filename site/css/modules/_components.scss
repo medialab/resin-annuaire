@@ -47,10 +47,11 @@
         position: relative;
         width: 100vw;
 
-        height: calc(var(--tree-item-h) + var(--spacing)*1);
+        height: calc(var(--tree-item-h) + var(--spacing)*0.5);
         background-color: var(--color-bg);
         display: flex;
         align-items: flex-end;
+        cursor: pointer;
 
     }
 
