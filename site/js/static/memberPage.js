@@ -165,6 +165,36 @@ if (btnCopy && emailElement) {
 }
 
 
+// Ajouter .has-subheader au body au scroll (mobile uniquement)
+function handleSubheaderScroll() {
+  const scrollY = window.scrollY;
+  const body = document.body;
+
+  if (window.innerWidth < screenSmall) {
+    if (scrollY > 200) {
+      if (!body.classList.contains('has-subheader')) {
+        body.classList.add('has-subheader');
+      }
+    } else {
+      if (body.classList.contains('has-subheader')) {
+        body.classList.remove('has-subheader');
+      }
+    }
+  } else {
+    // Sur grand écran, retirer la classe si elle existe
+    if (body.classList.contains('has-subheader')) {
+      body.classList.remove('has-subheader');
+    }
+  }
+}
+
+window.addEventListener('scroll', handleSubheaderScroll, { passive: true });
+window.addEventListener('resize', handleSubheaderScroll);
+
+// Initialiser au chargement
+handleSubheaderScroll();
+
+
 // Copier .member__toc dans #site-nav quand le menu est ouvert
 const inputToggleMenu = document.getElementById('input-toggle-menu');
 const siteNav = document.getElementById('site-nav');

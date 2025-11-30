@@ -13,6 +13,10 @@
 
     z-index: 1000;
 
+    @media #{$small}{
+        padding: 0 var(--padding-body);
+    }
+
     .container{
         width: 100%;
 
@@ -42,5 +46,23 @@
         fill: var(--color-txt);
     }
 
+    
+}
+
+
+
+@media #{$small}{
+
+    #sub-header{
+        top: calc(var(--header-h) - var(--subheader-h));
+        transition: top .5s ease-in;
+    }
+
+    body.has-subheader{
+        #sub-header{
+            top: var(--header-h);
+
+        }
+    }
     
 }
