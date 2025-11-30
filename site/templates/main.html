@@ -27,7 +27,7 @@
     </header>
 
     
-    <main>
+    <main{% block main_attributes %}{% endblock %}>
       {% block body %}{% endblock %} {% include "footer.html" %}
     </main>
     {% block scripts %}

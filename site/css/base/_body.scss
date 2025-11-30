@@ -27,16 +27,15 @@ body{
 
     color: var(--color-txt);
     background-color: var(--color-bg);
+    overflow-x: hidden;
 }
 
 
 
 main{
     position: relative;
-    // padding-top: calc(var(--padding-body)*2);
     padding: 0 var(--padding-body);
-    margin-top: var(--header-h);
-    margin-bottom: 70vh;
+    margin-bottom: 30vh;
 }
 
 

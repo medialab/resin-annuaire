@@ -1,5 +1,4 @@
 #site-header{
-    // display: none;
     background-color: var(--color-bg);
     height: var(--header-h);
     width: 100vw;
@@ -12,17 +11,8 @@
     top: 0;
     left: 0;
     z-index: 10000;
-
     border-bottom: var(--border-light);
 
-    
-
-
-    svg{
-        height: calc(var(--header-h) - 30px);
-    }
-
-   
 }
 
 
@@ -48,13 +38,31 @@
 }
 
 
+@media #{$small}{
+
+    #site-header{
+        svg{
+            height: calc(var(--header-h) - 15px);
+            position: relative;
+            top: 3px;
+            #baseline{
+                opacity: 0!important;
+            }
+            #logo-text{
+                transform: translate(5%, 11%);
+            }
+        }
+    }
+}
 
 
+@media #{$small-up}{
 
 #site-header{
     transition: height .4s ease-in;
 
     svg{
+        height: calc(var(--header-h) - 30px);
         transition: height .4s ease-in,
         top .2s ease-in;
         #baseline{
@@ -93,4 +101,6 @@ body.is-header-shrinked{
     }
 
    
+}
+
 }

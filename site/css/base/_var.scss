@@ -30,13 +30,14 @@
     --color-bg: white;
     --color-bg-alpha: #fffffff2;
 
-    --tree-w: 360px;
+    --tree-w: 420px;
     --tree-item-h: 24px;
     --tree-indent: 24px;
     --padding-body: 18px;
 
     --header-h: 120px;
     --header-h-small: 60px;
+    --search-h: 60px;
     --block-graph: 12px;
     --button-h: 20px;
 
@@ -61,5 +62,10 @@
         --fs-xbig: 28px;
 
         --block-graph: 8px;
+        --search-h:  40px;
+
+
+        --header-h: 60px;
+        --header-h-small: 60px;
     }
 }

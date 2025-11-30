@@ -24,7 +24,8 @@ function headerShrink() {
     const skillsScrollPosition = skillsSection ? skillsSection.scrollTop : 0;
 
     // Ajoute la classe dès qu'un des deux scrolls > 100px
-    if ((windowScrollPosition > 100 || skillsScrollPosition > 100)
+    if (window.innerWidth >= screenSmall
+        && (windowScrollPosition > 100 || skillsScrollPosition > 100)
         && !body.classList.contains('is-header-shrinked')
     ) {
         body.classList.add('is-header-shrinked');

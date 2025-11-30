@@ -4,9 +4,8 @@
 
     font-family: var(--mono);
     font-weight: var(--fw-mono);
-    // padding-right: var(--padding-body);
     padding-top: 0;
-
+  
     ul, li{
         list-style: none;
         position: relative;
@@ -19,7 +18,6 @@
 
     .item{
         --size-label: 14px;
-        width: var(--tree-w);
         height: var(--tree-item-h);
         border-bottom: var(--border-light);
         padding: 2px 0px;
@@ -107,22 +105,37 @@
       
     }
 
+
+    
     .skill__item{
-        width: calc(var(--tree-w) - var(--tree-indent));
         margin-left: var(--tree-indent);
     }
 
     .detail__item{
-        width: calc(var(--tree-w) - var(--tree-indent)*2);
         margin-left: calc(var(--tree-indent)*2);
     }
+
+    @media #{$small-up}{
+        .item{ width: calc(var(--tree-w) - var(--padding-body)*2); }
+        .skill__item{  width: calc(var(--tree-w) - var(--padding-body)*2 - var(--tree-indent)); }
+        .detail__item{ width: calc(var(--tree-w) - var(--padding-body)*2 - var(--tree-indent)*2); }
+    }
+
+    @media #{$small}{
+        .item{ width: 100%; }
+        .skill__item{  width: calc(100% - var(--tree-indent)); }
+        .detail__item{ width: calc(100% - var(--tree-indent)*2); }
+    }
+
+
+    
 
 
 
     .item__graph{
         display: flex;
         flex-wrap: wrap;
-        gap: 3px;
+        // gap: 3px;
         align-items: center;
  
 
@@ -130,7 +143,8 @@
             height: var(--block-graph);
             width: var(--block-graph);
             background-color: var(--color);
-        
+            border-radius: var(--radius-small); 
+            margin-right: 3px;
         }
     
     
@@ -148,21 +162,22 @@
         
     }
     @media #{$small}{
-        .item__graph{
-            margin-top: calc(var(--spacing)*0.5);
-            margin-bottom: calc(var(--spacing)*1);
-            padding-left:  var(--tree-indent);
-
-            .block{
-                border-radius: 1px;
-            }
+        .item__graph{ display: none!important; }
 
 
-        }
-        .level-2 .item__graph{ margin-left: var(--tree-indent); }
-        .level-3 .item__graph{ margin-left: calc(var(--tree-indent)*2); }
+        // .item__graph{
+        //     margin-top: calc(var(--spacing)*0.5);
+        //     margin-bottom: calc(var(--spacing)*1);
+        //     padding-left:  var(--tree-indent);
 
-      
+        //     .block{
+        //         border-radius: 1px;
+        //     }
+
+
+        // }
+        // .level-2 .item__graph{ margin-left: var(--tree-indent); }
+        // .level-3 .item__graph{ margin-left: calc(var(--tree-indent)*2); }
 
 
     }
@@ -185,29 +200,39 @@
 
     @media #{$small-up}{
         height: 60px;
+        .container{
+            width: calc(var(--tree-w) * 1 - var(--padding-body)*2);
+        }
     }
 
     @media #{$small}{
         border-color: var(--color-100);
+        padding-top: calc(var(--spacing)*4);
+        position: sticky;
+            top: 0px;
+        .container{
+            width: 100%;
+        }
     }
    
-
     .container{
         display: flex;
         justify-content: flex-end;
         align-items: center;
         gap: 6px;
-        width: var(--tree-w);
-        // height: var(--tree-item-h);
     }
    
 
-    .title{
-        @include title-home();
+    .section--title{
+        @include section-title();
         width: 100%;
         flex-grow: 1;
-
+        @media #{$small}{
+            display: none;
+        }
     }
+
+  
 
     .toggle-all, #toggle-graph{
         @include button();

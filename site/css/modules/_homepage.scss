@@ -1,25 +1,120 @@
+.main__home{
+    padding-top: calc(var(--header-h) + var(--search-h));
 
-#section__skills-tree{
-    z-index: 1000;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    @include hide-scroll();
-    padding-bottom: calc(var(--padding-body)*2);
 
     @media #{$small-up}{
-        width: calc(var(--tree-w) + var(--padding-body));
-        border-right: var(--border-light);
-        position: fixed; 
-        left: var(--padding-body);
-        top: var(--header-h);
-        height: calc(100vh - var(--header-h));
-        background-color: var(--color-bg-alpha);
+        margin-left: var(--tree-w);
+        padding-left: calc(var(--padding-body)*2);
+        padding-right: calc(var(--padding-body)*2);
     }
 
     @media #{$small}{
-        padding-top: calc(var(--spacing)*6);
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+
+.section--title{
+    @include section-title();
+    z-index: 3000;
+    @media #{$small}{
+        padding: 0px var(--padding-body);
+    }
+}
+
+#title__skills-tree{
+    position: fixed!important;
+    height: calc(var(--tree-item-h) + var(--spacing)*1.5);
+    top: calc(var(--header-h) + var(--search-h));
+    left: 0px;
+    @media #{$small-up}{
+        display: none;
+    }
+}
+
+#title__cards{
+
+    @media #{$small}{
+        &::after{
+            content: '';
+            display: block;
+            // background-color: red;
+            width: 100vw;
+            height: 30px;
+            position: absolute;
+            left: 0px;
+            bottom: -30px;
+            background: linear-gradient(0deg,transparent 0%, rgba(255, 255, 255, 1) 75%);        }
+    }
+    @media #{$small-up}{
+        margin-top: calc(var(--spacing)*2.5);
+        margin-bottom: calc(var(--spacing)*1.5);
+    }
+}
+
+
+#section__skills-tree{
+    position: relative;
+    z-index: 500;
+   
+    padding-left: var(--padding-body);
+    padding-right: var(--padding-body);
+   
+
+    @media #{$small-up}{
+        width: var(--tree-w);
+        border-right: var(--border-light);
+        position: fixed; 
+        left: 0px;
+        top: var(--header-h);
+        height: calc(100vh - var(--header-h));
+        background-color: var(--color-bg-alpha);
+       
+        overflow-y: scroll;
+        overflow-x: hidden;
+        @include hide-scroll();
+
+    }
+
+    @media #{$small}{
+        #toggle-graph{ display: none;}
+
         width: 100%;
         background-color: var(--color-bg);
+        overflow-x: hidden;
+        // padding-bottom: calc(var(--padding-body)*2);
+        // margin-bottom:  calc(var(--padding-body)*-2);
+
+        .level-1{
+            padding-bottom: calc(var(--spacing)*2);
+        }
+
+        #skills-tree{
+            max-height: calc(100vh - var(--header-h) - var(--search-h) - var(--spacing)*11.5);
+            overflow-y: scroll;
+            overflow-x: hidden;
+            @include hide-scroll();
+        }
+        #skills-tree__nav{
+            background-color: var(--color-bg);
+        }
+
+
+  
+        &::after{
+            content: '';
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 34px;
+            bottom: 0px;
+            background: linear-gradient(0deg,rgba(255, 255, 255, 1) 41%, transparent 100%);
+        }
+        
+    
+
+    
     }
     
 }
@@ -30,14 +125,14 @@
     border-bottom: var(--border-light);
     background-color: var(--color-bg);
     z-index: 800;
+    height: var(--search-h);
 
     @media #{$small-up}{
-        margin-left: calc(var(--tree-w) + var(--padding-body));
-        width: calc(100vw - var(--tree-w) - var(--padding-body)*2);
-        position: sticky;
+        width: calc(100vw - var(--tree-w));
+        position: fixed;
         top: var(--header-h);
+        left: var(--tree-w);
         padding-left: calc(var(--padding-body)*2);
-        height: 60px;
     }
 
     @media #{$small}{
@@ -45,7 +140,6 @@
         position: fixed;
         left: 0;
         top: var(--header-h);
-        height: 40px;
         padding: 0px var(--padding-body);
     }
    
@@ -60,16 +154,12 @@
     @media #{$small}{
         padding-top: calc(var(--spacing)*1);
     }
-
-    @media #{$small-up}{
-        margin-left: calc(var(--tree-w) + var(--padding-body));
-        padding: calc(var(--padding-body)*1.5);
+    @media #{$small}{
+        padding-top: calc(var(--spacing)*2);
+        padding-left: var(--padding-body);
+        padding-right: var(--padding-body);
     }
 
-    #count-members{
-        @include title-home();
-        margin-bottom: calc(var(--spacing)*2);
-    }
 
 
     .cards-wrapper{
