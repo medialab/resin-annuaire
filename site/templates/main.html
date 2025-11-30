@@ -11,6 +11,8 @@
   </head>
   <body>
 
+    <input type="checkbox" id="input-toggle-menu">
+
     <header id="site-header">
       <h1 id="site-title">
         <a href="/" aria-label="Retour à l’accueil">
@@ -18,10 +20,16 @@
           <span style="display: none;">RésIn, Réseau d’ingénieur·es</span>
         </a>
       </h1>
+
+      <label id="toggle-menu" for="input-toggle-menu">
+        {% include "icons/menu.svg" %}
+      </label>
       <nav id="site-nav">
-        <ul >
+        <ul class="main">
           <li><a href="projet">À propos</a></li>
-          <li><a href="s-inscrire">Créer son profil</a></li>
+          <li><a href="projet">Liste de diffusion</a></li>
+          <li><a href="projet">Ressources</a></li>
+          <li class="btn"><a href="s-inscrire">Créer son profil</a></li>
         </ul>
       </nav>
     </header>

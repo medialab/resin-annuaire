@@ -1,5 +1,5 @@
 #sub-header{
-    height: calc(var(--tree-item-h)*1.5);
+    height: var(--subheader-h);
     border-bottom: var(--border-light);
     display: flex;
     align-items: center;

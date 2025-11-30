@@ -34,7 +34,9 @@ body{
 
 main{
     position: relative;
-    padding: 0 var(--padding-body);
+    padding-left: var(--padding-body);
+    padding-right: var(--padding-body);
+    padding-top: calc(var(--header-h) + var(--padding-body));
     margin-bottom: 30vh;
 }
 
