@@ -1,5 +1,6 @@
 .main__home{
     padding-top: calc(var(--header-h) + var(--search-h));
+    
 
 
     @media #{$small-up}{
@@ -11,6 +12,9 @@
     @media #{$small}{
         padding-left: 0;
         padding-right: 0;
+        #back-to-top{
+            margin-left: var(--padding-body);
+        }
     }
 }
 
@@ -148,7 +152,7 @@
 #section__cards{
 
     position: relative;
-    padding-bottom: 30vh;
+    // padding-bottom: 30vh;
     z-index: 100;
   
     @media #{$small}{

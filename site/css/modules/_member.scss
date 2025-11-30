@@ -1,6 +1,5 @@
 #member{
 
-
     .member__header{
         figure{
             @include figure();
@@ -27,6 +26,7 @@
             padding: 0;
             align-items: center;
             justify-content: center;
+          
 
             .icon svg{ 
                 width: 16px;
@@ -292,22 +292,29 @@
 
     #edit-button{
         @include button-color();
-        gap: 1ch;
+        // gap: 0.5ch;
         height: auto;
         text-align: left;
         line-height: 1.1;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        padding-left: 10px;
+        
 
         .text{
-            padding: 4px;
+            margin-left: 10px;
+            border-left: 1px solid var(--color-300);
+            padding-left: 1.5ch;
+            padding-right: 1ch;
         }
         
 
         svg{
-            width: 18px;
+            width: 20px;
             fill: var(--accent-soft);
             position: relative;
             top: 2px;
-            left: -2px;
+            left: 0px;
 
         }
     }
@@ -321,11 +328,16 @@
 // LAYOUT
 
 @media #{$small-up}{
+
+    .main__member{
+        #back-to-top{ display: none; }
+    }
 #member{
     --fig-w: 260px;
     max-width: var(--max-width);
     margin: 0 auto;
-    padding-top: calc(var(--padding-body)*5);
+    padding: 0 var(--padding-body);
+    padding-top: calc(var(--padding-body)*4);
 
     display: grid;
     justify-items: start;
@@ -357,6 +369,8 @@
             grid-row: 1/4;
             display: flex;
             align-self: start;
+            width: calc(var(--fig-w) - 30px);
+            height: calc(var(--fig-w) - 30px);
         }
 
         .skills-block{ 
