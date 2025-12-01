@@ -1090,7 +1090,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   gap: 8px;
   padding: 12px;
   align-items: center;
-  display: none;
+  background: var(--color-bg);
 }
 
 .research-tag {
