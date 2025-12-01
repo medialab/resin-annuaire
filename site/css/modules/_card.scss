@@ -55,8 +55,14 @@
 
     .excerpt{
         grid-column: span 2;
-        opacity: 0.8;
+        color: var(--color-txt-light);
         font-style: italic;
+
+
+        .excerpt-separator{
+            height: var(--spacing);
+        }
+
     }
 
 
@@ -81,7 +87,7 @@
     }
 
     .skills-list{
-        margin-top: calc(var(--spacing)*3);
+        margin-top: calc(var(--spacing)*2);
         @include skills-tags();
 
         li.is-selected{
@@ -117,6 +123,7 @@
     .p__short-bio{
         // font-size: var(--fs-medium);
         line-height: 1.3;
+        margin-bottom: calc(var(--spacing)*1);
     }
     .p__institution{
         font-weight: 500;

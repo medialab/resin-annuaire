@@ -20,7 +20,7 @@
   --success: #11554b;
   --color-txt: #3E0D0F;
   --color-txt-light: #B49B9D;
-  --color-txt-light: #D1B1B3;
+  --color-txt-light: #ada2a2;
   --color-bg: white;
   --color-bg-alpha: #fffffff2;
   --tree-w: 420px;
@@ -98,6 +98,10 @@ main {
   padding-right: var(--padding-body);
   padding-top: calc(var(--header-h) + var(--padding-body));
   margin-bottom: 30vh;
+}
+
+mark {
+  background-color: rgb(255, 255, 145);
 }
 
 body {
@@ -846,8 +850,11 @@ body.graph-view #section__skills-tree #toggle-graph svg {
 }
 .card .excerpt {
   grid-column: span 2;
-  opacity: 0.8;
+  color: var(--color-txt-light);
   font-style: italic;
+}
+.card .excerpt .excerpt-separator {
+  height: var(--spacing);
 }
 .card .tooltip {
   display: none;
@@ -892,7 +899,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   width: var(--size-img);
 }
 .card .skills-list {
-  margin-top: calc(var(--spacing) * 3);
+  margin-top: calc(var(--spacing) * 2);
 }
 .card .skills-list ul {
   list-style: none;
@@ -940,6 +947,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
 }
 .card .p__short-bio {
   line-height: 1.3;
+  margin-bottom: calc(var(--spacing) * 1);
 }
 .card .p__institution {
   font-weight: 500;
@@ -1114,6 +1122,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   font-size: var(--fs-small);
   font-weight: var(--fw-mono);
   margin-bottom: calc(var(--spacing) * 1);
+  color: var(--color-txt-light);
 }
 #autocomplete-dropdown .autocomplete-skills-container {
   display: flex;
@@ -1147,6 +1156,16 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   border-color: var(--color);
   background-color: var(--color-xlight);
   outline: 1px solid var(--color-light);
+}
+#autocomplete-dropdown .autocomplete-item--free {
+  cursor: pointer;
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
+  font-size: var(--font-size);
+  padding: 3px 1ch;
+}
+#autocomplete-dropdown .autocomplete-item--free:hover {
+  background-color: var(--color-050);
 }
 
 #research-items {

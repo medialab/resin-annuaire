@@ -85,7 +85,7 @@
         font-size: var(--fs-small);
         font-weight: var(--fw-mono);
         margin-bottom: calc(var(--spacing)*1);
-        // color: var(--color-300);
+        color: var(--color-txt-light);
 
     }
     .autocomplete-skills-container{
@@ -106,6 +106,22 @@
             // background-color: var(--color);
             // color: var(--color-bg);
             }
+        }
+    }
+
+    .autocomplete-suggestions-container{
+     
+
+    }
+
+    .autocomplete-item--free{
+        cursor: pointer;
+        font-family: var(--mono);
+        font-weight: var(--fw-mono);
+        font-size: var(--font-size);
+        padding: 3px 1ch;
+        &:hover{
+            background-color: var(--color-050);
         }
     }
 

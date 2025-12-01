@@ -176,6 +176,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const searchState = {
     selectedSkills: [], // {id: number, childrenIds: [numbers], label: string}
     freeSearchTerms: [], // {term: string}
+    usedAutocomplete: false, // true si l'utilisateur a utilisé l'autocomplétion
   };
 
   // Afficher/masquer le bouton reset
@@ -193,6 +194,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Vider l'état
     searchState.selectedSkills = [];
     searchState.freeSearchTerms = [];
+    searchState.usedAutocomplete = false;
 
     // Vider le champ de recherche
     searchBar.value = "";
@@ -290,7 +292,7 @@ document.addEventListener("DOMContentLoaded", function() {
         queryItem.textContent = query.trim();
 
         queryItem.addEventListener("click", () => {
-          addFreeSearchTerm(query.trim());
+          addFreeSearchTerm(query.trim(), true);
           searchBar.value = "";
           hideAutocompleteDropdown();
         });
@@ -305,7 +307,7 @@ document.addEventListener("DOMContentLoaded", function() {
         item.textContent = suggestion;
 
         item.addEventListener("click", () => {
-          addFreeSearchTerm(suggestion);
+          addFreeSearchTerm(suggestion, true);
           searchBar.value = "";
           hideAutocompleteDropdown();
         });
@@ -321,6 +323,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Sélectionner une compétence depuis l'autocomplétion
   function selectSkillFromAutocomplete(skill) {
+    // Marquer qu'on a utilisé l'autocomplétion
+    searchState.usedAutocomplete = true;
+
     // Cocher la checkbox correspondante dans l'arbre
     if (skillsTree) {
       const checkbox = skillsTree.querySelector(`#cb-${skill.id}`);
@@ -335,6 +340,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Masquer le dropdown
     hideAutocompleteDropdown();
+
+    // Remonter en haut de la page
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   // Masquer le dropdown d'autocomplétion
@@ -362,10 +370,10 @@ document.addEventListener("DOMContentLoaded", function() {
       researchItems.appendChild(tag);
     });
 
-    // Gérer la classe has-items sur le wrapper
+    // Gérer la classe has-items sur le wrapper (seulement si utilisé l'autocomplétion ET qu'il y a des items)
     const hasItems = searchState.selectedSkills.length > 0 || searchState.freeSearchTerms.length > 0;
     if (researchItemsWrapper) {
-      if (hasItems) {
+      if (searchState.usedAutocomplete && hasItems) {
         researchItemsWrapper.classList.add("has-items");
       } else {
         researchItemsWrapper.classList.remove("has-items");
@@ -919,6 +927,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (query === "") return;
 
+    // Marquer qu'on a utilisé la barre de recherche
+    searchState.usedAutocomplete = true;
+
     // Vérifier si c'est une compétence existante
     const normalizedQuery = normalizeString(query);
     const matchingSkill = allSkills.find(skill =>
@@ -930,17 +941,22 @@ document.addEventListener("DOMContentLoaded", function() {
       selectSkillFromAutocomplete(matchingSkill);
     } else {
       // Ce n'est pas une compétence → ajouter comme recherche libre
-      addFreeSearchTerm(query);
+      addFreeSearchTerm(query, true);
       searchBar.value = "";
       hideAutocompleteDropdown();
     }
   }
 
   // Ajouter un terme de recherche libre
-  function addFreeSearchTerm(term) {
+  function addFreeSearchTerm(term, fromAutocomplete = false) {
     // Vérifier si le terme n'existe pas déjà
     const termExists = searchState.freeSearchTerms.some(t => t.term === term);
     if (!termExists) {
+      if (fromAutocomplete) {
+        searchState.usedAutocomplete = true;
+        // Remonter en haut de la page
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
       searchState.freeSearchTerms.push({ term });
       renderResearchItems();
       filterCards();

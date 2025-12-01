@@ -200,6 +200,7 @@ async function main() {
       categories: categories,
       subcategories: subcategories,
       subsubcategories: subsubcategories,
+      total_members: membersWithAvatar.length,
     }),
   );
 
