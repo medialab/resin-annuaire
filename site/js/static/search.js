@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function() {
     removeBtn.className = "tag-remove";
     removeBtn.setAttribute("aria-label", `Retirer ${label}`);
     removeBtn.innerHTML = "&times;";
-    removeBtn.addEventListener("click", onRemove);
+    tag.addEventListener("click", onRemove);
 
     tag.appendChild(labelSpan);
     tag.appendChild(removeBtn);

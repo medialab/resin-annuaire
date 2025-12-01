@@ -1087,75 +1087,66 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  padding: 12px;
   align-items: center;
+  padding-top: calc(var(--spacing) * 1.5);
+  padding-bottom: calc(var(--spacing) * 1);
 }
 
 .research-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 14px;
-  line-height: 1.4;
-  transition: all 0.2s ease;
-}
-.research-tag .tag-label {
-  display: inline-block;
-}
-.research-tag .tag-remove {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 20px;
-  line-height: 1;
-  padding: 0;
-  width: 18px;
-  height: 18px;
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
+  font-size: var(--fs-small);
+  height: var(--button-h);
+  border-radius: var(--radius-small);
+  padding: 0 1ch;
   display: flex;
   align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  transition: background-color 0.2s ease;
+  cursor: pointer;
+  color: var(--color-txt);
+  border: 1px solid var(--color-100);
+  background-color: var(--color-bg);
+  color: var(--color);
+  border-color: var(--color);
+  background: var(--color-xlight);
+  gap: 0.75ch;
+  align-items: center;
+  cursor: pointer;
 }
-.research-tag .tag-remove:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+.research-tag:hover {
+  background-color: var(--color-100);
+  border-color: var(--color-300);
 }
-.research-tag--skill {
-  background-color: var(--color-primary, #e3f2fd);
-  color: var(--color-primary-dark, #1565c0);
-  border: 1px solid var(--color-primary-dark, #1565c0);
+.research-tag .tag-remove {
+  color: var(--color);
+  font-size: var(--font-size);
+  line-height: 0em;
+  position: relative;
+  top: 0.5px;
+  cursor: pointer;
 }
-.research-tag--skill .tag-remove {
-  color: var(--color-primary-dark, #1565c0);
-}
-.research-tag--free {
-  background-color: var(--color-secondary, #f5f5f5);
-  color: var(--color-text, #333);
-  border: 1px solid var(--color-border, #ccc);
-}
-.research-tag--free .tag-remove {
-  color: var(--color-text, #333);
+.research-tag:hover {
+  border-color: var(--color);
+  background-color: transparent;
 }
 
 .reset-button {
-  margin-left: auto;
-  padding: 8px 16px;
-  background-color: var(--color-error, #f44336);
-  color: white;
-  border: none;
-  border-radius: 4px;
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
+  font-size: var(--fs-small);
+  height: var(--button-h);
+  border-radius: var(--radius-small);
+  padding: 0 1ch;
+  display: flex;
+  align-items: center;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  transition: background-color 0.2s ease;
+  color: var(--color-txt);
+  border: 1px solid var(--color-100);
+  background-color: var(--color-bg);
+  margin-left: auto;
 }
 .reset-button:hover {
-  background-color: var(--color-error-dark, #d32f2f);
-}
-.reset-button span {
-  display: inline-block;
+  background-color: var(--color-100);
+  border-color: var(--color-300);
 }
 
 .main__home {
