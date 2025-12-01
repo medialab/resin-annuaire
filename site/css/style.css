@@ -1281,6 +1281,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   }
   #section__skills-tree #skills-tree {
     max-height: calc(100vh - var(--header-h) - var(--search-h) - var(--spacing) * 11.5);
+    max-height: calc(100dvh - var(--header-h) - var(--search-h) - var(--spacing) * 11.5);
     overflow-y: scroll;
     overflow-x: hidden;
     -ms-overflow-style: none; /* IE and Edge */
