@@ -1,6 +1,7 @@
 // Système de recherche et filtrage
 document.addEventListener("DOMContentLoaded", function() {
   const researchItems = document.querySelector("#research-items");
+  const researchItemsWrapper = document.querySelector("#section__research-items");
   const searchBar = document.querySelector("#searchBar");
   const cardsWrapper = document.querySelector(".cards-wrapper");
   const countSpan = document.querySelector("#count-members > span");
@@ -28,26 +29,13 @@ document.addEventListener("DOMContentLoaded", function() {
     freeSearchTerms: [], // {term: string}
   };
 
-  // Créer le bouton reset
-  function createResetButton() {
-    const resetBtn = document.createElement("button");
-    resetBtn.id = "reset-search";
-    resetBtn.className = "reset-button";
-    resetBtn.innerHTML = '<span>Réinitialiser la recherche</span>';
-    resetBtn.addEventListener("click", resetSearch);
-    return resetBtn;
-  }
-
   // Afficher/masquer le bouton reset
   function updateResetButtonVisibility() {
     const hasItems = searchState.selectedSkills.length > 0 || searchState.freeSearchTerms.length > 0;
-    let resetBtn = researchItems.querySelector("#reset-search");
+    const resetBtn = document.querySelector("#reset-search");
 
-    if (hasItems && !resetBtn) {
-      resetBtn = createResetButton();
-      researchItems.appendChild(resetBtn);
-    } else if (!hasItems && resetBtn) {
-      resetBtn.remove();
+    if (resetBtn) {
+      resetBtn.style.display = hasItems ? "block" : "none";
     }
   }
 
@@ -81,13 +69,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Afficher les tags dans #research-items
   function renderResearchItems() {
-    // Vider le contenu (sauf le bouton reset)
-    const resetBtn = researchItems.querySelector("#reset-search");
+    // Vider le contenu
     researchItems.innerHTML = "";
 
     // Ajouter les tags de compétences
     searchState.selectedSkills.forEach(skill => {
-      const tag = createTag(skill.label, "skill", () => removeSkill(skill.id));
+      const tag = createTag(skill.label, "skill", () => removeSkill(skill.id), skill.field, skill.id);
       researchItems.appendChild(tag);
     });
 
@@ -97,16 +84,31 @@ document.addEventListener("DOMContentLoaded", function() {
       researchItems.appendChild(tag);
     });
 
-    // Réajouter le bouton reset à la fin
-    if (resetBtn) {
-      researchItems.appendChild(resetBtn);
+    // Gérer la classe has-items sur le wrapper
+    const hasItems = searchState.selectedSkills.length > 0 || searchState.freeSearchTerms.length > 0;
+    if (researchItemsWrapper) {
+      if (hasItems) {
+        researchItemsWrapper.classList.add("has-items");
+      } else {
+        researchItemsWrapper.classList.remove("has-items");
+      }
     }
   }
 
   // Créer un tag
-  function createTag(label, type, onRemove) {
+  function createTag(label, type, onRemove, field = null, skillId = null) {
     const tag = document.createElement("div");
     tag.className = `research-tag research-tag--${type}`;
+
+    // Ajouter data-skill-id si disponible
+    if (skillId) {
+      tag.setAttribute("data-skill-id", skillId);
+    }
+
+    // Ajouter data-field si disponible
+    if (field) {
+      tag.setAttribute("data-field", field.toLowerCase());
+    }
 
     const labelSpan = document.createElement("span");
     labelSpan.className = "tag-label";
@@ -243,13 +245,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const newSelectedSkills = [];
     userCheckedItems.forEach(item => {
       const li = item.closest("li");
-      const skillId = parseInt(li.getAttribute("data-skill-id"), 10);
+      const skillId = parseInt(item.getAttribute("data-skill-id"), 10);
       const childrenIdsStr = li.getAttribute("data-children-ids");
       const childrenIds = childrenIdsStr ? childrenIdsStr.split(',').map(id => parseInt(id, 10)) : [skillId];
       const label = item.querySelector(".name")?.textContent.trim();
+      const field = item.getAttribute("data-field");
 
       if (skillId && label) {
-        newSelectedSkills.push({ id: skillId, childrenIds, label });
+        newSelectedSkills.push({ id: skillId, childrenIds, label, field });
       }
     });
 
@@ -298,4 +301,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Initialisation
   updateResetButtonVisibility();
+
+  // Attacher l'événement click au bouton reset
+  const resetBtn = document.querySelector("#reset-search");
+  if (resetBtn) {
+    resetBtn.addEventListener("click", resetSearch);
+  }
 });

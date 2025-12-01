@@ -1,15 +1,17 @@
    #research-items{
         width: 100%;
-        min-height: 40px;
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
         padding: 12px;
         align-items: center;
-        background: var(--color-bg);
+   
+   
 
     }
 
+
+ 
     // Tags de recherche
     .research-tag {
         display: inline-flex;

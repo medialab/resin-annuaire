@@ -1084,13 +1084,11 @@ body.graph-view #section__skills-tree #toggle-graph svg {
 
 #research-items {
   width: 100%;
-  min-height: 40px;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   padding: 12px;
   align-items: center;
-  background: var(--color-bg);
 }
 
 .research-tag {
