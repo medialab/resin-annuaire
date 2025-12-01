@@ -1291,6 +1291,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   }
   #section__skills-tree #skills-tree__nav {
     background-color: var(--color-bg);
+    padding-top: calc(var(--spacing) * 2);
   }
   #section__skills-tree::after {
     content: "";
