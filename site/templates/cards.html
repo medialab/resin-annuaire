@@ -58,7 +58,7 @@
         <div class="skills-list">
           <ul>
             {% for skill in item.lastSkillsWithIds %}
-            <li data-skill-id="{{ skill.id }}">{{ skill.label }}</li>
+            <li data-skill-id="{{ skill.id }}" data-field="{{ skill.field | lower }}">{{ skill.label }}</li>
             {% endfor %}
           </ul>
         </div>

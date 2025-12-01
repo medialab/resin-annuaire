@@ -31,9 +31,13 @@ exports.formatMembers = function (formItems, idToLanguage, idToLabel) {
 
     // Créer lastSkillsWithIds avant de modifier allSkills
     cleanItem.lastSkillsWithIds = cleanItem.allSkills.map((item) => {
+      const skillData = idToLabel[item];
+      const fieldId = skillData.path[0];
+      const fieldLabel = idToLabel[fieldId].label;
       return {
         id: item,
-        label: idToLabel[item].label
+        label: skillData.label,
+        field: fieldLabel
       };
     });
 
