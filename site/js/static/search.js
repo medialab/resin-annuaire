@@ -50,6 +50,27 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
+  // Données complètes des membres (chargées en lazy loading au premier Enter)
+  let membersData = null;
+
+  // Charger les données complètes des membres
+  async function loadMembersData() {
+    if (membersData) return membersData; // Déjà chargé
+
+    try {
+      // TEMPORAIRE : Lecture depuis fichier JSON local
+      // TODO : Remplacer par appel API quand disponible
+      // Exemple futur : const response = await fetch(`${apiUrl}/api/members/`);
+      const response = await fetch('/assets/members.json');
+      membersData = await response.json();
+      console.log('✅ Données membres chargées:', membersData.length, 'membres');
+      return membersData;
+    } catch (error) {
+      console.error('Erreur lors du chargement des membres:', error);
+      return null;
+    }
+  }
+
   // Fonction pour normaliser une chaîne (lowercase, sans accents)
   function normalizeString(str) {
     return str.toLowerCase()
@@ -273,34 +294,156 @@ document.addEventListener("DOMContentLoaded", function() {
     updateResetButtonVisibility();
   }
 
+  // Extraire un extrait de texte autour d'un mot recherché
+  function extractHighlightedExcerpt(card, searchTerm) {
+    const normalizedTerm = normalizeString(searchTerm);
+    const excerptLength = 120;
+
+    // Récupérer tous les champs textuels visibles de la card
+    const fields = [
+      { element: card.querySelector(".member-name a"), text: "" },
+      { element: card.querySelector(".p__institution"), text: "" },
+      { element: card.querySelector(".p__short-bio"), text: "" },
+    ];
+
+    // Remplir les textes des champs visibles
+    fields.forEach(field => {
+      if (field.element) {
+        field.text = field.element.textContent.trim();
+      }
+    });
+
+    // Si données complètes disponibles, ajouter les autres champs
+    if (membersData) {
+      let memberSlug = card.querySelector(".link-block")?.getAttribute("href");
+      if (memberSlug) {
+        // Retirer l'extension .html si présente
+        memberSlug = memberSlug.replace(/\.html$/, "");
+
+        const member = membersData.find(m => {
+          const compareSlug = m.slug ? m.slug.replace(/\.html$/, "") : "";
+          return compareSlug === memberSlug;
+        });
+
+        if (member) {
+          if (member.mainActivity) fields.push({ text: member.mainActivity });
+          if (member.longBio) fields.push({ text: member.longBio });
+          if (member.training) fields.push({ text: member.training });
+          if (member.publications) fields.push({ text: member.publications });
+          if (member.additionalSkills) fields.push({ text: member.additionalSkills });
+        }
+      }
+    }
+
+    // Trouver le champ qui contient le terme
+    let foundField = null;
+    let foundIndex = -1;
+
+    for (const field of fields) {
+      if (field.text) {
+        const normalizedText = normalizeString(field.text);
+        const index = normalizedText.indexOf(normalizedTerm);
+        if (index !== -1) {
+          foundField = field;
+          foundIndex = index;
+          break;
+        }
+      }
+    }
+
+    // Si aucun champ ne contient le terme, retourner vide
+    if (!foundField) return "";
+
+    const originalText = foundField.text;
+    const halfLength = Math.floor(excerptLength / 2);
+
+    // Calculer les positions de début et fin de l'extrait
+    let start = Math.max(0, foundIndex - halfLength);
+    let end = Math.min(originalText.length, foundIndex + normalizedTerm.length + halfLength);
+
+    // Ajuster si on est au début ou à la fin
+    if (start === 0) {
+      end = Math.min(originalText.length, excerptLength);
+    } else if (end === originalText.length) {
+      start = Math.max(0, originalText.length - excerptLength);
+    }
+
+    // Extraire l'extrait
+    let excerpt = originalText.substring(start, end);
+
+    // Ajouter des ellipses si nécessaire
+    if (start > 0) excerpt = "..." + excerpt;
+    if (end < originalText.length) excerpt = excerpt + "...";
+
+    // Surligner le mot recherché (insensible à la casse)
+    const regex = new RegExp(`(${searchTerm})`, "gi");
+    excerpt = excerpt.replace(regex, '<mark>$1</mark>');
+
+    return excerpt;
+  }
+
   // Vérifier si une card correspond à un terme de recherche libre
   function cardMatchesFreeSearch(card, term) {
     const normalizedTerm = normalizeString(term);
 
-    // Récupérer les données de la card depuis les data-attributes ou le contenu
-    const cardText = [];
+    // ÉTAPE 1 : Chercher d'abord dans les champs visibles (rapide)
+    const visibleText = [];
 
     // Nom complet (depuis le lien)
     const nameLink = card.querySelector(".member-name a");
-    if (nameLink) cardText.push(nameLink.textContent);
+    if (nameLink) visibleText.push(nameLink.textContent);
 
     // Organisation
     const organization = card.querySelector(".p__institution");
-    if (organization) cardText.push(organization.textContent);
+    if (organization) visibleText.push(organization.textContent);
 
     // Bio courte
     const shortBio = card.querySelector(".p__short-bio");
-    if (shortBio) cardText.push(shortBio.textContent);
+    if (shortBio) visibleText.push(shortBio.textContent);
 
     // Compétences (labels)
     const skillsItems = card.querySelectorAll(".skills-list li");
-    skillsItems.forEach(li => cardText.push(li.textContent));
+    skillsItems.forEach(li => visibleText.push(li.textContent));
 
-    // Concaténer et normaliser tout le texte
-    const fullText = normalizeString(cardText.join(" "));
+    // Vérifier dans les champs visibles
+    const visibleFullText = normalizeString(visibleText.join(" "));
+    if (visibleFullText.includes(normalizedTerm)) {
+      return true;
+    }
 
-    // Vérifier si le terme est présent
-    return fullText.includes(normalizedTerm);
+    // ÉTAPE 2 : Si pas trouvé et données chargées, chercher dans les données complètes
+    if (membersData) {
+      let memberSlug = card.querySelector(".link-block")?.getAttribute("href");
+      if (memberSlug) {
+        // Retirer l'extension .html si présente
+        memberSlug = memberSlug.replace(/\.html$/, "");
+
+        const member = membersData.find(m => {
+          const compareSlug = m.slug ? m.slug.replace(/\.html$/, "") : "";
+          return compareSlug === memberSlug;
+        });
+
+        if (member) {
+          const completeText = [
+            member.firstName || "",
+            member.lastName || "",
+            member.shortBio || "",
+            member.organization || "",
+            member.city || "",
+            member.mainActivity || "",
+            member.longBio || "",
+            member.training || "",
+            member.publications || "",
+            member.additionalSkills || "",
+          ].join(" ");
+
+          const normalizedCompleteText = normalizeString(completeText);
+          return normalizedCompleteText.includes(normalizedTerm);
+        }
+      }
+    }
+
+    return false;
   }
 
   // Filtrer les cards et mettre à jour le compteur + ajouter is-selected
@@ -338,6 +481,11 @@ document.addEventListener("DOMContentLoaded", function() {
         card.querySelectorAll(".skills-list li").forEach(li => {
           li.classList.remove("is-selected");
         });
+        // Vider l'extrait
+        const excerptDiv = card.querySelector(".excerpt");
+        if (excerptDiv) {
+          excerptDiv.innerHTML = "";
+        }
       });
     } else {
       allCards.forEach(card => {
@@ -384,12 +532,36 @@ document.addEventListener("DOMContentLoaded", function() {
               li.classList.remove("is-selected");
             }
           });
+
+          // Afficher les extraits si recherche libre active
+          const excerptDiv = card.querySelector(".excerpt");
+          if (excerptDiv && hasFreeSearchFilters) {
+            // Extraire un excerpt pour chaque terme qui matche cette card
+            const excerpts = [];
+            searchState.freeSearchTerms.forEach(termObj => {
+              if (cardMatchesFreeSearch(card, termObj.term)) {
+                const excerpt = extractHighlightedExcerpt(card, termObj.term);
+                if (excerpt) {
+                  excerpts.push(excerpt);
+                }
+              }
+            });
+            excerptDiv.innerHTML = excerpts.join('<div class="excerpt-separator"></div>');
+          } else if (excerptDiv) {
+            // Vider l'extrait si pas de recherche libre
+            excerptDiv.innerHTML = "";
+          }
         } else {
           card.style.display = "none";
           // Retirer is-selected
           card.querySelectorAll(".skills-list li").forEach(li => {
             li.classList.remove("is-selected");
           });
+          // Vider l'extrait
+          const excerptDiv = card.querySelector(".excerpt");
+          if (excerptDiv) {
+            excerptDiv.innerHTML = "";
+          }
         }
       });
     }
@@ -505,10 +677,15 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // Gérer la soumission de la recherche (Enter)
-  function handleSearchSubmit() {
+  async function handleSearchSubmit() {
     const query = searchBar.value.trim();
 
     if (query === "") return;
+
+    // Charger les données complètes au premier Enter (lazy loading)
+    if (!membersData) {
+      await loadMembersData();
+    }
 
     // Vérifier si c'est une compétence existante
     const normalizedQuery = normalizeString(query);

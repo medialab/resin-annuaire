@@ -10,16 +10,12 @@
     left: 0;
     width: 100vw;
     background-color: var(--color-bg);
-
+   
     z-index: 1000;
-
-    @media #{$small}{
-        padding: 0 var(--padding-body);
-    }
 
     .container{
         width: 100%;
-
+        padding: 0 var(--padding-body);
         max-width: var(--max-width);
         display: flex;
         align-items: center;

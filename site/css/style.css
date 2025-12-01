@@ -432,13 +432,9 @@ body {
   background-color: var(--color-bg);
   z-index: 1000;
 }
-@media screen and (max-width: 820px) {
-  #sub-header {
-    padding: 0 var(--padding-body);
-  }
-}
 #sub-header .container {
   width: 100%;
+  padding: 0 var(--padding-body);
   max-width: var(--max-width);
   display: flex;
   align-items: center;
@@ -847,6 +843,11 @@ body.graph-view #section__skills-tree #toggle-graph svg {
 }
 .card .title, .card .p__short-bio, .card .skills-list {
   grid-column: span 2;
+}
+.card .excerpt {
+  grid-column: span 2;
+  opacity: 0.8;
+  font-style: italic;
 }
 .card .tooltip {
   display: none;
