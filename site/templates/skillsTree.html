@@ -46,7 +46,9 @@
       <div class="item field__item" data-skill-id="{{ category.skillId }}" data-field="{{ category.label | lower }}">
         <input class="item__checkbox" id="cb-{{ category.skillId }}" type="checkbox" value="{{ category.skillId }}">
         <label for="cb-{{ category.skillId }}">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9 22l-10-10.598 2.798-2.859 7.149 7.473 13.144-14.016 2.909 2.806z"/></svg>
+          <div class="label-container">
+            {% include "icons/check-mark.svg" %}
+          </div>
         </label>
         <span class="name" >{{ category.label }}</span>
         <span class="count">{{ category.count }}</span>
@@ -81,7 +83,9 @@
           <div class="item skill__item" data-skill-id="{{ subcategory.skillId }}" data-field="{{ category.label | lower }}">
             <input class="item__checkbox" id="cb-{{ subcategory.skillId }}" type="checkbox" value="{{ subcategory.skillId }}">
             <label for="cb-{{ subcategory.skillId }}">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9 22l-10-10.598 2.798-2.859 7.149 7.473 13.144-14.016 2.909 2.806z"/></svg>
+              <div class="label-container">
+                {% include "icons/check-mark.svg" %}
+              </div>
             </label>
             <span class="name">{{ subcategory.label }}</span>
             <span class="count">{{ subcategory.count }}</span>
@@ -110,8 +114,9 @@
               <div class="item detail__item" data-skill-id="{{ subsubcategory.skillId }}" data-field="{{ category.label | lower }}">
                 <input class="item__checkbox" id="cb-{{ subsubcategory.skillId }}" type="checkbox" value="{{ subsubcategory.skillId }}">
                 <label for="cb-{{ subsubcategory.skillId }}">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9 22l-10-10.598 2.798-2.859 7.149 7.473 13.144-14.016 2.909 2.806z"/></svg>
-                </label>
+                  <div class="label-container">
+                    {% include "icons/check-mark.svg" %}
+                  </div>                </label>
                 <span class="name">{{ subsubcategory.label }}</span>
                 <span class="count">{{ subsubcategory.count }}</span>
                 <button class="btn__toggle">

@@ -497,15 +497,25 @@ body {
 #skills-tree .item .name {
   flex-grow: 3;
   white-space: nowrap;
-  padding-left: 1ch;
   text-overflow: ellipsis;
   max-width: calc(100% - var(--size-label) * 2);
   overflow: hidden;
+  position: relative;
+  left: -0.75ch;
 }
 #skills-tree .item .item__checkbox {
   display: none;
 }
 #skills-tree .item .item__checkbox + label {
+  height: 26px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  z-index: 30;
+  position: relative;
+  top: -1px;
+}
+#skills-tree .item .item__checkbox + label .label-container {
   height: var(--size-label);
   width: var(--size-label);
   background-color: var(--color-100);
@@ -514,22 +524,24 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  position: relative;
+  top: 1px;
 }
-#skills-tree .item .item__checkbox + label svg {
+#skills-tree .item .item__checkbox + label .label-container svg {
   fill: transparent;
   width: 9px;
 }
-#skills-tree .item .item__checkbox + label:hover {
+#skills-tree .item .item__checkbox + label .label-container:hover {
   background-color: var(--color-xlight);
 }
-#skills-tree .item .item__checkbox + label:hover svg {
+#skills-tree .item .item__checkbox + label .label-container:hover svg {
   fill: var(--color-bg);
 }
-#skills-tree .item.is-checked .item__checkbox:checked + label {
+#skills-tree .item.is-checked .item__checkbox:checked + label .label-container {
   background-color: var(--color) !important;
   outline: 2px solid var(--color-xlight);
 }
-#skills-tree .item.is-checked .item__checkbox:checked + label svg {
+#skills-tree .item.is-checked .item__checkbox:checked + label .label-container svg {
   fill: var(--color-bg);
 }
 #skills-tree .item .count {

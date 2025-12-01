@@ -34,41 +34,54 @@
         .name{
             flex-grow: 3;
             white-space: nowrap;
-            padding-left: 1ch;
             text-overflow: ellipsis;
             max-width: calc(100% - var(--size-label)*2);
             overflow: hidden;
+            position: relative;
+            left: -0.75ch;
         }
         .item__checkbox{
             display: none;
         }
     
         .item__checkbox + label{
-            height: var(--size-label);
-            width: var(--size-label);
-            background-color: var(--color-100);
-            // background-color: var(--color);
-            border-radius: 4px;
+            height: 26px;
+            width: 30px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            
-            svg{
-                fill: transparent;
-                width: 9px;
-            }
+            z-index: 30;
+            position: relative;
+            top: -1px;
 
-            &:hover{
-                background-color: var(--color-xlight);
+            .label-container{
+                height: var(--size-label);
+                width: var(--size-label);
+                background-color: var(--color-100);
+                border-radius: 4px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                position: relative;
+                top: 1px;
+
                 svg{
-                    fill: var(--color-bg);
+                    fill: transparent;
+                    width: 9px;
+                }
+    
+                &:hover{
+                    background-color: var(--color-xlight);
+                    svg{
+                        fill: var(--color-bg);
+                    }
                 }
             }
+       
 
         }
 
-        &.is-checked .item__checkbox:checked  + label{
+        &.is-checked .item__checkbox:checked  + label .label-container {
             background-color: var(--color)!important;
             outline: 2px solid var(--color-xlight);
             svg{
