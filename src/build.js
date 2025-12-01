@@ -55,6 +55,18 @@ async function main() {
   fs.removeSync(baseUrl);
   await fs.ensureDir(baseImageFolder);
 
+  // TEMPORAIRE : Lecture depuis fichiers JSON locaux
+  // TODO : Rétablir les appels API plus tard
+  const fieldsTree = fs.readJSONSync(path.join(siteUrl, "assets", "fields.json"));
+  const skillsTree = fs.readJSONSync(path.join(siteUrl, "assets", "skills.json"));
+  const idToLabel = formatSkills(fieldsTree, skillsTree);
+
+  const membersJson = fs.readJSONSync(path.join(siteUrl, "assets", "members.json"));
+
+  const languagesJson = fs.readJSONSync(path.join(siteUrl, "assets", "languages.json"));
+  const idToLanguage = formatLanguages(languagesJson);
+
+  /* ORIGINAL CODE (à rétablir pour utiliser l'API) :
   const fieldsTreeResponse = await fetch(internalApiUrl + "/api/fields/", {
     agent,
   });
@@ -72,6 +84,7 @@ async function main() {
   const languages = await fetch(internalApiUrl + "/api/languages/", { agent });
   const languagesJson = await languages.json();
   const idToLanguage = formatLanguages(languagesJson);
+  */
 
   let cleanMembers = formatMembers(membersJson, idToLanguage, idToLabel);
 
@@ -114,7 +127,7 @@ async function main() {
   );
 
   fs.outputFileSync(
-    path.join(baseUrl, "projet.html"),
+    path.join(baseUrl, "a-propos.html"),
     projectPageTemplate.render(),
   );
 
@@ -124,19 +137,25 @@ async function main() {
   );
 
   fs.copySync(
-    path.join(siteUrl, "css", "styles.css"),
-    path.join(baseUrl, "css", "styles.css"),
+    path.join(siteUrl, "css", "style.css"),
+    path.join(baseUrl, "css", "style.css"),
   );
 
   fs.copySync(
-    path.join(siteUrl, "css", "normalize.css"),
-    path.join(baseUrl, "css", "normalize.css"),
+    path.join(siteUrl, "fonts"),
+    path.join(baseUrl, "fonts"),
   );
 
   fs.copySync(
-    path.join(siteUrl, "data", "logo_resin_transparent_backround_annuaire.png"),
-    path.join(baseImageFolder, "logo-resin.png"),
+    path.join(siteUrl, "js", "static"),
+    path.join(baseUrl, "js"),
   );
+
+  // Copy favicon if it exists
+  const faviconPath = path.join(siteUrl, "data", "favicon.ico");
+  if (fs.existsSync(faviconPath)) {
+    fs.copySync(faviconPath, path.join(baseUrl, "favicon.ico"));
+  }
 
   const membersWithAvatar = await Promise.all(
     cleanMembers.map(async (member) => {
