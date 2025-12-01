@@ -294,24 +294,102 @@ document.addEventListener("DOMContentLoaded", function() {
     updateResetButtonVisibility();
   }
 
-  // Extraire un extrait de texte autour d'un mot recherché
+  // Surligner un terme directement dans les champs visibles
+  function highlightInVisibleFields(card, searchTerm) {
+    const normalizedTerm = normalizeString(searchTerm);
+
+    function highlightField(element) {
+      if (!element) return;
+
+      const originalText = element.dataset.originalText || element.textContent;
+      if (!element.dataset.originalText) {
+        element.dataset.originalText = originalText;
+      }
+
+      const normalizedText = normalizeString(originalText);
+      const matches = [];
+
+      // Trouver toutes les positions où le terme apparaît (insensible aux accents et à la casse)
+      let startIndex = 0;
+      while (true) {
+        const index = normalizedText.indexOf(normalizedTerm, startIndex);
+        if (index === -1) break;
+        matches.push({ start: index, end: index + normalizedTerm.length });
+        startIndex = index + 1;
+      }
+
+      if (matches.length === 0) return;
+
+      // Construire le HTML avec les <mark>
+      let result = '';
+      let lastEnd = 0;
+      matches.forEach(match => {
+        result += originalText.substring(lastEnd, match.start);
+        result += '<mark>' + originalText.substring(match.start, match.end) + '</mark>';
+        lastEnd = match.end;
+      });
+      result += originalText.substring(lastEnd);
+
+      element.innerHTML = result;
+    }
+
+    highlightField(card.querySelector(".member-name a"));
+    highlightField(card.querySelector(".p__institution"));
+    highlightField(card.querySelector(".p__short-bio"));
+  }
+
+  // Restaurer le texte original des champs visibles
+  function restoreVisibleFields(card) {
+    const nameLink = card.querySelector(".member-name a");
+    if (nameLink && nameLink.dataset.originalText) {
+      nameLink.textContent = nameLink.dataset.originalText;
+      delete nameLink.dataset.originalText;
+    }
+
+    const organization = card.querySelector(".p__institution");
+    if (organization && organization.dataset.originalText) {
+      organization.textContent = organization.dataset.originalText;
+      delete organization.dataset.originalText;
+    }
+
+    const shortBio = card.querySelector(".p__short-bio");
+    if (shortBio && shortBio.dataset.originalText) {
+      shortBio.textContent = shortBio.dataset.originalText;
+      delete shortBio.dataset.originalText;
+    }
+  }
+
+  // Extraire un extrait de texte autour d'un mot recherché (seulement pour les champs cachés)
   function extractHighlightedExcerpt(card, searchTerm) {
     const normalizedTerm = normalizeString(searchTerm);
     const excerptLength = 120;
 
-    // Récupérer tous les champs textuels visibles de la card
-    const fields = [
-      { element: card.querySelector(".member-name a"), text: "" },
-      { element: card.querySelector(".p__institution"), text: "" },
-      { element: card.querySelector(".p__short-bio"), text: "" },
-    ];
+    // Vérifier si le terme est dans les champs visibles
+    const nameLink = card.querySelector(".member-name a");
+    if (nameLink && normalizeString(nameLink.textContent).includes(normalizedTerm)) {
+      return ""; // Ne pas créer d'excerpt
+    }
 
-    // Remplir les textes des champs visibles
-    fields.forEach(field => {
-      if (field.element) {
-        field.text = field.element.textContent.trim();
+    const organization = card.querySelector(".p__institution");
+    if (organization && normalizeString(organization.textContent).includes(normalizedTerm)) {
+      return "";
+    }
+
+    const shortBio = card.querySelector(".p__short-bio");
+    if (shortBio && normalizeString(shortBio.textContent).includes(normalizedTerm)) {
+      return "";
+    }
+
+    // Compétences
+    const skillsItems = card.querySelectorAll(".skills-list li");
+    for (let li of skillsItems) {
+      if (normalizeString(li.textContent).includes(normalizedTerm)) {
+        return "";
       }
-    });
+    }
+
+    // Si pas dans les champs visibles, chercher dans les champs cachés uniquement
+    const fields = [];
 
     // Si données complètes disponibles, ajouter les autres champs
     if (membersData) {
@@ -481,6 +559,8 @@ document.addEventListener("DOMContentLoaded", function() {
         card.querySelectorAll(".skills-list li").forEach(li => {
           li.classList.remove("is-selected");
         });
+        // Restaurer les champs visibles
+        restoreVisibleFields(card);
         // Vider l'extrait
         const excerptDiv = card.querySelector(".excerpt");
         if (excerptDiv) {
@@ -533,23 +613,35 @@ document.addEventListener("DOMContentLoaded", function() {
             }
           });
 
-          // Afficher les extraits si recherche libre active
-          const excerptDiv = card.querySelector(".excerpt");
-          if (excerptDiv && hasFreeSearchFilters) {
-            // Extraire un excerpt pour chaque terme qui matche cette card
+          // Gérer le surlignage et les extraits pour la recherche libre
+          if (hasFreeSearchFilters) {
+            // Extraire un excerpt pour chaque terme qui matche cette card (uniquement champs cachés)
             const excerpts = [];
             searchState.freeSearchTerms.forEach(termObj => {
               if (cardMatchesFreeSearch(card, termObj.term)) {
+                // Surligner dans les champs visibles
+                highlightInVisibleFields(card, termObj.term);
+
+                // Extraire excerpt pour les champs cachés
                 const excerpt = extractHighlightedExcerpt(card, termObj.term);
                 if (excerpt) {
                   excerpts.push(excerpt);
                 }
               }
             });
-            excerptDiv.innerHTML = excerpts.join('<div class="excerpt-separator"></div>');
-          } else if (excerptDiv) {
-            // Vider l'extrait si pas de recherche libre
-            excerptDiv.innerHTML = "";
+
+            // Afficher les excerpts des champs cachés
+            const excerptDiv = card.querySelector(".excerpt");
+            if (excerptDiv) {
+              excerptDiv.innerHTML = excerpts.join('<div class="excerpt-separator"></div>');
+            }
+          } else {
+            // Restaurer les champs visibles si pas de recherche libre
+            restoreVisibleFields(card);
+            const excerptDiv = card.querySelector(".excerpt");
+            if (excerptDiv) {
+              excerptDiv.innerHTML = "";
+            }
           }
         } else {
           card.style.display = "none";
@@ -557,6 +649,8 @@ document.addEventListener("DOMContentLoaded", function() {
           card.querySelectorAll(".skills-list li").forEach(li => {
             li.classList.remove("is-selected");
           });
+          // Restaurer les champs visibles
+          restoreVisibleFields(card);
           // Vider l'extrait
           const excerptDiv = card.querySelector(".excerpt");
           if (excerptDiv) {
