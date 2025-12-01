@@ -41,7 +41,7 @@
       {% endif %}
     {% endfor %}
 
-    <li class="field__container{% if hasChildren %} has-child{% endif %}">
+    <li class="field__container{% if hasChildren %} has-child{% endif %}" data-field="{{ category.label | lower }}">
 
       <div class="item field__item" data-skill-id="{{ category.skillId }}" data-field="{{ category.label | lower }}">
         <input class="item__checkbox" id="cb-{{ category.skillId }}" type="checkbox" value="{{ category.skillId }}">

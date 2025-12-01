@@ -6,6 +6,7 @@
     font-weight: var(--fw-mono);
     padding-top: 0;
   
+
     ul, li{
         list-style: none;
         position: relative;
@@ -332,10 +333,11 @@
 
 body.graph-view {
     #section__skills-tree #toggle-graph{
-        background-color: var(--color-txt);
-        border-color: var(--color-txt);
+        outline: 1px solid var(--accent-soft);
+        background-color: var(--color-100);
+        border-color: var(--color-300);
         svg{
-            fill: var(--color-bg);
+            fill: var(--accent-soft);
         }
     }
 }

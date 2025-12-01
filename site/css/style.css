@@ -211,7 +211,7 @@ body {
   margin-top: calc(var(--spacing) * 4);
 }
 #back-to-top:hover {
-  background-color: var(--color-100);
+  background-color: var(--color-050);
   border-color: var(--color-300);
 }
 #back-to-top a {
@@ -262,7 +262,7 @@ body {
   justify-content: center;
 }
 #toggle-menu:hover {
-  background-color: var(--color-100);
+  background-color: var(--color-050);
   border-color: var(--color-300);
 }
 #toggle-menu svg {
@@ -304,8 +304,12 @@ body {
   top: 1px;
 }
 #site-nav .btn:hover {
-  background-color: var(--color-100);
-  border-color: var(--color-300);
+  background-color: var(--color-050);
+  border-color: var(--accent-soft);
+  color: var(--accent-soft);
+}
+#site-nav .btn:hover a {
+  color: var(--accent-soft);
 }
 
 @media screen and (max-width: 820px) {
@@ -697,7 +701,7 @@ body {
   background-color: var(--color-bg);
 }
 #skills-tree__nav .toggle-all:hover, #skills-tree__nav #toggle-graph:hover {
-  background-color: var(--color-100);
+  background-color: var(--color-050);
   border-color: var(--color-300);
 }
 #skills-tree__nav #toggle-graph svg {
@@ -767,11 +771,12 @@ body {
 }
 
 body.graph-view #section__skills-tree #toggle-graph {
-  background-color: var(--color-txt);
-  border-color: var(--color-txt);
+  outline: 1px solid var(--accent-soft);
+  background-color: var(--color-100);
+  border-color: var(--color-300);
 }
 body.graph-view #section__skills-tree #toggle-graph svg {
-  fill: var(--color-bg);
+  fill: var(--accent-soft);
 }
 
 @media screen and (max-width: 820px) {
@@ -909,7 +914,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   background-color: var(--color-bg);
 }
 .card .skills-list li:hover {
-  background-color: var(--color-100);
+  background-color: var(--color-050);
   border-color: var(--color-300);
 }
 .card .skills-list li.is-selected {
@@ -1134,7 +1139,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   display: inline-block;
 }
 #autocomplete-dropdown .autocomplete-skills-container .autocomplete-item:hover {
-  background-color: var(--color-100);
+  background-color: var(--color-050);
   border-color: var(--color-300);
 }
 #autocomplete-dropdown .autocomplete-skills-container .autocomplete-item:hover {
@@ -1174,7 +1179,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   cursor: pointer;
 }
 .research-tag:hover {
-  background-color: var(--color-100);
+  background-color: var(--color-050);
   border-color: var(--color-300);
 }
 .research-tag .tag-remove {
@@ -1206,7 +1211,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   margin-left: auto;
 }
 .reset-button:hover {
-  background-color: var(--color-100);
+  background-color: var(--color-050);
   border-color: var(--color-300);
 }
 
@@ -1306,7 +1311,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
 
 #section__skills-tree {
   position: relative;
-  z-index: 500;
+  z-index: 3000;
   padding-left: var(--padding-body);
   padding-right: var(--padding-body);
 }
@@ -1499,7 +1504,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   justify-content: center;
 }
 #member .member__header #header__edit-button:hover {
-  background-color: var(--color-100);
+  background-color: var(--color-050);
   border-color: var(--color-300);
 }
 #member .member__header #header__edit-button .icon svg {
@@ -1564,7 +1569,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   background-color: var(--color-bg);
 }
 #member .member__hero .skills-list li:hover {
-  background-color: var(--color-100);
+  background-color: var(--color-050);
   border-color: var(--color-300);
 }
 #member .member__details {
@@ -1637,8 +1642,12 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   white-space: nowrap;
 }
 #member .member__details #contact__copy:hover {
-  background-color: var(--color-100);
-  border-color: var(--color-300);
+  background-color: var(--color-050);
+  border-color: var(--accent-soft);
+  color: var(--accent-soft);
+}
+#member .member__details #contact__copy:hover a {
+  color: var(--accent-soft);
 }
 #member .member__details #contact__copy svg {
   width: 16px;
@@ -1731,7 +1740,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   margin-top: calc(var(--spacing) * 2);
 }
 #member .member__toc .back-to-top:hover {
-  background-color: var(--color-100);
+  background-color: var(--color-050);
   border-color: var(--color-300);
 }
 #member .member__toc .back-to-top a {
@@ -1794,8 +1803,12 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   padding-left: 10px;
 }
 #member #edit-button:hover {
-  background-color: var(--color-100);
-  border-color: var(--color-300);
+  background-color: var(--color-050);
+  border-color: var(--accent-soft);
+  color: var(--accent-soft);
+}
+#member #edit-button:hover a {
+  color: var(--accent-soft);
 }
 #member #edit-button .text {
   margin-left: 10px;

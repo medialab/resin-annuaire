@@ -92,7 +92,7 @@
     border: 1px solid var(--color-100);
     background-color: var(--color-bg);
     &:hover{
-        background-color: var(--color-100);
+        background-color: var(--color-050);
         border-color: var(--color-300);
     }
 }
@@ -105,8 +105,10 @@
     background-color: var(--color-bg);
     cursor: pointer;
     &:hover{
-        background-color: var(--color-100);
-        border-color: var(--color-300);
+        background-color: var(--color-050);
+        border-color: var(--accent-soft);
+        color: var(--accent-soft);
+        a{ color: var(--accent-soft); }
     }
 }
 

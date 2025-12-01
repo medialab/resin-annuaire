@@ -542,12 +542,10 @@ document.addEventListener("DOMContentLoaded", function() {
   // ======== GESTION DU FOCUS SUR LA BARRE DE RECHERCHE ========
 
   if (searchBar && sectionSearch) {
-    // Ajouter la classe is-focus quand le searchBar est focus
     searchBar.addEventListener("focus", function() {
       sectionSearch.classList.add("is-focus");
     });
 
-    // Retirer la classe is-focus quand le searchBar perd le focus
     searchBar.addEventListener("blur", function() {
       sectionSearch.classList.remove("is-focus");
     });

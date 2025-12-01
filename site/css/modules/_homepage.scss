@@ -32,6 +32,7 @@
     height: calc(var(--tree-item-h) + var(--spacing)*1.5);
     top: calc(var(--header-h) + var(--search-h));
     left: 0px;
+
     @media #{$small-up}{
         display: none;
     }
@@ -60,7 +61,7 @@
 
 #section__skills-tree{
     position: relative;
-    z-index: 500;
+    z-index: 3000;
    
     padding-left: var(--padding-body);
     padding-right: var(--padding-body);
