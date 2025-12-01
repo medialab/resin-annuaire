@@ -52,6 +52,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Données complètes des membres (chargées en lazy loading au premier Enter)
   let membersData = null;
+  let freeSearchSuggestions = [];
 
   // Charger les données complètes des membres
   async function loadMembersData() {
@@ -64,6 +65,10 @@ document.addEventListener("DOMContentLoaded", function() {
       const response = await fetch('/assets/members.json');
       membersData = await response.json();
       console.log('✅ Données membres chargées:', membersData.length, 'membres');
+
+      // Extraire les suggestions pour la recherche libre
+      extractFreeSearchSuggestions();
+
       return membersData;
     } catch (error) {
       console.error('Erreur lors du chargement des membres:', error);
@@ -71,11 +76,100 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
+  // Extraire les suggestions de recherche libre depuis les données
+  function extractFreeSearchSuggestions() {
+    const suggestionsMap = {}; // Clé = version normalisée, Valeur = { word: string, count: number }
+    const stopWords = ['dans', 'avec', 'pour', 'cette', 'sont', 'plus', 'leur', 'nous', 'vous', 'elle', 'elles', 'avoir', 'être', 'faire', 'tous', 'toutes', 'sans', 'sous', 'mais', 'donc', 'aussi'];
+
+    function addSuggestion(word) {
+      if (!word) return;
+      const trimmed = word.trim();
+      if (trimmed.length === 0) return;
+
+      const normalized = normalizeString(trimmed);
+
+      if (!suggestionsMap[normalized]) {
+        // Première occurrence
+        suggestionsMap[normalized] = { word: trimmed, count: 1 };
+      } else {
+        // Occurrence supplémentaire
+        suggestionsMap[normalized].count++;
+        // Si la nouvelle version commence par une majuscule, la privilégier
+        if (trimmed[0] === trimmed[0].toUpperCase() && suggestionsMap[normalized].word[0] !== suggestionsMap[normalized].word[0].toUpperCase()) {
+          suggestionsMap[normalized].word = trimmed;
+        }
+      }
+    }
+
+    function extractWordsFromText(text) {
+      if (!text) return;
+      const words = text.split(/[\s,;.()\[\]]+/);
+      words.forEach(word => {
+        const trimmed = word.trim();
+        const cleaned = normalizeString(trimmed);
+        // Garder les mots significatifs (> 3 caractères)
+        if (cleaned.length > 3 && !stopWords.includes(cleaned)) {
+          addSuggestion(trimmed);
+        }
+      });
+    }
+
+    membersData.forEach(member => {
+      // Prénoms
+      addSuggestion(member.firstName);
+
+      // Noms
+      addSuggestion(member.lastName);
+
+      // Organisations
+      addSuggestion(member.organization);
+
+      // Villes
+      addSuggestion(member.city);
+
+      // Activité principale
+      addSuggestion(member.mainActivity);
+
+      // Bio courte
+      extractWordsFromText(member.shortBio);
+
+      // Bio longue
+      extractWordsFromText(member.longBio);
+
+      // Formation
+      extractWordsFromText(member.training);
+
+      // Publications
+      extractWordsFromText(member.publications);
+
+      // Compétences additionnelles
+      extractWordsFromText(member.additionalSkills);
+    });
+
+    // Convertir en array et trier par fréquence décroissante
+    freeSearchSuggestions = Object.values(suggestionsMap)
+      .filter(item => item.word.length > 0)
+      .sort((a, b) => b.count - a.count) // Trier par fréquence décroissante
+      .map(item => item.word); // Extraire juste les mots
+  }
+
   // Fonction pour normaliser une chaîne (lowercase, sans accents)
   function normalizeString(str) {
     return str.toLowerCase()
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "");
+  }
+
+  // Vérifier si un terme apparaît au début d'un mot dans un texte
+  function termStartsWord(text, term) {
+    if (!text || !term) return false;
+
+    const normalizedText = normalizeString(text);
+    const normalizedTerm = normalizeString(term);
+
+    // Regex : terme au début du texte ou après un séparateur (espace, apostrophe, tiret, parenthèse, etc.)
+    const regex = new RegExp(`(^|[\\s'\\-\\(\\[,;.!?:«»""])${normalizedTerm}`, 'i');
+    return regex.test(normalizedText);
   }
 
   // État de la recherche
@@ -132,13 +226,19 @@ document.addEventListener("DOMContentLoaded", function() {
     const normalizedQuery = normalizeString(query);
 
     // Filtrer les compétences qui matchent
-    const matches = allSkills.filter(skill => {
+    const skillMatches = allSkills.filter(skill => {
       const normalizedLabel = normalizeString(skill.label);
       return normalizedLabel.includes(normalizedQuery);
-    }).slice(0, 10); // Limiter à 10 suggestions
+    }).slice(0, 8); // Limiter à 8 compétences
 
-    // Si aucun résultat ou recherche vide, masquer le dropdown
-    if (matches.length === 0 || query.trim() === "") {
+    // Filtrer les suggestions libres qui matchent (commence par)
+    const freeMatches = freeSearchSuggestions.filter(suggestion => {
+      const normalizedSuggestion = normalizeString(suggestion);
+      return normalizedSuggestion.startsWith(normalizedQuery);
+    }).slice(0, 8); // Limiter à 8 suggestions
+
+    // Si recherche vide, masquer le dropdown
+    if (query.trim() === "") {
       autocompleteDropdown.innerHTML = "";
       autocompleteDropdown.style.display = "none";
       return;
@@ -147,29 +247,75 @@ document.addEventListener("DOMContentLoaded", function() {
     // Afficher les suggestions
     autocompleteDropdown.innerHTML = "";
 
-    // Créer le titre "Compétences"
-    const skillsTitle = document.createElement("div");
-    skillsTitle.className = "autocomplete-title";
-    skillsTitle.textContent = "Compétences";
-    autocompleteDropdown.appendChild(skillsTitle);
+    // Section Compétences
+    if (skillMatches.length > 0) {
+      const skillsTitle = document.createElement("div");
+      skillsTitle.className = "autocomplete-title";
+      skillsTitle.textContent = "Compétences";
+      autocompleteDropdown.appendChild(skillsTitle);
 
-    // Créer le container pour les compétences
-    const skillsContainer = document.createElement("div");
-    skillsContainer.className = "autocomplete-skills-container";
+      const skillsContainer = document.createElement("div");
+      skillsContainer.className = "autocomplete-skills-container";
 
-    matches.forEach(skill => {
-      const item = document.createElement("div");
-      item.className = "autocomplete-item";
-      item.setAttribute("data-skill-id", skill.id);
-      item.setAttribute("data-field", skill.field);
-      item.textContent = skill.label;
+      skillMatches.forEach(skill => {
+        const item = document.createElement("div");
+        item.className = "autocomplete-item";
+        item.setAttribute("data-skill-id", skill.id);
+        item.setAttribute("data-field", skill.field);
+        item.textContent = skill.label;
 
-      item.addEventListener("click", () => selectSkillFromAutocomplete(skill));
+        item.addEventListener("click", () => selectSkillFromAutocomplete(skill));
 
-      skillsContainer.appendChild(item);
-    });
+        skillsContainer.appendChild(item);
+      });
 
-    autocompleteDropdown.appendChild(skillsContainer);
+      autocompleteDropdown.appendChild(skillsContainer);
+    }
+
+    // Section Suggestions (recherche libre)
+    // Toujours afficher au moins le terme tapé
+    if (freeMatches.length > 0 || query.trim().length > 0) {
+      const suggestionsTitle = document.createElement("div");
+      suggestionsTitle.className = "autocomplete-title";
+      suggestionsTitle.textContent = "Suggestions";
+      autocompleteDropdown.appendChild(suggestionsTitle);
+
+      const suggestionsContainer = document.createElement("div");
+      suggestionsContainer.className = "autocomplete-suggestions-container";
+
+      // Ajouter d'abord le terme tapé
+      if (query.trim().length > 0) {
+        const queryItem = document.createElement("div");
+        queryItem.className = "autocomplete-item autocomplete-item--free autocomplete-item--query";
+        queryItem.textContent = query.trim();
+
+        queryItem.addEventListener("click", () => {
+          addFreeSearchTerm(query.trim());
+          searchBar.value = "";
+          hideAutocompleteDropdown();
+        });
+
+        suggestionsContainer.appendChild(queryItem);
+      }
+
+      // Puis ajouter les suggestions matchantes
+      freeMatches.forEach(suggestion => {
+        const item = document.createElement("div");
+        item.className = "autocomplete-item autocomplete-item--free";
+        item.textContent = suggestion;
+
+        item.addEventListener("click", () => {
+          addFreeSearchTerm(suggestion);
+          searchBar.value = "";
+          hideAutocompleteDropdown();
+        });
+
+        suggestionsContainer.appendChild(item);
+      });
+
+      autocompleteDropdown.appendChild(suggestionsContainer);
+    }
+
     autocompleteDropdown.style.display = "block";
   }
 
@@ -296,8 +442,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Surligner un terme directement dans les champs visibles
   function highlightInVisibleFields(card, searchTerm) {
-    const normalizedTerm = normalizeString(searchTerm);
-
     function highlightField(element) {
       if (!element) return;
 
@@ -306,30 +450,14 @@ document.addEventListener("DOMContentLoaded", function() {
         element.dataset.originalText = originalText;
       }
 
-      const normalizedText = normalizeString(originalText);
-      const matches = [];
+      // Vérifier si le terme commence un mot dans ce champ
+      if (!termStartsWord(originalText, searchTerm)) return;
 
-      // Trouver toutes les positions où le terme apparaît (insensible aux accents et à la casse)
-      let startIndex = 0;
-      while (true) {
-        const index = normalizedText.indexOf(normalizedTerm, startIndex);
-        if (index === -1) break;
-        matches.push({ start: index, end: index + normalizedTerm.length });
-        startIndex = index + 1;
-      }
+      // Surligner uniquement au début des mots (insensible à la casse et aux accents)
+      const escapedTerm = searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(`(^|[\\s'\\-\\(\\[,;.!?:«»""])(${escapedTerm})`, "gi");
 
-      if (matches.length === 0) return;
-
-      // Construire le HTML avec les <mark>
-      let result = '';
-      let lastEnd = 0;
-      matches.forEach(match => {
-        result += originalText.substring(lastEnd, match.start);
-        result += '<mark>' + originalText.substring(match.start, match.end) + '</mark>';
-        lastEnd = match.end;
-      });
-      result += originalText.substring(lastEnd);
-
+      const result = originalText.replace(regex, '$1<mark>$2</mark>');
       element.innerHTML = result;
     }
 
@@ -361,29 +489,28 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Extraire un extrait de texte autour d'un mot recherché (seulement pour les champs cachés)
   function extractHighlightedExcerpt(card, searchTerm) {
-    const normalizedTerm = normalizeString(searchTerm);
     const excerptLength = 120;
 
     // Vérifier si le terme est dans les champs visibles
     const nameLink = card.querySelector(".member-name a");
-    if (nameLink && normalizeString(nameLink.textContent).includes(normalizedTerm)) {
+    if (nameLink && termStartsWord(nameLink.textContent, searchTerm)) {
       return ""; // Ne pas créer d'excerpt
     }
 
     const organization = card.querySelector(".p__institution");
-    if (organization && normalizeString(organization.textContent).includes(normalizedTerm)) {
+    if (organization && termStartsWord(organization.textContent, searchTerm)) {
       return "";
     }
 
     const shortBio = card.querySelector(".p__short-bio");
-    if (shortBio && normalizeString(shortBio.textContent).includes(normalizedTerm)) {
+    if (shortBio && termStartsWord(shortBio.textContent, searchTerm)) {
       return "";
     }
 
     // Compétences
     const skillsItems = card.querySelectorAll(".skills-list li");
     for (let li of skillsItems) {
-      if (normalizeString(li.textContent).includes(normalizedTerm)) {
+      if (termStartsWord(li.textContent, searchTerm)) {
         return "";
       }
     }
@@ -413,17 +540,24 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     }
 
-    // Trouver le champ qui contient le terme
+    // Trouver le champ qui contient le terme au début d'un mot
     let foundField = null;
     let foundIndex = -1;
 
     for (const field of fields) {
-      if (field.text) {
+      if (field.text && termStartsWord(field.text, searchTerm)) {
+        // Trouver la position exacte du terme
         const normalizedText = normalizeString(field.text);
-        const index = normalizedText.indexOf(normalizedTerm);
-        if (index !== -1) {
+        const normalizedTerm = normalizeString(searchTerm);
+
+        // Chercher toutes les positions où le terme commence un mot
+        const regex = new RegExp(`(^|[\\s'\\-\\(\\[,;.!?:«»""])${normalizedTerm}`, 'gi');
+        const match = regex.exec(normalizedText);
+
+        if (match) {
           foundField = field;
-          foundIndex = index;
+          // L'index est après le séparateur (si présent)
+          foundIndex = match[1] ? match.index + match[1].length : match.index;
           break;
         }
       }
@@ -434,6 +568,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const originalText = foundField.text;
     const halfLength = Math.floor(excerptLength / 2);
+    const normalizedTerm = normalizeString(searchTerm);
 
     // Calculer les positions de début et fin de l'extrait
     let start = Math.max(0, foundIndex - halfLength);
@@ -453,40 +588,41 @@ document.addEventListener("DOMContentLoaded", function() {
     if (start > 0) excerpt = "..." + excerpt;
     if (end < originalText.length) excerpt = excerpt + "...";
 
-    // Surligner le mot recherché (insensible à la casse)
-    const regex = new RegExp(`(${searchTerm})`, "gi");
-    excerpt = excerpt.replace(regex, '<mark>$1</mark>');
+    // Surligner le mot recherché uniquement au début des mots (insensible à la casse et aux accents)
+    const escapedTerm = searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`(^|[\\s'\\-\\(\\[,;.!?:«»""])(${escapedTerm})`, "gi");
+    excerpt = excerpt.replace(regex, '$1<mark>$2</mark>');
 
     return excerpt;
   }
 
   // Vérifier si une card correspond à un terme de recherche libre
   function cardMatchesFreeSearch(card, term) {
-    const normalizedTerm = normalizeString(term);
-
     // ÉTAPE 1 : Chercher d'abord dans les champs visibles (rapide)
-    const visibleText = [];
-
     // Nom complet (depuis le lien)
     const nameLink = card.querySelector(".member-name a");
-    if (nameLink) visibleText.push(nameLink.textContent);
+    if (nameLink && termStartsWord(nameLink.textContent, term)) {
+      return true;
+    }
 
     // Organisation
     const organization = card.querySelector(".p__institution");
-    if (organization) visibleText.push(organization.textContent);
+    if (organization && termStartsWord(organization.textContent, term)) {
+      return true;
+    }
 
     // Bio courte
     const shortBio = card.querySelector(".p__short-bio");
-    if (shortBio) visibleText.push(shortBio.textContent);
+    if (shortBio && termStartsWord(shortBio.textContent, term)) {
+      return true;
+    }
 
     // Compétences (labels)
     const skillsItems = card.querySelectorAll(".skills-list li");
-    skillsItems.forEach(li => visibleText.push(li.textContent));
-
-    // Vérifier dans les champs visibles
-    const visibleFullText = normalizeString(visibleText.join(" "));
-    if (visibleFullText.includes(normalizedTerm)) {
-      return true;
+    for (let li of skillsItems) {
+      if (termStartsWord(li.textContent, term)) {
+        return true;
+      }
     }
 
     // ÉTAPE 2 : Si pas trouvé et données chargées, chercher dans les données complètes
@@ -502,21 +638,25 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
         if (member) {
-          const completeText = [
-            member.firstName || "",
-            member.lastName || "",
-            member.shortBio || "",
-            member.organization || "",
-            member.city || "",
-            member.mainActivity || "",
-            member.longBio || "",
-            member.training || "",
-            member.publications || "",
-            member.additionalSkills || "",
-          ].join(" ");
+          // Vérifier chaque champ séparément
+          const fieldsToCheck = [
+            member.firstName,
+            member.lastName,
+            member.shortBio,
+            member.organization,
+            member.city,
+            member.mainActivity,
+            member.longBio,
+            member.training,
+            member.publications,
+            member.additionalSkills,
+          ];
 
-          const normalizedCompleteText = normalizeString(completeText);
-          return normalizedCompleteText.includes(normalizedTerm);
+          for (let field of fieldsToCheck) {
+            if (termStartsWord(field, term)) {
+              return true;
+            }
+          }
         }
       }
     }
@@ -736,6 +876,9 @@ document.addEventListener("DOMContentLoaded", function() {
   updateSearchResultHeight();
   hideAutocompleteDropdown(); // Masquer le dropdown au chargement
 
+  // Charger les données des membres au démarrage pour l'autocomplétion
+  loadMembersData();
+
   // Attacher l'événement click au bouton reset
   const resetBtn = document.querySelector("#reset-search");
   if (resetBtn) {
@@ -771,15 +914,10 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // Gérer la soumission de la recherche (Enter)
-  async function handleSearchSubmit() {
+  function handleSearchSubmit() {
     const query = searchBar.value.trim();
 
     if (query === "") return;
-
-    // Charger les données complètes au premier Enter (lazy loading)
-    if (!membersData) {
-      await loadMembersData();
-    }
 
     // Vérifier si c'est une compétence existante
     const normalizedQuery = normalizeString(query);
