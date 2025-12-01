@@ -15,7 +15,8 @@
         outline: var(--border-light);
         border-radius: var(--radius-small);
         padding: var(--spacing);
-        box-shadow: 3px 6px 10px -5px var(--color-100);
+       
+        box-shadow: var(--shadow);
 
 
         position: relative;

@@ -17,9 +17,10 @@ if (skillCardsTitle) {
     const headerH = parseInt(styles.getPropertyValue('--header-h'));
     const searchH = parseInt(styles.getPropertyValue('--search-h'));
     const spacing = parseInt(styles.getPropertyValue('--spacing'));
+    const searchResultsH = parseInt(styles.getPropertyValue('--search-result-h'));
 
     return {
-      cardsTop: headerH + searchH + (spacing * 3.5)
+      cardsTop: headerH + searchH + searchResultsH + (spacing * 3.5)
     };
   };
 

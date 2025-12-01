@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", function() {
   const researchItems = document.querySelector("#research-items");
   const researchItemsWrapper = document.querySelector("#section__research-items");
   const searchBar = document.querySelector("#searchBar");
+  const autocompleteDropdown = document.querySelector("#autocomplete-dropdown");
+  const sectionSearch = document.querySelector("#section__search");
   const cardsWrapper = document.querySelector(".cards-wrapper");
   const countSpan = document.querySelector("#count-members > span");
   const skillsTree = document.querySelector("#skills-tree");
@@ -22,6 +24,38 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
   if (!researchItems || !searchBar || !cardsWrapper) return;
+
+  // Fonction pour mettre à jour la hauteur de la section research-items
+  function updateSearchResultHeight() {
+    if (researchItemsWrapper) {
+      const height = researchItemsWrapper.offsetHeight;
+      document.body.style.setProperty('--search-result-h', `${height}px`);
+    }
+  }
+
+  // Charger la liste des compétences depuis l'arbre
+  const allSkills = [];
+  if (skillsTree) {
+    skillsTree.querySelectorAll(".item").forEach(item => {
+      const skillId = parseInt(item.getAttribute("data-skill-id"), 10);
+      const label = item.querySelector(".name")?.textContent.trim();
+      const field = item.getAttribute("data-field");
+      const li = item.closest("li");
+      const childrenIdsStr = li?.getAttribute("data-children-ids");
+      const childrenIds = childrenIdsStr ? childrenIdsStr.split(',').map(id => parseInt(id, 10)) : [skillId];
+
+      if (skillId && label) {
+        allSkills.push({ id: skillId, label, field, childrenIds });
+      }
+    });
+  }
+
+  // Fonction pour normaliser une chaîne (lowercase, sans accents)
+  function normalizeString(str) {
+    return str.toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  }
 
   // État de la recherche
   const searchState = {
@@ -67,6 +101,83 @@ document.addEventListener("DOMContentLoaded", function() {
     updateResetButtonVisibility();
   }
 
+  // ======== AUTOCOMPLÉTION ========
+
+  // Afficher les suggestions d'autocomplétion
+  function showAutocompleteSuggestions(query) {
+    if (!autocompleteDropdown) return;
+
+    // Normaliser la recherche
+    const normalizedQuery = normalizeString(query);
+
+    // Filtrer les compétences qui matchent
+    const matches = allSkills.filter(skill => {
+      const normalizedLabel = normalizeString(skill.label);
+      return normalizedLabel.includes(normalizedQuery);
+    }).slice(0, 10); // Limiter à 10 suggestions
+
+    // Si aucun résultat ou recherche vide, masquer le dropdown
+    if (matches.length === 0 || query.trim() === "") {
+      autocompleteDropdown.innerHTML = "";
+      autocompleteDropdown.style.display = "none";
+      return;
+    }
+
+    // Afficher les suggestions
+    autocompleteDropdown.innerHTML = "";
+
+    // Créer le titre "Compétences"
+    const skillsTitle = document.createElement("div");
+    skillsTitle.className = "autocomplete-title";
+    skillsTitle.textContent = "Compétences";
+    autocompleteDropdown.appendChild(skillsTitle);
+
+    // Créer le container pour les compétences
+    const skillsContainer = document.createElement("div");
+    skillsContainer.className = "autocomplete-skills-container";
+
+    matches.forEach(skill => {
+      const item = document.createElement("div");
+      item.className = "autocomplete-item";
+      item.setAttribute("data-skill-id", skill.id);
+      item.setAttribute("data-field", skill.field);
+      item.textContent = skill.label;
+
+      item.addEventListener("click", () => selectSkillFromAutocomplete(skill));
+
+      skillsContainer.appendChild(item);
+    });
+
+    autocompleteDropdown.appendChild(skillsContainer);
+    autocompleteDropdown.style.display = "block";
+  }
+
+  // Sélectionner une compétence depuis l'autocomplétion
+  function selectSkillFromAutocomplete(skill) {
+    // Cocher la checkbox correspondante dans l'arbre
+    if (skillsTree) {
+      const checkbox = skillsTree.querySelector(`#cb-${skill.id}`);
+      if (checkbox && !checkbox.checked) {
+        checkbox.checked = true;
+        checkbox.dispatchEvent(new Event("change", { bubbles: true }));
+      }
+    }
+
+    // Vider le champ de recherche
+    searchBar.value = "";
+
+    // Masquer le dropdown
+    hideAutocompleteDropdown();
+  }
+
+  // Masquer le dropdown d'autocomplétion
+  function hideAutocompleteDropdown() {
+    if (autocompleteDropdown) {
+      autocompleteDropdown.innerHTML = "";
+      autocompleteDropdown.style.display = "none";
+    }
+  }
+
   // Afficher les tags dans #research-items
   function renderResearchItems() {
     // Vider le contenu
@@ -93,6 +204,9 @@ document.addEventListener("DOMContentLoaded", function() {
         researchItemsWrapper.classList.remove("has-items");
       }
     }
+
+    // Mettre à jour la hauteur de la section après le rendu
+    updateSearchResultHeight();
   }
 
   // Créer un tag
@@ -159,16 +273,58 @@ document.addEventListener("DOMContentLoaded", function() {
     updateResetButtonVisibility();
   }
 
+  // Vérifier si une card correspond à un terme de recherche libre
+  function cardMatchesFreeSearch(card, term) {
+    const normalizedTerm = normalizeString(term);
+
+    // Récupérer les données de la card depuis les data-attributes ou le contenu
+    const cardText = [];
+
+    // Nom complet (depuis le lien)
+    const nameLink = card.querySelector(".member-name a");
+    if (nameLink) cardText.push(nameLink.textContent);
+
+    // Organisation
+    const organization = card.querySelector(".p__institution");
+    if (organization) cardText.push(organization.textContent);
+
+    // Bio courte
+    const shortBio = card.querySelector(".p__short-bio");
+    if (shortBio) cardText.push(shortBio.textContent);
+
+    // Compétences (labels)
+    const skillsItems = card.querySelectorAll(".skills-list li");
+    skillsItems.forEach(li => cardText.push(li.textContent));
+
+    // Concaténer et normaliser tout le texte
+    const fullText = normalizeString(cardText.join(" "));
+
+    // Vérifier si le terme est présent
+    return fullText.includes(normalizedTerm);
+  }
+
   // Filtrer les cards et mettre à jour le compteur + ajouter is-selected
   function filterCards() {
     const allCards = cardsWrapper.querySelectorAll(".card");
     let visibleCount = 0;
 
-    // Collecter tous les IDs à rechercher (compétences + leurs enfants)
+    // Collecter tous les IDs à rechercher (compétences + leurs enfants) pour le filtrage
     const allSearchedIds = new Set();
     searchState.selectedSkills.forEach(skill => {
       skill.childrenIds.forEach(id => allSearchedIds.add(id));
     });
+
+    // Collecter TOUS les IDs cochés (user + propagation) pour la classe is-selected
+    const allCheckedIds = new Set();
+    if (skillsTree) {
+      skillsTree.querySelectorAll(".item__checkbox:checked").forEach(checkbox => {
+        const item = checkbox.closest(".item");
+        const skillId = parseInt(item.getAttribute("data-skill-id"), 10);
+        if (skillId) {
+          allCheckedIds.add(skillId);
+        }
+      });
+    }
 
     // Si aucun filtre, afficher toutes les cards
     const hasSkillFilters = searchState.selectedSkills.length > 0;
@@ -202,17 +358,27 @@ document.addEventListener("DOMContentLoaded", function() {
           }
         }
 
-        // TODO: Ajouter la recherche libre dans les prochaines étapes
+        // Vérifier la recherche libre (logique OR)
+        if (hasFreeSearchFilters && !shouldShow) {
+          // La card doit matcher AU MOINS UN terme de recherche libre
+          const matchesFreeSearch = searchState.freeSearchTerms.some(termObj =>
+            cardMatchesFreeSearch(card, termObj.term)
+          );
+
+          if (matchesFreeSearch) {
+            shouldShow = true;
+          }
+        }
 
         // Afficher ou masquer la card
         if (shouldShow) {
           card.style.display = "block";
           visibleCount++;
 
-          // Ajouter is-selected aux skills correspondantes
+          // Ajouter is-selected aux skills correspondantes (user + propagation)
           card.querySelectorAll(".skills-list li").forEach(li => {
             const skillId = parseInt(li.getAttribute("data-skill-id"), 10);
-            if (allSearchedIds.has(skillId)) {
+            if (allCheckedIds.has(skillId)) {
               li.classList.add("is-selected");
             } else {
               li.classList.remove("is-selected");
@@ -301,10 +467,89 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Initialisation
   updateResetButtonVisibility();
+  updateSearchResultHeight();
+  hideAutocompleteDropdown(); // Masquer le dropdown au chargement
 
   // Attacher l'événement click au bouton reset
   const resetBtn = document.querySelector("#reset-search");
   if (resetBtn) {
     resetBtn.addEventListener("click", resetSearch);
+  }
+
+  // ======== EVENT LISTENERS AUTOCOMPLÉTION ========
+
+  // Écouter l'input dans la barre de recherche
+  if (searchBar && autocompleteDropdown) {
+    searchBar.addEventListener("input", function(event) {
+      const query = event.target.value;
+      showAutocompleteSuggestions(query);
+    });
+
+    // Fermer le dropdown si on clique ailleurs
+    document.addEventListener("click", function(event) {
+      if (!searchBar.contains(event.target) && !autocompleteDropdown.contains(event.target)) {
+        hideAutocompleteDropdown();
+      }
+    });
+
+    // Fermer le dropdown avec la touche Escape ou gérer Enter pour recherche libre
+    searchBar.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") {
+        hideAutocompleteDropdown();
+        searchBar.blur();
+      } else if (event.key === "Enter") {
+        event.preventDefault();
+        handleSearchSubmit();
+      }
+    });
+  }
+
+  // Gérer la soumission de la recherche (Enter)
+  function handleSearchSubmit() {
+    const query = searchBar.value.trim();
+
+    if (query === "") return;
+
+    // Vérifier si c'est une compétence existante
+    const normalizedQuery = normalizeString(query);
+    const matchingSkill = allSkills.find(skill =>
+      normalizeString(skill.label) === normalizedQuery
+    );
+
+    if (matchingSkill) {
+      // C'est une compétence → la sélectionner via l'autocomplétion
+      selectSkillFromAutocomplete(matchingSkill);
+    } else {
+      // Ce n'est pas une compétence → ajouter comme recherche libre
+      addFreeSearchTerm(query);
+      searchBar.value = "";
+      hideAutocompleteDropdown();
+    }
+  }
+
+  // Ajouter un terme de recherche libre
+  function addFreeSearchTerm(term) {
+    // Vérifier si le terme n'existe pas déjà
+    const termExists = searchState.freeSearchTerms.some(t => t.term === term);
+    if (!termExists) {
+      searchState.freeSearchTerms.push({ term });
+      renderResearchItems();
+      filterCards();
+      updateResetButtonVisibility();
+    }
+  }
+
+  // ======== GESTION DU FOCUS SUR LA BARRE DE RECHERCHE ========
+
+  if (searchBar && sectionSearch) {
+    // Ajouter la classe is-focus quand le searchBar est focus
+    searchBar.addEventListener("focus", function() {
+      sectionSearch.classList.add("is-focus");
+    });
+
+    // Retirer la classe is-focus quand le searchBar perd le focus
+    searchBar.addEventListener("blur", function() {
+      sectionSearch.classList.remove("is-focus");
+    });
   }
 });

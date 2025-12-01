@@ -34,9 +34,11 @@
   --block-graph: 12px;
   --button-h: 20px;
   --border-light: 1px solid var(--color-100);
+  --shadow: 3px 6px 10px -5px var(--color-100);
   --spacing: 12px;
   --radius-small: 4px;
   --max-width: 900px;
+  --search-result-h: 0px;
 }
 
 @media screen and (max-width: 1080px) {
@@ -816,7 +818,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   outline: var(--border-light);
   border-radius: var(--radius-small);
   padding: var(--spacing);
-  box-shadow: 3px 6px 10px -5px var(--color-100);
+  box-shadow: var(--shadow);
   position: relative;
   overflow: hidden;
 }
@@ -1043,6 +1045,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   }
 }
 #section__search form {
+  padding-left: calc(var(--padding-body) * 2);
   display: flex;
   align-items: center;
   gap: 2ch;
@@ -1080,6 +1083,64 @@ body.graph-view #section__skills-tree #toggle-graph svg {
 }
 #section__search form input:focus {
   outline: none;
+}
+
+#section__search.is-focus {
+  border: 1px solid var(--color-300);
+  border-radius: var(--radius-small);
+  box-shadow: var(--shadow);
+}
+
+#autocomplete-dropdown {
+  display: none;
+  width: calc(100% - var(--padding-body) * 2);
+  margin-left: calc(var(--padding-body) * 1);
+  position: relative;
+  top: calc(var(--spacing) * 1);
+  background-color: var(--color-bg);
+  padding: calc(var(--spacing) * 1) calc(var(--padding-body) * 2);
+  border: 1px solid var(--color-300);
+  border-radius: var(--radius-small);
+  box-shadow: var(--shadow);
+}
+#autocomplete-dropdown .autocomplete-title {
+  font-family: var(--mono);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-mono);
+  margin-bottom: calc(var(--spacing) * 1);
+}
+#autocomplete-dropdown .autocomplete-skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: calc(var(--spacing) * 2);
+}
+#autocomplete-dropdown .autocomplete-skills-container .autocomplete-item {
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
+  font-size: var(--fs-small);
+  height: var(--button-h);
+  border-radius: var(--radius-small);
+  padding: 0 1ch;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: var(--color-txt);
+  border: 1px solid var(--color-100);
+  background-color: var(--color-bg);
+  color: var(--color);
+  border-color: var(--color);
+  background-color: var(--color-xlight);
+  display: inline-block;
+}
+#autocomplete-dropdown .autocomplete-skills-container .autocomplete-item:hover {
+  background-color: var(--color-100);
+  border-color: var(--color-300);
+}
+#autocomplete-dropdown .autocomplete-skills-container .autocomplete-item:hover {
+  border-color: var(--color);
+  background-color: var(--color-xlight);
+  outline: 1px solid var(--color-light);
 }
 
 #research-items {
@@ -1280,8 +1341,8 @@ body.graph-view #section__skills-tree #toggle-graph svg {
     padding-bottom: calc(var(--spacing) * 2);
   }
   #section__skills-tree #skills-tree {
-    max-height: calc(100vh - var(--header-h) - var(--search-h) - var(--spacing) * 11.5);
-    max-height: calc(100dvh - var(--header-h) - var(--search-h) - var(--spacing) * 11.5);
+    max-height: calc(100vh - var(--header-h) - var(--search-h) - var(--search-result-h) - var(--spacing) * 11.5);
+    max-height: calc(100dvh - var(--header-h) - var(--search-h) - var(--search-result-h) - var(--spacing) * 11.5);
     overflow-y: scroll;
     overflow-x: hidden;
     -ms-overflow-style: none; /* IE and Edge */
@@ -1317,7 +1378,6 @@ body.graph-view #section__skills-tree #toggle-graph svg {
     position: fixed;
     top: var(--header-h);
     left: var(--tree-w);
-    padding-left: calc(var(--padding-body) * 2);
   }
 }
 @media screen and (max-width: 820px) {
@@ -1328,6 +1388,20 @@ body.graph-view #section__skills-tree #toggle-graph svg {
     top: var(--header-h);
     padding: 0px var(--padding-body);
   }
+}
+
+#section__research-items {
+  height: 0px;
+  overflow: hidden;
+}
+@media screen and (max-width: 820px) {
+  #section__research-items {
+    display: none;
+  }
+}
+
+#section__research-items.has-items {
+  height: auto;
 }
 
 #section__cards {

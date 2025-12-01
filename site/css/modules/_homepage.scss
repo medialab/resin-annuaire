@@ -96,8 +96,8 @@
         }
 
         #skills-tree{
-            max-height: calc(100vh - var(--header-h) - var(--search-h) - var(--spacing)*11.5);
-            max-height: calc(100dvh - var(--header-h) - var(--search-h) - var(--spacing)*11.5);
+            max-height: calc(100vh - var(--header-h) - var(--search-h) - var(--search-result-h) - var(--spacing)*11.5);
+            max-height: calc(100dvh - var(--header-h) - var(--search-h) - var(--search-result-h) - var(--spacing)*11.5);
             overflow-y: scroll;
             overflow-x: hidden;
             @include hide-scroll();
@@ -139,7 +139,7 @@
         position: fixed;
         top: var(--header-h);
         left: var(--tree-w);
-        padding-left: calc(var(--padding-body)*2);
+       
     }
 
     @media #{$small}{
@@ -153,12 +153,18 @@
 }
 
 #section__research-items{
-    // position: absolute;
-    // width: 100%;
-    // left: 0;
-    // top: calc(var(--search-h) + 1px);
-    // background: var(--color-bg);
-    // border-bottom: var(--border-light);
+    height: 0px;
+  
+    overflow: hidden;
+
+   
+    @media #{$small}{
+        display: none;
+    }
+}
+
+#section__research-items.has-items{
+    height: auto;
 
 }
 
