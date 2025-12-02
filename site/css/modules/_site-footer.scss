@@ -1,4 +1,10 @@
 #site-footer{
+    border-top: var(--border-light);
     svg{ width: 100px; }
-    display: none;
+    // display: none;
+
+    .container{
+        max-width: var(--max-width);
+        padding: calc(var(--spacing)*4) var(--padding-body);
+    }
 }

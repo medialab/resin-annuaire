@@ -1,0 +1,88 @@
+.page-static{
+
+    .main--container{
+        max-width: var(--max-width-txt);
+        margin: 0 auto;
+        padding: 0 var(--padding-body);
+    }
+
+    h2{
+        font-family: var(--font);
+        font-size: var(--fs-xbig);
+        font-weight: 600;
+        margin-top: calc(var(--spacing)*3);
+        margin-bottom: calc(var(--spacing)*1.5);
+
+        // &::before{
+        //     content: '';
+        //     display: inline-block;
+        //     width: var(--block-graph);
+        //     height: var(--block-graph);
+        //     background-color: var(--accent-soft);
+        //     border-radius: var(--radius-small);
+        // }
+    }
+
+    h3{
+        font-family: var(--mono);
+        font-weight: var(--fw-mono);
+        color: var(--color-800);
+        font-size: var(--fs-medium);
+        border-bottom: 1px solid var(--color-100);
+        margin-bottom: calc(var(--spacing)*1.5);
+        color: var(--accent-soft);
+        margin-top: calc(var(--spacing)*6);
+        margin-bottom: calc(var(--spacing)*1.5);
+
+    }
+
+    h4{
+        font-family: var(--font);
+        font-weight: 600;
+        font-size: var(--fs-medium);
+        margin-top: calc(var(--spacing)*4);
+        margin-bottom: calc(var(--spacing)*1.5);
+    }
+
+    hr{
+        height: calc(var(--spacing)*1.5);
+        border: none;
+    }
+
+    p, li{
+        font-size: var(--fs-medium);
+    }
+
+    p{
+        margin-top: calc(var(--spacing)*1);
+        margin-bottom: calc(var(--spacing)*1);
+    }
+
+    ul{
+        margin-left: 4ch;
+        margin-bottom: calc(var(--spacing)*1.5);
+    }
+
+    // a{
+    //     text-decoration: underline 3px var(--color-300);
+    //     text-decoration-skip-ink: none;
+
+    //     &:hover{
+    //         color: var(--accent-soft);
+    //         text-decoration-color: var(--color-300);
+    //     }
+    // }
+
+    a{
+        color: var(--accent-soft);
+        text-decoration: underline 2px var(--color-100);
+        text-decoration-skip-ink: none;
+        &:hover{
+            color: var(--accent);
+            text-decoration-color: var(--accent);
+            text-decoration-skip-ink: auto;
+        }
+    }
+
+
+}

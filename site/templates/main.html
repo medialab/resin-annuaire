@@ -37,11 +37,13 @@
 
     
     <main{% block main_attributes %}{% endblock %}>
-      {% block body %}{% endblock %} {% include "footer.html" %}
+      {% block body %}{% endblock %}
 
       <button id="back-to-top"><a href="#">↑ Revenir en haut</a></button>
-
     </main>
+
+    {% include "footer.html" %}
+
     {% block scripts %}
     <script type="text/javascript" src="js/search.js"></script>
     <script type="text/javascript" src="js/header.js"></script>

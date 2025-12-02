@@ -38,6 +38,7 @@
   --spacing: 12px;
   --radius-small: 4px;
   --max-width: 900px;
+  --max-width-txt: 780px;
   --search-result-h: 0px;
 }
 
@@ -417,10 +418,14 @@ body {
   }
 }
 #site-footer {
-  display: none;
+  border-top: var(--border-light);
 }
 #site-footer svg {
   width: 100px;
+}
+#site-footer .container {
+  max-width: var(--max-width);
+  padding: calc(var(--spacing) * 4) var(--padding-body);
 }
 
 #sub-header {
@@ -1245,6 +1250,65 @@ body.graph-view #section__skills-tree #toggle-graph svg {
 .reset-button:hover {
   background-color: var(--color-050);
   border-color: var(--color-300);
+}
+
+.page-static .main--container {
+  max-width: var(--max-width-txt);
+  margin: 0 auto;
+  padding: 0 var(--padding-body);
+}
+.page-static h2 {
+  font-family: var(--font);
+  font-size: var(--fs-xbig);
+  font-weight: 600;
+  margin-top: calc(var(--spacing) * 3);
+  margin-bottom: calc(var(--spacing) * 1.5);
+}
+.page-static h3 {
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
+  color: var(--color-800);
+  font-size: var(--fs-medium);
+  border-bottom: 1px solid var(--color-100);
+  margin-bottom: calc(var(--spacing) * 1.5);
+  color: var(--accent-soft);
+  margin-top: calc(var(--spacing) * 6);
+  margin-bottom: calc(var(--spacing) * 1.5);
+}
+.page-static h4 {
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: var(--fs-medium);
+  margin-top: calc(var(--spacing) * 4);
+  margin-bottom: calc(var(--spacing) * 1.5);
+}
+.page-static hr {
+  height: calc(var(--spacing) * 1.5);
+  border: none;
+}
+.page-static p, .page-static li {
+  font-size: var(--fs-medium);
+}
+.page-static p {
+  margin-top: calc(var(--spacing) * 1);
+  margin-bottom: calc(var(--spacing) * 1);
+}
+.page-static ul {
+  margin-left: 4ch;
+  margin-bottom: calc(var(--spacing) * 1.5);
+}
+.page-static a {
+  color: var(--accent-soft);
+  -webkit-text-decoration: underline 2px var(--color-100);
+          text-decoration: underline 2px var(--color-100);
+  -webkit-text-decoration-skip-ink: none;
+          text-decoration-skip-ink: none;
+}
+.page-static a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+  -webkit-text-decoration-skip: ink;
+          text-decoration-skip-ink: auto;
 }
 
 .main__home {
