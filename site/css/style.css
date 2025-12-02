@@ -1263,6 +1263,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   font-family: var(--font);
   font-size: var(--fs-xbig);
   font-weight: 600;
+  line-height: 1.1;
   margin-top: calc(var(--spacing) * 3);
   margin-bottom: calc(var(--spacing) * 1.5);
 }
@@ -1276,6 +1277,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   color: var(--accent-soft);
   margin-top: calc(var(--spacing) * 6);
   margin-bottom: calc(var(--spacing) * 1.5);
+  line-height: 1.4;
 }
 .page-static h4 {
   font-family: var(--font);
@@ -1308,7 +1310,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   margin-top: calc(var(--spacing) * 1);
   margin-bottom: calc(var(--spacing) * 1);
 }
-.page-static ul {
+.page-static ul, .page-static ol {
   margin-left: 4ch;
   margin-bottom: calc(var(--spacing) * 1.5);
 }
@@ -1346,6 +1348,10 @@ body.graph-view #section__skills-tree #toggle-graph svg {
     margin-left: var(--tree-w);
     padding-left: calc(var(--padding-body) * 2);
     padding-right: calc(var(--padding-body) * 2);
+  }
+  .main__home .main--container {
+    max-width: 1500px;
+    margin: 0 auto;
   }
 }
 
@@ -1462,7 +1468,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
 }
 @media screen and (min-width: 820px) {
   #section__cards .cards-wrapper {
-    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
   }
 }
 
@@ -1695,7 +1701,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   border-color: var(--color-300);
 }
 #member .member__details {
-  padding-top: calc(var(--spacing) * 0.75);
+  padding-top: calc(var(--spacing) * 0.5);
 }
 #member .member__details dl {
   width: 100%;
@@ -1881,7 +1887,15 @@ body.graph-view #section__skills-tree #toggle-graph svg {
 #member .content-section {
   margin-bottom: calc(var(--spacing) * 5);
 }
-#member .content-section > h3 {
+#member .content-section h2 {
+  font-family: var(--font);
+  font-size: var(--fs-xbig);
+  font-weight: 600;
+  line-height: 1.1;
+  margin-top: calc(var(--spacing) * 3);
+  margin-bottom: calc(var(--spacing) * 1.5);
+}
+#member .content-section h3 {
   font-family: var(--mono);
   font-weight: var(--fw-mono);
   color: var(--color-800);
@@ -1889,19 +1903,50 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   border-bottom: 1px solid var(--color-100);
   margin-bottom: calc(var(--spacing) * 1.5);
   color: var(--accent-soft);
+  margin-top: calc(var(--spacing) * 6);
+  margin-bottom: calc(var(--spacing) * 1.5);
+  line-height: 1.4;
 }
-#member .content-section p {
-  margin: calc(var(--spacing) * 1) 0;
-}
-#member .content-section ol, #member .content-section li {
-  margin-left: 2ch;
-}
-#member .content-section ol li {
-  margin-top: calc(var(--spacing) * 2);
+#member .content-section h4 {
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: var(--fs-medium);
+  margin-top: calc(var(--spacing) * 4);
+  margin-bottom: calc(var(--spacing) * 1.5);
 }
 #member .content-section hr {
+  height: calc(var(--spacing) * 1.5);
   border: none;
-  height: var(--spacing);
+}
+#member .content-section p, #member .content-section li {
+  font-size: var(--fs-medium);
+}
+#member .content-section p a, #member .content-section li a {
+  color: var(--accent-soft);
+  -webkit-text-decoration: underline 2px var(--color-100);
+          text-decoration: underline 2px var(--color-100);
+  -webkit-text-decoration-skip-ink: none;
+          text-decoration-skip-ink: none;
+}
+#member .content-section p a:hover, #member .content-section li a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+  -webkit-text-decoration-skip: ink;
+          text-decoration-skip-ink: auto;
+}
+#member .content-section p {
+  margin-top: calc(var(--spacing) * 1);
+  margin-bottom: calc(var(--spacing) * 1);
+}
+#member .content-section ul, #member .content-section ol {
+  margin-left: 4ch;
+  margin-bottom: calc(var(--spacing) * 1.5);
+}
+#member .content-section h3 {
+  margin-top: 0px;
+}
+#member .content-section .content-section + .content-section {
+  margin-top: calc(var(--spacing) * 3);
 }
 #member #edit-button {
   font-family: var(--mono);

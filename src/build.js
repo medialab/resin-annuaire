@@ -45,6 +45,7 @@ const legalPageTemplate = env.getTemplate("legalPage.html");
 const subscribePageTemplate = env.getTemplate("subscribePage.html");
 const projectPageTemplate = env.getTemplate("projectPage.html");
 const newsletterPageTemplate = env.getTemplate("newsletter.html");
+const ressourcesPageTemplate = env.getTemplate("ressourcesPage.html");
 const notFoundPageTemplate = env.getTemplate("notFoundPage.html");
 
 const httpAgent = new http.Agent({ keepAlive: true });
@@ -137,6 +138,10 @@ async function main() {
     newsletterPageTemplate.render(),
   );
 
+  fs.outputFileSync(
+    path.join(baseUrl, "ressources.html"),
+    ressourcesPageTemplate.render(),
+  );
 
   fs.outputFileSync(
     path.join(baseUrl, "404.html"),

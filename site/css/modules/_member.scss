@@ -92,7 +92,7 @@
 
     .member__details{
 
-        padding-top: calc(var(--spacing)*0.75);
+        padding-top: calc(var(--spacing)*0.5);
         dl{
             width: 100%;
             margin-bottom: calc(var(--spacing)*1.5);
@@ -256,36 +256,17 @@
     .content-section{
         margin-bottom: calc(var(--spacing)*5);
 
-        & > h3{
-            font-family: var(--mono);
-            font-weight: var(--fw-mono);
-            color: var(--color-800);
-            font-size: var(--fs-medium);
-            border-bottom: 1px solid var(--color-100);
-            margin-bottom: calc(var(--spacing)*1.5);
-            color: var(--accent-soft);
+        @include content-txt();
 
+
+        h3{
+            margin-top: 0px;
         }
 
-        p{
-            margin: calc(var(--spacing)*1) 0;
+        .content-section + .content-section{
+            margin-top: calc(var(--spacing)*3);
         }
-
-
-        ol, li{
-         margin-left: 2ch;
-        }
-
-        ol li{
-            margin-top:  calc(var(--spacing)*2);
-            // font-weight: 500;
-        }
-
-        hr{
-            border: none;
-            height: var(--spacing);
-        }
-
+   
         
     }
 

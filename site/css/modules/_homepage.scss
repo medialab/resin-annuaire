@@ -1,11 +1,14 @@
 .main__home{
     padding-top: calc(var(--header-h) + var(--search-h));
-
-
     @media #{$small-up}{
         margin-left: var(--tree-w);
         padding-left: calc(var(--padding-body)*2);
         padding-right: calc(var(--padding-body)*2);
+
+        .main--container{
+            max-width: 1500px;
+            margin: 0 auto;
+        }
     }
 }
 
@@ -88,7 +91,7 @@
     .cards-wrapper{
         display: grid;
         @media #{$small-up}{
-            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
         }
         column-gap: calc(var(--padding-body)*1);
         row-gap: calc(var(--padding-body)*1);
