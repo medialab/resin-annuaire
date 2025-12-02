@@ -1,6 +1,5 @@
 .main__home{
     padding-top: calc(var(--header-h) + var(--search-h));
-    
 
 
     @media #{$small-up}{
@@ -8,30 +7,15 @@
         padding-left: calc(var(--padding-body)*2);
         padding-right: calc(var(--padding-body)*2);
     }
-
-    @media #{$small}{
-        padding-left: 0;
-        padding-right: 0;
-        #back-to-top{
-            margin-left: var(--padding-body);
-        }
-    }
 }
 
 
 .section--title{
     @include section-title();
     z-index: 3000;
-    @media #{$small}{
-        padding: 0px var(--padding-body);
-    }
 }
 
 #title__skills-tree{
-    position: fixed!important;
-    height: calc(var(--tree-item-h) + var(--spacing)*1.5);
-    top: calc(var(--header-h) + var(--search-h));
-    left: 0px;
 
     @media #{$small-up}{
         display: none;
@@ -39,19 +23,6 @@
 }
 
 #title__cards{
-
-    @media #{$small}{
-        &::after{
-            content: '';
-            display: block;
-            // background-color: red;
-            width: 100vw;
-            height: 30px;
-            position: absolute;
-            left: 0px;
-            bottom: -30px;
-            background: linear-gradient(0deg,transparent 0%, rgba(255, 255, 255, 1) 75%);        }
-    }
     @media #{$small-up}{
         margin-top: calc(var(--spacing)*2.5);
         margin-bottom: calc(var(--spacing)*1.5);
@@ -62,69 +33,25 @@
 #section__skills-tree{
     position: relative;
     z-index: 3000;
-   
+
     padding-left: var(--padding-body);
     padding-right: var(--padding-body);
-   
+
 
     @media #{$small-up}{
         width: var(--tree-w);
         border-right: var(--border-light);
-        position: fixed; 
+        position: fixed;
         left: 0px;
         top: var(--header-h);
         height: calc(100vh - var(--header-h));
 
         background-color: var(--color-bg-alpha);
-       
+
         overflow-y: scroll;
         overflow-x: hidden;
         @include hide-scroll();
-
     }
-
-    @media #{$small}{
-        #toggle-graph{ display: none;}
-
-        width: 100%;
-        background-color: var(--color-bg);
-        overflow-x: hidden;
-        // padding-bottom: calc(var(--padding-body)*2);
-        // margin-bottom:  calc(var(--padding-body)*-2);
-
-        .level-1{
-            padding-bottom: calc(var(--spacing)*2);
-        }
-
-        #skills-tree{
-            max-height: calc(100vh - var(--header-h) - var(--search-h) - var(--search-result-h) - var(--spacing)*11.5);
-            max-height: calc(100dvh - var(--header-h) - var(--search-h) - var(--search-result-h) - var(--spacing)*11.5);
-            overflow-y: scroll;
-            overflow-x: hidden;
-            @include hide-scroll();
-        }
-        #skills-tree__nav{
-            background-color: var(--color-bg);
-            padding-top: calc(var(--spacing) * 2);
-        }
-
-
-  
-        &::after{
-            content: '';
-            display: block;
-            position: absolute;
-            width: 100%;
-            height: 34px;
-            bottom: 0px;
-            background: linear-gradient(0deg,rgba(255, 255, 255, 1) 41%, transparent 100%);
-        }
-        
-    
-
-    
-    }
-    
 }
 
 
@@ -140,52 +67,23 @@
         position: fixed;
         top: var(--header-h);
         left: var(--tree-w);
-       
     }
-
-    @media #{$small}{
-        width: 100vw;
-        position: fixed;
-        left: 0;
-        top: var(--header-h);
-        padding: 0px var(--padding-body);
-    }
-   
 }
 
 #section__research-items{
     height: 0px;
-  
     overflow: hidden;
-
-   
-    @media #{$small}{
-        display: none;
-    }
 }
 
 #section__research-items.has-items{
     height: auto;
-
 }
 
 
 #section__cards{
-
     position: relative;
     // padding-bottom: 30vh;
     z-index: 100;
-  
-    @media #{$small}{
-        padding-top: calc(var(--spacing)*1);
-    }
-    @media #{$small}{
-        padding-top: calc(var(--spacing)*2);
-        padding-left: var(--padding-body);
-        padding-right: var(--padding-body);
-    }
-
-
 
     .cards-wrapper{
         display: grid;
@@ -194,15 +92,135 @@
         }
         column-gap: calc(var(--padding-body)*1);
         row-gap: calc(var(--padding-body)*1);
-        position: relative;  
+        position: relative;
     }
-
-   
-
-   
-
 }
 
 
+// ============================================
+// Media queries pour mobile
+// ============================================
+
+@media #{$small}{
 
 
+    #section__search{
+        width: 100vw;
+        position: fixed;
+        left: 0;
+        top: var(--header-h);
+        padding: 0px;
+        z-index: 1000;
+
+        #autocomplete-dropdown{
+
+        }
+    }
+
+
+    #section__research-items{
+        z-index: 600;
+        padding: 0 calc(var(--padding-body));
+        padding-bottom: calc(var(--spacing)*2);
+    }
+
+
+    .section--title{
+        z-index: 800;
+    }
+
+    #title__skills-tree{
+        // position: fixed!important;
+        // height: calc(var(--tree-item-h) + var(--spacing)*1.5);
+        // top: calc(var(--header-h) + var(--search-h));
+        // left: 0px;
+    
+        @media #{$small-up}{
+            display: none;
+        }
+    }
+
+    #section__skills-tree{
+        overflow-x: clip;
+        z-index: 600;
+    } 
+
+    #skills-tree{
+        max-height: calc(100vh - var(--header-h) - var(--search-h) - var(--search-result-h) - var(--spacing)*11.5);
+        max-height: calc(100dvh - var(--header-h) - var(--search-h) - var(--search-result-h) - var(--spacing)*11.5);
+        overflow-y: scroll;
+        overflow-x: hidden;
+        @include hide-scroll();
+    }
+
+
+    #section__cards{
+        z-index: 500;
+    }
+
+    /// ------
+
+
+
+
+    .main__home{
+        padding-left: 0;
+        padding-right: 0;
+        #back-to-top{
+            margin-left: var(--padding-body);
+        }
+    }
+
+    .section--title{
+        padding: 0px var(--padding-body);
+    }
+
+    #title__cards{
+        &::after{
+            content: '';
+            display: block;
+            width: 100vw;
+            height: 30px;
+            position: absolute;
+            left: 0px;
+            bottom: -30px;
+            background: linear-gradient(0deg,transparent 0%, rgba(255, 255, 255, 1) 75%);        }
+    }
+
+    #section__skills-tree{
+        #toggle-graph{ display: none;}
+        position: relative;
+
+        width: 100%;
+        background-color: var(--color-bg);
+
+        .level-1{
+            padding-bottom: calc(var(--spacing)*2);
+        }
+
+      
+        #skills-tree__nav{
+            background-color: var(--color-bg);
+            padding-top: calc(var(--spacing) * 0.5);
+            position: sticky;
+            top: 0px;
+        }
+
+        &::after{
+            content: '';
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 34px;
+            bottom: 0px;
+            background: linear-gradient(0deg,rgba(255, 255, 255, 1) 41%, transparent 100%);
+        }
+    }
+
+  
+    #section__cards{
+        padding-top: calc(var(--spacing)*2);
+        padding-left: var(--padding-body);
+        padding-right: var(--padding-body);
+    }
+}

@@ -1,131 +1,164 @@
 const skillTree = document.querySelector("#skills-tree");
+const skillTreeSection = document.querySelector("#section__skills-tree");
 const skillTreeTitle = document.querySelector("#title__skills-tree");
 
-const skillCards = document.querySelector("#section__cards");
+const skillCardsSection = document.querySelector("#section__cards");
 const skillCardsTitle = document.querySelector("#title__cards");
 
 // Variables globales pour le sticky
+let skillsTreePlaceholder = null;
 let cardsPlaceholder = null;
-let handleScroll = null; // Sera définie plus bas
 
-// Gestion du comportement sticky pour mobile
-if (skillCardsTitle) {
+// Calculer les positions seuils à partir des variables CSS
+const getThresholdPositions = () => {
+  const styles = getComputedStyle(document.documentElement);
+  const headerH = parseInt(styles.getPropertyValue('--header-h'));
+  const searchH = parseInt(styles.getPropertyValue('--search-h'));
+  const spacing = parseInt(styles.getPropertyValue('--spacing'));
 
-  // Calculer les positions seuils à partir des variables CSS
-  const getThresholdPositions = () => {
-    const styles = getComputedStyle(document.documentElement);
-    const headerH = parseInt(styles.getPropertyValue('--header-h'));
-    const searchH = parseInt(styles.getPropertyValue('--search-h'));
-    const spacing = parseInt(styles.getPropertyValue('--spacing'));
-    const searchResultsH = parseInt(styles.getPropertyValue('--search-result-h'));
-
-    return {
-      cardsTop: headerH + searchH + searchResultsH + (spacing * 3.5)
-    };
+  return {
+    baseTop: headerH + searchH
   };
+};
 
-  handleScroll = () => {
-    // Sur grand écran, réinitialiser
-    if (window.innerWidth >= screenSmall) {
-      if (skillCardsTitle.classList.contains('is-fixed')) {
-        skillCardsTitle.classList.remove('is-fixed');
-        skillCardsTitle.style.position = '';
-        skillCardsTitle.style.top = '';
-        skillCardsTitle.style.left = '';
-        skillCardsTitle.style.width = '';
-        skillCardsTitle.style.zIndex = '';
-        if (cardsPlaceholder) {
-          cardsPlaceholder.remove();
-          cardsPlaceholder = null;
-        }
-      }
-      return;
+// Gestion du scroll pour mobile
+const handleScroll = () => {
+  // Sur grand écran, réinitialiser
+  if (window.innerWidth >= screenSmall) {
+    if (skillTreeTitle && skillTreeTitle.classList.contains('is-fixed')) {
+      resetFixedElement(skillTreeTitle, skillsTreePlaceholder);
+      skillsTreePlaceholder = null;
     }
-
-    const thresholds = getThresholdPositions();
-    const isCardsFixed = skillCardsTitle.classList.contains('is-fixed');
-
-    // Gérer skillCardsTitle
-    let cardsTop;
-    if (cardsPlaceholder) {
-      cardsTop = cardsPlaceholder.getBoundingClientRect().top;
-    } else {
-      cardsTop = skillCardsTitle.getBoundingClientRect().top;
+    if (skillCardsTitle && skillCardsTitle.classList.contains('is-fixed')) {
+      resetFixedElement(skillCardsTitle, cardsPlaceholder);
+      cardsPlaceholder = null;
     }
+    return;
+  }
 
-    const shouldCardsBeFixed = cardsTop <= thresholds.cardsTop;
+  const thresholds = getThresholdPositions();
 
-    if (shouldCardsBeFixed && !isCardsFixed) {
-      // Obtenir les dimensions avant de devenir fixed
-      const rect = skillCardsTitle.getBoundingClientRect();
+  // Gérer #title__skills-tree
+  if (skillTreeTitle) {
+    handleFixedTitle(
+      skillTreeTitle,
+      skillsTreePlaceholder,
+      thresholds.baseTop,
+      (placeholder) => { skillsTreePlaceholder = placeholder; }
+    );
+  }
 
-      // Créer un clone invisible pour maintenir l'espace
-      cardsPlaceholder = skillCardsTitle.cloneNode(true);
-      cardsPlaceholder.style.visibility = 'hidden';
-      cardsPlaceholder.style.pointerEvents = 'none';
-      cardsPlaceholder.className = cardsPlaceholder.className + ' cards-title-placeholder';
-      skillCardsTitle.parentNode.insertBefore(cardsPlaceholder, skillCardsTitle);
+  // Gérer #title__cards
+  if (skillCardsTitle && skillTreeTitle) {
+    const skillTreeTitleHeight = skillsTreePlaceholder
+      ? skillsTreePlaceholder.offsetHeight
+      : skillTreeTitle.offsetHeight;
 
-      // Appliquer le positionnement fixed
-      skillCardsTitle.classList.add('is-fixed');
-      skillCardsTitle.style.position = 'fixed';
-      skillCardsTitle.style.top = thresholds.cardsTop + 'px';
-      skillCardsTitle.style.left = rect.left + 'px';
-      skillCardsTitle.style.width = rect.width + 'px';
-      skillCardsTitle.style.zIndex = '800';
+    const spacing = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--spacing'));
+    const cardsTop = thresholds.baseTop + skillTreeTitleHeight;
 
-    } else if (!shouldCardsBeFixed && isCardsFixed) {
-      // Retirer le fixed
-      skillCardsTitle.classList.remove('is-fixed');
-      skillCardsTitle.style.position = '';
-      skillCardsTitle.style.top = '';
-      skillCardsTitle.style.left = '';
-      skillCardsTitle.style.width = '';
-      skillCardsTitle.style.zIndex = '';
+    handleFixedTitle(
+      skillCardsTitle,
+      cardsPlaceholder,
+      cardsTop,
+      (placeholder) => { cardsPlaceholder = placeholder; }
+    );
+  }
+};
 
-      if (cardsPlaceholder) {
-        cardsPlaceholder.remove();
-        cardsPlaceholder = null;
-      }
+// Fonction pour gérer un titre fixe
+const handleFixedTitle = (titleElement, placeholder, topThreshold, setPlaceholder) => {
+  const isFixed = titleElement.classList.contains('is-fixed');
+
+  // Calculer la position actuelle
+  let currentTop;
+  if (placeholder) {
+    currentTop = placeholder.getBoundingClientRect().top;
+  } else {
+    currentTop = titleElement.getBoundingClientRect().top;
+  }
+
+  const shouldBeFixed = currentTop <= topThreshold;
+
+  if (shouldBeFixed && !isFixed) {
+    // Appliquer le fixed
+    const rect = titleElement.getBoundingClientRect();
+
+    // Créer un placeholder pour éviter le saut de layout
+    const newPlaceholder = titleElement.cloneNode(true);
+    newPlaceholder.style.visibility = 'hidden';
+    newPlaceholder.style.pointerEvents = 'none';
+    newPlaceholder.classList.remove('is-fixed');
+    titleElement.parentNode.insertBefore(newPlaceholder, titleElement);
+
+    // Appliquer le positionnement fixed
+    titleElement.classList.add('is-fixed');
+    titleElement.style.position = 'fixed';
+    titleElement.style.top = topThreshold + 'px';
+    titleElement.style.left = '0px';
+    titleElement.style.width = '100%';
+    titleElement.style.zIndex = '900';
+
+    setPlaceholder(newPlaceholder);
+
+  } else if (!shouldBeFixed && isFixed) {
+    // Retirer le fixed
+    resetFixedElement(titleElement, placeholder);
+    setPlaceholder(null);
+  }
+};
+
+// Fonction pour réinitialiser un élément fixe
+const resetFixedElement = (element, placeholder) => {
+  element.classList.remove('is-fixed');
+  element.style.position = '';
+  element.style.top = '';
+  element.style.left = '';
+  element.style.width = '';
+  element.style.zIndex = '';
+
+  if (placeholder && placeholder.parentNode) {
+    placeholder.remove();
+  }
+};
+
+// Gérer le redimensionnement de la fenêtre
+const handleResize = () => {
+  // Si on passe en grand écran, nettoyer
+  if (window.innerWidth >= screenSmall) {
+    if (skillTreeTitle && skillTreeTitle.classList.contains('is-fixed')) {
+      resetFixedElement(skillTreeTitle, skillsTreePlaceholder);
+      skillsTreePlaceholder = null;
     }
-  };
-
-  // Gérer le redimensionnement de la fenêtre
-  const handleResize = () => {
-    // Si on passe en grand écran, nettoyer
-    if (window.innerWidth >= screenSmall) {
-      if (skillCardsTitle.classList.contains('is-fixed')) {
-        skillCardsTitle.classList.remove('is-fixed');
-        skillCardsTitle.style.position = '';
-        skillCardsTitle.style.top = '';
-        skillCardsTitle.style.left = '';
-        skillCardsTitle.style.width = '';
-        skillCardsTitle.style.zIndex = '';
-      }
-      if (cardsPlaceholder) {
-        cardsPlaceholder.remove();
-        cardsPlaceholder = null;
-      }
-    } else {
-      // Recalculer les positions en mode mobile
-      if (skillCardsTitle.classList.contains('is-fixed')) {
-        const rect = cardsPlaceholder ? cardsPlaceholder.getBoundingClientRect() : skillCardsTitle.getBoundingClientRect();
-        skillCardsTitle.style.left = rect.left + 'px';
-        skillCardsTitle.style.width = rect.width + 'px';
-      }
+    if (skillCardsTitle && skillCardsTitle.classList.contains('is-fixed')) {
+      resetFixedElement(skillCardsTitle, cardsPlaceholder);
+      cardsPlaceholder = null;
     }
+  }
 
-    handleScroll();
-  };
+  handleScroll();
+};
 
-  window.addEventListener('scroll', handleScroll, { passive: true });
-  window.addEventListener('resize', handleResize);
-
-  // Initialiser au chargement
-  setTimeout(() => {
-    handleScroll();
-  }, 100);
+// Observer les changements de hauteur du skills-tree (pour les toggles)
+let resizeObserver = null;
+if (skillTreeSection && window.ResizeObserver) {
+  resizeObserver = new ResizeObserver(() => {
+    // Recalculer les positions quand la hauteur change
+    if (window.innerWidth < screenSmall) {
+      handleScroll();
+    }
+  });
+  resizeObserver.observe(skillTreeSection);
 }
+
+// Écouter les événements
+window.addEventListener('scroll', handleScroll, { passive: true });
+window.addEventListener('resize', handleResize);
+
+// Initialiser au chargement
+setTimeout(() => {
+  handleScroll();
+}, 100);
 
 // Action au clic sur skillTreeTitle pour mobile
 if (skillTreeTitle) {
@@ -149,14 +182,17 @@ if (skillTreeTitle) {
 if (skillCardsTitle) {
   skillCardsTitle.addEventListener('click', function() {
     if (window.innerWidth < screenSmall) {
-      const styles = getComputedStyle(document.documentElement);
-      const headerH = parseInt(styles.getPropertyValue('--header-h'));
-      const searchH = parseInt(styles.getPropertyValue('--search-h'));
-      const spacing = parseInt(styles.getPropertyValue('--spacing'));
-      const cardsTop = headerH + searchH + (spacing * 3);
+      const thresholds = getThresholdPositions();
+      const skillTreeTitleHeight = skillsTreePlaceholder
+        ? skillsTreePlaceholder.offsetHeight
+        : skillTreeTitle.offsetHeight;
 
-      // Obtenir la position actuelle de skillCardsTitle
-      const rect = skillCardsTitle.getBoundingClientRect();
+      const spacing = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--spacing'));
+      const cardsTop = thresholds.baseTop + skillTreeTitleHeight + (spacing / 2);
+
+      // Obtenir la position actuelle de skillCardsTitle ou son placeholder
+      const targetElement = cardsPlaceholder || skillCardsTitle;
+      const rect = targetElement.getBoundingClientRect();
       const currentScrollY = window.scrollY;
 
       // Calculer la position de scroll pour que skillCardsTitle arrive à cardsTop
@@ -169,4 +205,3 @@ if (skillCardsTitle) {
     }
   }, false);
 }
-

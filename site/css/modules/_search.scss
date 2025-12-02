@@ -78,6 +78,7 @@
     border: 1px solid var(--color-300);
     border-radius: var(--radius-small);
     box-shadow: var(--shadow);
+    z-index: 8000;
     
 
     .autocomplete-title{
