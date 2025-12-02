@@ -33,8 +33,8 @@ const siteUrl = path.join(__dirname, "..", "site");
 const imageFolder = path.join("assets", "images");
 const baseImageFolder = path.join(baseUrl, imageFolder);
 
-const apiUrl = process.env.API_URL || "http://localhost:8000";
-const internalApiUrl = process.env.INTERNAL_API_URL || "http://localhost:8000";
+const apiUrl = process.env.API_URL || "https://resin.medialab.sciences-po.fr";
+const internalApiUrl = process.env.INTERNAL_API_URL || "https://resin.medialab.sciences-po.fr";
 
 // Configure nunjucks
 const env = nunjucks.configure(path.join(siteUrl, "templates"));
@@ -44,6 +44,7 @@ const memberPageTemplate = env.getTemplate("memberPage.html");
 const legalPageTemplate = env.getTemplate("legalPage.html");
 const subscribePageTemplate = env.getTemplate("subscribePage.html");
 const projectPageTemplate = env.getTemplate("projectPage.html");
+const newsletterPageTemplate = env.getTemplate("newsletter.html");
 const notFoundPageTemplate = env.getTemplate("notFoundPage.html");
 
 const httpAgent = new http.Agent({ keepAlive: true });
@@ -130,6 +131,12 @@ async function main() {
     path.join(baseUrl, "a-propos.html"),
     projectPageTemplate.render(),
   );
+
+  fs.outputFileSync(
+    path.join(baseUrl, "liste-de-diffusion.html"),
+    newsletterPageTemplate.render(),
+  );
+
 
   fs.outputFileSync(
     path.join(baseUrl, "404.html"),

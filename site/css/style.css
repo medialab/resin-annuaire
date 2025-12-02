@@ -98,7 +98,7 @@ main {
   padding-left: var(--padding-body);
   padding-right: var(--padding-body);
   padding-top: calc(var(--header-h) + var(--padding-body));
-  margin-bottom: 30vh;
+  margin-bottom: calc(var(--spacing) * 4);
 }
 
 mark {
@@ -1257,6 +1257,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   max-width: var(--max-width-txt);
   margin: 0 auto;
   padding: 0 var(--padding-body);
+  min-height: 70vh;
 }
 .page-static h2 {
   font-family: var(--font);
@@ -1290,6 +1291,19 @@ body.graph-view #section__skills-tree #toggle-graph svg {
 .page-static p, .page-static li {
   font-size: var(--fs-medium);
 }
+.page-static p a, .page-static li a {
+  color: var(--accent-soft);
+  -webkit-text-decoration: underline 2px var(--color-100);
+          text-decoration: underline 2px var(--color-100);
+  -webkit-text-decoration-skip-ink: none;
+          text-decoration-skip-ink: none;
+}
+.page-static p a:hover, .page-static li a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+  -webkit-text-decoration-skip: ink;
+          text-decoration-skip-ink: auto;
+}
 .page-static p {
   margin-top: calc(var(--spacing) * 1);
   margin-bottom: calc(var(--spacing) * 1);
@@ -1298,18 +1312,30 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   margin-left: 4ch;
   margin-bottom: calc(var(--spacing) * 1.5);
 }
-.page-static a {
-  color: var(--accent-soft);
-  -webkit-text-decoration: underline 2px var(--color-100);
-          text-decoration: underline 2px var(--color-100);
-  -webkit-text-decoration-skip-ink: none;
-          text-decoration-skip-ink: none;
+.page-static #btn--newsletter {
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
+  font-size: var(--fs-small);
+  height: var(--button-h);
+  border-radius: var(--radius-small);
+  padding: 0 1ch;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: var(--color-050);
+  background-color: var(--accent-soft);
+  font-size: var(--fs-medium);
+  height: calc(var(--button-h) * 1.5);
+  margin-top: calc(var(--spacing) * 4);
 }
-.page-static a:hover {
-  color: var(--accent);
-  text-decoration-color: var(--accent);
-  -webkit-text-decoration-skip: ink;
-          text-decoration-skip-ink: auto;
+.page-static #btn--newsletter:hover {
+  background-color: var(--accent);
+}
+.page-static #btn--newsletter a {
+  text-decoration: none;
+}
+.page-static #btn--newsletter ~ #back-to-top {
+  display: none !important;
 }
 
 .main__home {

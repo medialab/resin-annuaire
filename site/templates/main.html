@@ -27,9 +27,9 @@
       </label>
       <nav id="site-nav">
         <ul class="main">
-          <li><a href="a-propos">À propos</a></li>
-          <li><a href="projet">Liste de diffusion</a></li>
-          <li><a href="projet">Ressources</a></li>
+          <li><a href="/a-propos">À propos</a></li>
+          <li><a href="/liste-de-diffusion">Liste de diffusion</a></li>
+          <li><a href="/ressources">Ressources</a></li>
           <li class="btn"><a href="s-inscrire">Créer son profil</a></li>
         </ul>
       </nav>
@@ -37,9 +37,11 @@
 
     
     <main{% block main_attributes %}{% endblock %}>
-      {% block body %}{% endblock %}
-
-      <button id="back-to-top"><a href="#">↑ Revenir en haut</a></button>
+      <div class="main--container">
+        {% block body %}{% endblock %}
+        <div></div>
+        <button id="back-to-top"><a href="#">↑ Revenir en haut</a></button>
+      </div>
     </main>
 
     {% include "footer.html" %}
