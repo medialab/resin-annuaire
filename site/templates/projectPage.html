@@ -2,15 +2,32 @@
 {% block main_attributes %} class="page-static"{% endblock %}
 {% block body %}
 <div class="main--container">
-  <h2> Le projet RésIn</h2>
 
-    <h3>L’annuaire RésIn</h3>
+
+    <h2> Le projet RésIn</h2>
+
+    <nav class="page-toc">
+      <ul>
+        <li><a href="#annuaire">L’annuaire RésIn</a></li>
+        <li><a href="#hierarchie-competences">La hiérarchie de compétences</a></li>
+        <li><a href="#projet">Le projet et l’équipe</a></li>
+        <li><a href="#en-savoir-plus">Pour en savoir plus</a></li>
+        <li><a href="#comite-pilotage">Comité de pilotage du projet</a></li>
+      </ul>
+    </nav>
+
+    </ul>
+
+      <h3 id="annuaire">L’annuaire RésIn</h3>
 
       <p>L’annuaire RésIn rassemble des profils d’ingénieur·es et de technicien·nes travaillant dans la recherche scientifique, et plus largement, de professionnel·les du soutien à la recherche. Il vise à valoriser et faire connaître les diverses compétences des professionnel·les des méthodes au-delà de leurs institutions respectives.</p>
-    <h3>La hiérarchie de compétences RésIn</h3>
+    
+      <h3 id="hierarchie-competences">La hiérarchie de compétences RésIn</h3>
+
       <p>L’annuaire permet de s’inscrire en tant que spécialiste de certaines méthodes et/ou outils. Au moment de l’inscription, il est possible de choisir six spécialités parmi un thésaurus de compétences évolutives, consultable <a href="https://github.com/medialab/resin-annuaire/blob/main/site/data/tree.yaml">sur le dépôt github du projet</a>.</p>
       <p>Les expertises des professionnel·les de la recherche s’étendent à tous les domaines de recherche et à toutes les disciplines. Ainsi, la hiérarchie de compétences RésIn est ouverte à vos suggestions afin d’y inclure vos spécialités.</p>
       <p>Elle se déploie sur 3 niveaux hiérarchiques, dont voici le premier &#8239;</p>
+
       <ul>
         <li><strong>La collecte de données&#8239;</strong>: APIs, entretiens, entrepôts de données, scraping, sondages, etc.</li>
         <li><strong>La curation de contenuss&#8239;</strong>: aspects légaux, chiffrement, enrichissement, documentation, nettoyage, sauvegarde des données, etc.</li>
@@ -20,7 +37,7 @@
       </ul>
       <p>Lors de l’inscription, renseignez le champ «&#8239;compétence supplémentaire&#8239;» afin de nous informer d’un manque. Nous en prendrons connaissance et ferons de notre mieux pour l’inclure afin de représenter la diversité des compétences de la communauté de recherche.</p>
 
-    <h3>Le projet et l’équipe RésIn</h3>
+    <h3 id="projet">Le projet et l’équipe RésIn</h3>
 
       <p>Cet annuaire est l’un des résultats du <a href="https://medialab.sciencespo.fr/activites/resin/">projet de mise en réseau — RésIn</a>. L’idée est née du constat de l’isolement des ingénieur·es de recherche dans leurs unités de recherche respectives. Or, les métiers du soutien à la recherche occupent un rôle central dans la production de connaissances, tout particulièrement dans le contexte de la transition numérique, qui transforme nos sociétés et nos métiers.</p>
       <p>C’est en ce sens que le projet RésIn (pour <strong>Rés</strong>eau d’<strong>in</strong>génieur·es dans la recherche) vise rassembler des professionnel·les des méthodes de recherche, notamment au sein du collectif des institutions composant Sciences Po et l’Université Paris Cité.</p>
@@ -60,7 +77,7 @@
 
     </ul>
 
-    <h3>Pour en savoir plus sur le projet RésIn</h3>
+    <h3 id="en-savoir-plus">Pour en savoir plus sur le projet RésIn</h3>
     <ul>
       <li><a href="https://medialab.sciencespo.fr/actu/portraits-dencadrantes-2-metat/" target="_blank">Des portraits d’encadrant·es de l’atelier de méthodes</a></li>
       <li><a href="https://vimeo.com/showcase/11568714" target="_blank">Les enregistrements des précédentes séances des séminaires de méthodes</a></li>
@@ -72,7 +89,7 @@
     </ul>
 
 
-    <h3>Comité de pilotage du projet RésIn 2025</h3>
+    <h3 id="comite-pilotage">Comité de pilotage du projet RésIn 2025</h3>
 
     <ul>
       <li><a href="https://resin.medialab.sciences-po.fr/flora-chanvril" target="_blank">Flora Chanvril</a>, chargée d’études statistiques au Cevipof, Sciences Po </li>
@@ -83,11 +100,21 @@
     </ul>
     
     
-      <p>Pour toute question concernant le projet ou le fonctionnement de l’annuaire, ou pour participer à nos activités, écrivez à audrey.baneyx@sciencespo.fr ou marine.chuberre@sciencespo.fr.</p>
+      <p>Pour toute question concernant le projet ou le fonctionnement de l’annuaire, ou pour participer à nos activités, écrivez à <strong>audrey.baneyx@sciencespo.fr</strong> ou <strong>marine.chuberre@sciencespo.fr</strong>.</p>
+      
+
+      <hr>
+      
       <p>Le projet RésIn a bénéficié du soutien apporté par l’ANR et l’État au titre du programme d’Investissements d’avenir dans le cadre de l’IdEx Université Paris Cité (ANR-18-IDEX-0001) en 2023 et 2024.</p> 
       <p>
           <img src="https://medialab.sciencespo.fr/static/Logo_investir_lavenir-2_72c6266c-c812-4a49-b2b2-1a4c195f15c7.png" width="100" height="100"/>
           <img src="https://medialab.sciencespo.fr/static/706_UniversiteParisCite_idex-706x675_20988cd1-86eb-42b7-9df6-c0c9639ef8ce.jpg" width="100" height="100"/>
       </p>
 </div>
+{% endblock %}
+
+
+{% block scripts %}
+{{ super() }}
+
 {% endblock %}

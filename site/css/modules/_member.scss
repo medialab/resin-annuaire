@@ -314,7 +314,8 @@
         #back-to-top{ display: none; }
     }
 #member{
-    --fig-w: 260px;
+    
+    --fig-w: var(--col-left);
     max-width: var(--max-width);
     margin: 0 auto;
     padding: 0 var(--padding-body);
@@ -323,7 +324,7 @@
     display: grid;
     justify-items: start;
     align-items: start;
-    grid-template-columns: var(--fig-w) 1fr;
+    grid-template-columns: var(--col-left) 1fr;
     grid-gap: calc(var(--spacing)*3);
 
     .member__header{

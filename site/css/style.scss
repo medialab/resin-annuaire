@@ -4,9 +4,11 @@
 @import "base/body";
 @import "base/colors-skills";
 
-@import "modules/components";
-@import "modules/buttons";
-@import "modules/text";
+@import "components/buttons";
+@import "components/components";
+@import "components/text";
+@import "components/toc";
+
 @import "modules/site-header";
 @import "modules/site-footer";
 @import "modules/subheader";
@@ -15,6 +17,8 @@
 @import "modules/search";
 @import "modules/search-select";
 @import "modules/static";
-
 @import "modules/homepage";
 @import "modules/member";
+
+
+@import "components/toc";

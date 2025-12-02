@@ -11,6 +11,7 @@
 
 
 @mixin content-txt(){
+
     h2{
         font-family: var(--font);
         font-size: var(--fs-xbig);
@@ -46,22 +47,27 @@
         border: none;
     }
 
-    p, li{
-        font-size: var(--fs-medium);
-
-        a{
-            @include links-in-txt();
-        }
-    
-    }
 
     p{
         margin-top: calc(var(--spacing)*1);
         margin-bottom: calc(var(--spacing)*1);
     }
 
-    ul, ol{
-        margin-left: 4ch;
-        margin-bottom: calc(var(--spacing)*1.5);
-    }
+
+
+        p, li{
+            font-size: var(--fs-medium);
+            a{ @include links-in-txt(); }
+        }
+
+        ul, ol{
+            margin-left: 4ch;
+            margin-bottom: calc(var(--spacing)*1.5);
+        }
+    
+  
+
+
+
+  
 }

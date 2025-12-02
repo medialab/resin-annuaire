@@ -7,6 +7,10 @@
   </p>
   <resin-formulaire apiServer="{{ apiUrl }}" />
 </div>
-{% endblock %} {% block scripts %}
+{% endblock %}
+
+
+{% block scripts %}
+{{ super() }}
 <script type="text/javascript" src="js/form.js"></script>
 {% endblock %}

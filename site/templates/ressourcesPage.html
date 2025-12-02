@@ -4,14 +4,25 @@
 
   <h2> Ressources pour les ingénieur·es dans&nbsp;la&nbsp;recherche</h2>
 
-  <h3>L’atelier de méthodes (MetAt)</h3>
+  <nav class="page-toc">
+    <ul>
+      <li><a href="#atelier-methodes">L’atelier de méthodes (MetAt)</a></li>
+      <li><a href="#pistes-bibliographiques">Pistes bibliographiques</a></li>
+      <li class="level-2"><a href="#sciences-gestion">Sciences de la gestion</a></li>
+      <li class="level-2"><a href="#sociologie-ethnographie-histoire">Sociologie, ethnographie et histoire</a></li>
+      <li class="level-2"><a href="#logiciels-donnees">Logiciels et données de la recherche</a></li>
+    </ul>
+  </nav>
+
+
+  <h3 id="pistes-bibliographiques">L’atelier de méthodes (MetAt)</h3>
 
   <p>Un <a href="https://drive.google.com/file/d/1i6Bz2WEvRQxM4bl3Kv_xuf5qV1BbTwUP/view?usp=share_link" target="_blank">toolkit</a> pour organiser des ateliers de méthodes.</p>
 
 
-  <h3>Quelques pistes bibliographiques des questions qui animent le&nbsp;projet&nbsp;RésIn</h3>
+  <h3 id="#pistes-bibliographiques">Quelques pistes bibliographiques des questions qui animent le&nbsp;projet&nbsp;RésIn</h3>
 
-  <h4>Sciences de la gestion&#8239;: une force de travail aux&nbsp;compétences&nbsp;mixtes</h4>
+  <h4 id="sciences-gestion">Sciences de la gestion&#8239;: une force de travail aux&nbsp;compétences&nbsp;mixtes</h4>
 
   <ul>
     <li>BERMAN Judith E., PITMAN Tim, « Occupying a 'third space': research trained professional staff in Australian universities », Higher Education, Vol. 60, N° 2, 2010, p. 157-169.</li>
@@ -22,7 +33,7 @@
     <li>TURPIN Andrew, GRUBA Paul, « Developing a Workforce to Support Research Reliant on Data and Compute », Ceur Workshop Proceedings, Vol. 3036, 2021.</li>
   </ul>
 
-  <h4>Sociologie, ethnographie et histoire&#8239;: identités, rapports de pouvoir et&nbsp;professionnalisation</h4>
+  <h4 id="sociologie-ethnographie-histoire">Sociologie, ethnographie et histoire&#8239;: identités, rapports de pouvoir et&nbsp;professionnalisation</h4>
 
   <ul>
     <li>ALLEN-COLLINSON Jacquelyne, « ”Get yourself some nice, neat, matching box files”: research administrators and occupational identity work », Studies in Higher Education, 32 (3), 2007, p. 295-309.</li>
@@ -41,7 +52,7 @@
     <li>WHITCHURCH Celia, Reconstructing Identities in Higher Education: The Rise of 'Third Space' Professionals, Londres, Routledge, 2012.</li>
   </ul>
 
-  <h4>Logiciels et données de la recherche&#8239;: retours d’ingénieurs et perspectives critiques sur&nbsp;le&nbsp;code</h4>
+  <h4 id="logiciels-donnees">Logiciels et données de la recherche&#8239;: retours d’ingénieurs et perspectives critiques sur&nbsp;le&nbsp;code</h4>
 
   <ul>
     <li>ANTOLINOS-BASSO, Diégo, BANEYX, Audrey, THÉRO, Héloïse., OOGHE-TABANOU, Benjamin, GIRARD, Paul « L’atelier de méthodes de Sciences Po: apprendre, aider, rassembler. » Humanités numériques 5, 2022.</li>
@@ -53,8 +64,9 @@
     <li>MCPHERSON Tara, Feminist in a Software Lab: Difference and Design, Cambridge, MA: Harvard University Press, 2018.</li>
     <li>VENTURINI Tommaso, JACOMY Mathieu, MEUNIER Axel, LATOUR Bruno, « An unexpected journey: A few lessons from Sciences Po médialab’s experience. », Big Data & Society, 4 (2), 2017.</li>
   </ul>
-
+  {% endblock %}
  
-{% endblock %} {% block scripts %}
-<script type="text/javascript" src="js/form.js"></script>
-{% endblock %}
+  {% block scripts %}
+  {{ super() }}
+
+  {% endblock %}

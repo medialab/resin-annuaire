@@ -1,14 +1,25 @@
 .page-static{
 
+   
     .main--container{
         max-width: var(--max-width-txt);
-        margin: 0 auto;
         padding: 0 var(--padding-body);
+        margin: 0 auto;
         min-height: 70vh;
+        position: relative;
     }
 
     @include content-txt();
 
+
+    .page-toc{
+        position: absolute;
+        width: var(--col-left);
+        // background-color: yellow;
+        left: calc(var(--col-left)*-1 + var(--padding-body)*-2);
+        margin-top: calc(var(--spacing) * 3.5);
+        padding-top: calc(var(--spacing) * 1.5);
+    }
    
 
     #btn--newsletter{

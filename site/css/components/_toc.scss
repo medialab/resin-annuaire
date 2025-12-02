@@ -1,0 +1,39 @@
+.page-toc{
+
+    ul{
+        list-style: none;
+        margin: 0;
+    }
+      
+
+
+    li{
+        font-family: var(--mono);
+        font-weight: 600;
+        font-size: var(--fs-small)!important;
+        margin-bottom:  calc(var(--spacing)*0.75);
+        position: relative;
+        color: var(--color-txt);
+        a{ 
+            text-decoration: none;
+            color: currentColor;
+        }
+        &::before{
+            content: "→";
+            display: block;
+            position: absolute;
+            left: -20px;
+            opacity: 0;
+        }
+
+        &:hover{
+            color: var(--accent-soft);
+            &::before{ opacity: 0.9; }
+        }
+
+    }
+    li.is-selected::before{
+            opacity: 1;
+
+    }
+}

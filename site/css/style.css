@@ -31,6 +31,7 @@
   --header-h-small: 60px;
   --subheader-h: calc(var(--tree-item-h)*1.5);
   --search-h: 60px;
+  --col-left: 260px;
   --block-graph: 12px;
   --button-h: 20px;
   --border-light: 1px solid var(--color-100);
@@ -225,6 +226,39 @@ body {
   display: block;
   width: 100%;
   height: 100%;
+}
+
+.page-toc ul {
+  list-style: none;
+  margin: 0;
+}
+.page-toc li {
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: var(--fs-small) !important;
+  margin-bottom: calc(var(--spacing) * 0.75);
+  position: relative;
+  color: var(--color-txt);
+}
+.page-toc li a {
+  text-decoration: none;
+  color: currentColor;
+}
+.page-toc li::before {
+  content: "→";
+  display: block;
+  position: absolute;
+  left: -20px;
+  opacity: 0;
+}
+.page-toc li:hover {
+  color: var(--accent-soft);
+}
+.page-toc li:hover::before {
+  opacity: 0.9;
+}
+.page-toc li.is-selected::before {
+  opacity: 1;
 }
 
 #site-header {
@@ -1255,9 +1289,10 @@ body.graph-view #section__skills-tree #toggle-graph svg {
 
 .page-static .main--container {
   max-width: var(--max-width-txt);
-  margin: 0 auto;
   padding: 0 var(--padding-body);
+  margin: 0 auto;
   min-height: 70vh;
+  position: relative;
 }
 .page-static h2 {
   font-family: var(--font);
@@ -1290,6 +1325,10 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   height: calc(var(--spacing) * 1.5);
   border: none;
 }
+.page-static p {
+  margin-top: calc(var(--spacing) * 1);
+  margin-bottom: calc(var(--spacing) * 1);
+}
 .page-static p, .page-static li {
   font-size: var(--fs-medium);
 }
@@ -1306,13 +1345,16 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   -webkit-text-decoration-skip: ink;
           text-decoration-skip-ink: auto;
 }
-.page-static p {
-  margin-top: calc(var(--spacing) * 1);
-  margin-bottom: calc(var(--spacing) * 1);
-}
 .page-static ul, .page-static ol {
   margin-left: 4ch;
   margin-bottom: calc(var(--spacing) * 1.5);
+}
+.page-static .page-toc {
+  position: absolute;
+  width: var(--col-left);
+  left: calc(var(--col-left) * -1 + var(--padding-body) * -2);
+  margin-top: calc(var(--spacing) * 3.5);
+  padding-top: calc(var(--spacing) * 1.5);
 }
 .page-static #btn--newsletter {
   font-family: var(--mono);
@@ -1918,6 +1960,10 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   height: calc(var(--spacing) * 1.5);
   border: none;
 }
+#member .content-section p {
+  margin-top: calc(var(--spacing) * 1);
+  margin-bottom: calc(var(--spacing) * 1);
+}
 #member .content-section p, #member .content-section li {
   font-size: var(--fs-medium);
 }
@@ -1933,10 +1979,6 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   text-decoration-color: var(--accent);
   -webkit-text-decoration-skip: ink;
           text-decoration-skip-ink: auto;
-}
-#member .content-section p {
-  margin-top: calc(var(--spacing) * 1);
-  margin-bottom: calc(var(--spacing) * 1);
 }
 #member .content-section ul, #member .content-section ol {
   margin-left: 4ch;
@@ -1996,7 +2038,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
     display: none;
   }
   #member {
-    --fig-w: 260px;
+    --fig-w: var(--col-left);
     max-width: var(--max-width);
     margin: 0 auto;
     padding: 0 var(--padding-body);
@@ -2004,7 +2046,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
     display: grid;
     justify-items: start;
     align-items: start;
-    grid-template-columns: var(--fig-w) 1fr;
+    grid-template-columns: var(--col-left) 1fr;
     grid-gap: calc(var(--spacing) * 3);
   }
   #member .member__header {
@@ -2111,4 +2153,36 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   #member .member__toc {
     display: none;
   }
+}
+.page-toc ul {
+  list-style: none;
+  margin: 0;
+}
+.page-toc li {
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: var(--fs-small) !important;
+  margin-bottom: calc(var(--spacing) * 0.75);
+  position: relative;
+  color: var(--color-txt);
+}
+.page-toc li a {
+  text-decoration: none;
+  color: currentColor;
+}
+.page-toc li::before {
+  content: "→";
+  display: block;
+  position: absolute;
+  left: -20px;
+  opacity: 0;
+}
+.page-toc li:hover {
+  color: var(--accent-soft);
+}
+.page-toc li:hover::before {
+  opacity: 0.9;
+}
+.page-toc li.is-selected::before {
+  opacity: 1;
 }/*# sourceMappingURL=style.css.map */
