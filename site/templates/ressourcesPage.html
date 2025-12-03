@@ -2,6 +2,14 @@
 {% block main_attributes %} class="page-static"{% endblock %}
 {% block body %}
 
+<div id="sub-header" aria-hidden="true">
+  <div class="container">
+    <p><a href="/" aria-label="Retour à l’accueil">RésIn</a></p>
+    <p>&gt;</p>
+    <p><a href="#" aria-label="Retour en haut de la page">Ressources</a></p>
+  </div>
+</div>
+
   <h2> Ressources pour les ingénieur·es dans&nbsp;la&nbsp;recherche</h2>
 
   <nav class="page-toc">
@@ -9,18 +17,18 @@
       <li><a href="#atelier-methodes">L’atelier de méthodes (MetAt)</a></li>
       <li><a href="#pistes-bibliographiques">Pistes bibliographiques</a></li>
       <li class="level-2"><a href="#sciences-gestion">Sciences de la gestion</a></li>
-      <li class="level-2"><a href="#sociologie-ethnographie-histoire">Sociologie, ethnographie et histoire</a></li>
-      <li class="level-2"><a href="#logiciels-donnees">Logiciels et données de la recherche</a></li>
+      <li class="level-2"><a href="#sociologie-ethnographie-histoire">Sociologie, ethnographie et&nbsp;histoire</a></li>
+      <li class="level-2"><a href="#logiciels-donnees">Logiciels et données de&nbsp;la&nbsp;recherche</a></li>
     </ul>
   </nav>
 
 
-  <h3 id="pistes-bibliographiques">L’atelier de méthodes (MetAt)</h3>
+  <h3 id="atelier-methodes">L’atelier de méthodes (MetAt)</h3>
 
   <p>Un <a href="https://drive.google.com/file/d/1i6Bz2WEvRQxM4bl3Kv_xuf5qV1BbTwUP/view?usp=share_link" target="_blank">toolkit</a> pour organiser des ateliers de méthodes.</p>
 
 
-  <h3 id="#pistes-bibliographiques">Quelques pistes bibliographiques des questions qui animent le&nbsp;projet&nbsp;RésIn</h3>
+  <h3 id="pistes-bibliographiques">Quelques pistes bibliographiques des questions qui animent le&nbsp;projet&nbsp;RésIn</h3>
 
   <h4 id="sciences-gestion">Sciences de la gestion&#8239;: une force de travail aux&nbsp;compétences&nbsp;mixtes</h4>
 
@@ -66,7 +74,8 @@
   </ul>
   {% endblock %}
  
+
   {% block scripts %}
   {{ super() }}
-
+  <script type="text/javascript" src="js/toc.js"></script>
   {% endblock %}

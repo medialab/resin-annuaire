@@ -2,23 +2,29 @@
 
    
     .main--container{
-        max-width: var(--max-width-txt);
         padding: 0 var(--padding-body);
         margin: 0 auto;
-        min-height: 70vh;
+        min-height: calc(100vh - var(--heaeder-h) - var(--footer-h));
+        min-height: calc(100dvh - var(--heaeder-h) - var(--footer-h));
         position: relative;
     }
 
     @include content-txt();
 
+    h2{
+        margin-top: calc(var(--spacing)*4);
+    }
 
-    .page-toc{
-        position: absolute;
-        width: var(--col-left);
-        // background-color: yellow;
-        left: calc(var(--col-left)*-1 + var(--padding-body)*-2);
-        margin-top: calc(var(--spacing) * 3.5);
-        padding-top: calc(var(--spacing) * 1.5);
+
+    position: relative;
+
+
+    #sub-header .container{
+        max-width: calc(var(--col-left) + var(--padding-body)*2 + var(--max-width-txt));
+        a{ 
+            color: var(--color-txt); 
+            &:hover{ color: var(--accent-soft); }
+        }
     }
    
 
@@ -38,3 +44,47 @@
 
 
 }
+
+@media #{$small-up}{
+    .page-static {
+        .main--container{
+            max-width: calc(var(--col-left) + var(--padding-body)*2 + var(--max-width-txt));
+            padding-left: calc(var(--col-left) + var(--padding-body)*3);
+        }
+
+        .page-toc{
+            position: sticky;
+            top: calc(var(--header-h) + var(--subheader-h));
+            margin-bottom: -100px;
+            width: 10px;
+    
+            ul{
+                position: relative;
+                width: var(--col-left);
+                left: calc(var(--col-left)*-1 + var(--padding-body)*-2);
+                top: calc(var(--spacing)*-0.5);
+                padding-top: calc(var(--spacing)*7);
+
+                .level-2{
+                    padding-left: 3ch;
+                    color: var(--color-txt-light);
+                    &::before{
+                        color: var(--accent-soft);
+                    }
+                }
+            }
+        
+        }
+    }
+    
+   
+}
+
+// @media #{$desktop}{
+//     .page-static{
+//         .main--container{
+//             max-width: var(--max-width-txt);
+//             padding-left: 0px; 
+//         }  
+//     } 
+// }

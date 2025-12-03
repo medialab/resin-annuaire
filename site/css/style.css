@@ -32,6 +32,7 @@
   --subheader-h: calc(var(--tree-item-h)*1.5);
   --search-h: 60px;
   --col-left: 260px;
+  --footer-h: 120px;
   --block-graph: 12px;
   --button-h: 20px;
   --border-light: 1px solid var(--color-100);
@@ -453,6 +454,7 @@ body {
 }
 #site-footer {
   border-top: var(--border-light);
+  height: var(--footer-h);
 }
 #site-footer svg {
   width: 100px;
@@ -1287,11 +1289,14 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   border-color: var(--color-300);
 }
 
+.page-static {
+  position: relative;
+}
 .page-static .main--container {
-  max-width: var(--max-width-txt);
   padding: 0 var(--padding-body);
   margin: 0 auto;
-  min-height: 70vh;
+  min-height: calc(100vh - var(--heaeder-h) - var(--footer-h));
+  min-height: calc(100dvh - var(--heaeder-h) - var(--footer-h));
   position: relative;
 }
 .page-static h2 {
@@ -1349,12 +1354,17 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   margin-left: 4ch;
   margin-bottom: calc(var(--spacing) * 1.5);
 }
-.page-static .page-toc {
-  position: absolute;
-  width: var(--col-left);
-  left: calc(var(--col-left) * -1 + var(--padding-body) * -2);
-  margin-top: calc(var(--spacing) * 3.5);
-  padding-top: calc(var(--spacing) * 1.5);
+.page-static h2 {
+  margin-top: calc(var(--spacing) * 4);
+}
+.page-static #sub-header .container {
+  max-width: calc(var(--col-left) + var(--padding-body) * 2 + var(--max-width-txt));
+}
+.page-static #sub-header .container a {
+  color: var(--color-txt);
+}
+.page-static #sub-header .container a:hover {
+  color: var(--accent-soft);
 }
 .page-static #btn--newsletter {
   font-family: var(--mono);
@@ -1382,6 +1392,32 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   display: none !important;
 }
 
+@media screen and (min-width: 820px) {
+  .page-static .main--container {
+    max-width: calc(var(--col-left) + var(--padding-body) * 2 + var(--max-width-txt));
+    padding-left: calc(var(--col-left) + var(--padding-body) * 3);
+  }
+  .page-static .page-toc {
+    position: sticky;
+    top: calc(var(--header-h) + var(--subheader-h));
+    margin-bottom: -100px;
+    width: 10px;
+  }
+  .page-static .page-toc ul {
+    position: relative;
+    width: var(--col-left);
+    left: calc(var(--col-left) * -1 + var(--padding-body) * -2);
+    top: calc(var(--spacing) * -0.5);
+    padding-top: calc(var(--spacing) * 7);
+  }
+  .page-static .page-toc ul .level-2 {
+    padding-left: 3ch;
+    color: var(--color-txt-light);
+  }
+  .page-static .page-toc ul .level-2::before {
+    color: var(--accent-soft);
+  }
+}
 .main__home {
   padding-top: calc(var(--header-h) + var(--search-h));
 }
