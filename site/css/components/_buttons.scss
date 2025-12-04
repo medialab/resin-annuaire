@@ -10,7 +10,6 @@
     display: flex;
     align-items: center;
 
-
     cursor: pointer;
 }
 
@@ -62,4 +61,24 @@
         background-color: var(--accent);
     }
 }
+
+
+
+@mixin button-bold-big(){
+    @include button-common();
+    color: var(--color-050);
+    background-color: var(--accent-soft);
+
+    font-size: var(--fs-medium);
+    height: calc(var(--button-h)*1.5);
+    margin-top: calc(var(--spacing)*4);
+    a{
+        text-decoration: none;
+    }
+
+    &:hover{
+        background-color: var(--accent);
+    }
+}
+
 

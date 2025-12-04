@@ -50,7 +50,7 @@
       </div> 
 
 
-      <button id="header__edit-button" aria-label="Je suis cette personne, je souhaite modifier mon profil">
+      <button id="header__edit-button" aria-label="Je suis cette personne, je&nbsp;souhaite modifier mon profil">
         <span class="icon" aria-hidden="true">{% include "icons/edit.svg" %}</span>
         <span class="text">Je suis cette personne, je souhaite modifier mon profil</span>
       </button>
@@ -232,10 +232,11 @@
     
 
 
-    <div class="modal-background"></div>
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <resin-formulaire-edit apiServer="{{ apiUrl }}" />
+    <div class="modal" id="modal--subscribe">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <resin-formulaire-edit apiServer="{{ apiUrl }}" />
+      </div>
     </div>
 
 </div>

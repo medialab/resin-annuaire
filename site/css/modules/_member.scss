@@ -26,6 +26,7 @@
             padding: 0;
             align-items: center;
             justify-content: center;
+            position: relative;
           
 
             .icon svg{ 
@@ -36,6 +37,24 @@
                 
             }
             .text{ display: none; }
+
+            &::after{
+                content: attr(aria-label);
+                position: absolute;
+                top: calc(var(--button-h) + 8px);
+                right: 0px;
+                // white-space: nowrap;
+                @include button();
+                display: none;
+                width: 32ch;
+                text-align: left;
+                height: calc(var(--button-h)*2);
+            }
+
+            &:hover{
+                &::after{ display: flex; }
+            
+            }
         }
 
 
@@ -299,7 +318,12 @@
 
         }
     }
-   
+
+
+    .modal{
+        display: none;
+    }
+  
 
 
 

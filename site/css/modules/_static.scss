@@ -2,10 +2,9 @@
 
    
     .main--container{
-        padding: 0 var(--padding-body);
         margin: 0 auto;
-        min-height: calc(100vh - var(--heaeder-h) - var(--footer-h));
-        min-height: calc(100dvh - var(--heaeder-h) - var(--footer-h));
+        min-height: calc(100vh - var(--header-h) - var(--footer-h));
+        min-height: calc(100dvh - var(--header-h) - var(--footer-h));
         position: relative;
     }
 
@@ -85,13 +84,7 @@
 
 
 #btn--newsletter{
-    @include button-bold();
-    font-size: var(--fs-medium);
-    height: calc(var(--button-h)*1.5);
-    margin-top: calc(var(--spacing)*4);
-    a{
-        text-decoration: none;
-    }
+    @include button-bold-big();
 }
 
 

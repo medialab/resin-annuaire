@@ -55,7 +55,7 @@
     
     --radius-small: 4px;
     --max-width: 900px;
-    --max-width-txt: 780px;
+    --max-width-txt: 640px;
 
 
     // dynamic
@@ -75,7 +75,7 @@
 @media #{$small}{
     :root{
         --tree-w: 100%;
-
+        --tree-item-h: 30px;
         --fs-small: 12px;
         --font-size: 14px;
         --fs-medium: 16px;

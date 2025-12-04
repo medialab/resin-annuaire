@@ -37,6 +37,7 @@
         width: 100%;
         display: flex;
         justify-content: flex-start;
+        align-items: center;
     }
    
 
@@ -50,12 +51,16 @@
         position: relative;
         width: 100%;
 
-        height: calc(var(--tree-item-h) + var(--spacing)*0.5);
+        height: calc(var(--tree-item-h)*1.5);
+        // padding-bottom: calc(var(--tree-item-h)*0.25);
         background-color: var(--color-bg);
         display: flex;
         align-items: flex-end;
         cursor: pointer;
 
+        .container{
+            // height: calc(var(--tree-item-h)*1.25);
+        }
     }
 
 
@@ -119,7 +124,18 @@
         gap: 3px;
     }
     li{
-        @include button();
+        font-family: var(--mono);
+        font-weight: var(--fw-mono);
+        font-size: var(--fs-small);
+        height: var(--button-h);
+        border-radius: var(--radius-small);
+        padding: 0 1ch;
+        display: flex;
+        align-items: center;
+        color: var(--color-txt);
+        border: 1px solid var(--color-100);
+        background-color: var(--color-bg);
+        
     }
 }
 

@@ -83,6 +83,7 @@ const handleFixedTitle = (titleElement, placeholder, topThreshold, setPlaceholde
   if (shouldBeFixed && !isFixed) {
     // Appliquer le fixed
     const rect = titleElement.getBoundingClientRect();
+    const parentRect = titleElement.parentElement.getBoundingClientRect();
 
     // Créer un placeholder pour éviter le saut de layout
     const newPlaceholder = titleElement.cloneNode(true);
@@ -91,12 +92,16 @@ const handleFixedTitle = (titleElement, placeholder, topThreshold, setPlaceholde
     newPlaceholder.classList.remove('is-fixed');
     titleElement.parentNode.insertBefore(newPlaceholder, titleElement);
 
+    // Calculer la position pour centrer l'élément avec la largeur du parent
+    const containerWidth = parentRect.width;
+    const leftPosition = parentRect.left;
+
     // Appliquer le positionnement fixed
     titleElement.classList.add('is-fixed');
     titleElement.style.position = 'fixed';
     titleElement.style.top = topThreshold + 'px';
-    titleElement.style.left = '0px';
-    titleElement.style.width = '100%';
+    titleElement.style.left = leftPosition + 'px';
+    titleElement.style.width = containerWidth + 'px';
     titleElement.style.zIndex = '900';
 
     setPlaceholder(newPlaceholder);
@@ -133,6 +138,18 @@ const handleResize = () => {
     if (skillCardsTitle && skillCardsTitle.classList.contains('is-fixed')) {
       resetFixedElement(skillCardsTitle, cardsPlaceholder);
       cardsPlaceholder = null;
+    }
+  } else {
+    // Sur mobile, si des éléments sont fixed, recalculer leur position et largeur
+    if (skillTreeTitle && skillTreeTitle.classList.contains('is-fixed') && skillsTreePlaceholder) {
+      const parentRect = skillsTreePlaceholder.parentElement.getBoundingClientRect();
+      skillTreeTitle.style.left = parentRect.left + 'px';
+      skillTreeTitle.style.width = parentRect.width + 'px';
+    }
+    if (skillCardsTitle && skillCardsTitle.classList.contains('is-fixed') && cardsPlaceholder) {
+      const parentRect = cardsPlaceholder.parentElement.getBoundingClientRect();
+      skillCardsTitle.style.left = parentRect.left + 'px';
+      skillCardsTitle.style.width = parentRect.width + 'px';
     }
   }
 

@@ -1,0 +1,46 @@
+  .modal{
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        background-color: #210709d7;
+        width: 100vw;
+        height: 100vh;
+        z-index: 10000;
+        display: grid;
+        align-self: center;
+        align-items: center;
+        justify-items: center;
+     
+
+        .modal-content{
+
+            width: 460px;
+            height: 300px;
+            border: var(--border-light);
+            background-color: var(--color-bg);
+            margin-bottom: 5vh;
+            padding: calc(var(--padding-body)*3) calc(var(--padding-body)*2);
+            position: relative;
+            border-radius: var(--radius-small);
+
+        }
+
+        .close{
+            font-size: var(--fs-xbig);
+            position: absolute;
+            right: var(--padding-body);
+            top: 0px;
+            cursor: pointer;
+            &:hover{
+                color: var(--accent-soft);
+            }
+
+    
+        }
+
+        .btn-primary{
+            @include button-bold();
+            margin-top: calc(var(--spacing)*2);
+        }
+    }
+   

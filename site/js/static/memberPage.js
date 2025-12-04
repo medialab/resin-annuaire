@@ -270,3 +270,30 @@ if (inputToggleMenu && siteNav && memberToc) {
 } else {
   console.log('Certains éléments manquent');
 }
+
+
+// Gestion de la modale #modal--subscribe
+const editButton = document.getElementById('edit-button');
+const headerEditButton = document.getElementById('header__edit-button');
+const modal = document.getElementById('modal--subscribe');
+const modalClose = modal ? modal.querySelector('.close') : null;
+
+// Ouvrir la modale au clic sur les boutons edit
+if (editButton && modal) {
+  editButton.addEventListener('click', () => {
+    modal.style.display = 'grid';
+  });
+}
+
+if (headerEditButton && modal) {
+  headerEditButton.addEventListener('click', () => {
+    modal.style.display = 'grid';
+  });
+}
+
+// Fermer la modale au clic sur le bouton close
+if (modalClose && modal) {
+  modalClose.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+}
