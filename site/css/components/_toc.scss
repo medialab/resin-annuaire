@@ -1,16 +1,15 @@
 .page-toc{
 
+
     ul{
         list-style: none;
         margin: 0;
     }
       
-
-
     li{
         font-family: var(--mono);
         font-weight: 600;
-        font-size: var(--fs-small)!important;
+        font-size: var(--fs-small);
         margin-bottom:  calc(var(--spacing)*0.75);
         position: relative;
         color: var(--color-txt);
@@ -19,21 +18,73 @@
             color: currentColor;
         }
         &::before{
-            content: "→";
-            display: block;
-            position: absolute;
-            left: -20px;
-            opacity: 0;
+            content: "→ ";
+            @media #{$small-up}{
+                display: block;
+                position: absolute;
+                left: -20px;
+                opacity: 0;
+            }
         }
 
-        &:hover{
-            color: var(--accent-soft);
-            &::before{ opacity: 0.9; }
-        }
+     
 
     }
+
+
+    .level-2{
+        padding-left: 3ch;
+        color: var(--color-txt-light);
+        &::before{
+            color: var(--color-txt-light);
+        }
+    }
+
+    li:hover, li.level-2:hover{
+        color: var(--accent-soft);
+        @media #{$small-up}{
+            &::before{ 
+                opacity: 0.9; 
+                color: var(--accent-soft);
+            }
+        }
+    }
+
     li.is-selected::before{
             opacity: 1;
-
     }
 }
+
+
+#site-nav .page-toc{
+    li{
+        font-size: var(--font-size);
+        font-weight: var(--fw-mono);
+        padding-left: 2ch;
+        &::before{
+            position: absolute;
+            left: 0;
+        }
+    }
+
+    .level-2{
+        padding-left: 4ch;
+        &::before{
+            color: var(--color-txt-light);
+            left: 2ch;
+        }
+    }
+
+    .back-to-top{
+        display: none;
+    }
+}
+
+
+@media #{$small}{
+    .page-toc{
+        height: calc(100vh - var(--header-h-small) - var(--subheader-h) - var(--spacing)*3);
+        height: calc(100dvh - var(--header-h-small) - var(--subheader-h) - var(--spacing)*3);
+    }
+}
+
