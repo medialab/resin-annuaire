@@ -22,7 +22,7 @@ const getThresholdPositions = () => {
 };
 
 // Gestion du scroll pour mobile
-const handleScroll = () => {
+const handleHomepageScroll = () => {
   // Sur grand écran, réinitialiser
   if (window.innerWidth >= screenSmall) {
     if (skillTreeTitle && skillTreeTitle.classList.contains('is-fixed')) {
@@ -136,7 +136,7 @@ const handleResize = () => {
     }
   }
 
-  handleScroll();
+  handleHomepageScroll();
 };
 
 // Observer les changements de hauteur du skills-tree (pour les toggles)
@@ -145,19 +145,19 @@ if (skillTreeSection && window.ResizeObserver) {
   resizeObserver = new ResizeObserver(() => {
     // Recalculer les positions quand la hauteur change
     if (window.innerWidth < screenSmall) {
-      handleScroll();
+      handleHomepageScroll();
     }
   });
   resizeObserver.observe(skillTreeSection);
 }
 
 // Écouter les événements
-window.addEventListener('scroll', handleScroll, { passive: true });
+window.addEventListener('scroll', handleHomepageScroll, { passive: true });
 window.addEventListener('resize', handleResize);
 
 // Initialiser au chargement
 setTimeout(() => {
-  handleScroll();
+  handleHomepageScroll();
 }, 100);
 
 // Action au clic sur skillTreeTitle pour mobile

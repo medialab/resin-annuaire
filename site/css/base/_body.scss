@@ -38,7 +38,18 @@ main{
     padding-right: var(--padding-body);
     padding-top: calc(var(--header-h) + var(--padding-body));
     margin-bottom: calc(var(--spacing)*4);
+
+    @media #{$small}{
+
+        .main--container{
+            max-width: 600px;
+            margin: 0 auto;
+            // background-color: yellow;
+        }
+    }
 }
+
+
 
 
 mark{

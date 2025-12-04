@@ -48,7 +48,7 @@
     @media #{$small}{
         font-size: var(--font-size);
         position: relative;
-        width: 100vw;
+        width: 100%;
 
         height: calc(var(--tree-item-h) + var(--spacing)*0.5);
         background-color: var(--color-bg);

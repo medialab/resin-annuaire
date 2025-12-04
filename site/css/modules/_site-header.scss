@@ -43,6 +43,8 @@
         gap: 5ch;
         list-style-type: none;
         color: var(--color-txt);
+        li{ white-space: nowrap;}
+    
     }
 
     a{
@@ -56,6 +58,7 @@
         @include button-color();
         position: relative;
         top: 1px;
+        white-space: nowrap;
     }
 }
 
