@@ -81,10 +81,10 @@
 }
 
 
-@media #{$small}{
-    .page-toc{
-        height: calc(100vh - var(--header-h-small) - var(--subheader-h) - var(--spacing)*3);
-        height: calc(100dvh - var(--header-h-small) - var(--subheader-h) - var(--spacing)*3);
-    }
-}
+// @media #{$small-up}{
+//     .page-toc{
+//         height: calc(100vh - var(--header-h-small) - var(--subheader-h) - var(--spacing)*3);
+//         height: calc(100dvh - var(--header-h-small) - var(--subheader-h) - var(--spacing)*3);
+//     }
+// }
 

@@ -181,6 +181,7 @@ body.is-header-shrinked{
                 font-family: var(--font-family);
                 font-weight: var(--fw-mono);
                 font-size: var(--font-size);
+                margin-bottom: calc(var(--spacing) * 0.75);
                 &::before{
                     content: "→ ";
    

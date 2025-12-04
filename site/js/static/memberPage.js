@@ -6,6 +6,9 @@ if (toc) {
   let tocWidth = null;
   let tocHeight = null;
 
+  const backToTop = toc.querySelector('.back-to-top');
+  const footer = document.getElementById('site-footer');
+
   // Créer un placeholder pour éviter le saut
   const placeholder = document.createElement('div');
   placeholder.style.display = 'none';
@@ -119,14 +122,45 @@ if (toc) {
     }
   });
 
+  // Fonction pour ajuster le bottom de .back-to-top en fonction du footer (desktop uniquement)
+  function adjustBackToTopPosition() {
+    if (!backToTop || !footer) {
+      return;
+    }
+
+    // Sur mobile, réinitialiser
+    if (window.innerWidth <= 800) {
+      backToTop.style.bottom = '';
+      return;
+    }
+
+    const footerRect = footer.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+
+    // Si le footer approche
+    if (footerRect.top < windowHeight) {
+      // Calculer de combien le footer dépasse dans la zone visible
+      const overlap = windowHeight - footerRect.top;
+      const pushUp = Math.max(0, overlap);
+      backToTop.style.bottom = `${pushUp}px`;
+    } else {
+      // Footer loin, position par défaut
+      backToTop.style.bottom = '0px';
+    }
+  }
+
   initTocPosition();
+  adjustBackToTopPosition();
+
   window.addEventListener('scroll', () => {
     updateTocPosition();
     updateActiveSection();
+    adjustBackToTopPosition();
   });
   window.addEventListener('resize', () => {
     initTocPosition();
     updateTocPosition();
+    adjustBackToTopPosition();
   });
   updateTocPosition();
   updateActiveSection();

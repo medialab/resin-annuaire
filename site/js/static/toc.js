@@ -14,44 +14,45 @@ document.querySelectorAll('.page-toc').forEach((toc) => {
     }
   }
 
-  // Fonction pour faire disparaître .back-to-top quand le footer approche (desktop uniquement)
-  function adjustBackToTopVisibility() {
+  // Fonction pour ajuster le bottom de .back-to-top en fonction du footer (desktop uniquement)
+  function adjustBackToTopPosition() {
     if (!backToTop || !footer) {
       return;
     }
 
-    // Sur mobile, toujours visible
+    // Sur mobile, réinitialiser
     if (window.innerWidth <= 820) {
-      backToTop.style.display = '';
+      backToTop.style.bottom = '';
       return;
     }
-
-    const spacing = parseInt(getComputedStyle(document.body).getPropertyValue('--spacing')) || 0;
-    const footerOffset = spacing * 8; // Commencer var(--spacing)*8 avant le footer
 
     const footerRect = footer.getBoundingClientRect();
     const windowHeight = window.innerHeight;
 
-    // Si le footer approche (avec l'offset), cacher le bouton
-    if (footerRect.top - footerOffset < windowHeight) {
-      backToTop.style.display = 'none';
+    // Si le footer approche
+    if (footerRect.top < windowHeight) {
+      // Calculer de combien le footer dépasse dans la zone visible
+      const overlap = windowHeight - footerRect.top;
+      const pushUp = Math.max(0, overlap);
+      backToTop.style.bottom = `${pushUp}px`;
     } else {
-      backToTop.style.display = '';
+      // Footer loin, position par défaut
+      backToTop.style.bottom = '0px';
     }
   }
 
   // Initialiser au chargement
   adjustTocHeight();
-  adjustBackToTopVisibility();
+  adjustBackToTopPosition();
 
   // Recalculer au resize
   window.addEventListener('resize', () => {
     adjustTocHeight();
-    adjustBackToTopVisibility();
+    adjustBackToTopPosition();
   });
 
   // Ajuster au scroll
-  window.addEventListener('scroll', adjustBackToTopVisibility, { passive: true });
+  window.addEventListener('scroll', adjustBackToTopPosition, { passive: true });
 
   // Copier le TOC dans le menu mobile
   const inputToggleMenu = document.getElementById('input-toggle-menu');
