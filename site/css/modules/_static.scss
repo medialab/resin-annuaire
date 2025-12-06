@@ -3,8 +3,6 @@
    
     .main--container{
         margin: 0 auto;
-        min-height: calc(100vh - var(--header-h) - var(--footer-h));
-        min-height: calc(100dvh - var(--header-h) - var(--footer-h));
         position: relative;
     }
 
@@ -93,6 +91,11 @@
     margin-top: calc(var(--spacing)*6);
     display: flex;
     gap: 20px;
+
+    @media #{$small}{
+        flex-wrap: wrap;
+        p{ width: 100%;}
+    }
 
     img{
         width: 80px;

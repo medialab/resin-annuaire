@@ -33,11 +33,15 @@ body{
 
 
 main{
+    --margin-bottom: calc(var(--spacing)*10);
     position: relative;
     padding-left: var(--padding-body);
     padding-right: var(--padding-body);
     padding-top: calc(var(--header-h) + var(--padding-body));
-    margin-bottom: calc(var(--spacing)*4);
+    margin-bottom: var(--margin-bottom);
+
+    min-height: calc(100vh - var(--header-h) - var(--margin-bottom));
+    min-height: calc(100dvh - var(--header-h) - var(--margin-bottom));
 
     @media #{$small}{
 

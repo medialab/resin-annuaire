@@ -1,10 +1,33 @@
 {% extends "main.html" %} 
-{% block main_attributes %} class="static-page"{% endblock %}
+{% block main_attributes %} class="page-static"{% endblock %}
 {% block body %}
-<div class="page-container">
-  <h1>Mentions légales</h1>
-  <div className="about-contenu">
-    <h3>Le contenu de ce site internet est fourni par :</h3>
+
+<div id="sub-header" aria-hidden="true">
+  <div class="container">
+    <p><a href="/" aria-label="Retour à l’accueil">RésIn</a></p>
+    <p>&gt;</p>
+    <p><a href="#" aria-label="Retour en haut de la page">Mentions légales</a></p>
+  </div>
+</div>
+
+<h2>Mentions légales</h2>
+
+<nav class="page-toc">
+  <ul>
+    <li><a href="#website">Mentions légales</a></li>
+    <li><a href="#directeur">Directeur de la publication</a></li>
+    <li><a href="#host">Hébergement</a></li>
+    <li><a href="#use">Finalité, accès et utilisation</a></li>
+    <li><a href="#PI">Propriété Industrielle et Intellectuelle</a></li>
+    <li><a href="#hypertext">Les liens hypertextes</a></li>
+    <li><a href="#images">Images et iconographies</a></li>
+    <li><a href="#IL">Informatique et Libertés</a></li>   
+  </ul>
+  <button class="back-to-top"><a href="#">↑ Revenir en haut</a></button>
+</nav>
+
+  
+    <h3 id="website">Le contenu de ce site internet est fourni par :</h3>
     <p>
       <em>
         Sciences Po
@@ -132,6 +155,8 @@
       la responsabilité de Sciences Po.
     </p>
 
+   
+
     <h3 id="images">Images et iconographies</h3>
     <p>
       Les images du site sont libres de droit (sauf mentions contraires) ou sont
@@ -201,6 +226,9 @@
       <a href="https://www.cnil.fr/">une réclamation à la CNIL</a>, en cas de
       difficultés ou questions ultérieures concernant ses droits RGPD.
     </p>
-  </div>
-</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript" src="js/toc.js"></script>
 {% endblock %}
