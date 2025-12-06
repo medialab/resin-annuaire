@@ -31,6 +31,13 @@ export function showAutocompleteSuggestions(query) {
     return;
   }
 
+  // Si aucune suggestion, masquer le dropdown
+  if (skillMatches.length === 0 && freeMatches.length === 0) {
+    autocompleteDropdown.innerHTML = "";
+    autocompleteDropdown.style.display = "none";
+    return;
+  }
+
   // Afficher les suggestions
   autocompleteDropdown.innerHTML = "";
 
