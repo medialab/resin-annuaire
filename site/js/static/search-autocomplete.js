@@ -1,0 +1,150 @@
+// Système d'autocomplétion de la recherche
+
+import { normalizeString } from './search-utils.js';
+import { allSkills, freeSearchSuggestions } from './search-data.js';
+import { searchState } from './search-state.js';
+
+// Afficher les suggestions d'autocomplétion
+export function showAutocompleteSuggestions(query) {
+  const autocompleteDropdown = document.querySelector("#autocomplete-dropdown");
+  if (!autocompleteDropdown) return;
+
+  // Normaliser la recherche
+  const normalizedQuery = normalizeString(query);
+
+  // Filtrer les compétences qui matchent
+  const skillMatches = allSkills.filter(skill => {
+    const normalizedLabel = normalizeString(skill.label);
+    return normalizedLabel.includes(normalizedQuery);
+  }).slice(0, 8); // Limiter à 8 compétences
+
+  // Filtrer les suggestions libres qui matchent (commence par)
+  const freeMatches = freeSearchSuggestions.filter(suggestion => {
+    const normalizedSuggestion = normalizeString(suggestion);
+    return normalizedSuggestion.startsWith(normalizedQuery);
+  }).slice(0, 8); // Limiter à 8 suggestions
+
+  // Si recherche vide, masquer le dropdown
+  if (query.trim() === "") {
+    autocompleteDropdown.innerHTML = "";
+    autocompleteDropdown.style.display = "none";
+    return;
+  }
+
+  // Afficher les suggestions
+  autocompleteDropdown.innerHTML = "";
+
+  // Section Compétences
+  if (skillMatches.length > 0) {
+    const skillsTitle = document.createElement("div");
+    skillsTitle.className = "autocomplete-title";
+    skillsTitle.textContent = "Compétences";
+    autocompleteDropdown.appendChild(skillsTitle);
+
+    const skillsContainer = document.createElement("div");
+    skillsContainer.className = "autocomplete-skills-container";
+
+    skillMatches.forEach(skill => {
+      const item = document.createElement("div");
+      item.className = "autocomplete-item";
+      item.setAttribute("data-skill-id", skill.id);
+      item.setAttribute("data-field", skill.field);
+      item.textContent = skill.label;
+
+      item.addEventListener("click", () => selectSkillFromAutocomplete(skill));
+
+      skillsContainer.appendChild(item);
+    });
+
+    autocompleteDropdown.appendChild(skillsContainer);
+  }
+
+  // Section Suggestions (recherche libre)
+  // Toujours afficher au moins le terme tapé
+  if (freeMatches.length > 0 || query.trim().length > 0) {
+    const suggestionsTitle = document.createElement("div");
+    suggestionsTitle.className = "autocomplete-title";
+    suggestionsTitle.textContent = "Suggestions";
+    autocompleteDropdown.appendChild(suggestionsTitle);
+
+    const suggestionsContainer = document.createElement("div");
+    suggestionsContainer.className = "autocomplete-suggestions-container";
+
+    // Ajouter d'abord le terme tapé
+    if (query.trim().length > 0) {
+      const queryItem = document.createElement("div");
+      queryItem.className = "autocomplete-item autocomplete-item--free autocomplete-item--query";
+      queryItem.textContent = query.trim();
+
+      queryItem.addEventListener("click", () => {
+        import('./search-tags.js').then(({ addFreeSearchTerm }) => {
+          const searchBar = document.querySelector("#searchBar");
+          addFreeSearchTerm(query.trim(), true);
+          if (searchBar) searchBar.value = "";
+          hideAutocompleteDropdown();
+        });
+      });
+
+      suggestionsContainer.appendChild(queryItem);
+    }
+
+    // Puis ajouter les suggestions matchantes
+    freeMatches.forEach(suggestion => {
+      const item = document.createElement("div");
+      item.className = "autocomplete-item autocomplete-item--free";
+      item.textContent = suggestion;
+
+      item.addEventListener("click", () => {
+        import('./search-tags.js').then(({ addFreeSearchTerm }) => {
+          const searchBar = document.querySelector("#searchBar");
+          addFreeSearchTerm(suggestion, true);
+          if (searchBar) searchBar.value = "";
+          hideAutocompleteDropdown();
+        });
+      });
+
+      suggestionsContainer.appendChild(item);
+    });
+
+    autocompleteDropdown.appendChild(suggestionsContainer);
+  }
+
+  autocompleteDropdown.style.display = "block";
+}
+
+// Sélectionner une compétence depuis l'autocomplétion
+export function selectSkillFromAutocomplete(skill) {
+  // Marquer qu'on a utilisé l'autocomplétion
+  searchState.usedAutocomplete = true;
+
+  // Cocher la checkbox correspondante dans l'arbre
+  const skillsTree = document.querySelector("#skills-tree");
+  if (skillsTree) {
+    const checkbox = skillsTree.querySelector(`#cb-${skill.id}`);
+    if (checkbox && !checkbox.checked) {
+      checkbox.checked = true;
+      checkbox.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+  }
+
+  // Vider le champ de recherche
+  const searchBar = document.querySelector("#searchBar");
+  if (searchBar) {
+    searchBar.value = "";
+  }
+
+  // Masquer le dropdown
+  hideAutocompleteDropdown();
+
+  // Remonter en haut de la page
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Masquer le dropdown d'autocomplétion
+export function hideAutocompleteDropdown() {
+  const autocompleteDropdown = document.querySelector("#autocomplete-dropdown");
+  if (autocompleteDropdown) {
+    autocompleteDropdown.innerHTML = "";
+    autocompleteDropdown.style.display = "none";
+  }
+}

@@ -1336,6 +1336,13 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   padding-bottom: calc(var(--spacing) * 1);
 }
 
+.research-separator {
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
+  font-size: var(--fs-small);
+  color: var(--color-txt-light);
+}
+
 .research-tag {
   font-family: var(--mono);
   font-weight: var(--fw-mono);
