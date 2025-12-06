@@ -204,6 +204,97 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
+  // ======== GESTION DU CLIC SUR LES TAGS DES CARTES ========
+
+  if (cardsWrapper) {
+    cardsWrapper.addEventListener("click", function(event) {
+      // Vérifier si on a cliqué sur un tag de compétence
+      const skillTag = event.target.closest(".skills-list li");
+      if (skillTag) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const skillId = skillTag.getAttribute("data-skill-id");
+        if (!skillId) return;
+
+        // Marquer qu'on a utilisé l'autocomplétion
+        searchState.usedAutocomplete = true;
+
+        // Cocher la checkbox correspondante dans l'arbre
+        if (skillsTree) {
+          const checkbox = skillsTree.querySelector(`#cb-${skillId}`);
+          if (checkbox && !checkbox.checked) {
+            checkbox.checked = true;
+            checkbox.dispatchEvent(new Event("change", { bubbles: true }));
+
+            // En version desktop, ouvrir les listes parentes
+            if (window.innerWidth >= screenSmall) {
+              // Trouver la liste level-2 parente
+              const level2List = checkbox.closest("ul.level-2");
+              if (level2List) {
+                level2List.classList.remove("is-collapsed");
+                level2List.classList.add("is-open");
+              }
+
+              // Trouver la liste level-1 parente
+              const level1List = checkbox.closest("ul.level-1");
+              if (level1List) {
+                level1List.classList.remove("is-collapsed");
+                level1List.classList.add("is-open");
+              }
+
+              // Trouver la liste level-3 parente si elle existe
+              const level3List = checkbox.closest("ul.level-3");
+              if (level3List) {
+                level3List.classList.remove("is-collapsed");
+                level3List.classList.add("is-open");
+              }
+            }
+          }
+        }
+
+        // En mobile, afficher #section__research-items en expanded et scroller en haut
+        if (window.innerWidth < screenSmall) {
+          if (researchItemsWrapper) {
+            researchItemsWrapper.style.display = "block";
+          }
+
+          const toggleBtn = document.querySelector("#toggle-results");
+          if (toggleBtn) {
+            const whenExpanded = toggleBtn.querySelector(".when-expanded");
+            const whenCollapsed = toggleBtn.querySelector(".when-collapsed");
+            if (whenExpanded) whenExpanded.style.display = "block";
+            if (whenCollapsed) whenCollapsed.style.display = "none";
+          }
+
+          // Ignorer le scroll close pendant le scroll automatique
+          if (typeof window.setIgnoreScrollClose === 'function') {
+            window.setIgnoreScrollClose(true);
+          }
+
+          // Scroller en haut de la page
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+
+          // Réactiver le scroll close et mettre à jour les positions fixed après le scroll
+          setTimeout(() => {
+            if (typeof window.setIgnoreScrollClose === 'function') {
+              window.setIgnoreScrollClose(false);
+            }
+            if (typeof window.resetLastScrollY === 'function') {
+              window.resetLastScrollY();
+            }
+            if (typeof window.updateFixedPositions === 'function') {
+              window.updateFixedPositions();
+            }
+            if (typeof window.handleHomepageScroll === 'function') {
+              window.handleHomepageScroll();
+            }
+          }, 600);
+        }
+      }
+    });
+  }
+
   // ======== GESTION DU SCROLL POUR FERMER #section__research-items ========
 
   let lastScrollY = window.scrollY;

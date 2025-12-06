@@ -89,6 +89,16 @@
     .skills-list{
         margin-top: calc(var(--spacing)*2);
         @include skills-tags();
+        
+        z-index: 400;
+         
+        li{
+            cursor: pointer;
+            &:hover{
+                border-color: var(--color);
+                color: var(--color);
+            }
+        }
 
         li.is-selected{
             background-color: var(--color-xlight);

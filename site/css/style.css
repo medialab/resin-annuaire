@@ -1062,6 +1062,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
 }
 .card .skills-list {
   margin-top: calc(var(--spacing) * 2);
+  z-index: 400;
 }
 .card .skills-list ul {
   list-style: none;
@@ -1082,6 +1083,13 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   border: 1px solid var(--color-100);
   background-color: var(--color-bg);
   white-space: nowrap;
+}
+.card .skills-list li {
+  cursor: pointer;
+}
+.card .skills-list li:hover {
+  border-color: var(--color);
+  color: var(--color);
 }
 .card .skills-list li.is-selected {
   background-color: var(--color-xlight);
