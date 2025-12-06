@@ -75,6 +75,8 @@
     }
 
 
+  
+
     #toggle-results{
         @include button();
         padding: 0px;
@@ -82,8 +84,10 @@
         justify-content: center;
         display: none;
         z-index: 100;
+        position: absolute;
+        right: var(--padding-body);
         svg{
-            --size-svg: 12px!important;
+            --size-svg: 11px!important;
             fill: var(--color-txt)!important;
             position: relative; 
             top: 2px;
@@ -91,6 +95,7 @@
 
         .when-expanded{
             display: none;
+            
 
         }
     }

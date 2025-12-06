@@ -1,12 +1,15 @@
 #section__search{
     form{
         padding: 0 calc(var(--padding-body)*2);
+        @media #{$small}{ 
+            padding: 0 var(--padding-body);
+         }
         display: flex;
         align-items: center;
         gap: 2ch;
         height: 100%;
         width: 100%;
-
+        position: relative;
 
         svg{
             --size-svg: 24px;
@@ -14,6 +17,7 @@
             width: var(--size-svg);
             height: var(--size-svg);
             fill: var(--accent-soft);
+            flex-grow: 1;
         }
 
         input{
@@ -45,6 +49,7 @@
     
     }
     
+
     #btn-search{
         @include button();
         display: none;

@@ -1223,6 +1223,12 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   gap: 2ch;
   height: 100%;
   width: 100%;
+  position: relative;
+}
+@media screen and (max-width: 820px) {
+  #section__search form {
+    padding: 0 var(--padding-body);
+  }
 }
 #section__search form svg {
   --size-svg: 24px;
@@ -1230,6 +1236,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   width: var(--size-svg);
   height: var(--size-svg);
   fill: var(--accent-soft);
+  flex-grow: 1;
 }
 #section__search form input {
   height: 100%;
@@ -1463,13 +1470,15 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   justify-content: center;
   display: none;
   z-index: 100;
+  position: absolute;
+  right: var(--padding-body);
 }
 #toggle-results:hover {
   background-color: var(--color-050);
   border-color: var(--color-300);
 }
 #toggle-results svg {
-  --size-svg: 12px!important;
+  --size-svg: 11px!important;
   fill: var(--color-txt) !important;
   position: relative;
   top: 2px;
