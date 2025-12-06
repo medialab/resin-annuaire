@@ -1,13 +1,12 @@
-// Gestion des données de recherche (membres et compétences)
+// Gestion des donnÃ©es de recherche (membres et compÃ©tences)
 
 import { normalizeString } from './search-utils.js';
 
-// Données globales
 export let allSkills = [];
 export let membersData = null;
 export let freeSearchSuggestions = [];
 
-// Charger la liste des compétences depuis l'arbre
+// Charger la liste des compÃ©tences depuis l'arbre
 export function loadSkillsFromTree() {
   const skillsTree = document.querySelector("#skills-tree");
   const skills = [];
@@ -31,9 +30,9 @@ export function loadSkillsFromTree() {
   return skills;
 }
 
-// Charger les données complètes des membres
+// Charger les donnÃ©es complÃ¨tes des membres
 export async function loadMembersData() {
-  if (membersData) return membersData; // Déjà chargé
+  if (membersData) return membersData; // DÃ©jÃ   chargÃ©
 
   try {
     // TEMPORAIRE : Lecture depuis fichier JSON local
@@ -41,7 +40,7 @@ export async function loadMembersData() {
     // Exemple futur : const response = await fetch(`${apiUrl}/api/members/`);
     const response = await fetch('/assets/members.json');
     membersData = await response.json();
-    console.log(' Données membres chargées:', membersData.length, 'membres');
+    console.log('DonnÃ©es membres chargÃ©es:', membersData.length, 'membres');
 
     // Extraire les suggestions pour la recherche libre
     extractFreeSearchSuggestions();
@@ -53,10 +52,10 @@ export async function loadMembersData() {
   }
 }
 
-// Extraire les suggestions de recherche libre depuis les données
+// Extraire les suggestions de recherche libre depuis les donnÃ©es
 function extractFreeSearchSuggestions() {
-  const suggestionsMap = {}; // Clé = version normalisée, Valeur = { word: string, count: number }
-  const stopWords = ['dans', 'avec', 'pour', 'cette', 'sont', 'plus', 'leur', 'nous', 'vous', 'elle', 'elles', 'avoir', 'être', 'faire', 'tous', 'toutes', 'sans', 'sous', 'mais', 'donc', 'aussi'];
+  const suggestionsMap = {}; // ClÃ© = version normalisÃ©e, Valeur = { word: string, count: number }
+  const stopWords = ['ensuite', 'dans', 'avec', 'pour', 'cette', 'sont', 'plus', 'leur', 'nous', 'vous', 'elle', 'elles', 'avoir', 'Ãªtre', 'faire', 'tous', 'toutes', 'sans', 'sous', 'mais', 'donc', 'aussi'];
 
   function addSuggestion(word) {
     if (!word) return;
@@ -66,12 +65,12 @@ function extractFreeSearchSuggestions() {
     const normalized = normalizeString(trimmed);
 
     if (!suggestionsMap[normalized]) {
-      // Première occurrence
+      // PremiÃ¨re occurrence
       suggestionsMap[normalized] = { word: trimmed, count: 1 };
     } else {
-      // Occurrence supplémentaire
+      // Occurrence supplÃ©mentaire
       suggestionsMap[normalized].count++;
-      // Si la nouvelle version commence par une majuscule, la privilégier
+      // Si la nouvelle version commence par une majuscule, la privilÃ©gier
       if (trimmed[0] === trimmed[0].toUpperCase() && suggestionsMap[normalized].word[0] !== suggestionsMap[normalized].word[0].toUpperCase()) {
         suggestionsMap[normalized].word = trimmed;
       }
@@ -84,7 +83,7 @@ function extractFreeSearchSuggestions() {
     words.forEach(word => {
       const trimmed = word.trim();
       const cleaned = normalizeString(trimmed);
-      // Garder les mots significatifs (> 3 caractères)
+      // Garder les mots significatifs (> 3 caractÃ¨res)
       if (cleaned.length > 3 && !stopWords.includes(cleaned)) {
         addSuggestion(trimmed);
       }
@@ -92,40 +91,21 @@ function extractFreeSearchSuggestions() {
   }
 
   membersData.forEach(member => {
-    // Prénoms
     addSuggestion(member.firstName);
-
-    // Noms
     addSuggestion(member.lastName);
-
-    // Organisations
     addSuggestion(member.organization);
-
-    // Villes
     addSuggestion(member.city);
-
-    // Activité principale
     addSuggestion(member.mainActivity);
-
-    // Bio courte
     extractWordsFromText(member.shortBio);
-
-    // Bio longue
     extractWordsFromText(member.longBio);
-
-    // Formation
     extractWordsFromText(member.training);
-
-    // Publications
     extractWordsFromText(member.publications);
-
-    // Compétences additionnelles
     extractWordsFromText(member.additionalSkills);
   });
 
-  // Convertir en array et trier par fréquence décroissante
+  // Convertir en array et trier par frÃ©quence dÃ©croissante
   freeSearchSuggestions = Object.values(suggestionsMap)
     .filter(item => item.word.length > 0)
-    .sort((a, b) => b.count - a.count) // Trier par fréquence décroissante
+    .sort((a, b) => b.count - a.count) 
     .map(item => item.word); // Extraire juste les mots
 }

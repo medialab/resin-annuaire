@@ -60,8 +60,7 @@ export function showAutocompleteSuggestions(query) {
   }
 
   // Section Suggestions (recherche libre)
-  // Toujours afficher au moins le terme tapé
-  if (freeMatches.length > 0 || query.trim().length > 0) {
+  if (freeMatches.length > 0) {
     const suggestionsTitle = document.createElement("div");
     suggestionsTitle.className = "autocomplete-title";
     suggestionsTitle.textContent = "Suggestions";
@@ -70,25 +69,7 @@ export function showAutocompleteSuggestions(query) {
     const suggestionsContainer = document.createElement("div");
     suggestionsContainer.className = "autocomplete-suggestions-container";
 
-    // Ajouter d'abord le terme tapé
-    if (query.trim().length > 0) {
-      const queryItem = document.createElement("div");
-      queryItem.className = "autocomplete-item autocomplete-item--free autocomplete-item--query";
-      queryItem.textContent = query.trim();
-
-      queryItem.addEventListener("click", () => {
-        import('./search-tags.js').then(({ addFreeSearchTerm }) => {
-          const searchBar = document.querySelector("#searchBar");
-          addFreeSearchTerm(query.trim(), true);
-          if (searchBar) searchBar.value = "";
-          hideAutocompleteDropdown();
-        });
-      });
-
-      suggestionsContainer.appendChild(queryItem);
-    }
-
-    // Puis ajouter les suggestions matchantes
+    // Ajouter les suggestions matchantes
     freeMatches.forEach(suggestion => {
       const item = document.createElement("div");
       item.className = "autocomplete-item autocomplete-item--free";

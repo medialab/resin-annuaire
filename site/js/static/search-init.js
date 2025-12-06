@@ -1,4 +1,4 @@
-// Point d'entrée principal du système de recherche
+// Point d'entrï¿½e principal du systï¿½me de recherche
 // Ce fichier orchestre tous les modules de recherche
 
 import { updateSearchResultHeight, normalizeString } from './search-utils.js';
@@ -9,7 +9,7 @@ import { renderResearchItems, addFreeSearchTerm } from './search-tags.js';
 import { filterCards } from './search-filter.js';
 import { initSkillsTreeListeners } from './search-sync.js';
 
-// Système de recherche et filtrage
+// Systï¿½me de recherche et filtrage
 document.addEventListener("DOMContentLoaded", function() {
   const researchItems = document.querySelector("#research-items");
   const researchItemsWrapper = document.querySelector("#section__research-items");
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   if (!researchItems || !searchBar || !cardsWrapper) return;
 
-  // Charger la liste des compétences depuis l'arbre
+  // Charger la liste des compï¿½tences depuis l'arbre
   loadSkillsFromTree();
 
   // Initialisation
@@ -30,35 +30,52 @@ document.addEventListener("DOMContentLoaded", function() {
   updateSearchResultHeight();
   hideAutocompleteDropdown(); // Masquer le dropdown au chargement
 
-  // Charger les données des membres au démarrage pour l'autocomplétion
+  // Charger les donnï¿½es des membres au dï¿½marrage pour l'autocomplï¿½tion
   loadMembersData();
 
-  // Initialiser les listeners pour l'arbre de compétences
+  // Initialiser les listeners pour l'arbre de compï¿½tences
   initSkillsTreeListeners();
 
-  // Attacher l'événement click au bouton reset
+  // Attacher l'ï¿½vï¿½nement click au bouton reset
   const resetBtn = document.querySelector("#reset-search");
   if (resetBtn) {
     resetBtn.addEventListener("click", resetSearch);
   }
 
-  // ======== EVENT LISTENERS AUTOCOMPLÉTION ========
+  // ======== EVENT LISTENERS AUTOCOMPLï¿½TION ========
 
-  // Écouter l'input dans la barre de recherche
+  // ï¿½couter l'input dans la barre de recherche
   if (searchBar && autocompleteDropdown) {
     searchBar.addEventListener("input", function(event) {
       const query = event.target.value;
       showAutocompleteSuggestions(query);
+
+      // Afficher/masquer le bouton de recherche selon la longueur
+      const btnSearch = document.querySelector("#btn-search");
+      if (btnSearch) {
+        if (query.length >= 3) {
+          btnSearch.style.display = "flex";
+        } else {
+          btnSearch.style.display = "none";
+        }
+      }
     });
 
     // Fermer le dropdown si on clique ailleurs
     document.addEventListener("click", function(event) {
-      if (!searchBar.contains(event.target) && !autocompleteDropdown.contains(event.target)) {
+      const btnSearch = document.querySelector("#btn-search");
+      const searchIcon = document.querySelector("#search-icon");
+
+      // Ne pas fermer si on clique sur la barre, le dropdown, le bouton de recherche ou l'icÃ´ne
+      if (!searchBar.contains(event.target) &&
+          !autocompleteDropdown.contains(event.target) &&
+          !(btnSearch && btnSearch.contains(event.target)) &&
+          !(searchIcon && searchIcon.contains(event.target))) {
         hideAutocompleteDropdown();
       }
     });
 
-    // Fermer le dropdown avec la touche Escape ou gérer Enter pour recherche libre
+    // Fermer le dropdown avec la touche Escape ou gï¿½rer Enter pour recherche libre
     searchBar.addEventListener("keydown", function(event) {
       if (event.key === "Escape") {
         hideAutocompleteDropdown();
@@ -70,30 +87,56 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  // Gérer la soumission de la recherche (Enter)
+  // Gï¿½rer la soumission de la recherche (Enter)
   function handleSearchSubmit() {
     const query = searchBar.value.trim();
 
     if (query === "") return;
 
-    // Marquer qu'on a utilisé la barre de recherche
+    // Marquer qu'on a utilisï¿½ la barre de recherche
     searchState.usedAutocomplete = true;
 
-    // Vérifier si c'est une compétence existante
+    // Vï¿½rifier si c'est une compï¿½tence existante
     const normalizedQuery = normalizeString(query);
     const matchingSkill = allSkills.find(skill =>
       normalizeString(skill.label) === normalizedQuery
     );
 
     if (matchingSkill) {
-      // C'est une compétence ’ la sélectionner via l'autocomplétion
+      // C'est une compï¿½tence ï¿½ la sï¿½lectionner via l'autocomplï¿½tion
       selectSkillFromAutocomplete(matchingSkill);
     } else {
-      // Ce n'est pas une compétence ’ ajouter comme recherche libre
+      // Ce n'est pas une compï¿½tence ï¿½ ajouter comme recherche libre
       addFreeSearchTerm(query, true);
       searchBar.value = "";
       hideAutocompleteDropdown();
     }
+
+    // Masquer le bouton de recherche aprï¿½s soumission
+    const btnSearch = document.querySelector("#btn-search");
+    if (btnSearch) {
+      btnSearch.style.display = "none";
+    }
+  }
+
+  // ======== GESTION DU CLIC SUR L'ICï¿½NE DE RECHERCHE ========
+
+  const searchIcon = document.querySelector("#search-icon");
+  if (searchIcon) {
+    searchIcon.addEventListener("click", function() {
+      handleSearchSubmit();
+    });
+  }
+
+  // ======== GESTION DU CLIC SUR LE BOUTON DE RECHERCHE ========
+
+  const btnSearch = document.querySelector("#btn-search");
+  if (btnSearch) {
+    btnSearch.addEventListener("click", function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      handleSearchSubmit();
+    });
   }
 
   // ======== GESTION DU FOCUS SUR LA BARRE DE RECHERCHE ========
