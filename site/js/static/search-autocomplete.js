@@ -1,6 +1,6 @@
 // Système d'autocomplétion de la recherche
 
-import { normalizeString } from './search-utils.js';
+import { normalizeString, updateToggleAllButton } from './search-utils.js';
 import { allSkills, freeSearchSuggestions } from './search-data.js';
 import { searchState } from './search-state.js';
 
@@ -112,6 +112,33 @@ export function selectSkillFromAutocomplete(skill) {
     if (checkbox && !checkbox.checked) {
       checkbox.checked = true;
       checkbox.dispatchEvent(new Event("change", { bubbles: true }));
+
+      // En version desktop, ouvrir les listes parentes
+      if (window.innerWidth >= screenSmall) {
+        // Trouver la liste level-2 parente
+        const level2List = checkbox.closest("ul.level-2");
+        if (level2List) {
+          level2List.classList.remove("is-collapsed");
+          level2List.classList.add("is-open");
+        }
+
+        // Trouver la liste level-1 parente
+        const level1List = checkbox.closest("ul.level-1");
+        if (level1List) {
+          level1List.classList.remove("is-collapsed");
+          level1List.classList.add("is-open");
+        }
+
+        // Trouver la liste level-3 parente si elle existe
+        const level3List = checkbox.closest("ul.level-3");
+        if (level3List) {
+          level3List.classList.remove("is-collapsed");
+          level3List.classList.add("is-open");
+        }
+
+        // Mettre à jour le bouton toggle-all
+        updateToggleAllButton();
+      }
     }
   }
 

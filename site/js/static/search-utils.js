@@ -27,3 +27,22 @@ export function updateSearchResultHeight() {
     document.body.style.setProperty('--search-result-h', `${height}px`);
   }
 }
+
+// Fonction pour mettre à jour l'état du bouton toggle-all
+export function updateToggleAllButton() {
+  const skillsTree = document.querySelector("#skills-tree");
+  const toggleAllBtn = document.querySelector(".toggle-all");
+
+  if (!skillsTree || !toggleAllBtn) return;
+
+  // Vérifier s'il y a des listes level-2 ou level-3 déployées (level-1 est toujours ouvert)
+  const hasOpenLists = skillsTree.querySelector("ul.level-2.is-open, ul.level-3.is-open") !== null;
+
+  if (hasOpenLists) {
+    toggleAllBtn.classList.remove("is-collapsed");
+    toggleAllBtn.classList.add("is-expanded");
+  } else {
+    toggleAllBtn.classList.remove("is-expanded");
+    toggleAllBtn.classList.add("is-collapsed");
+  }
+}

@@ -1,4 +1,6 @@
 // SkillsTree toggle functionality
+import { updateToggleAllButton } from './search-utils.js';
+
 document.addEventListener("DOMContentLoaded", function() {
   const skillsTree = document.querySelector("#skills-tree");
   const toggleAllButton = document.querySelector(".toggle-all");
@@ -87,6 +89,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
       // Mettre à jour le compteur
       updateVisibleCount();
+
+      // Mettre à jour le bouton toggle-all
+      updateToggleAllButton();
     }
   });
 

@@ -1,7 +1,7 @@
 // Point d'entrée principal du système de recherche
 // Ce fichier orchestre tous les modules de recherche
 
-import { updateSearchResultHeight, normalizeString } from './search-utils.js';
+import { updateSearchResultHeight, normalizeString, updateToggleAllButton } from './search-utils.js';
 import { searchState, updateResetButtonVisibility, resetSearch } from './search-state.js';
 import { loadSkillsFromTree, loadMembersData, allSkills } from './search-data.js';
 import { showAutocompleteSuggestions, hideAutocompleteDropdown, selectSkillFromAutocomplete } from './search-autocomplete.js';
@@ -249,6 +249,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 level3List.classList.remove("is-collapsed");
                 level3List.classList.add("is-open");
               }
+
+              // Mettre à jour le bouton toggle-all
+              updateToggleAllButton();
             }
           }
         }
