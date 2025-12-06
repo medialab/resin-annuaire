@@ -1,4 +1,4 @@
-// Gestion des tags de recherche (comp�tences et recherche libre)
+// Gestion des tags de recherche (compétences et recherche libre)
 
 import { updateSearchResultHeight } from './search-utils.js';
 import { searchState, updateResetButtonVisibility } from './search-state.js';
@@ -10,15 +10,15 @@ export function renderResearchItems() {
 
   if (!researchItems) return;
 
-  // Import dynamique pour �viter d�pendance circulaire
+  // Import dynamique pour éviter dépendance circulaire
   import('./search-filter.js').then(({ filterCards }) => {
     // Vider le contenu
     researchItems.innerHTML = "";
 
-    // Cr�er tous les tags
+    // Créer tous les tags
     const allTags = [];
 
-    // Ajouter les tags de comp�tences
+    // Ajouter les tags de compétences
     searchState.selectedSkills.forEach(skill => {
       const tag = createTag(skill.label, "skill", () => removeSkill(skill.id), skill.field, skill.id);
       allTags.push(tag);
@@ -30,11 +30,10 @@ export function renderResearchItems() {
       allTags.push(tag);
     });
 
-    // Ajouter les tags avec des s�parateurs "ou"
+    // Ajouter les tags avec des séparateurs "ou"
     allTags.forEach((tag, index) => {
       researchItems.appendChild(tag);
 
-      // Ajouter "ou" apr�s chaque tag sauf le dernier
       if (index < allTags.length - 1) {
         const separator = document.createElement("span");
         separator.className = "research-separator";
@@ -43,7 +42,7 @@ export function renderResearchItems() {
       }
     });
 
-    // G�rer la classe has-items sur le wrapper (seulement si utilis� l'autocompl�tion ET qu'il y a des items)
+    // Gérer la classe has-items sur le wrapper (seulement si utilisé l'autocomplétion ET qu'il y a des items)
     const hasItems = searchState.selectedSkills.length > 0 || searchState.freeSearchTerms.length > 0;
     if (researchItemsWrapper) {
       if (searchState.usedAutocomplete && hasItems) {
@@ -53,12 +52,11 @@ export function renderResearchItems() {
       }
     }
 
-    // Mettre � jour la hauteur de la section apr�s le rendu
+    // Mettre à jour la hauteur de la section après le rendu
     updateSearchResultHeight();
   });
 }
 
-// Cr�er un tag
 function createTag(label, type, onRemove, field = null, skillId = null) {
   const tag = document.createElement("div");
   tag.className = `research-tag research-tag--${type}`;
@@ -89,12 +87,11 @@ function createTag(label, type, onRemove, field = null, skillId = null) {
   return tag;
 }
 
-// Retirer une comp�tence
+// Retirer une compétence
 export function removeSkill(skillId) {
   import('./search-filter.js').then(({ filterCards }) => {
     searchState.selectedSkills = searchState.selectedSkills.filter(s => s.id !== skillId);
 
-    // D�cocher la checkbox correspondante
     const skillsTree = document.querySelector("#skills-tree");
     if (skillsTree) {
       const checkbox = skillsTree.querySelector(`#cb-${skillId}`);
@@ -106,7 +103,6 @@ export function removeSkill(skillId) {
           item.classList.remove("is-checked");
           delete item.dataset.checkedBy;
         }
-        // D�clencher l'�v�nement change pour que skillsTree.js g�re le d�cochage des enfants
         checkbox.dispatchEvent(new Event("change", { bubbles: true }));
       }
     }
@@ -130,7 +126,7 @@ export function removeFreeSearchTerm(term) {
 // Ajouter un terme de recherche libre
 export function addFreeSearchTerm(term, fromAutocomplete = false) {
   import('./search-filter.js').then(({ filterCards }) => {
-    // V�rifier si le terme n'existe pas d�j�
+    // Vérifier si le terme n'existe pas déjà
     const termExists = searchState.freeSearchTerms.some(t => t.term === term);
     if (!termExists) {
       if (fromAutocomplete) {
