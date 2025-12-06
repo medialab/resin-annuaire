@@ -47,8 +47,33 @@ export function renderResearchItems() {
     if (researchItemsWrapper) {
       if (searchState.usedAutocomplete && hasItems) {
         researchItemsWrapper.classList.add("has-items");
+        // Réinitialiser le display pour qu'il soit visible par défaut quand on ajoute des items
+        // (sauf en mobile où il sera géré par le bouton toggle)
+        if (window.innerWidth >= screenSmall) {
+          researchItemsWrapper.style.display = "";
+        } else {
+          // En mobile, afficher par défaut quand on ajoute des items
+          researchItemsWrapper.style.display = "block";
+        }
       } else {
         researchItemsWrapper.classList.remove("has-items");
+        researchItemsWrapper.style.display = "";
+      }
+    }
+
+    // Gérer l'affichage du bouton #toggle-results en mobile
+    const toggleBtn = document.querySelector("#toggle-results");
+    if (toggleBtn) {
+      if (searchState.usedAutocomplete && hasItems && window.innerWidth < screenSmall) {
+        toggleBtn.style.display = "flex";
+
+        // Afficher .when-expanded et masquer .when-collapsed par défaut
+        const whenExpanded = toggleBtn.querySelector(".when-expanded");
+        const whenCollapsed = toggleBtn.querySelector(".when-collapsed");
+        if (whenExpanded) whenExpanded.style.display = "block";
+        if (whenCollapsed) whenCollapsed.style.display = "none";
+      } else {
+        toggleBtn.style.display = "none";
       }
     }
 
@@ -131,8 +156,49 @@ export function addFreeSearchTerm(term, fromAutocomplete = false) {
     if (!termExists) {
       if (fromAutocomplete) {
         searchState.usedAutocomplete = true;
+
+        // Masquer le bouton de recherche
+        const btnSearch = document.querySelector("#btn-search");
+        if (btnSearch) {
+          btnSearch.style.display = "none";
+        }
+
+        // En mobile, afficher #section__research-items en expanded
+        if (window.innerWidth < screenSmall) {
+          const researchItemsWrapper = document.querySelector("#section__research-items");
+          const toggleBtn = document.querySelector("#toggle-results");
+
+          if (researchItemsWrapper) {
+            researchItemsWrapper.style.display = "block";
+          }
+
+          if (toggleBtn) {
+            const whenExpanded = toggleBtn.querySelector(".when-expanded");
+            const whenCollapsed = toggleBtn.querySelector(".when-collapsed");
+            if (whenExpanded) whenExpanded.style.display = "block";
+            if (whenCollapsed) whenCollapsed.style.display = "none";
+          }
+
+          // Ignorer le scroll close pendant le scroll automatique
+          if (typeof window.setIgnoreScrollClose === 'function') {
+            window.setIgnoreScrollClose(true);
+          }
+        }
+
         // Remonter en haut de la page
         window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // En mobile, réactiver le scroll close après le scroll
+        if (window.innerWidth < screenSmall) {
+          setTimeout(() => {
+            if (typeof window.setIgnoreScrollClose === 'function') {
+              window.setIgnoreScrollClose(false);
+            }
+            if (typeof window.resetLastScrollY === 'function') {
+              window.resetLastScrollY();
+            }
+          }, 600);
+        }
       }
       searchState.freeSearchTerms.push({ term });
       renderResearchItems();

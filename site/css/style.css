@@ -1081,6 +1081,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   color: var(--color-txt);
   border: 1px solid var(--color-100);
   background-color: var(--color-bg);
+  white-space: nowrap;
 }
 .card .skills-list li.is-selected {
   background-color: var(--color-xlight);
@@ -1360,7 +1361,20 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   padding-top: calc(var(--spacing) * 1.5);
   padding-bottom: calc(var(--spacing) * 1);
 }
+@media screen and (max-width: 820px) {
+  #research-items {
+    padding-left: var(--padding-body);
+    padding-right: var(--padding-body);
+    padding-bottom: calc(var(--spacing) * 1.5);
+  }
+}
 
+@media screen and (max-width: 820px) {
+  #section__research-items.has-items {
+    border-bottom: var(--border-light);
+    margin-bottom: calc(var(--spacing) * 1);
+  }
+}
 .research-separator {
   font-family: var(--mono);
   font-weight: var(--fw-mono);
@@ -1397,7 +1411,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   font-size: var(--font-size);
   line-height: 0em;
   position: relative;
-  top: 0.5px;
+  top: -1px;
   cursor: pointer;
 }
 .research-tag:hover {
@@ -1423,6 +1437,45 @@ body.graph-view #section__skills-tree #toggle-graph svg {
 .reset-button:hover {
   background-color: var(--color-050);
   border-color: var(--color-300);
+}
+@media screen and (max-width: 820px) {
+  .reset-button {
+    margin-right: calc(var(--padding-body) * 1);
+    margin-bottom: calc(var(--spacing) * 1.5);
+  }
+}
+
+#toggle-results {
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
+  font-size: var(--fs-small);
+  height: var(--button-h);
+  border-radius: var(--radius-small);
+  padding: 0 1ch;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: var(--color-txt);
+  border: 1px solid var(--color-100);
+  background-color: var(--color-bg);
+  padding: 0px;
+  width: calc(var(--button-h) * 1.25);
+  justify-content: center;
+  display: none;
+  z-index: 100;
+}
+#toggle-results:hover {
+  background-color: var(--color-050);
+  border-color: var(--color-300);
+}
+#toggle-results svg {
+  --size-svg: 12px!important;
+  fill: var(--color-txt) !important;
+  position: relative;
+  top: 2px;
+}
+#toggle-results .when-expanded {
+  display: none;
 }
 
 .page-static {
@@ -1961,6 +2014,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   color: var(--color-txt);
   border: 1px solid var(--color-100);
   background-color: var(--color-bg);
+  white-space: nowrap;
 }
 #member .member__details {
   padding-top: calc(var(--spacing) * 0.5);

@@ -11,7 +11,6 @@ import { initSkillsTreeListeners } from './search-sync.js';
 
 // Système de recherche et filtrage
 document.addEventListener("DOMContentLoaded", function() {
-  const researchItems = document.querySelector("#research-items");
   const researchItemsWrapper = document.querySelector("#section__research-items");
   const searchBar = document.querySelector("#searchBar");
   const autocompleteDropdown = document.querySelector("#autocomplete-dropdown");
@@ -20,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const countSpan = document.querySelector("#count-members > span");
   const skillsTree = document.querySelector("#skills-tree");
 
-  if (!researchItems || !searchBar || !cardsWrapper) return;
+  if (!researchItemsWrapper || !searchBar || !cardsWrapper) return;
 
   // Charger la liste des compétences depuis l'arbre
   loadSkillsFromTree();
@@ -29,6 +28,68 @@ document.addEventListener("DOMContentLoaded", function() {
   updateResetButtonVisibility();
   updateSearchResultHeight();
   hideAutocompleteDropdown(); // Masquer le dropdown au chargement
+
+  // Masquer le bouton toggle-results au chargement et ajouter le gestionnaire de clic
+  const toggleResultsBtn = document.querySelector("#toggle-results");
+  if (toggleResultsBtn) {
+    toggleResultsBtn.style.display = "none";
+
+    // Gestionnaire de clic pour basculer entre expanded/collapsed
+    toggleResultsBtn.addEventListener("click", function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const whenExpanded = toggleResultsBtn.querySelector(".when-expanded");
+      const whenCollapsed = toggleResultsBtn.querySelector(".when-collapsed");
+
+      if (whenExpanded && whenCollapsed && researchItemsWrapper) {
+        // Vérifier si #section__research-items a la classe .has-items
+        if (researchItemsWrapper.classList.contains("has-items")) {
+          // Vérifier l'état actuel avec getComputedStyle
+          const currentDisplay = window.getComputedStyle(researchItemsWrapper).display;
+          const isCollapsed = currentDisplay === "none";
+
+          // Basculer l'affichage de la section
+          if (isCollapsed) {
+            // On ouvre la section
+            researchItemsWrapper.style.display = "block";
+            whenExpanded.style.display = "block";
+            whenCollapsed.style.display = "none";
+
+            // Ignorer le scroll close pendant le scroll automatique
+            if (typeof window.setIgnoreScrollClose === 'function') {
+              window.setIgnoreScrollClose(true);
+            }
+
+            // Scroller en haut de la page
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Réactiver le scroll close après l'animation et réinitialiser lastScrollY
+            setTimeout(() => {
+              if (typeof window.setIgnoreScrollClose === 'function') {
+                window.setIgnoreScrollClose(false);
+              }
+              if (typeof window.resetLastScrollY === 'function') {
+                window.resetLastScrollY();
+              }
+            }, 600);
+          } else {
+            researchItemsWrapper.style.display = "none";
+            whenExpanded.style.display = "none";
+            whenCollapsed.style.display = "block";
+          }
+
+          // Recalculer les positions des titres fixes
+          if (typeof window.updateFixedPositions === 'function') {
+            window.updateFixedPositions();
+          }
+          if (typeof window.handleHomepageScroll === 'function') {
+            window.handleHomepageScroll();
+          }
+        }
+      }
+    });
+  }
 
   loadMembersData();
   initSkillsTreeListeners();
@@ -142,4 +203,52 @@ document.addEventListener("DOMContentLoaded", function() {
       sectionSearch.classList.remove("is-focus");
     });
   }
+
+  // ======== GESTION DU SCROLL POUR FERMER #section__research-items ========
+
+  let lastScrollY = window.scrollY;
+  let ignoreScrollClose = false;
+
+  window.addEventListener("scroll", function() {
+    // Si on vient d'ouvrir la section, ignorer temporairement le scroll
+    if (ignoreScrollClose) return;
+
+    const currentScrollY = window.scrollY;
+    const scrollDiff = Math.abs(currentScrollY - lastScrollY);
+
+    // Si on scroll plus de 40px et que #section__research-items est visible
+    if (scrollDiff > 40 && researchItemsWrapper && toggleResultsBtn) {
+      const currentDisplay = window.getComputedStyle(researchItemsWrapper).display;
+
+      if (currentDisplay !== "none" &&
+          researchItemsWrapper.classList.contains("has-items")) {
+        const whenExpanded = toggleResultsBtn.querySelector(".when-expanded");
+        const whenCollapsed = toggleResultsBtn.querySelector(".when-collapsed");
+
+        // Fermer la section
+        researchItemsWrapper.style.display = "none";
+        if (whenExpanded) whenExpanded.style.display = "none";
+        if (whenCollapsed) whenCollapsed.style.display = "block";
+
+        // Recalculer les positions des titres fixes
+        if (typeof window.updateFixedPositions === 'function') {
+          window.updateFixedPositions();
+        }
+        if (typeof window.handleHomepageScroll === 'function') {
+          window.handleHomepageScroll();
+        }
+      }
+
+      lastScrollY = currentScrollY;
+    }
+  }, { passive: true });
+
+  // Exposer les fonctions
+  window.setIgnoreScrollClose = function(value) {
+    ignoreScrollClose = value;
+  };
+
+  window.resetLastScrollY = function() {
+    lastScrollY = window.scrollY;
+  };
 });
