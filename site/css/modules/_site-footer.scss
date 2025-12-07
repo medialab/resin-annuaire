@@ -1,7 +1,7 @@
 #site-footer {
     height: var(--footer-h);
     border-top: var(--border-light);
-
+    
     .container{
         padding: calc(var(--spacing)*2) var(--padding-body);
         max-width: var(--max-width);
@@ -14,23 +14,24 @@
     }
 
     .logo {
-        width: 140px;
+        width: 90px;
         svg {
             width: 100%;
         }
     }
 
     #logo-medialab {
+  
+        width: 85px;
         position: relative;
-        top: 15px;
-        width: 120px;
+        top: 2px;
     }
     
     p,
     li {
         font-family: var(--mono);
         font-weight: var(--fw-mono);
-        font-size: var(--fs-small);
+        font-size: var(--fs-xsmall);
     
         a {
             @include links-in-txt();
@@ -47,9 +48,18 @@
     #site-footer {
          .container {
             max-width: 600px;
+         
         }   
         .container-logos{
-            margin-bottom: 20px;
+            margin-bottom: 16px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .credits{
+            text-align: center;
         }
     }
 }
@@ -69,14 +79,17 @@
 @media #{$small-up} {
 
     #site-footer {
-      
-
+    
         .container {
-          
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 60px;
+        }
+
+        #logo-medialab {
+            position: relative;
+            top: 8px;
         }
     }
 

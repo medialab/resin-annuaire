@@ -80,10 +80,24 @@
 /// 
 
 
+.page-newsletter{
+    .main--container{
+        margin: 0 auto;
+        position: relative;
+        max-width: var(--max-width-txt);
+    }
 
-#btn--newsletter{
-    @include button-bold-big();
+    @include content-txt();
+
+    h2{
+        margin-top: calc(var(--spacing)*4);
+    }
+    #btn--newsletter{
+        @include button-bold-big();
+    }
 }
+
+
 
 
 #anr{

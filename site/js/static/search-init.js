@@ -217,41 +217,45 @@ document.addEventListener("DOMContentLoaded", function() {
         const skillId = skillTag.getAttribute("data-skill-id");
         if (!skillId) return;
 
-        // Marquer qu'on a utilisé l'autocomplétion
-        searchState.usedAutocomplete = true;
-
-        // Cocher la checkbox correspondante dans l'arbre
+        // Cocher/décocher la checkbox correspondante dans l'arbre
         if (skillsTree) {
           const checkbox = skillsTree.querySelector(`#cb-${skillId}`);
-          if (checkbox && !checkbox.checked) {
-            checkbox.checked = true;
-            checkbox.dispatchEvent(new Event("change", { bubbles: true }));
+          if (checkbox) {
+            // Si déjà coché, le décocher (toggle behavior)
+            if (checkbox.checked) {
+              checkbox.checked = false;
+              checkbox.dispatchEvent(new Event("change", { bubbles: true }));
+            } else {
+              // Sinon, le cocher
+              checkbox.checked = true;
+              checkbox.dispatchEvent(new Event("change", { bubbles: true }));
 
-            // En version desktop, ouvrir les listes parentes
-            if (window.innerWidth >= screenSmall) {
-              // Trouver la liste level-2 parente
-              const level2List = checkbox.closest("ul.level-2");
-              if (level2List) {
-                level2List.classList.remove("is-collapsed");
-                level2List.classList.add("is-open");
+              // En version desktop, ouvrir les listes parentes
+              if (window.innerWidth >= screenSmall) {
+                // Trouver la liste level-2 parente
+                const level2List = checkbox.closest("ul.level-2");
+                if (level2List) {
+                  level2List.classList.remove("is-collapsed");
+                  level2List.classList.add("is-open");
+                }
+
+                // Trouver la liste level-1 parente
+                const level1List = checkbox.closest("ul.level-1");
+                if (level1List) {
+                  level1List.classList.remove("is-collapsed");
+                  level1List.classList.add("is-open");
+                }
+
+                // Trouver la liste level-3 parente si elle existe
+                const level3List = checkbox.closest("ul.level-3");
+                if (level3List) {
+                  level3List.classList.remove("is-collapsed");
+                  level3List.classList.add("is-open");
+                }
+
+                // Mettre à jour le bouton toggle-all
+                updateToggleAllButton();
               }
-
-              // Trouver la liste level-1 parente
-              const level1List = checkbox.closest("ul.level-1");
-              if (level1List) {
-                level1List.classList.remove("is-collapsed");
-                level1List.classList.add("is-open");
-              }
-
-              // Trouver la liste level-3 parente si elle existe
-              const level3List = checkbox.closest("ul.level-3");
-              if (level3List) {
-                level3List.classList.remove("is-collapsed");
-                level3List.classList.add("is-open");
-              }
-
-              // Mettre à jour le bouton toggle-all
-              updateToggleAllButton();
             }
           }
         }

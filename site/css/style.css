@@ -33,7 +33,7 @@
   --subheader-h: calc(var(--tree-item-h)*1.5);
   --search-h: 60px;
   --col-left: 260px;
-  --footer-h: 120px;
+  --footer-h: 90px;
   --block-graph: 12px;
   --button-h: 20px;
   --input-h: 30px;
@@ -61,7 +61,7 @@
     --fs-big: 20px;
     --fs-xbig: 28px;
     --search-h: 40px;
-    --footer-h: 180px;
+    --footer-h: 160px;
     --header-h: 60px;
     --header-h-small: 60px;
   }
@@ -100,7 +100,7 @@ body {
 }
 
 main {
-  --margin-bottom: calc(var(--spacing)*10);
+  --margin-bottom: calc(var(--spacing)*8);
   position: relative;
   padding-left: var(--padding-body);
   padding-right: var(--padding-body);
@@ -575,21 +575,21 @@ body.has-modal .modal {
   gap: 30px;
 }
 #site-footer .logo {
-  width: 140px;
+  width: 90px;
 }
 #site-footer .logo svg {
   width: 100%;
 }
 #site-footer #logo-medialab {
+  width: 85px;
   position: relative;
-  top: 15px;
-  width: 120px;
+  top: 2px;
 }
 #site-footer p,
 #site-footer li {
   font-family: var(--mono);
   font-weight: var(--fw-mono);
-  font-size: var(--fs-small);
+  font-size: var(--fs-xsmall);
 }
 #site-footer p a,
 #site-footer li a {
@@ -615,7 +615,14 @@ body.has-modal .modal {
     max-width: 600px;
   }
   #site-footer .container-logos {
-    margin-bottom: 20px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  #site-footer .credits {
+    text-align: center;
   }
 }
 @media screen and (max-width: 560px) {
@@ -629,6 +636,10 @@ body.has-modal .modal {
     justify-content: center;
     align-items: center;
     gap: 60px;
+  }
+  #site-footer #logo-medialab {
+    position: relative;
+    top: 8px;
   }
   .credits {
     border-left: var(--border-light);
@@ -1673,7 +1684,73 @@ body.graph-view #section__skills-tree #toggle-graph svg {
     left: calc(var(--col-left) * -1 + var(--padding-body) * -2);
   }
 }
-#btn--newsletter {
+.page-newsletter .main--container {
+  margin: 0 auto;
+  position: relative;
+  max-width: var(--max-width-txt);
+}
+.page-newsletter h2 {
+  font-family: var(--font);
+  font-size: var(--fs-xbig);
+  font-weight: 600;
+  line-height: 1.1;
+  margin-top: calc(var(--spacing) * 3);
+  margin-bottom: calc(var(--spacing) * 1.5);
+}
+.page-newsletter h3 {
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
+  color: var(--color-800);
+  font-size: var(--fs-medium);
+  border-bottom: 1px solid var(--color-100);
+  margin-bottom: calc(var(--spacing) * 1.5);
+  color: var(--accent-soft);
+  margin-top: calc(var(--spacing) * 6);
+  margin-bottom: calc(var(--spacing) * 1.5);
+  line-height: 1.4;
+}
+.page-newsletter h4 {
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: var(--fs-medium);
+  margin-top: calc(var(--spacing) * 4);
+  margin-bottom: calc(var(--spacing) * 1.5);
+}
+.page-newsletter hr {
+  height: calc(var(--spacing) * 1.5);
+  border: none;
+}
+.page-newsletter p {
+  margin-top: calc(var(--spacing) * 1);
+  margin-bottom: calc(var(--spacing) * 1);
+}
+.page-newsletter li {
+  margin-bottom: calc(var(--spacing) * 0.5);
+}
+.page-newsletter p, .page-newsletter li {
+  font-size: var(--fs-medium);
+}
+.page-newsletter p a, .page-newsletter li a {
+  color: var(--accent-soft);
+  -webkit-text-decoration: underline 2px var(--color-100);
+          text-decoration: underline 2px var(--color-100);
+  -webkit-text-decoration-skip-ink: none;
+          text-decoration-skip-ink: none;
+}
+.page-newsletter p a:hover, .page-newsletter li a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+  -webkit-text-decoration-skip: ink;
+          text-decoration-skip-ink: auto;
+}
+.page-newsletter ul, .page-newsletter ol {
+  margin-left: 4ch;
+  margin-bottom: calc(var(--spacing) * 1.5);
+}
+.page-newsletter h2 {
+  margin-top: calc(var(--spacing) * 4);
+}
+.page-newsletter #btn--newsletter {
   font-family: var(--mono);
   font-weight: var(--fw-mono);
   font-size: var(--fs-small);
@@ -1689,10 +1766,10 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   height: calc(var(--button-h) * 1.5);
   margin-top: calc(var(--spacing) * 4);
 }
-#btn--newsletter a {
+.page-newsletter #btn--newsletter a {
   text-decoration: none;
 }
-#btn--newsletter:hover {
+.page-newsletter #btn--newsletter:hover {
   background-color: var(--accent);
 }
 
