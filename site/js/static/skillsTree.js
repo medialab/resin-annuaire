@@ -246,6 +246,25 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
+  // Fonction pour ouvrir toutes les listes enfants (descendantes) récursivement
+  function openChildLists(list) {
+    if (list.classList.contains('level-2') || list.classList.contains('level-3')) {
+      list.classList.remove('is-collapsed');
+      list.classList.add('is-open');
+
+      // Ajouter aussi la classe sur le parent li
+      const listParent = list.parentElement;
+      if (listParent && listParent.matches('li')) {
+        listParent.classList.remove('is-collapsed');
+        listParent.classList.add('is-open');
+      }
+    }
+
+    // Récursion sur les listes enfants
+    const childLists = list.querySelectorAll(':scope > li > ul');
+    childLists.forEach(childUl => openChildLists(childUl));
+  }
+
   // Intercepter le clic pour gérer le cas spécial : clic sur élément coché par propagation
   skillsTree.addEventListener("click", function(event) {
     // Vérifier si on a cliqué sur un label
@@ -270,6 +289,16 @@ document.addEventListener("DOMContentLoaded", function() {
       // La transformer en check direct (user)
       item.dataset.checkedBy = "user";
 
+      // Ouvrir toutes les listes enfants (descendantes)
+      const childList = parentLi.querySelector(":scope > ul");
+      if (childList) {
+        openChildLists(childList);
+      }
+
+      // Mettre à jour le compteur et le bouton toggle-all
+      updateVisibleCount();
+      updateToggleAllButton();
+
       // Décocher tous les parents ET leurs autres enfants (sauf la branche de l'élément cliqué)
       uncheckParentsAndSiblings(parentLi);
     }
@@ -290,6 +319,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
       // Cocher tous les enfants par propagation
       checkChildrenByPropagation(parentLi);
+
+      // Ouvrir toutes les listes enfants (descendantes)
+      const childList = parentLi.querySelector(":scope > ul");
+      if (childList) {
+        openChildLists(childList);
+      }
+
+      // Mettre à jour le compteur et le bouton toggle-all
+      updateVisibleCount();
+      updateToggleAllButton();
 
     } else {
       // La checkbox est décochée
@@ -347,6 +386,30 @@ document.addEventListener("DOMContentLoaded", function() {
         // Déclencher l'événement change pour mettre à jour les filtres
         checkbox.dispatchEvent(new Event('change', { bubbles: true }));
       });
+
+      // Replier toutes les listes
+      const allLists = skillsTree.querySelectorAll("ul.level-2, ul.level-3");
+      allLists.forEach(function(list) {
+        list.classList.remove("is-open");
+        list.classList.add("is-collapsed");
+        // Ajouter la classe sur le parent li
+        const listParent = list.closest("li");
+        if (listParent) {
+          listParent.classList.remove("is-open");
+          listParent.classList.add("is-collapsed");
+        }
+      });
+
+      // Mettre à jour le toggle-all pour refléter l'état replié
+      if (toggleAllButton) {
+        toggleAllButton.classList.remove("is-expanded");
+        toggleAllButton.classList.add("is-collapsed");
+        skillsTree.classList.remove("is-expanded");
+        skillsTree.classList.add("is-collapsed");
+      }
+
+      // Mettre à jour le compteur
+      updateVisibleCount();
 
       // Masquer le bouton après tout décocher
       updateUncheckAllVisibility();
