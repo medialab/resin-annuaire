@@ -793,6 +793,29 @@ body.has-modal .modal {
 #skills-tree .item .btn__toggle:hover svg {
   fill: var(--color);
 }
+#skills-tree #uncheck-all__container {
+  padding-bottom: 10px;
+  display: none;
+}
+#skills-tree #uncheck-all__container label {
+  position: absolute;
+  width: 100%;
+  top: -4px;
+  cursor: pointer;
+}
+#skills-tree #uncheck-all__container .label-container {
+  background-color: var(--color-txt-light);
+  position: relative;
+  top: -1px;
+  outline: 2px solid var(--color-100);
+}
+#skills-tree #uncheck-all__container .label-container svg {
+  fill: var(--color-bg);
+}
+#skills-tree #uncheck-all__container .name {
+  padding-left: 2ch;
+  color: var(--color-txt-light);
+}
 #skills-tree .skill__item {
   margin-left: var(--tree-indent);
 }

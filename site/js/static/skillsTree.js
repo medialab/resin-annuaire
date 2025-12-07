@@ -299,5 +299,60 @@ document.addEventListener("DOMContentLoaded", function() {
       // Décocher tous les enfants
       uncheckAllChildren(parentLi);
     }
+
+    // Mettre à jour la visibilité du bouton uncheck-all
+    updateUncheckAllVisibility();
   });
+
+  // ======== GESTION DU BOUTON "TOUT DÉCOCHER" ========
+
+  const uncheckAllContainer = document.querySelector("#uncheck-all__container");
+
+  // Fonction pour mettre à jour la visibilité de #uncheck-all__container
+  function updateUncheckAllVisibility() {
+    if (!uncheckAllContainer) return;
+
+    // Compter les checkboxes cochées (sauf celle de uncheck-all)
+    const checkedCheckboxes = skillsTree.querySelectorAll('.item__checkbox:checked:not(#uncheck-all)');
+
+    if (checkedCheckboxes.length > 0) {
+      uncheckAllContainer.style.display = 'block';
+    } else {
+      uncheckAllContainer.style.display = 'none';
+    }
+  }
+
+  // Gérer le clic sur #uncheck-all__container pour tout décocher
+  if (uncheckAllContainer) {
+    uncheckAllContainer.addEventListener('click', function(e) {
+      // Empêcher la propagation pour éviter d'interférer avec d'autres comportements
+      e.preventDefault();
+      e.stopPropagation();
+
+      // Décocher toutes les checkboxes (sauf celle de uncheck-all)
+      const allCheckboxes = skillsTree.querySelectorAll('.item__checkbox:checked:not(#uncheck-all)');
+      allCheckboxes.forEach(function(checkbox) {
+        const item = checkbox.closest('.item');
+        const parentLi = checkbox.closest('li');
+
+        checkbox.checked = false;
+        delete item.dataset.checkedBy;
+        item.classList.remove('is-checked');
+
+        // Décocher tous les enfants
+        if (parentLi) {
+          uncheckAllChildren(parentLi);
+        }
+
+        // Déclencher l'événement change pour mettre à jour les filtres
+        checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+
+      // Masquer le bouton après tout décocher
+      updateUncheckAllVisibility();
+    });
+
+    // Initialiser la visibilité au chargement
+    updateUncheckAllVisibility();
+  }
 });

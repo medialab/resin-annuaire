@@ -308,6 +308,9 @@ document.addEventListener("DOMContentLoaded", function() {
   let ignoreScrollClose = false;
 
   window.addEventListener("scroll", function() {
+    // Ce comportement doit uniquement se produire en mobile
+    if (window.innerWidth >= screenSmall) return;
+
     // Si on vient d'ouvrir la section, ignorer temporairement le scroll
     if (ignoreScrollClose) return;
 
