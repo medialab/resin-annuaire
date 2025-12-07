@@ -78,6 +78,9 @@ export function initCardsInteractions() {
   cardsWrapper.addEventListener("click", function(event) {
     const skillTag = event.target.closest(".skills-list li");
     if (skillTag) {
+      // Ne pas permettre le clic sur les skills en version mobile
+      if (window.innerWidth < screenSmall) return;
+
       event.preventDefault();
       event.stopPropagation();
 

@@ -90,13 +90,16 @@
         margin-top: calc(var(--spacing)*2);
         @include skills-tags();
         
-        z-index: 400;
+      
          
-        li{
-            cursor: pointer;
-            &:hover{
-                border-color: var(--color);
-                color: var(--color);
+        @media #{$small-up}{
+            z-index: 400;
+            li{
+                cursor: pointer;
+                &:hover{
+                    border-color: var(--color);
+                    color: var(--color);
+                }
             }
         }
 
