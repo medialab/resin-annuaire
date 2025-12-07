@@ -1,6 +1,8 @@
 // Gestion des interactions sur les cartes et comportement mobile de la recherche
 
 import { updateToggleAllButton } from './search-utils.js';
+import { filterCards } from './search-filter.js';
+import { renderResearchItems } from './search-tags.js';
 
 export function initCardsInteractions() {
   const researchItemsWrapper = document.querySelector("#section__research-items");
@@ -88,7 +90,67 @@ export function initCardsInteractions() {
         if (checkbox) {
           // Si déjà coché, le décocher (toggle behavior)
           if (checkbox.checked) {
+            const parentLi = checkbox.closest("li");
+            const item = checkbox.closest('.item');
+
+            // Collecter les frères et sœurs cochés en propagation avant de décocher les parents
+            const siblingsToRecheck = [];
+            let currentLi = parentLi;
+
+            while (currentLi) {
+              // Remonter au ul parent
+              const parentUl = currentLi.parentElement;
+              if (!parentUl || !parentUl.matches('ul')) break;
+
+              // Remonter au li parent
+              const parentParentLi = parentUl.parentElement;
+              if (!parentParentLi || !parentParentLi.matches('li')) break;
+
+              // Avant de décocher le parent, collecter ses autres enfants cochés en propagation
+              const siblings = parentUl.querySelectorAll(':scope > li');
+              siblings.forEach(siblingLi => {
+                if (siblingLi !== currentLi) {
+                  const siblingItem = siblingLi.querySelector(':scope > .item');
+                  const siblingCheckbox = siblingItem ? siblingItem.querySelector('.item__checkbox') : null;
+                  if (siblingCheckbox && siblingCheckbox.checked && siblingItem.dataset.checkedBy === 'propagation') {
+                    siblingsToRecheck.push({ checkbox: siblingCheckbox, li: siblingLi });
+                  }
+                }
+              });
+
+              // Trouver la checkbox du parent
+              const parentCheckbox = parentParentLi.querySelector(':scope > .item > .item__checkbox');
+              if (parentCheckbox && parentCheckbox.checked) {
+                // Décocher le parent
+                parentCheckbox.checked = false;
+                const parentItem = parentCheckbox.closest('.item');
+                if (parentItem) {
+                  delete parentItem.dataset.checkedBy;
+                  parentItem.classList.remove('is-checked');
+                }
+              }
+
+              // Continuer à remonter
+              currentLi = parentParentLi;
+            }
+
+            // Décocher la checkbox du skill cliqué
             checkbox.checked = false;
+            delete item.dataset.checkedBy;
+            item.classList.remove('is-checked');
+
+            // Re-cocher les frères et sœurs qui étaient en propagation (maintenant en mode "user")
+            siblingsToRecheck.forEach(({ checkbox: siblingCheckbox, li: siblingLi }) => {
+              siblingCheckbox.checked = true;
+              const siblingItem = siblingCheckbox.closest('.item');
+              siblingItem.dataset.checkedBy = 'user'; // Changé de 'propagation' à 'user'
+              siblingItem.classList.add('is-checked');
+
+              // Déclencher l'événement change pour chaque frère/sœur pour mettre à jour searchState
+              siblingCheckbox.dispatchEvent(new Event("change", { bubbles: true }));
+            });
+
+            // Déclencher l'événement change sur le skill décoché
             checkbox.dispatchEvent(new Event("change", { bubbles: true }));
           } else {
             // Sinon, le cocher

@@ -1,18 +1,17 @@
-// Synchronisation avec l'arbre de compétences (skillsTree)
+// Synchronisation avec l'arbre de compÃ©tences (skillsTree)
 
 import { searchState, updateResetButtonVisibility } from './search-state.js';
 import { renderResearchItems } from './search-tags.js';
 import { filterCards } from './search-filter.js';
 
-// Synchroniser les tags avec les compétences cochées "user"
+// Synchroniser les tags avec les compÃ©tences cochÃ©es "user"
 export function syncSkillsFromTree() {
   const skillsTree = document.querySelector("#skills-tree");
   if (!skillsTree) return;
 
-  // Récupérer toutes les checkboxes cochées "user"
   const userCheckedItems = skillsTree.querySelectorAll('.item[data-checked-by="user"]');
 
-  // Créer un nouveau tableau de compétences basé sur les items "user"
+  // CrÃ©er un nouveau tableau de compÃ©tences basÃ© sur les items "user"
   const newSelectedSkills = [];
   userCheckedItems.forEach(item => {
     const li = item.closest("li");
@@ -27,7 +26,7 @@ export function syncSkillsFromTree() {
     }
   });
 
-  // Mettre à jour l'état seulement si c'est différent
+  // Mettre Ã  jour l'Ã©tat seulement si c'est diffÃ©rent
   const hasChanged =
     newSelectedSkills.length !== searchState.selectedSkills.length ||
     newSelectedSkills.some(skill => !searchState.selectedSkills.find(s => s.id === skill.id));
@@ -40,21 +39,21 @@ export function syncSkillsFromTree() {
   }
 }
 
-// Initialiser les event listeners pour l'arbre de compétences
+// Initialiser les event listeners pour l'arbre de compÃ¨tences
 export function initSkillsTreeListeners() {
   const skillsTree = document.querySelector("#skills-tree");
   if (!skillsTree) return;
 
-  // Écouter les changements des checkboxes (cochage/décochage)
+  // Changements des checkboxes (cochage/dÃ¨cochage)
   skillsTree.addEventListener("change", function(event) {
     const checkbox = event.target;
     if (!checkbox.classList.contains("item__checkbox")) return;
 
-    // Utiliser setTimeout pour laisser le temps à skillsTree.js de mettre à jour les data-checked-by
+    // Utiliser setTimeout pour laisser le temps Ã  skillsTree.js de mettre Ã  jour les data-checked-by
     setTimeout(syncSkillsFromTree, 0);
   });
 
-  // Écouter aussi les clics pour détecter la transformation propagation ’ user
+  // DÃ©tecter la transformation propagation Ã  user
   skillsTree.addEventListener("click", function(event) {
     const label = event.target.closest("label");
     if (!label) return;
@@ -67,7 +66,6 @@ export function initSkillsTreeListeners() {
 
     const item = checkbox.closest(".item");
 
-    // Si c'était "propagation" et va devenir "user", on sync après un court délai
     if (checkbox.checked && item.dataset.checkedBy === "propagation") {
       setTimeout(syncSkillsFromTree, 10);
     }

@@ -1,10 +1,10 @@
-// Gestion de l'état de la recherche
+// Gestion de l'Ã©tat de la recherche
 
-// État de la recherche
+// Ã‰tat de la recherche
 export const searchState = {
   selectedSkills: [], // {id: number, childrenIds: [numbers], label: string}
   freeSearchTerms: [], // {term: string}
-  usedAutocomplete: false, // true si l'utilisateur a utilisé l'autocomplétion
+  usedAutocomplete: false, 
 };
 
 // Afficher/masquer le bouton reset
@@ -17,12 +17,12 @@ export function updateResetButtonVisibility() {
   }
 }
 
-// Réinitialiser la recherche
+// RÃ©initialiser la recherche
 export function resetSearch() {
-  // Import dynamique pour éviter les dépendances circulaires
+  // Import dynamique pour Ã‰viter les dÃ©pendances circulaires
   import('./search-tags.js').then(({ renderResearchItems }) => {
     import('./search-filter.js').then(({ filterCards }) => {
-      // Vider l'état
+      // Vider l'Ã©tat
       searchState.selectedSkills = [];
       searchState.freeSearchTerms = [];
       searchState.usedAutocomplete = false;
@@ -33,7 +33,7 @@ export function resetSearch() {
         searchBar.value = "";
       }
 
-      // Décocher toutes les checkboxes
+      // DÃ©cocher toutes les checkboxes
       const skillsTree = document.querySelector("#skills-tree");
       if (skillsTree) {
         const checkboxes = skillsTree.querySelectorAll(".item__checkbox:checked");
@@ -47,7 +47,7 @@ export function resetSearch() {
         });
       }
 
-      // Rafraîchir l'affichage
+      // RafraÃ®chir l'affichage
       renderResearchItems();
       filterCards();
       updateResetButtonVisibility();
