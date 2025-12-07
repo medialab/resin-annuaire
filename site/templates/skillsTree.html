@@ -32,19 +32,7 @@
 
 <div id="skills-tree" class="is-collapsed">
   
-  <div class="item" id="uncheck-all__container">
-    <input class="item__checkbox" id="uncheck-all" type="checkbox">
-    <label for="uncheck-all">
-      <div class="label-container">
-        {% include "icons/check-mark.svg" %}
-      </div>
-      <span class="name">Tout décocher</span>
-
-    </label>
-
-
-
-  </div>
+  
   <ul class="level-1 is-open">
     {% for category in categories %}
     {% set hasChildren = false %}
@@ -159,4 +147,18 @@
     </li>
     {% endfor %}
   </ul>
+
+  <div class="item" id="uncheck-all__container">
+    <input class="item__checkbox" id="uncheck-all" type="checkbox">
+    <label for="uncheck-all">
+      <div class="label-container">
+        {% include "icons/check-mark.svg" %}
+      </div>
+      <span class="name">Tout décocher</span>
+
+    </label>
+
+
+
+  </div>
 </div>
