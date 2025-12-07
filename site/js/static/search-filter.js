@@ -5,28 +5,24 @@ import { membersData } from './search-data.js';
 import { searchState } from './search-state.js';
 import { highlightInVisibleFields, restoreVisibleFields, extractHighlightedExcerpt } from './search-highlight.js';
 
-// Vérifier si une card correspond à un terme de recherche libre
+// VÃ©rifier si une card correspond Ã  un terme de recherche libre
 export function cardMatchesFreeSearch(card, term) {
-  // ÉTAPE 1 : Chercher d'abord dans les champs visibles (rapide)
-  // Nom complet (depuis le lien)
+  // Ã‰TAPE 1 : Chercher d'abord dans les champs visibles 
   const nameLink = card.querySelector(".member-name a");
   if (nameLink && termStartsWord(nameLink.textContent, term)) {
     return true;
   }
 
-  // Organisation
   const organization = card.querySelector(".p__institution");
   if (organization && termStartsWord(organization.textContent, term)) {
     return true;
   }
 
-  // Bio courte
   const shortBio = card.querySelector(".p__short-bio");
   if (shortBio && termStartsWord(shortBio.textContent, term)) {
     return true;
   }
 
-  // Compétences (labels)
   const skillsItems = card.querySelectorAll(".skills-list li");
   for (let li of skillsItems) {
     if (termStartsWord(li.textContent, term)) {
@@ -34,11 +30,10 @@ export function cardMatchesFreeSearch(card, term) {
     }
   }
 
-  // ÉTAPE 2 : Si pas trouvé et données chargées, chercher dans les données complètes
+  // Ã‰TAPE 2 : Si pas trouvÃ©, chercher dans les donnÃ©es complÃªtes
   if (membersData) {
     let memberSlug = card.querySelector(".link-block")?.getAttribute("href");
     if (memberSlug) {
-      // Retirer l'extension .html si présente
       memberSlug = memberSlug.replace(/\.html$/, "");
 
       const member = membersData.find(m => {
@@ -47,7 +42,6 @@ export function cardMatchesFreeSearch(card, term) {
       });
 
       if (member) {
-        // Vérifier chaque champ séparément
         const fieldsToCheck = [
           member.firstName,
           member.lastName,
@@ -73,7 +67,7 @@ export function cardMatchesFreeSearch(card, term) {
   return false;
 }
 
-// Filtrer les cards et mettre à jour le compteur + ajouter is-selected
+// Filtrer les cards et mettre Ã  jour le compteur + ajouter is-selected
 export function filterCards() {
   const cardsWrapper = document.querySelector(".cards-wrapper");
   const countSpan = document.querySelector("#count-members > span");
@@ -84,13 +78,13 @@ export function filterCards() {
   const allCards = cardsWrapper.querySelectorAll(".card");
   let visibleCount = 0;
 
-  // Collecter tous les IDs à rechercher (compétences + leurs enfants) pour le filtrage
+  // Collecter tous les IDs Ã  rechercher (compÃ©tences + leurs enfants) pour le filtrage
   const allSearchedIds = new Set();
   searchState.selectedSkills.forEach(skill => {
     skill.childrenIds.forEach(id => allSearchedIds.add(id));
   });
 
-  // Collecter TOUS les IDs cochés (user + propagation) pour la classe is-selected
+  // Collecter TOUS les IDs cochÃ©s (user + propagation) pour la classe is-selected
   const allCheckedIds = new Set();
   if (skillsTree) {
     skillsTree.querySelectorAll(".item__checkbox:checked").forEach(checkbox => {
@@ -114,7 +108,6 @@ export function filterCards() {
       card.querySelectorAll(".skills-list li").forEach(li => {
         li.classList.remove("is-selected");
       });
-      // Restaurer les champs visibles
       restoreVisibleFields(card);
       // Vider l'extrait
       const excerptDiv = card.querySelector(".excerpt");
@@ -126,13 +119,12 @@ export function filterCards() {
     allCards.forEach(card => {
       let shouldShow = false;
 
-      // Vérifier les compétences sélectionnées
       if (hasSkillFilters) {
         const cardSkillsStr = card.getAttribute("data-skills");
         if (cardSkillsStr) {
           const cardSkills = cardSkillsStr.split(',').map(id => parseInt(id, 10));
 
-          // Vérifier si la card possède au moins une des compétences sélectionnées
+          // VÃ©rifier si la card possÃ¨de au moins une des compÃ©tences sÃ©lectionnÃ©es
           const hasMatchingSkill = cardSkills.some(cardSkillId => allSearchedIds.has(cardSkillId));
 
           if (hasMatchingSkill) {
@@ -141,7 +133,7 @@ export function filterCards() {
         }
       }
 
-      // Vérifier la recherche libre (logique OR)
+      // VÃ©rifier la recherche libre (logique OR)
       if (hasFreeSearchFilters && !shouldShow) {
         // La card doit matcher AU MOINS UN terme de recherche libre
         const matchesFreeSearch = searchState.freeSearchTerms.some(termObj =>
@@ -168,16 +160,15 @@ export function filterCards() {
           }
         });
 
-        // Gérer le surlignage et les extraits pour la recherche libre
+        // GÃ©rer le surlignage et les extraits pour la recherche libre
         if (hasFreeSearchFilters) {
-          // Extraire un excerpt pour chaque terme qui matche cette card (uniquement champs cachés)
           const excerpts = [];
           searchState.freeSearchTerms.forEach(termObj => {
             if (cardMatchesFreeSearch(card, termObj.term)) {
-              // Surligner dans les champs visibles
+              // champs visibles
               highlightInVisibleFields(card, termObj.term);
 
-              // Extraire excerpt pour les champs cachés
+              // excerpt pour les champs cachÃ©s
               const excerpt = extractHighlightedExcerpt(card, termObj.term);
               if (excerpt) {
                 excerpts.push(excerpt);
@@ -185,13 +176,11 @@ export function filterCards() {
             }
           });
 
-          // Afficher les excerpts des champs cachés
           const excerptDiv = card.querySelector(".excerpt");
           if (excerptDiv) {
             excerptDiv.innerHTML = excerpts.join('<div class="excerpt-separator"></div>');
           }
         } else {
-          // Restaurer les champs visibles si pas de recherche libre
           restoreVisibleFields(card);
           const excerptDiv = card.querySelector(".excerpt");
           if (excerptDiv) {
@@ -215,7 +204,7 @@ export function filterCards() {
     });
   }
 
-  // Mettre à jour le compteur
+  // compteur
   if (countSpan) {
     countSpan.textContent = visibleCount;
   }

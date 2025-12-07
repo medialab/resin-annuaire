@@ -13,12 +13,12 @@ export function highlightInVisibleFields(card, searchTerm) {
       element.dataset.originalText = originalText;
     }
 
-    // Vérifier si le terme commence un mot dans ce champ
+    // VÃ©rifier si le terme commence un mot dans ce champ
     if (!termStartsWord(originalText, searchTerm)) return;
 
-    // Surligner uniquement au début des mots (insensible à la casse et aux accents)
+    // Surligner uniquement au dÃ but des mots (insensible Ã  la casse et aux accents)
     const escapedTerm = searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const regex = new RegExp(`(^|[\\s'\\-\\(\\[,;.!?:«»""])(${escapedTerm})`, "gi");
+    const regex = new RegExp(`(^|[\\s'\\-\\(\\[,;.!?:""])(${escapedTerm})`, "gi");
 
     const result = originalText.replace(regex, '$1<mark>$2</mark>');
     element.innerHTML = result;
@@ -50,14 +50,14 @@ export function restoreVisibleFields(card) {
   }
 }
 
-// Extraire un extrait de texte autour d'un mot recherché (seulement pour les champs cachés)
+// Extraire un extrait de texte autour d'un mot recherchÃ© (seulement pour les champs cachÃ©s)
 export function extractHighlightedExcerpt(card, searchTerm) {
   const excerptLength = 120;
 
-  // Vérifier si le terme est dans les champs visibles
+  // VÃ©rifier si le terme est dans les champs visibles
   const nameLink = card.querySelector(".member-name a");
   if (nameLink && termStartsWord(nameLink.textContent, searchTerm)) {
-    return ""; // Ne pas créer d'excerpt
+    return ""; 
   }
 
   const organization = card.querySelector(".p__institution");
@@ -70,7 +70,7 @@ export function extractHighlightedExcerpt(card, searchTerm) {
     return "";
   }
 
-  // Compétences
+  // CompÃ©tences
   const skillsItems = card.querySelectorAll(".skills-list li");
   for (let li of skillsItems) {
     if (termStartsWord(li.textContent, searchTerm)) {
@@ -78,14 +78,12 @@ export function extractHighlightedExcerpt(card, searchTerm) {
     }
   }
 
-  // Si pas dans les champs visibles, chercher dans les champs cachés uniquement
+  // Si pas dans les champs visibles, chercher dans les champs cachÃ©s uniquement
   const fields = [];
 
-  // Si données complètes disponibles, ajouter les autres champs
   if (membersData) {
     let memberSlug = card.querySelector(".link-block")?.getAttribute("href");
     if (memberSlug) {
-      // Retirer l'extension .html si présente
       memberSlug = memberSlug.replace(/\.html$/, "");
 
       const member = membersData.find(m => {
@@ -103,23 +101,20 @@ export function extractHighlightedExcerpt(card, searchTerm) {
     }
   }
 
-  // Trouver le champ qui contient le terme au début d'un mot
+  // Trouver le champ qui contient le terme au dÃ©but d'un mot
   let foundField = null;
   let foundIndex = -1;
 
   for (const field of fields) {
     if (field.text && termStartsWord(field.text, searchTerm)) {
-      // Trouver la position exacte du terme
       const normalizedText = normalizeString(field.text);
       const normalizedTerm = normalizeString(searchTerm);
 
-      // Chercher toutes les positions où le terme commence un mot
-      const regex = new RegExp(`(^|[\\s'\\-\\(\\[,;.!?:«»""])${normalizedTerm}`, 'gi');
+      const regex = new RegExp(`(^|[\\s'\\-\\(\\[,;.!?:""])${normalizedTerm}`, 'gi');
       const match = regex.exec(normalizedText);
 
       if (match) {
         foundField = field;
-        // L'index est après le séparateur (si présent)
         foundIndex = match[1] ? match.index + match[1].length : match.index;
         break;
       }
@@ -133,11 +128,11 @@ export function extractHighlightedExcerpt(card, searchTerm) {
   const halfLength = Math.floor(excerptLength / 2);
   const normalizedTerm = normalizeString(searchTerm);
 
-  // Calculer les positions de début et fin de l'extrait
+  // Calculer les positions de dÃ©but et fin de l'extrait
   let start = Math.max(0, foundIndex - halfLength);
   let end = Math.min(originalText.length, foundIndex + normalizedTerm.length + halfLength);
 
-  // Ajuster si on est au début ou à la fin
+  // Ajuster si on est au dÃ©but ou Ã  la fin
   if (start === 0) {
     end = Math.min(originalText.length, excerptLength);
   } else if (end === originalText.length) {
@@ -147,13 +142,12 @@ export function extractHighlightedExcerpt(card, searchTerm) {
   // Extraire l'extrait
   let excerpt = originalText.substring(start, end);
 
-  // Ajouter des ellipses si nécessaire
   if (start > 0) excerpt = "..." + excerpt;
   if (end < originalText.length) excerpt = excerpt + "...";
 
-  // Surligner le mot recherché uniquement au début des mots (insensible à la casse et aux accents)
+  // Surligner le mot recherchÃ© uniquement au dÃ©but des mots (insensible Ã  la casse et aux accents)
   const escapedTerm = searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const regex = new RegExp(`(^|[\\s'\\-\\(\\[,;.!?:«»""])(${escapedTerm})`, "gi");
+  const regex = new RegExp(`(^|[\\s'\\-\\(\\[,;.!?:""])(${escapedTerm})`, "gi");
   excerpt = excerpt.replace(regex, '$1<mark>$2</mark>');
 
   return excerpt;
