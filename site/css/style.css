@@ -3,6 +3,7 @@
   --font: "Edgar", Georgia, sans-serif;
   --mono: "Geist Mono", monospace;
   --fw-mono: 500;
+  --fs-xsmall: 10px;
   --fs-small: 12px;
   --font-size: 14px;
   --fs-medium: 18px;
@@ -20,7 +21,7 @@
   --success: #11554b;
   --color-txt: #3E0D0F;
   --color-txt-light: #B49B9D;
-  --color-txt-light: #ada2a2;
+  --color-txt-medium: #8b2629;
   --color-bg: white;
   --color-bg-alpha: #fffffff2;
   --tree-w: 420px;
@@ -35,6 +36,7 @@
   --footer-h: 120px;
   --block-graph: 12px;
   --button-h: 20px;
+  --input-h: 30px;
   --border-light: 1px solid var(--color-100);
   --shadow: 3px 6px 10px -5px var(--color-100);
   --spacing: 12px;
@@ -2531,6 +2533,188 @@ body.graph-view #section__skills-tree #toggle-graph svg {
     display: none;
   }
 }
+.page-form {
+  max-width: var(--max-width-txt);
+  margin: 0 auto;
+  margin-bottom: 20vh;
+}
+.page-form h2 {
+  font-family: var(--font);
+  font-size: var(--fs-xbig);
+  font-weight: 600;
+  line-height: 1.1;
+  margin-top: calc(var(--spacing) * 3);
+  margin-bottom: calc(var(--spacing) * 1.5);
+}
+.page-form h3 {
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
+  color: var(--color-800);
+  font-size: var(--fs-medium);
+  border-bottom: 1px solid var(--color-100);
+  margin-bottom: calc(var(--spacing) * 1.5);
+  color: var(--accent-soft);
+  margin-top: calc(var(--spacing) * 6);
+  margin-bottom: calc(var(--spacing) * 1.5);
+  line-height: 1.4;
+}
+.page-form h4 {
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: var(--fs-medium);
+  margin-top: calc(var(--spacing) * 4);
+  margin-bottom: calc(var(--spacing) * 1.5);
+}
+.page-form hr {
+  height: calc(var(--spacing) * 1.5);
+  border: none;
+}
+.page-form p {
+  margin-top: calc(var(--spacing) * 1);
+  margin-bottom: calc(var(--spacing) * 1);
+}
+.page-form li {
+  margin-bottom: calc(var(--spacing) * 0.5);
+}
+.page-form p, .page-form li {
+  font-size: var(--fs-medium);
+}
+.page-form p a, .page-form li a {
+  color: var(--accent-soft);
+  -webkit-text-decoration: underline 2px var(--color-100);
+          text-decoration: underline 2px var(--color-100);
+  -webkit-text-decoration-skip-ink: none;
+          text-decoration-skip-ink: none;
+}
+.page-form p a:hover, .page-form li a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+  -webkit-text-decoration-skip: ink;
+          text-decoration-skip-ink: auto;
+}
+.page-form ul, .page-form ol {
+  margin-left: 4ch;
+  margin-bottom: calc(var(--spacing) * 1.5);
+}
+form#subscribe {
+  --border-input: 1px solid var(--color-txt-light);
+  --border-input-focus: 1px solid var(--color-txt-medium);
+  --border-outline: 3px solid var(--color-100);
+  border-top: var(--border-light);
+  border-bottom: var(--border-light);
+  margin-top: calc(var(--spacing) * 3);
+  padding: calc(var(--spacing) * 3) 0;
+}
+form#subscribe .form-group {
+  margin-bottom: calc(var(--spacing) * 3);
+}
+form#subscribe input[type=text],
+form#subscribe input[type=email],
+form#subscribe select {
+  height: var(--input-h);
+  border-radius: var(--radius-small);
+  border: var(--border-input);
+  width: 100%;
+  padding: 0px 1ch;
+  font-family: var(--font);
+  font-size: var(--font-size);
+  color: var(--color-txt);
+}
+form#subscribe input[type=text]:focus, form#subscribe input[type=text]:focus-visible,
+form#subscribe input[type=email]:focus,
+form#subscribe input[type=email]:focus-visible,
+form#subscribe select:focus,
+form#subscribe select:focus-visible {
+  border: var(--border-input-focus);
+  outline: var(--border-outline);
+}
+form#subscribe input[type=text].was-validated input[type=text]:invalid,
+form#subscribe input[type=text].was-validated input[type=email]:invalid,
+form#subscribe input[type=text].was-validated select:invalid,
+form#subscribe input[type=email].was-validated input[type=text]:invalid,
+form#subscribe input[type=email].was-validated input[type=email]:invalid,
+form#subscribe input[type=email].was-validated select:invalid,
+form#subscribe select.was-validated input[type=text]:invalid,
+form#subscribe select.was-validated input[type=email]:invalid,
+form#subscribe select.was-validated select:invalid {
+  border: 1px solid var(--color-error, #e74c3c);
+}
+form#subscribe input[type=text].was-validated input[type=text]:invalid:focus, form#subscribe input[type=text].was-validated input[type=text]:invalid:focus-visible,
+form#subscribe input[type=text].was-validated input[type=email]:invalid:focus,
+form#subscribe input[type=text].was-validated input[type=email]:invalid:focus-visible,
+form#subscribe input[type=text].was-validated select:invalid:focus,
+form#subscribe input[type=text].was-validated select:invalid:focus-visible,
+form#subscribe input[type=email].was-validated input[type=text]:invalid:focus,
+form#subscribe input[type=email].was-validated input[type=text]:invalid:focus-visible,
+form#subscribe input[type=email].was-validated input[type=email]:invalid:focus,
+form#subscribe input[type=email].was-validated input[type=email]:invalid:focus-visible,
+form#subscribe input[type=email].was-validated select:invalid:focus,
+form#subscribe input[type=email].was-validated select:invalid:focus-visible,
+form#subscribe select.was-validated input[type=text]:invalid:focus,
+form#subscribe select.was-validated input[type=text]:invalid:focus-visible,
+form#subscribe select.was-validated input[type=email]:invalid:focus,
+form#subscribe select.was-validated input[type=email]:invalid:focus-visible,
+form#subscribe select.was-validated select:invalid:focus,
+form#subscribe select.was-validated select:invalid:focus-visible {
+  border: 1px solid var(--color-error, #e74c3c);
+  outline: 3px solid rgba(231, 76, 60, 0.2);
+}
+form#subscribe label {
+  display: block;
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
+  font-size: var(--font-size);
+  margin-bottom: calc(var(--spacing) * 0.5);
+}
+form#subscribe .form-text {
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
+  font-size: var(--fs-xsmall);
+  line-height: 1.2;
+  color: var(--color-txt-light);
+  max-width: 76ch;
+  margin: calc(var(--spacing) * 0.5) 0;
+}
+form#subscribe .form-text small {
+  font-size: 1em;
+}
+form#subscribe textarea {
+  min-height: 200px;
+  border-radius: var(--radius-small);
+  border: var(--border-input);
+  width: 100%;
+  padding: var(--spacing) 1ch;
+  font-family: var(--font);
+  font-size: var(--font-size);
+  color: var(--color-txt);
+}
+form#subscribe textarea:focus, form#subscribe textarea:focus-visible {
+  border: var(--border-input-focus);
+  outline: var(--border-outline);
+}
+form#subscribe .btn-primary {
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
+  font-size: var(--fs-small);
+  height: var(--button-h);
+  border-radius: var(--radius-small);
+  padding: 0 1ch;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: var(--color-050);
+  background-color: var(--accent-soft);
+  font-size: var(--fs-medium);
+  height: calc(var(--button-h) * 1.5);
+  margin-top: calc(var(--spacing) * 4);
+}
+form#subscribe .btn-primary a {
+  text-decoration: none;
+}
+form#subscribe .btn-primary:hover {
+  background-color: var(--accent);
+}
+
 .page-toc ul {
   list-style: none;
   margin: 0;

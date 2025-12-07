@@ -3,7 +3,7 @@
     --mono: 'Geist Mono', monospace;
     --fw-mono: 500;
 
-    // --fs-xsmall: 10px;
+    --fs-xsmall: 10px;
     --fs-small: 12px;
     --font-size: 14px;
     --fs-medium: 18px;
@@ -27,7 +27,7 @@
 
     --color-txt: #3E0D0F;
     --color-txt-light: #B49B9D;
-    --color-txt-light: #ada2a2;
+    --color-txt-medium: #8b2629;
     --color-bg: white;
     --color-bg-alpha: #fffffff2;
 
@@ -45,6 +45,7 @@
   
     --block-graph: 12px;
     --button-h: 20px;
+    --input-h: 30px;
 
     --border-light: 1px solid var(--color-100);
     --shadow: 3px 6px 10px -5px var(--color-100);

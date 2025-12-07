@@ -1,0 +1,132 @@
+.page-form{
+    max-width: var(--max-width-txt);
+    margin: 0 auto;
+    margin-bottom: 20vh;
+
+    @include content-txt();
+
+    #back-to-top{
+        //  display: none;
+    }
+
+   
+
+
+    
+}
+
+
+@mixin input-text(){
+    font-family: var(--font);
+    font-size: var(--font-size);
+    color: var(--color-txt);
+}
+
+@mixin select-text(){
+    font-family: var(--mono);
+    font-weight: var(--fw-mono);
+    font-size: var(--font-size);
+    color: var(--color-txt);
+}
+
+form#subscribe{
+    --border-input: 1px solid var(--color-txt-light);
+    --border-input-focus: 1px solid var(--color-txt-medium);
+    --border-outline: 3px solid var(--color-100);
+
+    border-top: var(--border-light);
+    border-bottom: var(--border-light);
+    margin-top: calc(var(--spacing)*3);
+    padding: calc(var(--spacing)*3) 0;
+
+    .form-group{
+        margin-bottom: calc(var(--spacing)*3);
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    select{
+        height: var(--input-h);
+        border-radius: var(--radius-small);
+        border: var(--border-input);
+        width: 100%;
+        padding: 0px 1ch;
+
+        
+        @include input-text();
+
+        &:focus,
+        &:focus-visible{
+            border: var(--border-input-focus);
+            outline: var(--border-outline);
+        }
+
+         // Style pour les inputs invalides - uniquement après validation
+        &.was-validated {
+            input[type="text"]:invalid,
+            input[type="email"]:invalid,
+            select:invalid {
+                border: 1px solid var(--color-error, #e74c3c);
+
+                &:focus,
+                &:focus-visible {
+                    border: 1px solid var(--color-error, #e74c3c);
+                    outline: 3px solid rgba(231, 76, 60, 0.2);
+                }
+            }
+        }    
+        
+
+    }
+
+   
+
+ 
+
+    label{
+        display: block;
+        font-family: var(--mono);
+        font-weight: var(--fw-mono);
+        font-size: var(--font-size);
+        margin-bottom: calc(var(--spacing)*0.5);
+    }
+
+
+    .form-text{
+        font-family: var(--mono);
+        font-weight: var(--fw-mono);
+        font-size: var(--fs-xsmall);
+        line-height: 1.2;
+        color: var(--color-txt-light);
+        max-width: 76ch;
+        margin: calc(var(--spacing)*0.5) 0;
+
+        small{
+            font-size: 1em;
+        }
+    }
+
+
+    textarea{
+        min-height: 200px;
+        border-radius: var(--radius-small);
+        border: var(--border-input);
+        width: 100%;
+        padding: var(--spacing) 1ch;
+
+        
+        @include input-text();
+
+        &:focus,
+        &:focus-visible{
+            border: var(--border-input-focus);
+            outline: var(--border-outline);
+        }
+    }
+
+
+    .btn-primary{
+        @include button-bold-big();
+    }
+  
+}
