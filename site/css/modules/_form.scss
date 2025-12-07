@@ -4,15 +4,6 @@
     margin-bottom: 20vh;
 
     @include content-txt();
-
-    #back-to-top{
-        //  display: none;
-    }
-
-   
-
-
-    
 }
 
 
@@ -245,11 +236,34 @@ form#subscribe{
         font-size: var(--fs-medium);
         padding: 0 3px;
     }
+}
 
 
-    // SUBMIT -----------------------------
+// SUBMIT -----------------------------
+
+.page-form  .btn-primary{
+    @include button-bold-big();
+}
+
+
+// MODAL -----------------------------
+
+
+#modal--subscribe form#subscribe{
+    border: none;
+    margin: 0;
+    padding: 0;
+
+    .form-group{
+        margin-bottom: calc(var(--spacing) * 2);
+    }
+
+    label{
+        font-size: var(--fs-small);
+    }
 
     .btn-primary{
-        @include button-bold-big();
+        @include button-bold();
+        margin-top: calc(var(--spacing)*2.5);
     }
 }

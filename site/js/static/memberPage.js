@@ -277,23 +277,27 @@ const editButton = document.getElementById('edit-button');
 const headerEditButton = document.getElementById('header__edit-button');
 const modal = document.getElementById('modal--subscribe');
 const modalClose = modal ? modal.querySelector('.close') : null;
+const body = document.querySelector("body");
 
 // Ouvrir la modale au clic sur les boutons edit
 if (editButton && modal) {
   editButton.addEventListener('click', () => {
-    modal.style.display = 'grid';
+    // modal.style.display = 'grid';
+    body.classList.add("has-modal");
   });
 }
 
 if (headerEditButton && modal) {
   headerEditButton.addEventListener('click', () => {
-    modal.style.display = 'grid';
+    // modal.style.display = 'grid';
+    body.classList.add("has-modal");
   });
 }
 
 // Fermer la modale au clic sur le bouton close
 if (modalClose && modal) {
   modalClose.addEventListener('click', () => {
-    modal.style.display = 'none';
+    // modal.style.display = 'none';
+    body.classList.remove("has-modal");
   });
 }

@@ -3,10 +3,11 @@
         top: 0px;
         left: 0px;
         background-color: #210709d7;
+        background-color: rgba(255, 255, 255, 0.917);
         width: 100vw;
         height: 100vh;
         z-index: 10000;
-        display: grid;
+        display: none;
         align-self: center;
         align-items: center;
         justify-items: center;
@@ -14,14 +15,21 @@
 
         .modal-content{
 
-            width: 460px;
+            width: calc(100vw - var(--padding-body)*2);
+            max-width: 460px;
             height: 300px;
+            box-shadow: var(--shadow);
+
             border: var(--border-light);
             background-color: var(--color-bg);
             margin-bottom: 5vh;
             padding: calc(var(--padding-body)*3) calc(var(--padding-body)*2);
             position: relative;
             border-radius: var(--radius-small);
+
+            display: flex;
+            align-items: center;
+
 
         }
 
@@ -37,10 +45,13 @@
 
     
         }
-
-        .btn-primary{
-            @include button-bold();
-            margin-top: calc(var(--spacing)*2);
-        }
     }
    
+
+    body.has-modal{
+        overflow: hidden;
+
+        .modal{
+            display: grid;
+        }
+    }

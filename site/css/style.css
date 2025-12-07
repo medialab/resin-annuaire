@@ -315,23 +315,28 @@ body {
   top: 0px;
   left: 0px;
   background-color: rgba(33, 7, 9, 0.8431372549);
+  background-color: rgba(255, 255, 255, 0.917);
   width: 100vw;
   height: 100vh;
   z-index: 10000;
-  display: grid;
+  display: none;
   align-self: center;
   align-items: center;
   justify-items: center;
 }
 .modal .modal-content {
-  width: 460px;
+  width: calc(100vw - var(--padding-body) * 2);
+  max-width: 460px;
   height: 300px;
+  box-shadow: var(--shadow);
   border: var(--border-light);
   background-color: var(--color-bg);
   margin-bottom: 5vh;
   padding: calc(var(--padding-body) * 3) calc(var(--padding-body) * 2);
   position: relative;
   border-radius: var(--radius-small);
+  display: flex;
+  align-items: center;
 }
 .modal .close {
   font-size: var(--fs-xbig);
@@ -343,22 +348,12 @@ body {
 .modal .close:hover {
   color: var(--accent-soft);
 }
-.modal .btn-primary {
-  font-family: var(--mono);
-  font-weight: var(--fw-mono);
-  font-size: var(--fs-small);
-  height: var(--button-h);
-  border-radius: var(--radius-small);
-  padding: 0 1ch;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  color: var(--color-050);
-  background-color: var(--accent-soft);
-  margin-top: calc(var(--spacing) * 2);
+
+body.has-modal {
+  overflow: hidden;
 }
-.modal .btn-primary:hover {
-  background-color: var(--accent);
+body.has-modal .modal {
+  display: grid;
 }
 
 #site-header {
@@ -2403,9 +2398,6 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   top: 2px;
   left: 0px;
 }
-#member .modal {
-  display: none;
-}
 
 @media screen and (min-width: 820px) {
   .main__member #back-to-top {
@@ -2596,6 +2588,7 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   margin-left: 4ch;
   margin-bottom: calc(var(--spacing) * 1.5);
 }
+
 form#subscribe {
   --border-input: 1px solid var(--color-txt-light);
   --border-input-focus: 1px solid var(--color-txt-medium);
@@ -2906,7 +2899,8 @@ form#subscribe #photo + div + button:hover {
   background-color: var(--color-050);
   border-color: var(--color-300);
 }
-form#subscribe .btn-primary {
+
+.page-form .btn-primary {
   font-family: var(--mono);
   font-weight: var(--fw-mono);
   font-size: var(--fs-small);
@@ -2922,10 +2916,39 @@ form#subscribe .btn-primary {
   height: calc(var(--button-h) * 1.5);
   margin-top: calc(var(--spacing) * 4);
 }
-form#subscribe .btn-primary a {
+.page-form .btn-primary a {
   text-decoration: none;
 }
-form#subscribe .btn-primary:hover {
+.page-form .btn-primary:hover {
+  background-color: var(--accent);
+}
+
+#modal--subscribe form#subscribe {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+#modal--subscribe form#subscribe .form-group {
+  margin-bottom: calc(var(--spacing) * 2);
+}
+#modal--subscribe form#subscribe label {
+  font-size: var(--fs-small);
+}
+#modal--subscribe form#subscribe .btn-primary {
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
+  font-size: var(--fs-small);
+  height: var(--button-h);
+  border-radius: var(--radius-small);
+  padding: 0 1ch;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: var(--color-050);
+  background-color: var(--accent-soft);
+  margin-top: calc(var(--spacing) * 2.5);
+}
+#modal--subscribe form#subscribe .btn-primary:hover {
   background-color: var(--accent);
 }
 
