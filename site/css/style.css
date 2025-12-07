@@ -18,7 +18,7 @@
   --color-avatar: #DEB9A8;
   --accent-soft: #c83200;
   --accent: #ef5515;
-  --success: #11554b;
+  --color-error: #e74c3c;
   --color-txt: #3E0D0F;
   --color-txt-light: #B49B9D;
   --color-txt-medium: #8b2629;
@@ -2605,8 +2605,22 @@ form#subscribe {
   margin-top: calc(var(--spacing) * 3);
   padding: calc(var(--spacing) * 3) 0;
 }
+form#subscribe * {
+  position: relative;
+}
 form#subscribe .form-group {
-  margin-bottom: calc(var(--spacing) * 3);
+  margin-bottom: calc(var(--spacing) * 4);
+}
+form#subscribe label {
+  display: block;
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: var(--font-size);
+  margin-bottom: calc(var(--spacing) * 0.5);
+}
+form#subscribe label[for=display_email] {
+  font-weight: var(--fw-mono);
+  margin-top: calc(var(--spacing) * -3);
 }
 form#subscribe input[type=text],
 form#subscribe input[type=email],
@@ -2616,9 +2630,27 @@ form#subscribe select {
   border: var(--border-input);
   width: 100%;
   padding: 0px 1ch;
-  font-family: var(--font);
-  font-size: var(--font-size);
+  background-color: var(--color-bg);
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
+  font-size: var(--fs-small);
   color: var(--color-txt);
+}
+form#subscribe input[type=text]::-moz-placeholder, form#subscribe input[type=email]::-moz-placeholder, form#subscribe select::-moz-placeholder {
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
+  font-size: var(--fs-small);
+  color: var(--color-txt);
+  color: var(--color-txt-light);
+}
+form#subscribe input[type=text]::placeholder,
+form#subscribe input[type=email]::placeholder,
+form#subscribe select::placeholder {
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
+  font-size: var(--fs-small);
+  color: var(--color-txt);
+  color: var(--color-txt-light);
 }
 form#subscribe input[type=text]:focus, form#subscribe input[type=text]:focus-visible,
 form#subscribe input[type=email]:focus,
@@ -2628,43 +2660,71 @@ form#subscribe select:focus-visible {
   border: var(--border-input-focus);
   outline: var(--border-outline);
 }
-form#subscribe input[type=text].was-validated input[type=text]:invalid,
-form#subscribe input[type=text].was-validated input[type=email]:invalid,
-form#subscribe input[type=text].was-validated select:invalid,
-form#subscribe input[type=email].was-validated input[type=text]:invalid,
-form#subscribe input[type=email].was-validated input[type=email]:invalid,
-form#subscribe input[type=email].was-validated select:invalid,
-form#subscribe select.was-validated input[type=text]:invalid,
-form#subscribe select.was-validated input[type=email]:invalid,
-form#subscribe select.was-validated select:invalid {
-  border: 1px solid var(--color-error, #e74c3c);
+form#subscribe input[type=text].invalid-input,
+form#subscribe input[type=email].invalid-input,
+form#subscribe select.invalid-input {
+  border: 1px solid var(--color-error);
 }
-form#subscribe input[type=text].was-validated input[type=text]:invalid:focus, form#subscribe input[type=text].was-validated input[type=text]:invalid:focus-visible,
-form#subscribe input[type=text].was-validated input[type=email]:invalid:focus,
-form#subscribe input[type=text].was-validated input[type=email]:invalid:focus-visible,
-form#subscribe input[type=text].was-validated select:invalid:focus,
-form#subscribe input[type=text].was-validated select:invalid:focus-visible,
-form#subscribe input[type=email].was-validated input[type=text]:invalid:focus,
-form#subscribe input[type=email].was-validated input[type=text]:invalid:focus-visible,
-form#subscribe input[type=email].was-validated input[type=email]:invalid:focus,
-form#subscribe input[type=email].was-validated input[type=email]:invalid:focus-visible,
-form#subscribe input[type=email].was-validated select:invalid:focus,
-form#subscribe input[type=email].was-validated select:invalid:focus-visible,
-form#subscribe select.was-validated input[type=text]:invalid:focus,
-form#subscribe select.was-validated input[type=text]:invalid:focus-visible,
-form#subscribe select.was-validated input[type=email]:invalid:focus,
-form#subscribe select.was-validated input[type=email]:invalid:focus-visible,
-form#subscribe select.was-validated select:invalid:focus,
-form#subscribe select.was-validated select:invalid:focus-visible {
-  border: 1px solid var(--color-error, #e74c3c);
+form#subscribe input[type=text].invalid-input:focus, form#subscribe input[type=text].invalid-input:focus-visible,
+form#subscribe input[type=email].invalid-input:focus,
+form#subscribe input[type=email].invalid-input:focus-visible,
+form#subscribe select.invalid-input:focus,
+form#subscribe select.invalid-input:focus-visible {
+  border: 1px solid var(--color-error);
   outline: 3px solid rgba(231, 76, 60, 0.2);
 }
-form#subscribe label {
-  display: block;
+form#subscribe select {
   font-family: var(--mono);
   font-weight: var(--fw-mono);
-  font-size: var(--font-size);
-  margin-bottom: calc(var(--spacing) * 0.5);
+  font-size: var(--fs-small);
+  color: var(--color-txt);
+}
+form#subscribe .choices button,
+form#subscribe .svelte-jlcweo {
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
+  font-size: var(--fs-small);
+  color: var(--color-txt);
+}
+form#subscribe .choices {
+  position: absolute;
+  background-color: var(--color-bg);
+  z-index: 200;
+  width: 100%;
+}
+form#subscribe .selection {
+  padding: 0;
+  margin: 0;
+  margin-top: calc(var(--spacing) * 1);
+  gap: 1ch;
+}
+form#subscribe .selection ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+form#subscribe .selection li {
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
+  font-size: var(--fs-small);
+  height: var(--button-h);
+  border-radius: var(--radius-small);
+  padding: 0 1ch;
+  display: flex;
+  align-items: center;
+  color: var(--color-txt);
+  border: 1px solid var(--color-100);
+  background-color: var(--color-bg);
+  white-space: nowrap;
+}
+form#subscribe .selection li {
+  margin: 0;
+  flex-direction: row-reverse;
+  padding-right: 0;
+}
+form#subscribe .selection button:hover {
+  background: none !important;
 }
 form#subscribe .form-text {
   font-family: var(--mono);
@@ -2680,17 +2740,171 @@ form#subscribe .form-text small {
 }
 form#subscribe textarea {
   min-height: 200px;
+  max-width: 100%;
   border-radius: var(--radius-small);
   border: var(--border-input);
   width: 100%;
   padding: var(--spacing) 1ch;
-  font-family: var(--font);
-  font-size: var(--font-size);
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
+  font-size: var(--fs-small);
   color: var(--color-txt);
 }
 form#subscribe textarea:focus, form#subscribe textarea:focus-visible {
   border: var(--border-input-focus);
   outline: var(--border-outline);
+}
+form#subscribe textarea.invalid-input {
+  border: 1px solid var(--color-error, #e74c3c);
+}
+form#subscribe textarea.invalid-input:focus, form#subscribe textarea.invalid-input:focus-visible {
+  border: 1px solid var(--color-error, #e74c3c);
+  outline: 3px solid rgba(231, 76, 60, 0.2);
+}
+form#subscribe .form-text button {
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
+  font-size: var(--fs-small);
+  height: var(--button-h);
+  border-radius: var(--radius-small);
+  padding: 0 1ch;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid var(--color-300);
+  color: var(--accent-soft);
+  background-color: var(--color-bg);
+  cursor: pointer;
+  margin-top: calc(var(--spacing) * 1);
+}
+form#subscribe .form-text button:hover {
+  background-color: var(--color-050);
+  border-color: var(--accent-soft);
+  color: var(--accent-soft);
+}
+form#subscribe .form-text button:hover a {
+  color: var(--accent-soft);
+}
+form#subscribe .form-text + div {
+  border: var(--border-light);
+  padding: var(--padding-body);
+  border-radius: var(--radius-small);
+  margin-top: calc(var(--spacing) * 2);
+  margin-bottom: calc(var(--spacing) * 2);
+  box-shadow: var(--shadow);
+}
+form#subscribe .form-text + div h2 {
+  font-family: var(--font);
+  font-size: var(--fs-xbig);
+  font-weight: 600;
+  line-height: 1.1;
+  margin-top: calc(var(--spacing) * 3);
+  margin-bottom: calc(var(--spacing) * 1.5);
+}
+form#subscribe .form-text + div h3 {
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
+  color: var(--color-800);
+  font-size: var(--fs-medium);
+  border-bottom: 1px solid var(--color-100);
+  margin-bottom: calc(var(--spacing) * 1.5);
+  color: var(--accent-soft);
+  margin-top: calc(var(--spacing) * 6);
+  margin-bottom: calc(var(--spacing) * 1.5);
+  line-height: 1.4;
+}
+form#subscribe .form-text + div h4 {
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: var(--fs-medium);
+  margin-top: calc(var(--spacing) * 4);
+  margin-bottom: calc(var(--spacing) * 1.5);
+}
+form#subscribe .form-text + div hr {
+  height: calc(var(--spacing) * 1.5);
+  border: none;
+}
+form#subscribe .form-text + div p {
+  margin-top: calc(var(--spacing) * 1);
+  margin-bottom: calc(var(--spacing) * 1);
+}
+form#subscribe .form-text + div li {
+  margin-bottom: calc(var(--spacing) * 0.5);
+}
+form#subscribe .form-text + div p, form#subscribe .form-text + div li {
+  font-size: var(--fs-medium);
+}
+form#subscribe .form-text + div p a, form#subscribe .form-text + div li a {
+  color: var(--accent-soft);
+  -webkit-text-decoration: underline 2px var(--color-100);
+          text-decoration: underline 2px var(--color-100);
+  -webkit-text-decoration-skip-ink: none;
+          text-decoration-skip-ink: none;
+}
+form#subscribe .form-text + div p a:hover, form#subscribe .form-text + div li a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+  -webkit-text-decoration-skip: ink;
+          text-decoration-skip-ink: auto;
+}
+form#subscribe .form-text + div ul, form#subscribe .form-text + div ol {
+  margin-left: 4ch;
+  margin-bottom: calc(var(--spacing) * 1.5);
+}
+form#subscribe #photo {
+  height: calc(var(--input-h) * 1.5);
+  border-radius: var(--radius-small);
+  border: 1px dotted var(--color-300);
+  width: 100%;
+  padding-top: 11px;
+  padding-left: 2ch;
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
+  font-size: var(--fs-small);
+  color: var(--color-txt);
+}
+form#subscribe #photo::file-selector-button {
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
+  font-size: var(--fs-small);
+  height: var(--button-h);
+  border-radius: var(--radius-small);
+  padding: 0 1ch;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: var(--color-050);
+  background-color: var(--accent-soft);
+  outline: none !important;
+  border: none;
+  display: inline-flex;
+  margin-right: 2ch;
+}
+form#subscribe #photo::file-selector-button:hover {
+  background-color: var(--accent);
+}
+form#subscribe #photo + div {
+  margin-top: calc(var(--spacing) * 2);
+}
+form#subscribe #photo + div + button {
+  font-family: var(--mono);
+  font-weight: var(--fw-mono);
+  font-size: var(--fs-small);
+  height: var(--button-h);
+  border-radius: var(--radius-small);
+  padding: 0 1ch;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: var(--color-txt);
+  border: 1px solid var(--color-100);
+  background-color: var(--color-bg);
+  font-size: var(--fs-medium);
+  padding: 0 3px;
+}
+form#subscribe #photo + div + button:hover {
+  background-color: var(--color-050);
+  border-color: var(--color-300);
 }
 form#subscribe .btn-primary {
   font-family: var(--mono);

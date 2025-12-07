@@ -16,18 +16,17 @@
 }
 
 
+
+
 @mixin input-text(){
-    font-family: var(--font);
-    font-size: var(--font-size);
+    font-family: var(--mono);
+    font-weight: var(--fw-mono);
+    font-size: var(--fs-small);
     color: var(--color-txt);
 }
 
-@mixin select-text(){
-    font-family: var(--mono);
-    font-weight: var(--fw-mono);
-    font-size: var(--font-size);
-    color: var(--color-txt);
-}
+
+
 
 form#subscribe{
     --border-input: 1px solid var(--color-txt-light);
@@ -39,21 +38,49 @@ form#subscribe{
     margin-top: calc(var(--spacing)*3);
     padding: calc(var(--spacing)*3) 0;
 
+    * { position: relative; }
+
     .form-group{
-        margin-bottom: calc(var(--spacing)*3);
+        margin-bottom: calc(var(--spacing)*4);
     }
+
+    label{
+        display: block;
+        font-family: var(--mono);
+        
+        font-weight: 600;
+        font-size: var(--font-size);
+        margin-bottom: calc(var(--spacing)*0.5);
+
+        &[for="display_email"]{
+            font-weight: var(--fw-mono);
+            margin-top: calc(var(--spacing)*-3);
+        }
+        
+    }
+
+ 
     
+    // INPUTS  -----------------------------
+
+
     input[type="text"],
     input[type="email"],
     select{
+
         height: var(--input-h);
         border-radius: var(--radius-small);
         border: var(--border-input);
         width: 100%;
         padding: 0px 1ch;
+        background-color: var(--color-bg);
 
-        
         @include input-text();
+
+        &::placeholder{
+            @include input-text();
+            color: var(--color-txt-light);
+        }
 
         &:focus,
         &:focus-visible{
@@ -61,36 +88,60 @@ form#subscribe{
             outline: var(--border-outline);
         }
 
-         // Style pour les inputs invalides - uniquement après validation
-        &.was-validated {
-            input[type="text"]:invalid,
-            input[type="email"]:invalid,
-            select:invalid {
-                border: 1px solid var(--color-error, #e74c3c);
+        &.invalid-input {
+            border: 1px solid var(--color-error);
 
-                &:focus,
-                &:focus-visible {
-                    border: 1px solid var(--color-error, #e74c3c);
-                    outline: 3px solid rgba(231, 76, 60, 0.2);
-                }
+            &:focus,
+            &:focus-visible {
+                border: 1px solid var(--color-error);
+                outline: 3px solid rgba(231, 76, 60, 0.2);
             }
-        }    
-        
+        }
 
     }
 
+
+
+    // LISTES DE SELECTION & AUTO COMPLETE -----------------------------
+
+    select{
+        @include input-text();
+    }
+
+    .choices button, 
+    .svelte-jlcweo{
+        @include input-text();
+    }
+
+    .choices{
+        position: absolute;
+        background-color: var(--color-bg);
+        z-index: 200;
+        width: 100%;
+    }
+
+    .selection{
+        padding: 0;
+        margin: 0;
+        margin-top: calc(var(--spacing)*1);
+      
+        @include skills-tags();
+        gap: 1ch;
+
+        li{
+            margin: 0;
+            flex-direction: row-reverse;
+            padding-right: 0;
+        }
+
+        button:hover{ background: none!important; }
+       
+    }
    
 
- 
 
-    label{
-        display: block;
-        font-family: var(--mono);
-        font-weight: var(--fw-mono);
-        font-size: var(--font-size);
-        margin-bottom: calc(var(--spacing)*0.5);
-    }
 
+    // TEXT SMALL -----------------------------
 
     .form-text{
         font-family: var(--mono);
@@ -107,14 +158,18 @@ form#subscribe{
     }
 
 
+
+    // TEXT AREA -----------------------------
+
     textarea{
         min-height: 200px;
+        max-width: 100%;
         border-radius: var(--radius-small);
         border: var(--border-input);
         width: 100%;
         padding: var(--spacing) 1ch;
 
-        
+
         @include input-text();
 
         &:focus,
@@ -122,11 +177,79 @@ form#subscribe{
             border: var(--border-input-focus);
             outline: var(--border-outline);
         }
+
+        &.invalid-input {
+            border: 1px solid var(--color-error, #e74c3c);
+
+            &:focus,
+            &:focus-visible {
+                border: 1px solid var(--color-error, #e74c3c);
+                outline: 3px solid rgba(231, 76, 60, 0.2);
+            }
+        }
     }
 
+
+   
+  
+
+    // PREVISUALISATION -----------------------------
+
+    .form-text button{
+        @include button-color();
+        margin-top: calc(var(--spacing)*1);
+    }
+
+    .form-text + div{
+        border: var(--border-light);
+        @include content-txt();
+        padding: var(--padding-body);
+        border-radius: var(--radius-small);
+        margin-top: calc(var(--spacing)*2);
+        margin-bottom: calc(var(--spacing)*2);
+        box-shadow: var(--shadow);
+    }
+
+
+    // PHOTO -----------------------------
+
+
+    #photo{
+
+        height: calc(var(--input-h)*1.5);
+        border-radius: var(--radius-small);
+        border: 1px dotted var(--color-300);
+        width: 100%;
+        padding-top: 11px;
+        padding-left: 2ch;
+        
+        @include input-text();
+      
+        &::file-selector-button{
+            @include button-bold();
+            outline: none!important;
+            border: none;
+            display: inline-flex;
+            margin-right: 2ch;
+        }
+    }
+
+    #photo + div{
+        margin-top: calc(var(--spacing)*2);
+
+        
+    }
+
+    #photo + div + button{
+        @include button();
+        font-size: var(--fs-medium);
+        padding: 0 3px;
+    }
+
+
+    // SUBMIT -----------------------------
 
     .btn-primary{
         @include button-bold-big();
     }
-  
 }
