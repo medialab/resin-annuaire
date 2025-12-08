@@ -111,37 +111,37 @@ async function main() {
 
   fs.outputFileSync(
     path.join(baseUrl, "mentions-legales.html"),
-    legalPageTemplate.render()
+    legalPageTemplate.render(),
   );
 
   fs.outputFileSync(
     path.join(baseUrl, "s-inscrire.html"),
-    subscribePageTemplate.render({ apiUrl })
+    subscribePageTemplate.render({ apiUrl }),
   );
 
   fs.outputFileSync(
     path.join(baseUrl, "a-propos.html"),
-    projectPageTemplate.render()
+    projectPageTemplate.render(),
   );
 
   fs.outputFileSync(
     path.join(baseUrl, "liste-de-diffusion.html"),
-    newsletterPageTemplate.render()
+    newsletterPageTemplate.render(),
   );
 
   fs.outputFileSync(
     path.join(baseUrl, "ressources.html"),
-    ressourcesPageTemplate.render()
+    ressourcesPageTemplate.render(),
   );
 
   fs.outputFileSync(
     path.join(baseUrl, "404.html"),
-    notFoundPageTemplate.render()
+    notFoundPageTemplate.render(),
   );
 
   fs.copySync(
     path.join(siteUrl, "css", "style.css"),
-    path.join(baseUrl, "css", "style.css")
+    path.join(baseUrl, "css", "style.css"),
   );
 
   fs.copySync(path.join(siteUrl, "fonts"), path.join(baseUrl, "fonts"));
@@ -157,13 +157,13 @@ async function main() {
   for (const member of cleanMembers) {
     fs.outputFileSync(
       path.join(baseUrl, member.slug + ".html"),
-      memberPageTemplate.render({ member: member, apiUrl: apiUrl })
+      memberPageTemplate.render({ member: member, apiUrl: apiUrl }),
     );
   }
 
   const [categories, subcategories, subsubcategories] = findCategoryMetadata(
     idToLabel,
-    cleanMembers
+    cleanMembers,
   );
 
   fs.outputFileSync(
@@ -174,7 +174,7 @@ async function main() {
       subcategories: subcategories,
       subsubcategories: subsubcategories,
       total_members: cleanMembers.length,
-    })
+    }),
   );
 
   fs.outputJSONSync(
@@ -182,6 +182,6 @@ async function main() {
     cleanMembers,
     {
       spaces: 2,
-    }
+    },
   );
 }
