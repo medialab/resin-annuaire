@@ -3,9 +3,9 @@ image: docker:dind
 stages:
   - build
   - deploy
-#  - move_ns
+  - move_ns
   - deploy_pprd
-#  - move_ns_pprd
+  - move_ns_pprd
   - update
 
 variables:
@@ -54,7 +54,7 @@ move_ns:
   stage: move_ns
   script:
     - rancher login $RANCHER_URL --token $RANCHER_TOKEN --context $RANCHER_CONTEXT
-    - rancher namespaces move resin-sciencespo $RANCHER_CONTEXT
+    - #rancher namespaces move resin-sciencespo $RANCHER_CONTEXT
   environment:
     name: $CI_COMMIT_REF_SLUG
   only:
@@ -87,7 +87,7 @@ move_ns_pprd:
   stage: move_ns_pprd
   script:
     - rancher login $RANCHER_URL --token $RANCHER_TOKEN --context $RANCHER_CONTEXT
-    - rancher namespaces move resin-pprd-sciencespo $RANCHER_CONTEXT
+    - #rancher namespaces move resin-pprd-sciencespo $RANCHER_CONTEXT
   environment:
     name: $CI_COMMIT_REF_SLUG
   only:
