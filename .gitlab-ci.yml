@@ -5,6 +5,8 @@ stages:
   - deploy
   - move_ns
   - update
+  - deploy_pprd
+  - move_ns_pprd
 
 variables:
   IMAGE_NAME: $CI_REGISTRY/scpomedialab/resin-annuaire
