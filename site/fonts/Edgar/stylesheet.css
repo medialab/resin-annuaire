@@ -1,0 +1,89 @@
+@font-face {
+    font-family: 'Edgar';
+    src: url('Edgar-Italic.woff2') format('woff2'),
+        url('Edgar-Italic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Edgar';
+    src: url('Edgar-Light.woff2') format('woff2'),
+        url('Edgar-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Edgar';
+    src: url('Edgar-BlackItalic.woff2') format('woff2'),
+        url('Edgar-BlackItalic.woff') format('woff');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Edgar';
+    src: url('Edgar-Bold.woff2') format('woff2'),
+        url('Edgar-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Edgar';
+    src: url('Edgar-Black.woff2') format('woff2'),
+        url('Edgar-Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Edgar';
+    src: url('Edgar-BoldItalic.woff2') format('woff2'),
+        url('Edgar-BoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Edgar';
+    src: url('Edgar-Medium.woff2') format('woff2'),
+        url('Edgar-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Edgar';
+    src: url('Edgar-MediumItalic.woff2') format('woff2'),
+        url('Edgar-MediumItalic.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Edgar';
+    src: url('Edgar-LightItalic.woff2') format('woff2'),
+        url('Edgar-LightItalic.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Edgar';
+    src: url('Edgar-Regular.woff2') format('woff2'),
+        url('Edgar-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}

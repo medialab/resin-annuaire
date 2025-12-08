@@ -1,37 +1,128 @@
-{% extends "main.html" %} {% block body %}
-<div class="page-container">
-  <h1>Le projet RésIn</h1>
-    <h2>L’annuaire RésIn</h2>
-      <p>L’annuaire RésIn rassemble des profils d’ingénieur·e·s et de technicien·ne·s travaillant dans la recherche scientifique, et plus largement, de professionnel·le·s du soutien à la recherche. Il a pour vocation de valoriser et faire connaître les diverses compétences des professionnels des méthodes et outils au-delà de leurs institutions respectives.</p>
-    <h2>La hiérarchie de compétences RésIn</h2>
-      <p>L’annuaire permet de s’inscrire en tant que spécialiste de méthodes et/ou outils. Au moment de l’inscription, il est possible de choisir six spécialités parmi une ontologie de compétences évolutives, consultable <a href="https://github.com/medialab/resin-annuaire/blob/main/site/data/tree.yaml">sur le dépôt github du projet</a>.</p>
-      <p>Les expertises des professionnels de la recherche s’étendent à tous les domaines de recherche et à toutes les disciplines. Ainsi, la hiérarchie de compétences RésIn est ouverte à vos suggestions.</p>
-      <p>Elle se déploie sur 3 niveaux hiérarchiques, dont voici le premier :</p>
-      <ul>
-        <li>La <g>collecte</g> de données : APIs, entretiens, entrepôts de données, scraping, sondages, etc.</li>
-        <li>La <g>curation</g> de contenus : aspects légaux, chiffrement, enrichissement, documentation, nettoyage, sauvegarde des données, etc.</li>
-        <li>L’<g>analyse de données</g> : méthodes qualitative ou quantitative, spatiale, visuelle, statistique, traitement automatique du langage, etc.</li>
-        <li>Les <g>outils</g> : administration de systèmes d’information, bases de données, CAQDAS, Git, etc.</li>
-        <li>La <g>valorisation</g> : archivage, communication, gestion de projet, publication, écologie du numérique, etc.</li>
-      </ul>
-      <p>Lors de l’inscription, renseignez le champ “compétence supplémentaire” afin de nous informer d’un manque. Nous en prendrons connaissance et tâcherons de l’inclure afin de représenter au mieux la diversité de compétences de la communauté.</p>
-    <h2>Le projet et l’équipe RésIn</h2>
-      <p>Cet annuaire est l’un des résultats du <a href=https://linktr.ee/Resin_2025>projet RésIn</a>. L’idée est née du constat de la dispersion des ingénieur·e·s de recherche dans leurs laboratoires de recherche respectifs. Or, les métiers du soutien à la recherche occupent un rôle central dans la production de connaissances. Ceci est particulièrement le cas dans le contexte de la transition numérique, qui transforme nos sociétés et nos métiers. </p>
-      <p>C’est en ce sens que le projet RésIn vise à créer un réseau pluridisciplinaire de professionnels des méthodes de recherche, notamment au sein du collectif des institutions composant Sciences Po et l’Université Paris Cité.</p>
-      <p>C’est dans ce cadre que l’annuaire a vu le jour grâce au travail de Béatrice Mazoyer, Maud Royer, Marion Frelat, Audrey Baneyx, Sandra Hamiche, Diégo Antolinos Basso, de l’équipe technique du médialab et de la communauté d’ingénieur·es de Sciences Po.</p>
-      <p>Ainsi, lorsque vous vous inscrivez, c’est l’équipe du projet qui valide votre profil avant qu’il ne soit publié sur l’annuaire.</p>
-    <h2>Comité de pilotage du projet RésIn</h2>
-      <p>Flora Chanvril, chargée d’études statistiques au Cevipof, Sciences Po <br>
-      Suzanne Mpouli, correspondante Humanités numériques, Centre des humanités numériques, Université Paris-Cité <br>
-      Hugues Pecout, ingénieur d’études en sciences de l’information géographique à Géographie-Cités, CNRS <br>
-      Damien Cartron, ingénieur de recherche en sociologie, CNRS, Centre Maurice Halbwachs <br>
-      Anna Egea, ingénieure responsable des ressources et de l'ingénierie documentaire, CSO, Sciences Po</p>
+{% extends "main.html" %} 
+{% block main_attributes %} class="page-static"{% endblock %}
+{% block body %}
 
-      <p>Pour toute question concernant le projet ou le fonctionnement de l’annuaire, ou pour participer à nos activités, écrivez à audrey.baneyx@sciencespo.fr ou marine.chuberre@sciencespo.fr.</p>
-      <p>Le projet RésIn a bénéficié du soutien apporté par l’ANR et l’État au titre du programme d’Investissements d’avenir dans le cadre de l’IdEx Université Paris Cité (ANR-18-IDEX-0001) en 2023 et 2024.</p>
+<div id="sub-header" aria-hidden="true">
+  <div class="container">
+    <p><a href="/" aria-label="Retour à l’accueil">RésIn</a></p>
+    <p>&gt;</p>
+    <p><a href="#" aria-label="Retour en haut de la page">À propos</a></p>
+  </div>
+</div>
+
+
+    <h2> Le projet RésIn</h2>
+
+    <nav class="page-toc">
+      <ul>
+        <li><a href="#annuaire">L’annuaire RésIn</a></li>
+        <li><a href="#hierarchie-competences">La hiérarchie de compétences</a></li>
+        <li><a href="#projet">Le projet et l’équipe</a></li>
+        <li><a href="#en-savoir-plus">Pour en savoir plus</a></li>
+        <li><a href="#comite-pilotage">Comité de pilotage du projet</a></li>
+      </ul>
+
+      <button class="back-to-top"><a href="#">↑ Revenir en haut</a></button>
+    </nav>
+
+    </ul>
+
+      <h3 id="annuaire">L’annuaire RésIn</h3>
+
+      <p>L’annuaire RésIn rassemble des profils d’ingénieur·es et de technicien·nes travaillant dans la recherche scientifique, et plus largement, de professionnel·les du soutien à la recherche. Il vise à valoriser et faire connaître les diverses compétences des professionnel·les des méthodes au-delà de leurs institutions respectives.</p>
+    
+      <h3 id="hierarchie-competences">La hiérarchie de compétences RésIn</h3>
+
+      <p>L’annuaire permet de s’inscrire en tant que spécialiste de certaines méthodes et/ou outils. Au moment de l’inscription, il est possible de choisir six spécialités parmi un thésaurus de compétences évolutives, consultable <a href="https://github.com/medialab/resin-annuaire/blob/main/site/data/tree.yaml">sur le dépôt github du projet</a>.</p>
+      <p>Les expertises des professionnel·les de la recherche s’étendent à tous les domaines de recherche et à toutes les disciplines. Ainsi, la hiérarchie de compétences RésIn est ouverte à vos suggestions afin d’y inclure vos spécialités.</p>
+      <p>Elle se déploie sur 3 niveaux hiérarchiques, dont voici le premier &#8239;</p>
+
+      <ul>
+        <li><strong>La collecte de données&#8239;</strong>: APIs, entretiens, entrepôts de données, scraping, sondages, etc.</li>
+        <li><strong>La curation de contenus&#8239;</strong>: aspects légaux, chiffrement, enrichissement, documentation, nettoyage, sauvegarde des données, etc.</li>
+        <li><strong>L’analyse de données&#8239;</strong>: méthodes qualitative ou quantitative, spatiale, visuelle, statistique, traitement automatique du langage, etc.</li>
+        <li><strong>Les outilss&#8239;</strong>: administration de systèmes d’information, bases de données, CAQDAS, Git, etc.</li>
+        <li><strong>La valorisations&#8239;</strong>: archivage, communication, gestion de projet, publication, écologie du numérique, etc.</li>
+      </ul>
+      <p>Lors de l’inscription, renseignez le champ «&#8239;compétence supplémentaire&#8239;» afin de nous informer d’un manque. Nous en prendrons connaissance et ferons de notre mieux pour l’inclure afin de représenter la diversité des compétences de la communauté de recherche.</p>
+
+    <h3 id="projet">Le projet et l’équipe RésIn</h3>
+
+      <p>Cet annuaire est l’un des résultats du <a href="https://medialab.sciencespo.fr/activites/resin/">projet de mise en réseau — RésIn</a>. L’idée est née du constat de l’isolement des ingénieur·es de recherche dans leurs unités de recherche respectives. Or, les métiers du soutien à la recherche occupent un rôle central dans la production de connaissances, tout particulièrement dans le contexte de la transition numérique, qui transforme nos sociétés et nos métiers.</p>
+      <p>C’est en ce sens que le projet RésIn (pour <strong>Rés</strong>eau d’<strong>in</strong>génieur·es dans la recherche) vise rassembler des professionnel·les des méthodes de recherche, notamment au sein du collectif des institutions composant Sciences Po et l’Université Paris Cité.</p>
+
+
+      <p>C’est dans ce cadre que l’annuaire a vu le jour, grâce au travail de l’équipe du médialab (<a href="https://medialab.sciencespo.fr/equipe/beatrice-mazoyer/" target="_blank">Béatrice Mazoyer</a>, <a href="https://medialab.sciencespo.fr/equipe/marion-frelat/" target="_blank">Marion Frelat</a>, <a href="https://medialab.sciencespo.fr/equipe/audrey-baneyx/" target="_blank">Audrey Baneyx</a>, <a href="https://medialab.sciencespo.fr/equipe/sandra-hamiche/" target="_blank">Sandra Hamiche</a>, <a href="https://medialab.sciencespo.fr/equipe/robin-de-mourat/" target="_blank">Robin de Mourat</a>, <a href="https://medialab.sciencespo.fr/equipe/diego-antolinos-basso/" target="_blank">Diégo Antolinos Basso</a>, <a href="https://medialab.sciencespo.fr/equipe/marine-chuberre/" target="_blank">Marine Chuberre</a>) et avec l’appui de prestataires externes (Maud Royer et <a href="https://julie-blanc.fr/" target="_blank">Julie Blanc</a>).</p>
+
+
+      <p>Ainsi, lorsque vous vous inscrivez, c’est l’équipe du projet qui valide votre profil avant qu’il ne soit publié sur l’annuaire.</p>
       <p>
+        L’inscription sur cet annuaire est gratuite, il est possible de modifier les informations renseignées et/ou de supprimer facilement son profil à tout instant, dans le respect du RGPD.</p>
+
+
+        <h4>Pourquoi rejoindre le réseau des ingénieur·es et professionnel·les des méthodes de recherche du projet RésIn&#8239;?</h4>
+
+
+        <ul>
+          <li>Valoriser et visibiliser ses compétences et contributions à la recherche (collecte de données, curation de contenus, analyse de données, outils, valorisation)&#8239;;</li>
+          <li>Se former collectivement et de manière transdisciplinaire&#8239;;</li>
+          <li>Partager des ressources et réflexions méthodologiques sur ses activités respectives et tendre vers une approche réflexive du métier d’ingénieur·e dans la recherche.</li>
+        </ul>
+
+      <p>Pour faire vivre ce réseau d’ingénieur·es et professionnel·les des méthodes dans la recherche, parlez-en autour de vous et invitez vos collègues à rejoindre l’annuaire RésIn&#8239;!</p>
+    
+    <hr>
+      <p>Au-delà de l’annuaire, le projet RésIn se décline en différentes initiatives destinées à animer ce réseau pluridisciplinaire&#8239;:</p>
+
+    <ul>
+      <li>
+        Le <a href="https://metsem.hypotheses.org/" target="_blank">séminaire de méthodologie (MetSem)</a> est un lieu d’échanges et de partages autour de la pluralité des outils et des méthodes des sciences humaines et sociales.
+      </li>
+      <li>L’<a href="https://medialab.sciencespo.fr/activites/metat-atelier-de-methodes/" target="_blank">atelier de méthodes (MetAt)</a> est un atelier d’accompagnement aux méthodes de recherche : chaque mois, un créneau de trois heures pour vous aider à résoudre les difficultés d’ordre méthodologique que vous rencontrez dans le cadre d’un projet scientifique. Cet atelier est réplicable dans vos unités de recherche à l’aide d’un <a href="https://drive.google.com/file/d/1i6Bz2WEvRQxM4bl3Kv_xuf5qV1BbTwUP/view?usp=share_link" target="_blank">toolkit</a>.</li>
+      <li>La <a href="https://groupes.renater.fr/sympa/info/projet-resin" target="_blank">liste de diffusion</a> du projet permet de diffuser les actualités du projet et des réflexions sur le quotidien des ingénieur·es dans la recherche. </li>
+      <li>Des journées d’échange ont contribué à structurer le réseau, comme le 5 juin 2024 <a href="https://medialab.sciencespo.fr/actu/evenement-resin/" target="_blank">«&#8239;Vers un réseau de professionnels des méthodes&#8239;: discutons du rôle de l'ingénieur de recherche&#8239;»</a> à Sciences Po et le 6 février 2025, <a href="https://medialab.sciencespo.fr/actu/retour-en-images-sur-levenement-du-6-fevrier-2025-faire-communaute-dans-lingenierie-de-recherche/" target="_blank">«&#8239;Faire communauté dans l'ingénierie de recherche&#8239;»</a> à l’Université Paris Cité ou encore une université d’hiver autour des usages de l’intelligence artificielle dans nos métiers en décembre 2025.</li>
+
+      
+
+    </ul>
+
+    <h3 id="en-savoir-plus">Pour en savoir plus sur le projet RésIn</h3>
+    <ul>
+      <li><a href="https://medialab.sciencespo.fr/actu/portraits-dencadrantes-2-metat/" target="_blank">Des portraits d’encadrant·es de l’atelier de méthodes</a></li>
+      <li><a href="https://vimeo.com/showcase/11568714" target="_blank">Les enregistrements des précédentes séances des séminaires de méthodes</a></li>
+      <li><a href="https://medialab.sciencespo.fr/actu/un-episode-du-podcast-code4thought-consacre-au-metier-dingenieur-dans-la-recherche/" target="_blank">Une discussion autour du projet RésIn dans le podcast Code4Thought</a></li>
+      <li><a href="https://medialab.sciencespo.fr/activites/resin/" target="_blank">Une présentation du projet RésIn</a></li>
+      <li><a href="https://linktr.ee/Resin_2025" target="_blank">Une page Linktree qui rassemble des ressources liées au projet RésIn</a></li>
+      <!-- <li><a href="" target="_blank"></a></li> -->
+
+    </ul>
+
+
+    <h3 id="comite-pilotage">Comité de pilotage du projet RésIn 2025</h3>
+
+    <ul>
+      <li><a href="https://resin.medialab.sciences-po.fr/flora-chanvril" target="_blank">Flora Chanvril</a>, chargée d’études statistiques au Cevipof, Sciences Po </li>
+      <li><a href="https://geoteca.u-paris.fr/chn/" target="_blank">Suzanne Mpouli</a>, correspondante Humanités numériques, Centre des humanités numériques, Université Paris-Cité </li>
+      <li><a href="https://resin.medialab.sciences-po.fr/hugues-pecout" target="_blank">Hugues Pecout</a>, ingénieur d’études en sciences de l’information géographique à Géographie-Cités, CNRS</li>
+      <li><a href="http://damiencartron.free.fr" target="_blank">Damien Cartron</a>, ingénieur de recherche en sociologie, CNRS, Centre Maurice Halbwachs </li>
+      <li><a href="https://resin.medialab.sciences-po.fr/anna-egea" target="_blank">Anna Egea</a>, ingénieure responsable des ressources et de l'ingénierie documentaire, CSO, Sciences Po</li>
+    </ul>
+    
+    
+      <p>Pour toute question concernant le projet ou le fonctionnement de l’annuaire, ou pour participer à nos activités, écrivez à <strong>audrey.baneyx@sciencespo.fr</strong> ou <strong>marine.chuberre@sciencespo.fr</strong>.</p>
+      
+
+      <hr>
+      <div id="anr">
           <img src="https://medialab.sciencespo.fr/static/Logo_investir_lavenir-2_72c6266c-c812-4a49-b2b2-1a4c195f15c7.png" width="100" height="100"/>
           <img src="https://medialab.sciencespo.fr/static/706_UniversiteParisCite_idex-706x675_20988cd1-86eb-42b7-9df6-c0c9639ef8ce.jpg" width="100" height="100"/>
-      </p>
-</div>
+        <p>Le projet RésIn a bénéficié du soutien apporté par l’ANR et l’État au titre du programme d’Investissements d’avenir dans le cadre de l’IdEx Université Paris Cité (ANR-18-IDEX-0001) en 2023 et 2024.</p> 
+    
+    </div>
+{% endblock %}
+
+
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript" src="js/toc.js"></script>
 {% endblock %}

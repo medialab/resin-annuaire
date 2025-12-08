@@ -1,36 +1,61 @@
 <div class="cards-wrapper">
   {% for item in items %}
-  <a href="{{ item.slug }}" class="card">
+
+  <div class="card" data-skills="{{ item.allSkills | join(',') }}">
     <div class="inner-card">
       <div class="card-image">
-        {% if item.imageFilePath %}
-        <img class="card-photo" src="{{ item.imageFilePath }}" />
-        {% endif %}
+        {% if item.avatar %}
         <img
-          src="{{ item.donutFilePath }}"
-          alt="Avatar de {{ item.firstName }} {{ item.lastName }}"
+          class="card-photo"
+          src="{{ item.avatar | replace('http://', 'https://') }}"
         />
-        <div class="tooltip">
-          {% for skill in item.firstSkills %}
-          <div class="skill-group">
-            <div
-              class="skill-color {{ skill | replace(' ', '-') | lower }}"
-            ></div>
-            <div class="skill-text">{{skill}}</div>
-          </div>
-          {% endfor %}
+        {% else %}
+        <div class="avatar-default">{% include "resin-logo-icon.svg" %}</div>
+        {% endif %}
+      </div>
+
+      <div class="skills-block">
+        {% for skill in item.firstSkills %}
+        <div
+          class="skill-group"
+          data-field="{{ skill | replace(' ', '-') | lower }}"
+        >
+          <div class="skill-color"></div>
+          <div class="skill-text">{{skill}}</div>
         </div>
+        {% endfor %}
       </div>
-      <div class="card-text">
-        <h5 class="member-name">{{ item.firstName }} {{ item.lastName }}</h5>
-        <h6 class="institution">{{ item.organization }}</h6>
-        <p>
-          {% if item.shortBio %} {{ item.shortBio }} {% else %}
-          {{item.lastSkills}} {% endif %}
-        </p>
+
+      <div class="title">
+        <h2 class="member-name">
+          <a href="{{ item.slug }}">{{ item.firstName }} {{ item.lastName }}</a>
+        </h2>
+        <p class="p__institution">{{ item.organization }}</p>
       </div>
+
+      {% if item.shortBio %}
+      <p class="p__short-bio">{{ item.shortBio }}</p>
+      {% endif %}
+
+      <div class="excerpt"></div>
+
+      <div class="skills-list">
+        <ul>
+          {% for skill in item.lastSkillsWithIds %}
+          <li
+            data-skill-id="{{ skill.id }}"
+            data-field="{{ skill.field | lower }}"
+          >
+            {{ skill.label }}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <a class="link-block" target="_blank" href="{{ item.slug }}"></a>
     </div>
-  </a>
+  </div>
+
   {% else %}
   <div>Pas de résultat</div>
   {% endfor %}

@@ -15,9 +15,7 @@ const {
   formatSkills,
   formatLanguages,
 } = require("../src/format.js");
-const { palette } = require("./donutUtils.js");
 const { findCategoryMetadata } = require("./searchTableUtils.js");
-const { loadImages, createDonut } = require("./buildImages.js");
 const http = require("node:http");
 const https = require("node:https");
 
@@ -33,8 +31,9 @@ const siteUrl = path.join(__dirname, "..", "site");
 const imageFolder = path.join("assets", "images");
 const baseImageFolder = path.join(baseUrl, imageFolder);
 
-const apiUrl = process.env.API_URL || "http://localhost:8000";
-const internalApiUrl = process.env.INTERNAL_API_URL || "http://localhost:8000";
+const apiUrl = process.env.API_URL || "https://resin.medialab.sciences-po.fr";
+const internalApiUrl =
+  process.env.INTERNAL_API_URL || "https://resin.medialab.sciences-po.fr";
 
 // Configure nunjucks
 const env = nunjucks.configure(path.join(siteUrl, "templates"));
@@ -44,6 +43,8 @@ const memberPageTemplate = env.getTemplate("memberPage.html");
 const legalPageTemplate = env.getTemplate("legalPage.html");
 const subscribePageTemplate = env.getTemplate("subscribePage.html");
 const projectPageTemplate = env.getTemplate("projectPage.html");
+const newsletterPageTemplate = env.getTemplate("newsletter.html");
+const ressourcesPageTemplate = env.getTemplate("ressourcesPage.html");
 const notFoundPageTemplate = env.getTemplate("notFoundPage.html");
 
 const httpAgent = new http.Agent({ keepAlive: true });
@@ -105,90 +106,77 @@ async function main() {
 
   fs.outputFileSync(
     path.join(baseUrl, "mentions-legales.html"),
-    legalPageTemplate.render(),
+    legalPageTemplate.render()
   );
 
   fs.outputFileSync(
     path.join(baseUrl, "s-inscrire.html"),
-    subscribePageTemplate.render({ apiUrl }),
+    subscribePageTemplate.render({ apiUrl })
   );
 
   fs.outputFileSync(
-    path.join(baseUrl, "projet.html"),
-    projectPageTemplate.render(),
+    path.join(baseUrl, "a-propos.html"),
+    projectPageTemplate.render()
+  );
+
+  fs.outputFileSync(
+    path.join(baseUrl, "liste-de-diffusion.html"),
+    newsletterPageTemplate.render()
+  );
+
+  fs.outputFileSync(
+    path.join(baseUrl, "ressources.html"),
+    ressourcesPageTemplate.render()
   );
 
   fs.outputFileSync(
     path.join(baseUrl, "404.html"),
-    notFoundPageTemplate.render(),
+    notFoundPageTemplate.render()
   );
 
   fs.copySync(
-    path.join(siteUrl, "css", "styles.css"),
-    path.join(baseUrl, "css", "styles.css"),
+    path.join(siteUrl, "css", "style.css"),
+    path.join(baseUrl, "css", "style.css")
   );
 
-  fs.copySync(
-    path.join(siteUrl, "css", "normalize.css"),
-    path.join(baseUrl, "css", "normalize.css"),
-  );
+  fs.copySync(path.join(siteUrl, "fonts"), path.join(baseUrl, "fonts"));
 
-  fs.copySync(
-    path.join(siteUrl, "data", "logo_resin_transparent_backround_annuaire.png"),
-    path.join(baseImageFolder, "logo-resin.png"),
-  );
+  fs.copySync(path.join(siteUrl, "js", "static"), path.join(baseUrl, "js"));
 
-  const membersWithAvatar = await Promise.all(
-    cleanMembers.map(async (member) => {
-      let imageFileName = await loadImages(member, baseImageFolder);
-      let donutFileName = await createDonut(
-        imageFileName,
-        member,
-        baseImageFolder,
-      );
-      if (imageFileName) {
-        return {
-          ...member,
-          donutFilePath: path.join(imageFolder, donutFileName),
-          imageFilePath: path.join(imageFolder, imageFileName),
-        };
-      }
-      return {
-        ...member,
-        donutFilePath: path.join(imageFolder, donutFileName),
-        imageFilePath: "",
-      };
-    }),
-  );
+  // Copy favicon if it exists
+  const faviconPath = path.join(siteUrl, "data", "favicon.ico");
+  if (fs.existsSync(faviconPath)) {
+    fs.copySync(faviconPath, path.join(baseUrl, "favicon.ico"));
+  }
 
-  for (const member of membersWithAvatar) {
+  for (const member of cleanMembers) {
     fs.outputFileSync(
       path.join(baseUrl, member.slug + ".html"),
-      memberPageTemplate.render({ member: member, apiUrl: apiUrl }),
+      memberPageTemplate.render({ member: member, apiUrl: apiUrl })
     );
   }
 
   const [categories, subcategories, subsubcategories] = findCategoryMetadata(
     idToLabel,
-    membersWithAvatar,
-    palette,
+    cleanMembers
   );
 
   fs.outputFileSync(
     path.join(baseUrl, "index.html"),
     searchPageTemplate.render({
-      items: sortBy(membersWithAvatar, ["rank"]),
+      items: sortBy(cleanMembers, ["rank"]),
       categories: categories,
       subcategories: subcategories,
       subsubcategories: subsubcategories,
-    }),
+      total_members: cleanMembers.length,
+    })
   );
 
   fs.outputJSONSync(
     path.join(baseUrl, "assets", "members.json"),
-    membersWithAvatar,
+    cleanMembers,
     {
       spaces: 2,
-    },
+    }
   );
 }

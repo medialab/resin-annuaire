@@ -29,6 +29,18 @@ exports.formatMembers = function (formItems, idToLanguage, idToLabel) {
       cleanItem[remap[key]] = item[key];
     }
 
+    // Créer lastSkillsWithIds avant de modifier allSkills
+    cleanItem.lastSkillsWithIds = cleanItem.allSkills.map((item) => {
+      const skillData = idToLabel[item];
+      const fieldId = skillData.path[0];
+      const fieldLabel = idToLabel[fieldId].label;
+      return {
+        id: item,
+        label: skillData.label,
+        field: fieldLabel
+      };
+    });
+
     cleanItem.lastSkills = cleanItem.allSkills
       .map((item) => {
         return idToLabel[item].label;
@@ -49,6 +61,57 @@ exports.formatMembers = function (formItems, idToLanguage, idToLabel) {
       path.forEach((id) => skillSet.add(id));
     });
     cleanItem.allSkills = Array.from(skillSet);
+
+    // Structure hiérarchique des compétences pour affichage
+    const structuredSkills = {};
+    cleanItem.allSkills.forEach((skillId) => {
+      const skillData = idToLabel[skillId];
+      if (!skillData) return;
+
+      const path = skillData.path;
+      if (path.length === 1) {
+        // C'est un field (niveau 1)
+        if (!structuredSkills[skillId]) {
+          structuredSkills[skillId] = {
+            label: skillData.label,
+            skills: {}
+          };
+        }
+      } else if (path.length === 2) {
+        // C'est une skill (niveau 2)
+        const fieldId = path[0];
+        if (!structuredSkills[fieldId]) {
+          structuredSkills[fieldId] = {
+            label: idToLabel[fieldId].label,
+            skills: {}
+          };
+        }
+        structuredSkills[fieldId].skills[skillId] = {
+          label: skillData.label,
+          details: []
+        };
+      } else if (path.length === 3) {
+        // C'est un detail (niveau 3)
+        const fieldId = path[0];
+        const skillId2 = path[1];
+        if (!structuredSkills[fieldId]) {
+          structuredSkills[fieldId] = {
+            label: idToLabel[fieldId].label,
+            skills: {}
+          };
+        }
+        if (!structuredSkills[fieldId].skills[skillId2]) {
+          structuredSkills[fieldId].skills[skillId2] = {
+            label: idToLabel[skillId2].label,
+            details: []
+          };
+        }
+        structuredSkills[fieldId].skills[skillId2].details.push({
+          label: skillData.label
+        });
+      }
+    });
+    cleanItem.structuredSkills = structuredSkills;
 
     cleanItem.languages = cleanItem.languages.map((lang) => {
       return idToLanguage[lang];

@@ -1,0 +1,13 @@
+$desktop: "screen and (min-width: 1460px)";
+$medium-up: "screen and (min-width: 1080px)";
+$medium: "screen and (max-width: 1080px)";
+$medium-up: "screen and (min-width: 1080px)";
+$small-up: "screen and (min-width: 820px)";
+$small: "screen and (max-width: 820px)";
+$phone: "screen and (max-width: 560px)";
+
+
+@media #{$medium}{
+   
+
+}

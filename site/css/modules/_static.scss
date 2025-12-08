@@ -1,0 +1,126 @@
+.page-static{
+
+   
+    .main--container{
+        margin: 0 auto;
+        position: relative;
+    }
+
+    @include content-txt();
+
+    h2{
+        margin-top: calc(var(--spacing)*4);
+    }
+
+
+    position: relative;
+
+
+    #sub-header .container{
+        max-width: calc(var(--col-left) + var(--padding-body)*2 + var(--max-width-txt));
+        a{ 
+            color: var(--color-txt); 
+            &:hover{ color: var(--accent-soft); }
+        }
+    }
+   
+
+
+
+}
+
+@media #{$small}{
+    .page-static  .page-toc{
+        display: none;
+    }
+}
+
+
+@media #{$small-up}{
+    .page-static {
+        .main--container{
+            max-width: calc(var(--col-left) + var(--padding-body)*2 + var(--max-width-txt));
+            padding-left: calc(var(--col-left) + var(--padding-body)*3);
+        }
+
+        #back-to-top{ display: none; }
+
+        .page-toc{
+            height: calc(100vh - var(--header-h-small) - var(--subheader-h) - var(--spacing)*3);
+            height: calc(100dvh - var(--header-h-small) - var(--subheader-h) - var(--spacing)*3);
+            position: sticky;
+            top: calc(var(--header-h) + var(--subheader-h));
+            margin-bottom: -100px;
+            width: 1px;
+    
+            ul{
+                position: relative;
+                width: var(--col-left);
+                left: calc(var(--col-left)*-1 + var(--padding-body)*-2);
+                top: calc(var(--spacing)*-0.5);
+                padding-top: calc(var(--spacing)*5);
+            }
+
+            .back-to-top{
+                position: absolute;
+                bottom: 0px;
+                left: calc(var(--col-left)*-1 + var(--padding-body)*-2);
+            }
+        
+        }
+    }
+    
+   
+}
+
+
+
+
+/// SPECIFIC
+/// 
+
+
+.page-newsletter{
+    .main--container{
+        margin: 0 auto;
+        position: relative;
+        max-width: var(--max-width-txt);
+    }
+
+    @include content-txt();
+
+    h2{
+        margin-top: calc(var(--spacing)*4);
+    }
+    #btn--newsletter{
+        @include button-bold-big();
+    }
+}
+
+
+
+
+#anr{
+    
+    margin-top: calc(var(--spacing)*6);
+    display: flex;
+    gap: 20px;
+
+    @media #{$small}{
+        flex-wrap: wrap;
+        p{ width: 100%;}
+    }
+
+    img{
+        width: 80px;
+        height: 80px;
+    }
+    p{
+        font-family: var(--mono);
+        font-size: var(--fs-small);
+        font-weight: var(--fw-mono);
+        // font-style: italic;
+        max-width: 74ch;
+
+    }
+}

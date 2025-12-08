@@ -1,89 +1,207 @@
-{% extends "main.html" %} {% block body %}
-<div class="member-wrapper">
-  <div class="member-container">
-    <div class="member-header">
-      <div class="member-image">
-        {% if member.imageFilePath %}
-        <img class="member-photo" src="{{ member.imageFilePath }}" />
-        {% endif %}
-        <img
-          src="{{ member.donutFilePath }}"
-          alt="Avatar de {{ member.firstName }} {{ member.lastName }}"
-        />
-      </div>
+{% extends "main.html" %} {% block main_attributes %} class="main__member"{%
+endblock %} {% block body %}
 
-      <div class="member-summary">
-        <h5 class="member-name">
-          {{ member.firstName }} {{ member.lastName }} {% if member.pronouns
-          %}<span> ({{member.pronouns}}) </span>{% endif %}
-        </h5>
-        {% if member.shortBio %}
-        <p class="short-bio">&laquo; {{ member.shortBio }} &raquo;</p>
-        {% endif %}{% if member.languages|length %}
-        <p>
-          <span class="metadata-title">Langues</span>&nbsp;: {{ member.languages
-          | join(", ") }}
-        </p>
-        {% endif %} {% if member.organization %}
-        <p>
-          <span class="metadata-title">Institution</span>&nbsp;: {{
-          member.organization }}{% if member.city %}, {{ member.city }}{% endif
-          %}
-        </p>
-        {% endif %} {% if member.email %}
-        <div class="contact-line">
-          <button id="contact-button">Contacter</button>
-          <div class="contact-info">{{ member.email | replace("@", "¤")}}</div>
-        </div>
-        {% endif %}
+<div id="sub-header" aria-hidden="true">
+  <div class="container">
+    <p><a href="/" aria-label="Retour à l’accueil">Ingénieur·es</a></p>
+    <p>&gt;</p>
+    <p>
+      <a href="#" aria-label="Retour en haut de la page"
+        >{{ member.firstName }} {{ member.lastName }}</a
+      >
+    </p>
+  </div>
+</div>
+
+<div id="member">
+  <header class="member__header">
+    <figure>
+      {% if member.avatar %}
+      <img
+        class="member-photo"
+        src="{{ member.avatar | replace('http://', 'https://') }}"
+      />
+      {% else %}
+      <div class="avatar-default">{% include "resin-logo-icon.svg" %}</div>
+      {% endif %}
+    </figure>
+
+    <div class="skills-block">
+      {% for skill in member.firstSkills %}
+      <div
+        class="skill-group"
+        data-field="{{ skill | replace(' ', '-') | lower }}"
+      >
+        <div class="skill-color" aria-hidden="true"></div>
+        <div class="skill-text">{{skill}}</div>
       </div>
+      {% endfor %}
     </div>
-    <div class="member-long-bio">
-      {% if member.longBio %}
-      <p>{% markdown %} {{ member.longBio }} {% endmarkdown %}</p>
+
+    <button
+      id="header__edit-button"
+      aria-label="Je suis cette personne, je&nbsp;souhaite modifier mon profil"
+    >
+      <span class="icon" aria-hidden="true"
+        >{% include "icons/edit.svg" %}</span
+      >
+      <span class="text"
+        >Je suis cette personne, je souhaite modifier mon profil</span
+      >
+    </button>
+
+    <div class="title-group">
+      <h2>
+        {{ member.firstName }} {{ member.lastName }} {% if member.pronouns
+        %}<small> ({{member.pronouns}}) </small>{% endif %}
+      </h2>
+      {% if member.organization %}
+      <p class="organization">
+        {{ member.organization }}{% if member.city %}, {{ member.city }}{% endif
+        %}
+      </p>
       {% endif %}
     </div>
 
-    <p>
-      <span class="form-key">Compétences</span>&nbsp;: {{ member.lastSkills}}
-    </p>
+    <section class="member__hero">
+      {% if member.shortBio %}
+      <p class="short-bio">{{ member.shortBio }}</p>
+      {% endif %}
 
-    {% if member.title %}
-    <p>
-      <span class="form-key">Fonction / Titre</span>&nbsp;: {{ member.title }}
-    </p>
+      <div class="skills-list">
+        <ul>
+          {% for skill in member.lastSkills.split(', ') %}
+          <li>{{ skill }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </section>
+  </header>
+
+  <div class="col-left">
+    <section class="member__details">
+      {% if member.organization %}
+      <dl class="organization">
+        <dt>Institution</dt>
+        <dd>
+          {{ member.organization }}{% if member.city %}, {{ member.city }}{%
+          endif %}
+        </dd>
+      </dl>
+      {% endif %} {% if member.title %}
+      <dl class="title">
+        <dt>Fonction / Titre</dt>
+        <dd>{{ member.title }}</dd>
+      </dl>
+      {% endif %} {% if member.languages|length %}
+      <dl class="languages">
+        <dt>Langues</dt>
+        <dd>{{ member.languages | join(", ") }}</dd>
+      </dl>
+      {% endif %} {% if member.email %}
+      <input type="checkbox" id="btn-contact" name="contacter" />
+      <label for="btn-contact">Contacter</label>
+
+      <div id="contact__group">
+        <p id="contact">{{ member.email | replace("@", "¤")}}</p>
+        <button
+          id="contact__copy"
+          aria-label="Copier mail dans le presse papier"
+        >
+          <span class="icon">{% include "icons/copy.svg" %}</span>
+        </button>
+        <p class="success">
+          {% include "icons/check-mark.svg" %} Copié dans le presse papier
+        </p>
+      </div>
+
+      {% endif %}
+    </section>
+
+    {% set tocCount = 0 %} {% if member.longBio %}{% set tocCount = tocCount + 1
+    %}{% endif %} {% if member.education %}{% set tocCount = tocCount + 1 %}{%
+    endif %} {% if member.publications %}{% set tocCount = tocCount + 1 %}{%
+    endif %} {% if member.activities %}{% set tocCount = tocCount + 1 %}{% endif
+    %} {% if member.responsabilities %}{% set tocCount = tocCount + 1 %}{% endif
+    %} {% if member.distinctions %}{% set tocCount = tocCount + 1 %}{% endif %}
+    {% if tocCount > 1 %}
+    <nav class="member__toc">
+      <ul aria-label="Table des matières">
+        {% if member.longBio %}
+        <li><a href="#long-bio">Biographie</a></li>
+        {% endif %} {% if member.education %}
+        <li><a href="#education">Formation</a></li>
+        {% endif %} {% if member.publications %}
+        <li><a href="#publications">Publications</a></li>
+        {% endif %} {% if member.activities %}
+        <li><a href="#activities">Autres activités</a></li>
+        {% endif %} {% if member.responsabilities %}
+        <li><a href="#responsabilities">Responsabilités</a></li>
+        {% endif %} {% if member.distinctions %}
+        <li><a href="#distinctions">Distinctions</a></li>
+        {% endif %}
+      </ul>
+      <button class="back-to-top"><a href="#">↑ Revenir en haut</a></button>
+    </nav>
+    {% endif %}
+  </div>
+
+  <section class="member__content">
+    {% if member.longBio %}
+    <div class="content-section" id="long-bio">
+      <h3>Biographie</h3>
+      <div class="text-md">
+        {% markdown %} {{ member.longBio }} {% endmarkdown %}
+      </div>
+    </div>
     {% endif %} {% if member.education %}
-    <p>
-      <span class="form-key">Formation</span>&nbsp;: {% markdown %} {{
-      member.education }} {% endmarkdown %}
-    </p>
+    <div class="content-section" id="education">
+      <h3>Formation</h3>
+      <div class="text-md">
+        {% markdown %} {{ member.education }} {% endmarkdown %}
+      </div>
+    </div>
     {% endif %} {% if member.publications %}
-    <p>
-      <span class="form-key">Publications</span>&nbsp;: {% markdown %} {{
-      member.publications }} {%endmarkdown %}
-    </p>
+    <div class="content-section" id="publications">
+      <h3>Publications</h3>
+      <div class="text-md">
+        {% markdown %} {{ member.publications }} {%endmarkdown %}
+      </div>
+    </div>
     {% endif %} {% if member.activities %}
-    <p>
-      <span class="form-key">Autres activités</span>&nbsp;: {{ member.activities
-      }}
-    </p>
+    <div class="content-section" id="activities">
+      <h3>Autres activités</h3>
+      <div class="text-md">
+        {% markdown %} {{ member.activities }} {%endmarkdown %}
+      </div>
+    </div>
     {% endif %} {% if member.responsabilities %}
-    <p>
-      <span class="form-key">Responsabilités</span>&nbsp;: {{
-      member.responsabilities }}
-    </p>
+    <div class="content-section" id="responsabilities">
+      <h3>Responsabilités</h3>
+      <div class="text-md">
+        {% markdown %} {{ member.activities }} {%endmarkdown %}
+      </div>
+    </div>
     {% endif %} {% if member.distinctions %}
-    <p>
-      <span class="form-key">Distinctions</span>&nbsp;: {{ member.distinctions
-      }}
-    </p>
+    <div class="content-section" id="distinctions">
+      <h3>Distinctions</h3>
+      <div class="text-md">
+        {% markdown %} {{ member.activities }} {%endmarkdown %}
+      </div>
+    </div>
     {% endif %}
 
     <button id="edit-button">
-      Je suis cette personne, je souhaite modifier mon profil
+      <span class="icon" aria-hidden="true"
+        >{% include "icons/edit.svg" %}</span
+      >
+      <span class="text"
+        >Je suis cette personne, <br />je souhaite modifier mon profil</span
+      >
     </button>
+  </section>
 
-    <div class="modal-background"></div>
+  <div class="modal" id="modal--subscribe">
     <div class="modal-content">
       <span class="close">&times;</span>
       <resin-formulaire-edit apiServer="{{ apiUrl }}" />
@@ -92,5 +210,7 @@
 </div>
 
 {% endblock %} {% block scripts %}
+<script type="text/javascript" src="js/header.js"></script>
 <script type="text/javascript" src="js/edit.js"></script>
+<script type="text/javascript" src="js/memberPage.js"></script>
 {% endblock %}

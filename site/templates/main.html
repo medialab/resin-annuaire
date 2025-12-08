@@ -2,33 +2,54 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="/css/styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <title>{% block title %} Annuaire RésIn {% endblock %}</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="stylesheet" href="/fonts/Edgar/stylesheet.css">
+    <link rel="stylesheet" href="/fonts/GeistMono/stylesheet.css">
   </head>
   <body>
-    <div class="container">
-      <nav class="navbar">
-        <a href="/" id="home">
-          <img
-            class="main-logo"
-            src="/assets/images/logo-resin.png"
-            alt="Logo du projet ResIn"
-          />
+
+    <input type="checkbox" id="input-toggle-menu">
+
+    <header id="site-header">
+      <h1 id="site-title">
+        <a href="/" aria-label="Retour à l’accueil">
+          {% include "resin-logo.svg" %}
+          <span style="display: none;">RésIn, Réseau d’ingénieur·es</span>
         </a>
-        <ul class="nav-links">
-          <li><a href="projet">À propos</a></li>
-          <li><a href="s-inscrire">Créer son profil</a></li>
+      </h1>
+
+      <label id="toggle-menu" for="input-toggle-menu">
+        {% include "icons/menu.svg" %}
+      </label>
+      <nav id="site-nav">
+        <ul class="main">
+          <li id="back-to-home"><a href="/">Accueil</a></li>
+          <li><a href="/a-propos">À propos</a></li>
+          <li><a href="/liste-de-diffusion">Liste de diffusion</a></li>
+          <li><a href="/ressources">Ressources</a></li>
+          <li class="btn"><a href="s-inscrire">Créer son profil</a></li>
         </ul>
       </nav>
-      {% block body %}{% endblock %} {% include "footer.html" %}
-    </div>
-    {% block scripts %}{% endblock %}
+    </header>
+
+    
+    <main{% block main_attributes %}{% endblock %}>
+      <div class="main--container">
+        {% block body %}{% endblock %}
+        <div></div>
+        <button id="back-to-top" class="back-to-top"><a href="#">↑ Revenir en haut</a></button>
+      </div>
+    </main>
+
+    {% include "footer.html" %}
+
+    {% block scripts %}
+    <script type="module" src="js/search.js"></script>
+    <script type="text/javascript" src="js/header.js"></script>
+    {% endblock %}
   </body>
 </html>

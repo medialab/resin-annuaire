@@ -1,0 +1,93 @@
+body {
+
+    // --skill-1-dark:   #0751ab;
+    --skill-1-dark:   #064593;
+    --skill-1:        #0A6FEA;
+    --skill-1-light:  #85b9fa;
+    --skill-1-xlight: #e7f1fe;
+    
+    --skill-2-dark:   #11554b;
+    --skill-2:        #1B8A7A;
+    --skill-2-light:  #2ad5bb;
+    --skill-2-xlight: #eafbf8;
+    
+    --skill-3-dark:   #5c1485;
+    --skill-3:        #A030E0;
+    --skill-3-light:  #cc90ee;
+    --skill-3-xlight: #f5e9fc;
+    
+    --skill-4-dark:   #804f00;
+    --skill-4:        #D88600;
+    --skill-4-light:  #ffce80;
+    --skill-4-xlight: #ffebcc;
+    
+    --skill-5-dark:   #7a1f43;
+    --skill-5:        #B22E63;
+    --skill-5-light:  #e085a9;
+    --skill-5-xlight: #f5d6e2;
+
+
+
+  
+
+// --skill-1: #0A6FEA;
+// --skill-2: #1B8A7A;
+// --skill-3: #A030E0;
+// --skill-4: #D88600;
+// --skill-5: #B22E63;
+
+
+
+}
+
+
+
+@for $i from 1 through 5 {
+    [data-field="field-#{$i}"] {
+      --color-dark: var(--skill-#{$i}-dark);
+      --color: var(--skill-#{$i});
+      --color-light: var(--skill-#{$i}-light);
+      --color-xlight: var(--skill-#{$i}-xlight);
+    }
+  }
+
+
+
+
+[data-field="analyse"]{
+  --color-dark: var(--skill-1-dark);
+  --color: var(--skill-1);
+  --color-light: var(--skill-1-light);
+  --color-xlight: var(--skill-1-xlight);
+}
+
+
+[data-field="collecte"]{
+  --color-dark: var(--skill-2-dark);
+  --color: var(--skill-2);
+  --color-light: var(--skill-2-light);
+  --color-xlight: var(--skill-2-xlight);
+}
+
+[data-field="curation"]{
+  --color-dark: var(--skill-3-dark);
+      --color: var(--skill-3);
+      --color-light: var(--skill-3-light);
+      --color-xlight: var(--skill-3-xlight);
+}
+
+
+[data-field="outils"]{
+  --color-dark: var(--skill-4-dark);
+  --color: var(--skill-4);
+  --color-light: var(--skill-4-light);
+  --color-xlight: var(--skill-4-xlight);
+}
+
+
+[data-field="valorisation"]{
+  --color-dark: var(--skill-5-dark);
+  --color: var(--skill-5);
+  --color-light: var(--skill-5-light);
+  --color-xlight: var(--skill-5-xlight);
+}
