@@ -1,4 +1,4 @@
-function findCategoryMetadata(idToLabel, members, palette) {
+function findCategoryMetadata(idToLabel, members) {
   let metadata = [[], [], []];
 
   let memberCounts = {};
@@ -19,7 +19,10 @@ function findCategoryMetadata(idToLabel, members, palette) {
     for (const [id, obj] of Object.entries(idToLabel)) {
       const path = obj.path;
       // Si le path commence par le skillId, c'est un enfant
-      if (path.includes(parseInt(skillId)) && !children.includes(parseInt(id))) {
+      if (
+        path.includes(parseInt(skillId)) &&
+        !children.includes(parseInt(id))
+      ) {
         const skillIdIndex = path.indexOf(parseInt(skillId));
         // Si skillId n'est pas le dernier élément du path, c'est un parent
         if (skillIdIndex < path.length - 1) {
@@ -43,7 +46,6 @@ function findCategoryMetadata(idToLabel, members, palette) {
         childrenIds: childrenIds,
         height: memberCounts[skillId],
         count: memberCounts[skillId],
-        color: palette[idToLabel[obj.path[0]].label],
       });
     }
   }

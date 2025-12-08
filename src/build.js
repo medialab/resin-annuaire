@@ -15,9 +15,8 @@ const {
   formatSkills,
   formatLanguages,
 } = require("../src/format.js");
-const { palette } = require("./donutUtils.js");
 const { findCategoryMetadata } = require("./searchTableUtils.js");
-const { loadImages, createDonut } = require("./buildImages.js");
+const { loadImages } = require("./buildImages.js");
 const http = require("node:http");
 const https = require("node:https");
 
@@ -34,7 +33,8 @@ const imageFolder = path.join("assets", "images");
 const baseImageFolder = path.join(baseUrl, imageFolder);
 
 const apiUrl = process.env.API_URL || "https://resin.medialab.sciences-po.fr";
-const internalApiUrl = process.env.INTERNAL_API_URL || "https://resin.medialab.sciences-po.fr";
+const internalApiUrl =
+  process.env.INTERNAL_API_URL || "https://resin.medialab.sciences-po.fr";
 
 // Configure nunjucks
 const env = nunjucks.configure(path.join(siteUrl, "templates"));
@@ -57,18 +57,6 @@ async function main() {
   fs.removeSync(baseUrl);
   await fs.ensureDir(baseImageFolder);
 
-  // TEMPORAIRE : Lecture depuis fichiers JSON locaux
-  // TODO : Rétablir les appels API plus tard
-  const fieldsTree = fs.readJSONSync(path.join(siteUrl, "assets", "fields.json"));
-  const skillsTree = fs.readJSONSync(path.join(siteUrl, "assets", "skills.json"));
-  const idToLabel = formatSkills(fieldsTree, skillsTree);
-
-  const membersJson = fs.readJSONSync(path.join(siteUrl, "assets", "members.json"));
-
-  const languagesJson = fs.readJSONSync(path.join(siteUrl, "assets", "languages.json"));
-  const idToLanguage = formatLanguages(languagesJson);
-
-  /* ORIGINAL CODE (à rétablir pour utiliser l'API) :
   const fieldsTreeResponse = await fetch(internalApiUrl + "/api/fields/", {
     agent,
   });
@@ -86,7 +74,6 @@ async function main() {
   const languages = await fetch(internalApiUrl + "/api/languages/", { agent });
   const languagesJson = await languages.json();
   const idToLanguage = formatLanguages(languagesJson);
-  */
 
   let cleanMembers = formatMembers(membersJson, idToLanguage, idToLabel);
 
@@ -120,48 +107,42 @@ async function main() {
 
   fs.outputFileSync(
     path.join(baseUrl, "mentions-legales.html"),
-    legalPageTemplate.render(),
+    legalPageTemplate.render()
   );
 
   fs.outputFileSync(
     path.join(baseUrl, "s-inscrire.html"),
-    subscribePageTemplate.render({ apiUrl }),
+    subscribePageTemplate.render({ apiUrl })
   );
 
   fs.outputFileSync(
     path.join(baseUrl, "a-propos.html"),
-    projectPageTemplate.render(),
+    projectPageTemplate.render()
   );
 
   fs.outputFileSync(
     path.join(baseUrl, "liste-de-diffusion.html"),
-    newsletterPageTemplate.render(),
+    newsletterPageTemplate.render()
   );
 
   fs.outputFileSync(
     path.join(baseUrl, "ressources.html"),
-    ressourcesPageTemplate.render(),
+    ressourcesPageTemplate.render()
   );
 
   fs.outputFileSync(
     path.join(baseUrl, "404.html"),
-    notFoundPageTemplate.render(),
+    notFoundPageTemplate.render()
   );
 
   fs.copySync(
     path.join(siteUrl, "css", "style.css"),
-    path.join(baseUrl, "css", "style.css"),
+    path.join(baseUrl, "css", "style.css")
   );
 
-  fs.copySync(
-    path.join(siteUrl, "fonts"),
-    path.join(baseUrl, "fonts"),
-  );
+  fs.copySync(path.join(siteUrl, "fonts"), path.join(baseUrl, "fonts"));
 
-  fs.copySync(
-    path.join(siteUrl, "js", "static"),
-    path.join(baseUrl, "js"),
-  );
+  fs.copySync(path.join(siteUrl, "js", "static"), path.join(baseUrl, "js"));
 
   // Copy favicon if it exists
   const faviconPath = path.join(siteUrl, "data", "favicon.ico");
@@ -172,37 +153,29 @@ async function main() {
   const membersWithAvatar = await Promise.all(
     cleanMembers.map(async (member) => {
       let imageFileName = await loadImages(member, baseImageFolder);
-      let donutFileName = await createDonut(
-        imageFileName,
-        member,
-        baseImageFolder,
-      );
       if (imageFileName) {
         return {
           ...member,
-          donutFilePath: path.join(imageFolder, donutFileName),
           imageFilePath: path.join(imageFolder, imageFileName),
         };
       }
       return {
         ...member,
-        donutFilePath: path.join(imageFolder, donutFileName),
         imageFilePath: "",
       };
-    }),
+    })
   );
 
   for (const member of membersWithAvatar) {
     fs.outputFileSync(
       path.join(baseUrl, member.slug + ".html"),
-      memberPageTemplate.render({ member: member, apiUrl: apiUrl }),
+      memberPageTemplate.render({ member: member, apiUrl: apiUrl })
     );
   }
 
   const [categories, subcategories, subsubcategories] = findCategoryMetadata(
     idToLabel,
-    membersWithAvatar,
-    palette,
+    membersWithAvatar
   );
 
   fs.outputFileSync(
@@ -213,7 +186,7 @@ async function main() {
       subcategories: subcategories,
       subsubcategories: subsubcategories,
       total_members: membersWithAvatar.length,
-    }),
+    })
   );
 
   fs.outputJSONSync(
@@ -221,6 +194,6 @@ async function main() {
     membersWithAvatar,
     {
       spaces: 2,
-    },
+    }
   );
 }
