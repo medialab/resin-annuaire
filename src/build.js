@@ -16,7 +16,6 @@ const {
   formatLanguages,
 } = require("../src/format.js");
 const { findCategoryMetadata } = require("./searchTableUtils.js");
-const { loadImages } = require("./buildImages.js");
 const http = require("node:http");
 const https = require("node:https");
 
@@ -150,23 +149,7 @@ async function main() {
     fs.copySync(faviconPath, path.join(baseUrl, "favicon.ico"));
   }
 
-  const membersWithAvatar = await Promise.all(
-    cleanMembers.map(async (member) => {
-      let imageFileName = await loadImages(member, baseImageFolder);
-      if (imageFileName) {
-        return {
-          ...member,
-          imageFilePath: path.join(imageFolder, imageFileName),
-        };
-      }
-      return {
-        ...member,
-        imageFilePath: "",
-      };
-    })
-  );
-
-  for (const member of membersWithAvatar) {
+  for (const member of cleanMembers) {
     fs.outputFileSync(
       path.join(baseUrl, member.slug + ".html"),
       memberPageTemplate.render({ member: member, apiUrl: apiUrl })
@@ -175,23 +158,23 @@ async function main() {
 
   const [categories, subcategories, subsubcategories] = findCategoryMetadata(
     idToLabel,
-    membersWithAvatar
+    cleanMembers
   );
 
   fs.outputFileSync(
     path.join(baseUrl, "index.html"),
     searchPageTemplate.render({
-      items: sortBy(membersWithAvatar, ["rank"]),
+      items: sortBy(cleanMembers, ["rank"]),
       categories: categories,
       subcategories: subcategories,
       subsubcategories: subsubcategories,
-      total_members: membersWithAvatar.length,
+      total_members: cleanMembers.length,
     })
   );
 
   fs.outputJSONSync(
     path.join(baseUrl, "assets", "members.json"),
-    membersWithAvatar,
+    cleanMembers,
     {
       spaces: 2,
     }

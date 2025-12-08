@@ -17,7 +17,10 @@ endblock %} {% block body %}
   <header class="member__header">
     <figure>
       {% if member.avatar %}
-      <img class="member-photo" src="{{ member.avatar }}" />
+      <img
+        class="member-photo"
+        src="{{ member.avatar | replace('http://', 'https://') }}"
+      />
       {% else %}
       <div class="avatar-default">{% include "resin-logo-icon.svg" %}</div>
       {% endif %}

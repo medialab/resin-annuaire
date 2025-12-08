@@ -5,7 +5,10 @@
     <div class="inner-card">
       <div class="card-image">
         {% if item.avatar %}
-        <img class="card-photo" src="{{ item.avatar }}" />
+        <img
+          class="card-photo"
+          src="{{ item.avatar | replace('http://', 'https://') }}"
+        />
         {% else %}
         <div class="avatar-default">{% include "resin-logo-icon.svg" %}</div>
         {% endif %}
