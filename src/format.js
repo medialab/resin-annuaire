@@ -2,8 +2,14 @@ const pandemonium = require("pandemonium");
 const { range } = require("lodash");
 
 const remap = require("./remap.js");
+const backendHost = process.env.BACKEND_HOST || "localhost";
 
-exports.formatMembers = function (formItems, idToLanguage, idToLabel) {
+exports.formatMembers = function (
+  formItems,
+  idToLanguage,
+  idToLabel,
+  internalApiUrl
+) {
   let genderCounter = 0;
   formItems.forEach((item) => {
     if (item.gender == "M") {
@@ -12,7 +18,7 @@ exports.formatMembers = function (formItems, idToLanguage, idToLabel) {
   });
   const ranks = pandemonium.shuffle(range(formItems.length - genderCounter));
   const ranksM = pandemonium.shuffle(
-    range(formItems.length - genderCounter, formItems.length),
+    range(formItems.length - genderCounter, formItems.length)
   );
   genderCounter = 0;
   cleanItems = formItems.map((item, index) => {
@@ -29,6 +35,15 @@ exports.formatMembers = function (formItems, idToLanguage, idToLabel) {
       cleanItem[remap[key]] = item[key];
     }
 
+    if (cleanItem.avatar) {
+      if (cleanItem.avatar.includes(backendHost)) {
+        cleanItem.avatar = cleanItem.avatar.replace(
+          /^https?:\/\/[^\/]*\//,
+          internalApiUrl + "/"
+        );
+      }
+    }
+
     // Créer lastSkillsWithIds avant de modifier allSkills
     cleanItem.lastSkillsWithIds = cleanItem.allSkills.map((item) => {
       const skillData = idToLabel[item];
@@ -37,7 +52,7 @@ exports.formatMembers = function (formItems, idToLanguage, idToLabel) {
       return {
         id: item,
         label: skillData.label,
-        field: fieldLabel
+        field: fieldLabel,
       };
     });
 
@@ -51,8 +66,8 @@ exports.formatMembers = function (formItems, idToLanguage, idToLabel) {
       new Set(
         cleanItem.allSkills.map((item) => {
           return idToLabel[idToLabel[item].path[0]].label;
-        }),
-      ),
+        })
+      )
     );
 
     let skillSet = new Set();
@@ -74,7 +89,7 @@ exports.formatMembers = function (formItems, idToLanguage, idToLabel) {
         if (!structuredSkills[skillId]) {
           structuredSkills[skillId] = {
             label: skillData.label,
-            skills: {}
+            skills: {},
           };
         }
       } else if (path.length === 2) {
@@ -83,12 +98,12 @@ exports.formatMembers = function (formItems, idToLanguage, idToLabel) {
         if (!structuredSkills[fieldId]) {
           structuredSkills[fieldId] = {
             label: idToLabel[fieldId].label,
-            skills: {}
+            skills: {},
           };
         }
         structuredSkills[fieldId].skills[skillId] = {
           label: skillData.label,
-          details: []
+          details: [],
         };
       } else if (path.length === 3) {
         // C'est un detail (niveau 3)
@@ -97,17 +112,17 @@ exports.formatMembers = function (formItems, idToLanguage, idToLabel) {
         if (!structuredSkills[fieldId]) {
           structuredSkills[fieldId] = {
             label: idToLabel[fieldId].label,
-            skills: {}
+            skills: {},
           };
         }
         if (!structuredSkills[fieldId].skills[skillId2]) {
           structuredSkills[fieldId].skills[skillId2] = {
             label: idToLabel[skillId2].label,
-            details: []
+            details: [],
           };
         }
         structuredSkills[fieldId].skills[skillId2].details.push({
-          label: skillData.label
+          label: skillData.label,
         });
       }
     });

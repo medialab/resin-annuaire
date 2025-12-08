@@ -74,7 +74,12 @@ async function main() {
   const languagesJson = await languages.json();
   const idToLanguage = formatLanguages(languagesJson);
 
-  let cleanMembers = formatMembers(membersJson, idToLanguage, idToLabel);
+  let cleanMembers = formatMembers(
+    membersJson,
+    idToLanguage,
+    idToLabel,
+    internalApiUrl
+  );
 
   await buildJavascript({
     entry: {
