@@ -1,19 +1,14 @@
-{% extends "main.html" %} 
-{% block main_attributes %} class="page-form"{% endblock %}
-{% block body %}
+{% extends "main.html" %} {% block main_attributes %} class="page-form"{%
+endblock %} {% block body %}
 <div class="page-container">
-  <h2>Créer son profil RésIn
-  </h2>
+  <h2>Créer son profil RésIn</h2>
   <p>
     La condition pour créer un profil est d'être un·e professionnel·le des
-    méthodes de recherche
+    méthodes de recherche. Une fois votre profil créé et validé, il sera publié
+    sur l'annuaire RésIn. Vous pourrez le mettre à jour régulièrement.
   </p>
   <resin-formulaire apiServer="{{ apiUrl }}" />
 </div>
-{% endblock %}
-
-
-{% block scripts %}
-{{ super() }}
+{% endblock %} {% block scripts %} {{ super() }}
 <script type="text/javascript" src="js/form.js"></script>
 {% endblock %}
