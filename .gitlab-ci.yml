@@ -3,10 +3,10 @@ image: docker:dind
 stages:
   - build
   - deploy
-  - move_ns
-  - update
+#  - move_ns
   - deploy_pprd
-  - move_ns_pprd
+#  - move_ns_pprd
+  - update
 
 variables:
   IMAGE_NAME: $CI_REGISTRY/scpomedialab/resin-annuaire
@@ -66,7 +66,7 @@ deploy_pprd:
   image:
     name: jrisp/kubehelper:latest
     entrypoint: [""]
-  stage: deploy
+  stage: deploy_pprd
   script:
     - echo "Deploying resin-pprd-sciencespo overlay..."
     - cp ${RESIN_SECRETS} k8s/overlays/staging/sciencespo/secrets.env
@@ -84,7 +84,7 @@ move_ns_pprd:
   image:
     name: rancher/cli2:v2.4.5
     entrypoint: [""]
-  stage: move_ns
+  stage: move_ns_pprd
   script:
     - rancher login $RANCHER_URL --token $RANCHER_TOKEN --context $RANCHER_CONTEXT
     - rancher namespaces move resin-pprd-sciencespo $RANCHER_CONTEXT
