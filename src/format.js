@@ -4,12 +4,7 @@ const { range } = require("lodash");
 const remap = require("./remap.js");
 const backendHost = process.env.BACKEND_HOST || "localhost";
 
-exports.formatMembers = function (
-  formItems,
-  idToLanguage,
-  idToLabel,
-  internalApiUrl,
-) {
+exports.formatMembers = function (formItems, idToLanguage, idToLabel, apiUrl) {
   let genderCounter = 0;
   formItems.forEach((item) => {
     if (item.gender == "M") {
@@ -39,7 +34,7 @@ exports.formatMembers = function (
       if (cleanItem.avatar.includes(backendHost)) {
         cleanItem.avatar = cleanItem.avatar.replace(
           /^https?:\/\/[^\/]*\//,
-          internalApiUrl + "/",
+          apiUrl + "/",
         );
       }
     }

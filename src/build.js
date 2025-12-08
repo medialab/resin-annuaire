@@ -78,7 +78,7 @@ async function main() {
     membersJson,
     idToLanguage,
     idToLabel,
-    internalApiUrl,
+    apiUrl,
   );
 
   await buildJavascript({
