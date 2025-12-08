@@ -8,7 +8,7 @@ exports.formatMembers = function (
   formItems,
   idToLanguage,
   idToLabel,
-  internalApiUrl
+  internalApiUrl,
 ) {
   let genderCounter = 0;
   formItems.forEach((item) => {
@@ -18,7 +18,7 @@ exports.formatMembers = function (
   });
   const ranks = pandemonium.shuffle(range(formItems.length - genderCounter));
   const ranksM = pandemonium.shuffle(
-    range(formItems.length - genderCounter, formItems.length)
+    range(formItems.length - genderCounter, formItems.length),
   );
   genderCounter = 0;
   cleanItems = formItems.map((item, index) => {
@@ -39,7 +39,7 @@ exports.formatMembers = function (
       if (cleanItem.avatar.includes(backendHost)) {
         cleanItem.avatar = cleanItem.avatar.replace(
           /^https?:\/\/[^\/]*\//,
-          internalApiUrl + "/"
+          internalApiUrl + "/",
         );
       }
     }
@@ -66,8 +66,8 @@ exports.formatMembers = function (
       new Set(
         cleanItem.allSkills.map((item) => {
           return idToLabel[idToLabel[item].path[0]].label;
-        })
-      )
+        }),
+      ),
     );
 
     let skillSet = new Set();
