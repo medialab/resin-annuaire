@@ -1262,12 +1262,14 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   height: 100%;
   display: block;
 }
-.card:hover .inner-card {
-  outline: 1px solid var(--accent-soft);
-  background-color: var(--color-100);
-}
-.card:hover .title {
-  border-color: var(--color-300);
+@media screen and (min-width: 560px) {
+  .card:hover .inner-card {
+    outline: 1px solid var(--accent-soft);
+    background-color: var(--color-100);
+  }
+  .card:hover .title {
+    border-color: var(--color-300);
+  }
 }
 
 @media screen and (max-width: 560px) {
