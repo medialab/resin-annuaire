@@ -18,6 +18,7 @@
   --color-avatar: #DEB9A8;
   --accent-soft: #c83200;
   --accent: #ef5515;
+  --color-mark: #ef561549;
   --color-error: #e74c3c;
   --color-txt: #3E0D0F;
   --color-txt-light: #B49B9D;
@@ -117,7 +118,15 @@ main {
 }
 
 mark {
-  background-color: rgb(255, 255, 145);
+  background-color: var(--color-mark);
+}
+
+::-moz-selection {
+  background-color: var(--color-mark);
+}
+
+::selection {
+  background-color: var(--color-mark);
 }
 
 body {
