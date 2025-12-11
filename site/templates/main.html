@@ -15,14 +15,14 @@
     <input type="checkbox" id="input-toggle-menu">
 
     <header id="site-header">
-      <h1 id="site-title">
+      <h1 id="site-title" aria-label="RésIn, Réseau d’ingénieur·es">
         <a href="/" aria-label="Retour à l’accueil">
           {% include "resin-logo.svg" %}
           <span style="display: none;">RésIn, Réseau d’ingénieur·es</span>
         </a>
       </h1>
 
-      <label id="toggle-menu" for="input-toggle-menu">
+      <label id="toggle-menu" for="input-toggle-menu" aria-label="Ouvrir le menu">
         {% include "icons/menu.svg" %}
       </label>
       <nav id="site-nav">

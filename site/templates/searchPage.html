@@ -11,7 +11,7 @@
             placeholder="Rechercher"
           />
           <button id="btn-search" aria-label="Rechercher">Rechercher</button>
-          <button id="toggle-results">
+          <button id="toggle-results" aria-label="Afficher/masquer les résultats de recherche">
             <span class="when-collapsed">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.33 24l-2.83-2.829 9.339-9.175-9.339-9.167 2.83-2.829 12.17 11.996z"/></svg>
             </span>
@@ -33,7 +33,7 @@
     <div id="research-items">
     </div>
 
-    <button id="reset-search" class="reset-button"><span>Réinitialiser la recherche</span></button>
+    <button id="reset-search" class="reset-button" aria-label="Réinitialiser tous les filtres de recherche"><span>Réinitialiser la recherche</span></button>
   </div>
 
   <!-- <section id="section__baseline">
@@ -44,7 +44,7 @@
   <div id="title__skills-tree" class="section--title">
     <div class="container">
       <p>Compétences</p>
-      <span class="icon">
+      <span class="icon" aria-hidden="true">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.33 24l-2.83-2.829 9.339-9.175-9.339-9.167 2.83-2.829 12.17 11.996z"/></svg>
       </span>
     </div>
@@ -57,7 +57,7 @@
   <div id="title__cards" class="section--title">
     <div class="container">
       <p id="count-members"><span>{{ total_members }}</span> ingénieur·es</p>
-      <span class="icon">
+      <span class="icon" aria-hidden="true">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.33 24l-2.83-2.829 9.339-9.175-9.339-9.167 2.83-2.829 12.17 11.996z"/></svg>
       </span>
     </div>

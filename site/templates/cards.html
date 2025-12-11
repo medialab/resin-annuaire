@@ -8,13 +8,14 @@
         <img
           class="card-photo"
           src="{{ item.avatar | replace('http://', 'https://') }}"
+          alt="{{ item.firstName }} {{ item.lastName }}"
         />
         {% else %}
-        <div class="avatar-default">{% include "resin-logo-icon.svg" %}</div>
+        <div class="avatar-default" aria-hidden="true">{% include "resin-logo-icon.svg" %}</div>
         {% endif %}
       </div>
 
-      <div class="skills-block">
+      <div class="skills-block" aria-hidden="true">
         {% for skill in item.firstSkills %}
         <div
           class="skill-group"
@@ -39,7 +40,7 @@
 
       <div class="excerpt"></div>
 
-      <div class="skills-list">
+      <div class="skills-list" aria-label="Liste des compétences">
         <ul>
           {% for skill in item.lastSkillsWithIds %}
           <li
@@ -52,7 +53,7 @@
         </ul>
       </div>
 
-      <a class="link-block" href="{{ item.slug }}"></a>
+      <a class="link-block" href="{{ item.slug }}" aria-label="Voir le profil de {{ item.firstName }} {{ item.lastName }}"></a>
     </div>
   </div>
 

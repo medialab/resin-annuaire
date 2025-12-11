@@ -9,18 +9,18 @@
       </div>
     </div>
 
-  <button id="toggle-graph">
+  <button id="toggle-graph" aria-hidden="true">
     <!-- Vue graph -->
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7 19h-6v-11h6v11zm8-18h-6v18h6v-18zm8 11h-6v7h6v-7zm1 9h-24v2h24v-2z"/></svg>
   </button>
 
-  <button class="toggle-all is-collapsed">
+  <button class="toggle-all is-collapsed" aria-label="Déplier/replier toute la liste de compétence">
     <span class="text when-collapsed">Tout déplier</span>
     <span class="text when-expanded">Tout replier</span>
-    <span class="when-collapsed">
+    <span class="when-collapsed" aria-hidden="true">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.33 24l-2.83-2.829 9.339-9.175-9.339-9.167 2.83-2.829 12.17 11.996z"/></svg>
     </span>
-    <span class="when-expanded">
+    <span class="when-expanded" aria-hidden="true">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z"/></svg>
     </span>
   </button>
@@ -46,24 +46,23 @@
 
       <div class="item field__item" data-skill-id="{{ category.skillId }}" data-field="{{ category.label | lower }}">
         <input class="item__checkbox" id="cb-{{ category.skillId }}" type="checkbox" value="{{ category.skillId }}">
-        <label for="cb-{{ category.skillId }}">
-          <div class="label-container">
+        <label for="cb-{{ category.skillId }}" aria-label="Afficher/masquer les ingénieures avec la compétence « {{ category.label }} »">
+          <div class="label-container" aria-hidden="true">
             {% include "icons/check-mark.svg" %}
           </div>
         </label>
         <span class="name" >{{ category.label }}</span>
-        <span class="count">{{ category.count }}</span>
-        <button class="btn__toggle">
-          <span class="when-collapsed">
+        <button class="btn__toggle" aria-label="Déplier/replier {{ category.label }}">
+          <span class="when-collapsed" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.33 24l-2.83-2.829 9.339-9.175-9.339-9.167 2.83-2.829 12.17 11.996z"/></svg>
           </span>
-          <span class="when-expanded">
+          <span class="when-expanded" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z"/></svg>
           </span>
         </button>
       </div>
 
-      <div class="item__graph">
+      <div class="item__graph" aria-hidden="true">
         {% for i in range(category.count) %}
         <div class="block"></div>
         {% endfor %}
@@ -83,25 +82,24 @@
         <li class="skill__container{% if hasChildren %} has-child{% endif %}">
           <div class="item skill__item" data-skill-id="{{ subcategory.skillId }}" data-field="{{ category.label | lower }}">
             <input class="item__checkbox" id="cb-{{ subcategory.skillId }}" type="checkbox" value="{{ subcategory.skillId }}">
-            <label for="cb-{{ subcategory.skillId }}">
-              <div class="label-container">
+            <label for="cb-{{ subcategory.skillId }}" aria-label="Afficher/masquer les ingénieures avec la compétence « {{ subcategory.label }} »">
+              <div class="label-container" aria-hidden="true" >
                 {% include "icons/check-mark.svg" %}
               </div>
             </label>
             <span class="name">{{ subcategory.label }}</span>
-            <span class="count">{{ subcategory.count }}</span>
-            <button class="btn__toggle">
-              <span class="when-collapsed">
+            <button class="btn__toggle" aria-label="Déplier/replier {{ category.label }}">
+              <span class="when-collapsed" aria-hidden="true">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.33 24l-2.83-2.829 9.339-9.175-9.339-9.167 2.83-2.829 12.17 11.996z"/></svg>
               </span>
-              <span class="when-expanded">
+              <span class="when-expanded" aria-hidden="true">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z"/></svg>
               </span>
             </button>
           </div>
 
 
-          <div class="item__graph">
+          <div class="item__graph" aria-hidden="true">
             {% for i in range(subcategory.count) %}
             <div class="block"></div>
             {% endfor %}
@@ -114,23 +112,15 @@
             <li class="detail__container">
               <div class="item detail__item" data-skill-id="{{ subsubcategory.skillId }}" data-field="{{ category.label | lower }}">
                 <input class="item__checkbox" id="cb-{{ subsubcategory.skillId }}" type="checkbox" value="{{ subsubcategory.skillId }}">
-                <label for="cb-{{ subsubcategory.skillId }}">
-                  <div class="label-container">
+                <label for="cb-{{ subsubcategory.skillId }}" aria-label="Afficher/masquer les ingénieures avec la compétence « {{ subsubcategory.label }} »">
+                  <div class="label-container" aria-hidden="true">
                     {% include "icons/check-mark.svg" %}
-                  </div>                </label>
+                  </div>               
+                </label>
                 <span class="name">{{ subsubcategory.label }}</span>
-                <span class="count">{{ subsubcategory.count }}</span>
-                <button class="btn__toggle">
-                  <span class="when-collapsed">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.33 24l-2.83-2.829 9.339-9.175-9.339-9.167 2.83-2.829 12.17 11.996z"/></svg>
-                  </span>
-                  <span class="when-expanded">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z"/></svg>
-                  </span>
-                </button>
               </div>
 
-              <div class="item__graph">
+              <div class="item__graph" aria-hidden="true">
                 {% for i in range(subsubcategory.count) %}
                 <div class="block"></div>
                 {% endfor %}
@@ -151,7 +141,7 @@
   <div class="item" id="uncheck-all__container">
     <input class="item__checkbox" id="uncheck-all" type="checkbox">
     <label for="uncheck-all">
-      <div class="label-container">
+      <div class="label-container" aria-hidden="true">
         {% include "icons/check-mark.svg" %}
       </div>
       <span class="name">Tout décocher</span>

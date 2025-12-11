@@ -20,13 +20,14 @@ endblock %} {% block body %}
       <img
         class="member-photo"
         src="{{ member.avatar | replace('http://', 'https://') }}"
+        alt="Photo de {{ member.firstName }} {{ member.lastName }}"
       />
       {% else %}
-      <div class="avatar-default">{% include "resin-logo-icon.svg" %}</div>
+      <div class="avatar-default" aria-hidden="true">{% include "resin-logo-icon.svg" %}</div>
       {% endif %}
     </figure>
 
-    <div class="skills-block">
+    <div class="skills-block" aria-hidden="true">
       {% for skill in member.firstSkills %}
       <div
         class="skill-group"
@@ -68,7 +69,7 @@ endblock %} {% block body %}
       <p class="short-bio">{{ member.shortBio }}</p>
       {% endif %}
 
-      <div class="skills-list">
+      <div class="skills-list" aria-label="Liste des compétences">
         <ul>
           {% for skill in member.lastSkills.split(', ') %}
           <li>{{ skill }}</li>
@@ -192,18 +193,14 @@ endblock %} {% block body %}
     {% endif %}
 
     <button id="edit-button">
-      <span class="icon" aria-hidden="true"
-        >{% include "icons/edit.svg" %}</span
-      >
-      <span class="text"
-        >Je suis cette personne, <br />je souhaite modifier mon profil</span
-      >
+      <span class="icon" aria-hidden="true">{% include "icons/edit.svg" %}</span>
+      <span class="text">Je suis cette personne, <br />je souhaite modifier mon profil</span>
     </button>
   </section>
 
   <div class="modal" id="modal--subscribe">
     <div class="modal-content">
-      <span class="close">&times;</span>
+      <button class="close" aria-label="Fermer la modale">&times;</button>
       <resin-formulaire-edit apiServer="{{ apiUrl }}" />
     </div>
   </div>
