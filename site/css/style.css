@@ -2006,6 +2006,10 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   #skills-tree::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera */
   }
+  #skills-tree.skills-tree__mobile-h {
+    max-height: calc(100vh - var(--header-h) - var(--search-h) - var(--spacing) * 13);
+    max-height: calc(100dvh - var(--header-h) - var(--search-h) - var(--spacing) * 13);
+  }
   #section__cards {
     z-index: 500;
   }

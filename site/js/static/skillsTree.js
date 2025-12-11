@@ -413,6 +413,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
       // Masquer le bouton après tout décocher
       updateUncheckAllVisibility();
+
+      // En mobile, scroller tout en haut de la page
+      if (window.innerWidth < screenSmall) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     });
 
     // Initialiser la visibilité au chargement

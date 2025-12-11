@@ -32,6 +32,15 @@ export function initCardsInteractions() {
           const currentDisplay = window.getComputedStyle(researchItemsWrapper).display;
           const isCollapsed = currentDisplay === "none";
 
+          // Toggle la classe skills-tree__mobile-h sur #skills-tree
+          if (skillsTree) {
+            if (skillsTree.classList.contains("skills-tree__mobile-h")) {
+              skillsTree.classList.remove("skills-tree__mobile-h");
+            } else {
+              skillsTree.classList.add("skills-tree__mobile-h");
+            }
+          }
+
           // Basculer l'affichage de la section
           if (isCollapsed) {
             researchItemsWrapper.style.display = "block";
@@ -46,7 +55,7 @@ export function initCardsInteractions() {
             // Scroller en haut de la page
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            // Réactiver le scroll close 
+            // Réactiver le scroll close
             setTimeout(() => {
               if (typeof window.setIgnoreScrollClose === 'function') {
                 window.setIgnoreScrollClose(false);
@@ -198,6 +207,11 @@ export function initCardsInteractions() {
           if (whenCollapsed) whenCollapsed.style.display = "none";
         }
 
+        // Enlever la classe skills-tree__mobile-h car research-items est visible
+        if (skillsTree) {
+          skillsTree.classList.remove("skills-tree__mobile-h");
+        }
+
         // Ignorer le scroll close pendant le scroll automatique
         if (typeof window.setIgnoreScrollClose === 'function') {
           window.setIgnoreScrollClose(true);
@@ -252,11 +266,17 @@ export function initScrollBehavior() {
           researchItemsWrapper.classList.contains("has-items")) {
         const whenExpanded = toggleResultsBtn.querySelector(".when-expanded");
         const whenCollapsed = toggleResultsBtn.querySelector(".when-collapsed");
+        const skillsTree = document.querySelector("#skills-tree");
 
         // Fermer la section
         researchItemsWrapper.style.display = "none";
         if (whenExpanded) whenExpanded.style.display = "none";
         if (whenCollapsed) whenCollapsed.style.display = "block";
+
+        // Ajouter la classe skills-tree__mobile-h car research-items est caché
+        if (skillsTree) {
+          skillsTree.classList.add("skills-tree__mobile-h");
+        }
 
         // Recalculer les positions des titres fixes
         if (typeof window.updateFixedPositions === 'function') {
