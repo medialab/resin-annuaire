@@ -2,7 +2,6 @@ node_modules
 build
 site/js/templates.js
 .vscode
-docs
-
+docs/
 .DS_store
 site/assets/*
