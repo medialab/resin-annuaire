@@ -95,6 +95,10 @@
     #btn--newsletter{
         @include button-bold-big();
     }
+
+    #back-to-top{
+        display: none;
+    }
 }
 
 
