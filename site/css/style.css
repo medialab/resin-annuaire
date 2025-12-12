@@ -18,6 +18,7 @@
   --color-avatar: #DEB9A8;
   --accent-soft: #c83200;
   --accent: #ef5515;
+  --color-mark: #ef561549;
   --color-error: #e74c3c;
   --color-txt: #3E0D0F;
   --color-txt-light: #B49B9D;
@@ -117,7 +118,15 @@ main {
 }
 
 mark {
-  background-color: rgb(255, 255, 145);
+  background-color: var(--color-mark);
+}
+
+::-moz-selection {
+  background-color: var(--color-mark);
+}
+
+::selection {
+  background-color: var(--color-mark);
 }
 
 body {
@@ -930,6 +939,9 @@ body.has-modal .modal {
   #skills-tree__nav .section--title {
     font-size: var(--fs-small);
   }
+  #skills-tree__nav .section--title .icon {
+    display: none;
+  }
 }
 @media screen and (max-width: 820px) {
   #skills-tree__nav .section--title {
@@ -941,6 +953,23 @@ body.has-modal .modal {
     display: flex;
     align-items: flex-end;
     cursor: pointer;
+  }
+  #skills-tree__nav .section--title .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #skills-tree__nav .section--title .icon {
+    width: 12px;
+    height: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #skills-tree__nav .section--title .icon svg {
+    width: 12px;
+    height: 12px;
+    fill: var(--color-txt-light);
   }
 }
 @media screen and (max-width: 820px) {
@@ -1233,12 +1262,14 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   height: 100%;
   display: block;
 }
-.card:hover .inner-card {
-  outline: 1px solid var(--accent-soft);
-  background-color: var(--color-100);
-}
-.card:hover .title {
-  border-color: var(--color-300);
+@media screen and (min-width: 560px) {
+  .card:hover .inner-card {
+    outline: 1px solid var(--accent-soft);
+    background-color: var(--color-100);
+  }
+  .card:hover .title {
+    border-color: var(--color-300);
+  }
 }
 
 @media screen and (max-width: 560px) {
@@ -1799,6 +1830,9 @@ body.graph-view #section__skills-tree #toggle-graph svg {
 .page-newsletter #btn--newsletter:hover {
   background-color: var(--accent);
 }
+.page-newsletter #back-to-top {
+  display: none;
+}
 
 #anr {
   margin-top: calc(var(--spacing) * 6);
@@ -1864,6 +1898,9 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   .section--title {
     font-size: var(--fs-small);
   }
+  .section--title .icon {
+    display: none;
+  }
 }
 @media screen and (max-width: 820px) {
   .section--title {
@@ -1875,6 +1912,23 @@ body.graph-view #section__skills-tree #toggle-graph svg {
     display: flex;
     align-items: flex-end;
     cursor: pointer;
+  }
+  .section--title .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .section--title .icon {
+    width: 12px;
+    height: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .section--title .icon svg {
+    width: 12px;
+    height: 12px;
+    fill: var(--color-txt-light);
   }
 }
 
@@ -1993,6 +2047,10 @@ body.graph-view #section__skills-tree #toggle-graph svg {
   }
   #skills-tree::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera */
+  }
+  #skills-tree.skills-tree__mobile-h {
+    max-height: calc(100vh - var(--header-h) - var(--search-h) - var(--spacing) * 13);
+    max-height: calc(100dvh - var(--header-h) - var(--search-h) - var(--spacing) * 13);
   }
   #section__cards {
     z-index: 500;

@@ -5,6 +5,7 @@ $medium-up: "screen and (min-width: 1080px)";
 $small-up: "screen and (min-width: 820px)";
 $small: "screen and (max-width: 820px)";
 $phone: "screen and (max-width: 560px)";
+$phone-up: "screen and (min-width: 560px)";
 
 
 @media #{$medium}{

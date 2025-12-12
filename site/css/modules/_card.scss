@@ -152,18 +152,23 @@
     }
 
 
-    &:hover{
 
-        .inner-card{
-            outline: 1px solid var(--accent-soft);
-            background-color: var(--color-100);
-        }
 
-        .title{
-            border-color: var(--color-300);
+    @media #{$phone-up}{
+   
+        &:hover{
+            .inner-card{
+                outline: 1px solid var(--accent-soft);
+                background-color: var(--color-100);
+            }
+            .title{
+                border-color: var(--color-300);
+            }
+         
         }
-     
     }
+
+
 }
 
 

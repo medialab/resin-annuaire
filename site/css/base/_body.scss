@@ -57,5 +57,9 @@ main{
 
 
 mark{
-    background-color: rgb(255, 255, 145);
+    background-color: var(--color-mark)
 }
+
+::selection {
+    background-color: var(--color-mark);
+  }

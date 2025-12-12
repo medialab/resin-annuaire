@@ -113,30 +113,30 @@ export function selectSkillFromAutocomplete(skill) {
       checkbox.checked = true;
       checkbox.dispatchEvent(new Event("change", { bubbles: true }));
 
-      // En version desktop, ouvrir les listes parentes
+      // Ouvrir les listes parentes
+      // Trouver la liste level-2 parente
+      const level2List = checkbox.closest("ul.level-2");
+      if (level2List) {
+        level2List.classList.remove("is-collapsed");
+        level2List.classList.add("is-open");
+      }
+
+      // Trouver la liste level-1 parente
+      const level1List = checkbox.closest("ul.level-1");
+      if (level1List) {
+        level1List.classList.remove("is-collapsed");
+        level1List.classList.add("is-open");
+      }
+
+      // Trouver la liste level-3 parente si elle existe
+      const level3List = checkbox.closest("ul.level-3");
+      if (level3List) {
+        level3List.classList.remove("is-collapsed");
+        level3List.classList.add("is-open");
+      }
+
+      // Mettre à jour le bouton toggle-all (seulement en desktop)
       if (window.innerWidth >= screenSmall) {
-        // Trouver la liste level-2 parente
-        const level2List = checkbox.closest("ul.level-2");
-        if (level2List) {
-          level2List.classList.remove("is-collapsed");
-          level2List.classList.add("is-open");
-        }
-
-        // Trouver la liste level-1 parente
-        const level1List = checkbox.closest("ul.level-1");
-        if (level1List) {
-          level1List.classList.remove("is-collapsed");
-          level1List.classList.add("is-open");
-        }
-
-        // Trouver la liste level-3 parente si elle existe
-        const level3List = checkbox.closest("ul.level-3");
-        if (level3List) {
-          level3List.classList.remove("is-collapsed");
-          level3List.classList.add("is-open");
-        }
-
-        // Mettre à jour le bouton toggle-all
         updateToggleAllButton();
       }
     }
@@ -157,30 +157,60 @@ export function selectSkillFromAutocomplete(skill) {
   // Masquer le dropdown
   hideAutocompleteDropdown();
 
-  // En mobile, afficher #section__research-items en expanded
+  // En mobile, garder #section__research-items masqué et afficher le bouton en collapsed
   if (window.innerWidth < screenSmall) {
     const researchItemsWrapper = document.querySelector("#section__research-items");
     const toggleBtn = document.querySelector("#toggle-results");
+    const skillsTree = document.querySelector("#skills-tree");
+
+    // Ajouter la classe skills-tree__mobile-h à #skills-tree
+    if (skillsTree) {
+      skillsTree.classList.add("skills-tree__mobile-h");
+    }
 
     if (researchItemsWrapper) {
-      researchItemsWrapper.style.display = "block";
+      researchItemsWrapper.style.display = "none";
     }
 
     if (toggleBtn) {
       const whenExpanded = toggleBtn.querySelector(".when-expanded");
       const whenCollapsed = toggleBtn.querySelector(".when-collapsed");
-      if (whenExpanded) whenExpanded.style.display = "block";
-      if (whenCollapsed) whenCollapsed.style.display = "none";
+      if (whenExpanded) whenExpanded.style.display = "none";
+      if (whenCollapsed) whenCollapsed.style.display = "block";
     }
 
     // Ignorer le scroll close pendant le scroll automatique
     if (typeof window.setIgnoreScrollClose === 'function') {
       window.setIgnoreScrollClose(true);
     }
-  }
 
-  // Remonter en haut de la page
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Utiliser setTimeout pour laisser le temps au DOM de se mettre à jour
+    setTimeout(() => {
+      // Scroller vers #section__cards en tenant compte des hauteurs des éléments au-dessus
+      console.log('📍 Scroll vers #section__cards en mobile');
+      const siteHeader = document.querySelector("#site-header");
+      const sectionSearch = document.querySelector("#section__search");
+      const titleSkills = document.querySelector("#title__skills-tree");
+      const titleCards = document.querySelector("#title__cards");
+      const sectionCards = document.querySelector("#section__cards");
+
+      if (sectionCards) {
+        const sectionCardsPosition = sectionCards.getBoundingClientRect().top + window.pageYOffset;
+        const siteHeaderHeight = siteHeader ? siteHeader.offsetHeight : 0;
+        const sectionSearchHeight = sectionSearch ? sectionSearch.offsetHeight : 0;
+        const titleSkillsHeight = titleSkills ? titleSkills.offsetHeight : 0;
+        const titleCardsHeight = titleCards ? titleCards.offsetHeight : 0;
+        const skillsTreeHeight = skillsTree ? skillsTree.offsetHeight : 0;
+        const totalOffset = siteHeaderHeight + sectionSearchHeight + titleSkillsHeight + titleCardsHeight - 10;
+        const scrollTarget = sectionCardsPosition - totalOffset;
+        console.log('SkillsTree height:', skillsTreeHeight, 'SiteHeader:', siteHeaderHeight, 'SectionSearch:', sectionSearchHeight, 'TitleSkills:', titleSkillsHeight, 'TitleCards:', titleCardsHeight, 'Scroll vers:', scrollTarget);
+        window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+      }
+    }, 50);
+  } else {
+    // En desktop, scroller en haut immédiatement
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
   // En mobile, réactiver le scroll close après le scroll
   if (window.innerWidth < screenSmall) {

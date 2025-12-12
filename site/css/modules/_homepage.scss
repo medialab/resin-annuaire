@@ -148,13 +148,23 @@
         z-index: 600;
     } 
 
+
+ 
+
     #skills-tree{
         max-height: calc(100vh - var(--header-h) - var(--search-h) - var(--search-result-h) - var(--spacing)*13);
-        max-height: calc(100dvh - var(--header-h) - var(--search-h) - var(--search-result-h) - var(--spacing)*13);
+        max-height: calc(100dvh - var(--header-h) - var(--search-h)  - var(--search-result-h) - var(--spacing)*13);
         overflow-y: scroll;
         overflow-x: hidden;
         @include hide-scroll();
     }
+
+
+    #skills-tree.skills-tree__mobile-h{
+        max-height: calc(100vh - var(--header-h) - var(--search-h) - var(--spacing)*13);
+        max-height: calc(100dvh - var(--header-h) - var(--search-h) - var(--spacing)*13);
+    }
+
 
 
     #section__cards{

@@ -63,6 +63,7 @@ export function renderResearchItems() {
 
     // Gérer l'affichage du bouton #toggle-results en mobile
     const toggleBtn = document.querySelector("#toggle-results");
+    const skillsTree = document.querySelector("#skills-tree");
     if (toggleBtn) {
       if (searchState.usedAutocomplete && hasItems && window.innerWidth < screenSmall) {
         toggleBtn.style.display = "flex";
@@ -72,6 +73,11 @@ export function renderResearchItems() {
         const whenCollapsed = toggleBtn.querySelector(".when-collapsed");
         if (whenExpanded) whenExpanded.style.display = "block";
         if (whenCollapsed) whenCollapsed.style.display = "none";
+
+        // Enlever la classe skills-tree__mobile-h car research-items est visible
+        if (skillsTree) {
+          skillsTree.classList.remove("skills-tree__mobile-h");
+        }
       } else {
         toggleBtn.style.display = "none";
       }
@@ -167,6 +173,7 @@ export function addFreeSearchTerm(term, fromAutocomplete = false) {
         if (window.innerWidth < screenSmall) {
           const researchItemsWrapper = document.querySelector("#section__research-items");
           const toggleBtn = document.querySelector("#toggle-results");
+          const skillsTree = document.querySelector("#skills-tree");
 
           if (researchItemsWrapper) {
             researchItemsWrapper.style.display = "block";
@@ -177,6 +184,11 @@ export function addFreeSearchTerm(term, fromAutocomplete = false) {
             const whenCollapsed = toggleBtn.querySelector(".when-collapsed");
             if (whenExpanded) whenExpanded.style.display = "block";
             if (whenCollapsed) whenCollapsed.style.display = "none";
+          }
+
+          // Enlever la classe skills-tree__mobile-h car research-items est visible
+          if (skillsTree) {
+            skillsTree.classList.remove("skills-tree__mobile-h");
           }
 
           // Ignorer le scroll close pendant le scroll automatique

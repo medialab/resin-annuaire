@@ -44,6 +44,7 @@
 
     @media #{$small-up}{
         font-size: var(--fs-small);
+        .icon{ display: none; }
     }
 
     @media #{$small}{
@@ -52,16 +53,31 @@
         width: 100%;
 
         height: calc(var(--tree-item-h)*1.5);
-        // padding-bottom: calc(var(--tree-item-h)*0.25);
         background-color: var(--color-bg);
         display: flex;
         align-items: flex-end;
         cursor: pointer;
 
         .container{
-            // height: calc(var(--tree-item-h)*1.25);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .icon{
+            width: 12px;
+            height: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            svg{
+                width: 12px;
+            height: 12px;
+                fill: var(--color-txt-light);
+            }
         }
     }
+
 
 
 }
