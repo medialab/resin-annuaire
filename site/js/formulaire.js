@@ -37,6 +37,47 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         });
       });
+
+      // Gestion de la modale de succès
+      // Observer les changements dans le shadowRoot pour détecter l'ajout de la modale
+      if (shadowRoot) {
+        const observer = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            mutation.addedNodes.forEach((node) => {
+              // Vérifier si le nœud ajouté est la modale de succès
+              if (node.nodeType === 1 && (node.id === "modal--success" || node.querySelector("#modal--success"))) {
+                const body = document.querySelector("body");
+                const successModal = shadowRoot.querySelector("#modal--success");
+
+                if (successModal && body) {
+                  body.classList.add("has-modal");
+
+                  // Supprimer le bouton back-to-top
+                  const backToTop = document.querySelector("#back-to-top");
+                  if (backToTop) {
+                    backToTop.remove();
+                  }
+
+                  // Ajouter l'event listener sur le bouton close
+                  const closeButton = successModal.querySelector(".close");
+                  if (closeButton) {
+                    closeButton.addEventListener("click", () => {
+                      body.classList.remove("has-modal");
+                    });
+                  }
+                }
+              }
+            });
+          });
+        });
+
+        // Observer le shadowRoot pour les ajouts de nœuds
+        observer.observe(shadowRoot, {
+          childList: true,
+          subtree: true
+        });
+      }
     }
   }, 1000);
+
 });
