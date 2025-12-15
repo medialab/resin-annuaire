@@ -1,0 +1,461 @@
+
+
+#skills-tree{
+
+    font-family: var(--mono);
+    font-weight: var(--fw-mono);
+    padding-top: 0;
+  
+
+    ul, li{
+        list-style: none;
+        position: relative;
+        width: 100%;
+    }
+
+    ul{
+        width: 100%;
+    }
+
+    .item{
+        --size-label: 14px;
+        height: var(--tree-item-h);
+        border-bottom: var(--border-light);
+        padding: 2px 0px;
+        display: flex;
+
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 4px;
+        position: relative;
+        color: var(--color);
+
+
+        .name{
+            flex-grow: 3;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            max-width: calc(100% - var(--size-label)*3);
+            overflow: hidden;
+            position: relative;
+            left: -0.75ch;
+        }
+        .item__checkbox{
+            display: none;
+        }
+    
+        .item__checkbox + label{
+            height: 26px;
+            width: 30px;
+            display: flex;
+            align-items: center;
+            z-index: 30;
+            position: relative;
+            top: -1px;
+
+            .label-container{
+                height: var(--size-label);
+                width: var(--size-label);
+                background-color: var(--color-100);
+                border-radius: 4px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                position: relative;
+                top: 1px;
+
+                svg{
+                    fill: transparent;
+                    width: 9px;
+                }
+    
+                &:hover{
+                    background-color: var(--color-xlight);
+                    svg{
+                        fill: var(--color-bg);
+                    }
+                }
+            }
+       
+
+        }
+
+        &.is-checked .item__checkbox:checked  + label .label-container {
+            background-color: var(--color)!important;
+            outline: 2px solid var(--color-xlight);
+            svg{
+                fill: var(--color-bg);
+            }
+        }
+
+        .count{ display: none; }
+
+        .btn__toggle{
+            width: calc(100% - var(--size-label)*1.5);
+            position: absolute;
+            left: calc(var(--size-label)*1.5);
+            padding-right: 7px;
+
+            font-size: 1.2em;
+            line-height: 1;
+            font-family: var(--mono);
+            font-weight: var(--fw-mono);
+
+            align-items: center;
+            justify-content: flex-end;
+     
+            cursor: pointer;
+            // background-color: red;
+
+            svg{
+                width: 9px;
+                fill: var(--color-800);
+            }
+            &:hover svg{
+                fill: var(--color);
+            }
+        }
+      
+    }
+
+    #uncheck-all__container{
+        padding-bottom: 10px;
+        display: none;
+
+        label{
+            position: absolute;
+            width: 100%;
+            top: -4px;
+            cursor: pointer;
+        }
+        .label-container{
+            background-color: var(--color-txt-light);
+            position: relative;
+            top: -1px;
+            outline: 2px solid var(--color-100);
+           
+            svg{
+                fill: var(--color-bg);
+            }
+        }
+
+        .name{
+            padding-left: 2ch;
+            color: var(--color-txt-light);
+        }
+    }
+
+
+    
+    .skill__item{
+        margin-left: var(--tree-indent);
+    }
+
+    .detail__item{
+        margin-left: calc(var(--tree-indent)*2);
+    }
+
+    @media #{$small-up}{
+        .item{ width: calc(var(--tree-w) - var(--padding-body)*2); }
+        .skill__item{  width: calc(var(--tree-w) - var(--padding-body)*2 - var(--tree-indent)); }
+        .detail__item{ width: calc(var(--tree-w) - var(--padding-body)*2 - var(--tree-indent)*2); }
+    }
+
+    @media #{$small}{
+        .item{ width: 100%; }
+        .skill__item{  width: calc(100% - var(--tree-indent)); }
+        .detail__item{ width: calc(100% - var(--tree-indent)*2); }
+    }
+
+
+    
+
+
+
+    .item__graph{
+        display: flex;
+        flex-wrap: wrap;
+        // gap: 3px;
+        align-items: center;
+ 
+
+        .block{
+            height: var(--block-graph);
+            width: var(--block-graph);
+            background-color: var(--color);
+            border-radius: var(--radius-small); 
+            margin-right: 3px;
+        }
+    
+    
+        .info{
+            font-size: var(--fs-small);
+            // color: var(--color-300);
+            padding-left: 1ch;
+            background-color: var(--color-bg);
+            white-space: nowrap;
+            color: var(--color-light);
+        }
+
+    
+
+        
+    }
+    @media #{$small}{
+        .item__graph{ display: none!important; }
+
+
+        // .item__graph{
+        //     margin-top: calc(var(--spacing)*0.5);
+        //     margin-bottom: calc(var(--spacing)*1);
+        //     padding-left:  var(--tree-indent);
+
+        //     .block{
+        //         border-radius: 1px;
+        //     }
+
+
+        // }
+        // .level-2 .item__graph{ margin-left: var(--tree-indent); }
+        // .level-3 .item__graph{ margin-left: calc(var(--tree-indent)*2); }
+
+
+    }
+
+
+}
+
+
+#skills-tree__nav{
+
+    border-bottom: 1px solid transparent;  
+    position: sticky!important;
+    top: 0;
+    background-color: var(--color-bg);
+    z-index: 200;
+
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: calc(var(--tree-item-h)*0.5);
+
+    @media #{$small-up}{
+        height: 60px;
+        .container{
+            width: calc(var(--tree-w) * 1 - var(--padding-body)*2);
+        }
+    }
+
+    @media #{$small}{
+        border-color: var(--color-100);
+        padding-top: calc(var(--spacing)*4);
+        position: sticky;
+            top: 0px;
+        .container{
+            width: 100%;
+        }
+    }
+   
+    .container{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 6px;
+    }
+   
+
+    .section--title{
+        @include section-title();
+        width: 100%;
+        flex-grow: 1;
+        @media #{$small}{
+            display: none;
+        }
+    }
+
+  
+
+    .toggle-all, #toggle-graph{
+        @include button();
+    }
+
+    #toggle-graph{
+        svg{
+            width: 12px;          
+            fill: var(--color-txt);
+            transform: rotate(90deg);
+        }
+    }
+
+    .toggle-all{
+        gap: 1ch;
+        flex-grow: 1;
+        white-space: nowrap;
+        svg{
+            position: relative;
+            top: 3px;
+            width: 9px;
+            fill: var(--color-800);
+        }
+    }
+
+
+
+    @media #{$small}{
+        .container{
+            flex-wrap: wrap;
+            .toggle-all{
+                flex-grow: 0;
+            }
+            .title{
+                margin-bottom: calc(var(--spacing)*1);
+            }
+        }
+    }
+}
+
+
+
+
+
+// Interactions ------------------------------------------------
+// -------------------------------------------------------------
+
+// Lists
+#skills-tree{
+    padding-top: 4px;
+    ul.is-collapsed {
+        display: none;
+    }
+
+    ul.is-open{
+        display: block;
+    }
+
+    .btn__toggle{ 
+        display: none; 
+    }
+
+    .has-child > .item{
+        .btn__toggle{ 
+            display: flex; 
+            .when-expanded{ display: none}
+        }
+    }
+
+    li.is-open > .item {
+        .btn__toggle{
+            .when-expanded{ display: inline; }
+            .when-collapsed{ display: none; }
+        }
+    
+    }
+
+}
+
+
+// nav
+#skills-tree__nav{
+    .toggle-all.is-collapsed{
+        .when-expanded{ display: none; }
+        .when-collapsed{ display: inline; }
+    }
+    .toggle-all.is-expanded{
+        .when-collapsed{ display: none; }
+        .when-expanded{ display: inline; }
+    }
+}
+
+
+
+
+// see graph
+
+body.graph-view {
+    #section__skills-tree #toggle-graph{
+        outline: 1px solid var(--accent-soft);
+        background-color: var(--color-100);
+        border-color: var(--color-300);
+        svg{
+            fill: var(--accent-soft);
+        }
+    }
+}
+
+
+@media #{$small}{
+
+    body{ 
+        #skills-tree .item__graph{
+            display: none;
+        }
+    }
+
+    body.graph-view {
+
+        #skills-tree .item__graph{
+            display: flex;
+        }
+
+       
+    }
+}
+
+
+// see skills-tree
+
+// @media #{$small}{
+
+//     body{
+//         #section__skills-tree{
+//             top: calc(100vh*-1 + var(--header-h));
+//         }
+      
+//     }
+
+
+//     body.has-skillTree{
+//         #section__skills-tree{
+//             top: var(--header-h);
+//         }
+//     }
+// }
+
+@media #{$small-up}{
+
+    body{
+
+        // #section__skills-tree{
+        //     transition: width .3s ease-out;
+        // }
+
+        .item__graph{
+            position: absolute;
+            left: calc(var(--tree-w) + var(--padding-body)*2);
+            top: calc((var(--tree-item-h) - var(--block-graph))*0.5);
+            height: calc(var(--block-graph)*1.5);
+            opacity: 0;
+            transition: opacity 0.5s ease-in 0.2s;
+        }
+
+    } 
+
+    
+    body.graph-view {
+        overflow: hidden;
+        #section__skills-tree{
+            width: 100vw;
+        }
+        #skills-tree__nav{
+            border-bottom: var(--border-light)
+        }
+
+        .item__graph {
+            opacity: 1;
+        }
+    }
+
+}
+
+
+

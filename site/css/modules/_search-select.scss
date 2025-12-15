@@ -1,0 +1,102 @@
+   #research-items{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+      
+
+        padding-top: calc(var(--spacing)*1.5);
+        padding-bottom: calc(var(--spacing)*1);
+
+        @media #{$small}{
+            padding-left: var(--padding-body);
+            padding-right: var(--padding-body);
+            padding-bottom: calc(var(--spacing)*1.5);
+        }
+    }
+
+    @media #{$small}{
+        #section__research-items.has-items{
+            border-bottom: var(--border-light);
+            margin-bottom: calc(var(--spacing)*1);
+        }
+    }
+
+
+    // research-separator
+
+    .research-separator{
+        font-family: var(--mono);
+        font-weight: var(--fw-mono);
+        font-size: var(--fs-small);
+        color: var(--color-txt-light);
+    }
+
+ 
+    // Tags de recherche
+    .research-tag {
+        @include button();
+        color: var(--color);
+        border-color: var(--color);
+        background: var(--color-xlight);
+        gap: 0.75ch;
+        align-items: center;
+        cursor: pointer;
+
+        .tag-remove{
+            color: var(--color);
+            font-size: var(--font-size);
+            line-height: 0em;
+            position: relative;
+            top: -1px;
+            cursor: pointer;
+
+        }
+        &:hover{
+
+            border-color: var(--color);
+            background-color: transparent;
+        }
+
+      
+    }
+
+    // Bouton reset
+    .reset-button {
+        @include button();
+        margin-left: auto;
+
+        @media #{$small}{
+            margin-right: calc(var(--padding-body)*1);
+            margin-bottom: calc(var(--spacing)*1.5);
+
+        }
+    }
+
+
+  
+
+    #toggle-results{
+        @include button();
+        padding: 0px;
+        width: calc(var(--button-h)*1.25);
+        justify-content: center;
+        display: none;
+        z-index: 100;
+        position: absolute;
+        right: var(--padding-body);
+        svg{
+            --size-svg: 11px!important;
+            fill: var(--color-txt)!important;
+            position: relative; 
+            top: 2px;
+        }
+
+        .when-expanded{
+            display: none;
+            
+
+        }
+    }
+   

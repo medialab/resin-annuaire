@@ -1,0 +1,106 @@
+#site-footer {
+    height: var(--footer-h);
+    border-top: var(--border-light);
+    
+    .container{
+        padding: calc(var(--spacing)*2) var(--padding-body);
+        max-width: var(--max-width);
+        margin: 0 auto;  
+    }
+
+    .container-logos {
+        display: flex;
+        gap: 30px;
+    }
+
+    .logo {
+        width: 90px;
+        svg {
+            width: 100%;
+        }
+    }
+
+    #logo-medialab {
+  
+        width: 85px;
+        position: relative;
+        top: 2px;
+    }
+    
+    p,
+    li {
+        font-family: var(--mono);
+        font-weight: var(--fw-mono);
+        font-size: var(--fs-xsmall);
+    
+        a {
+            @include links-in-txt();
+        }
+    }
+    
+    .baseline {
+        font-weight: 600;
+    }
+    }
+
+
+@media #{$small} {
+    #site-footer {
+         .container {
+            max-width: 600px;
+         
+        }   
+        .container-logos{
+            margin-bottom: 16px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .credits{
+            text-align: center;
+        }
+    }
+}
+
+@media #{$phone}{
+    #site-footer {
+        .container {
+          display: block;
+       }   
+   }
+
+}
+
+
+
+
+@media #{$small-up} {
+
+    #site-footer {
+    
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+        }
+
+        #logo-medialab {
+            position: relative;
+            top: 8px;
+        }
+    }
+
+    .credits {
+        border-left: var(--border-light);
+        padding-left: 30px;
+    }
+
+    .main__home+#site-footer {
+        padding-left: calc(var(--tree-w)*1);
+    }
+
+}
+

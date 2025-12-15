@@ -1,9 +1,9 @@
-image: docker:stable
+image: docker:dind
 
 stages:
   - build
   - deploy
-  - move_ns
+  - deploy_pprd
   - update
 
 variables:
@@ -45,18 +45,21 @@ deploy:
   except:
     - schedules
 
-move_ns:
+deploy_pprd:
   image:
-    name: rancher/cli2:v2.4.5
+    name: jrisp/kubehelper:latest
     entrypoint: [""]
-  stage: move_ns
+  stage: deploy_pprd
   script:
-    - rancher login $RANCHER_URL --token $RANCHER_TOKEN --context $RANCHER_CONTEXT
-    - rancher namespaces move resin-sciencespo $RANCHER_CONTEXT
+    - echo "Deploying resin-pprd-sciencespo overlay..."
+    - cp ${RESIN_SECRETS} k8s/overlays/staging/sciencespo/secrets.env
+    - kubectl apply -f k8s/overlays/staging/sciencespo/ns.yml
+    - kubectl apply -k k8s/overlays/staging/sciencespo
+
   environment:
     name: $CI_COMMIT_REF_SLUG
   only:
-    - prod
+    - staging
   except:
     - schedules
 
@@ -68,6 +71,8 @@ update:
   script:
     - echo "Redeploying resin-sciencespo overlay..."
     - kubectl -n resin-sciencespo rollout restart deployment frontend
+    - echo "Redeploying resin-pprd-sciencespo overlay..."
+    - kubectl -n resin-pprd-sciencespo rollout restart deployment frontend
 
   environment:
     name: $CI_COMMIT_REF_SLUG
