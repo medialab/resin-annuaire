@@ -45,9 +45,14 @@ document.addEventListener("DOMContentLoaded", () => {
           mutations.forEach((mutation) => {
             mutation.addedNodes.forEach((node) => {
               // Vérifier si le nœud ajouté est la modale de succès
-              if (node.nodeType === 1 && (node.id === "modal--success" || node.querySelector("#modal--success"))) {
+              if (
+                node.nodeType === 1 &&
+                (node.id === "modal--success" ||
+                  node.querySelector("#modal--success"))
+              ) {
                 const body = document.querySelector("body");
-                const successModal = shadowRoot.querySelector("#modal--success");
+                const successModal =
+                  shadowRoot.querySelector("#modal--success");
 
                 if (successModal && body) {
                   body.classList.add("has-modal");
@@ -74,10 +79,9 @@ document.addEventListener("DOMContentLoaded", () => {
         // Observer le shadowRoot pour les ajouts de nœuds
         observer.observe(shadowRoot, {
           childList: true,
-          subtree: true
+          subtree: true,
         });
       }
     }
   }, 1000);
-
 });
