@@ -469,7 +469,7 @@ body.has-modal .modal {
     opacity: 0 !important;
   }
   #site-header #site-title svg #logo-text {
-    transform: translate(5%, 11%);
+    transform: translate(5%, 11.5%);
   }
 }
 @media screen and (min-width: 820px) {
@@ -511,7 +511,7 @@ body.has-modal .modal {
     opacity: 0 !important;
   }
   body.is-header-shrinked #site-header #site-title svg #logo-text {
-    transform: translate(5%, 11%);
+    transform: translate(5%, 11.5%);
   }
 }
 @media screen and (max-width: 820px) {
