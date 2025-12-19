@@ -71,8 +71,6 @@ update:
   script:
     - echo "Redeploying resin-sciencespo overlay..."
     - kubectl -n resin-sciencespo rollout restart deployment frontend
-    - echo "Redeploying resin-pprd-sciencespo overlay..."
-    - kubectl -n resin-pprd-sciencespo rollout restart deployment frontend
 
   environment:
     name: $CI_COMMIT_REF_SLUG
