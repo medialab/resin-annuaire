@@ -31,9 +31,9 @@ const siteUrl = path.join(__dirname, "..", "site");
 const imageFolder = path.join("assets", "images");
 const baseImageFolder = path.join(baseUrl, imageFolder);
 
-const apiUrl = process.env.API_URL || "https://resin.medialab.sciences-po.fr";
+const apiUrl = process.env.API_URL || "https://www.projet-resin.fr";
 const internalApiUrl =
-  process.env.INTERNAL_API_URL || "https://resin.medialab.sciences-po.fr";
+  process.env.INTERNAL_API_URL || "https://www.projet-resin.fr";
 
 // Configure nunjucks
 const env = nunjucks.configure(path.join(siteUrl, "templates"));
