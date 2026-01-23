@@ -148,11 +148,10 @@ async function main() {
 
   fs.copySync(path.join(siteUrl, "js", "static"), path.join(baseUrl, "js"));
 
-  // Copy favicon if it exists
-  const faviconPath = path.join(siteUrl, "data", "favicon.ico");
-  if (fs.existsSync(faviconPath)) {
-    fs.copySync(faviconPath, path.join(baseUrl, "favicon.ico"));
-  }
+  fs.copySync(
+    path.join(siteUrl, "data", "images"),
+    path.join(baseUrl, "data", "images"),
+  );
 
   for (const member of cleanMembers) {
     fs.outputFileSync(
