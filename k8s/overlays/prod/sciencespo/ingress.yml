@@ -7,7 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: 100m
 spec:
   rules:
-    - host: www.projet-resin.fr
+    - host: projet-resin.fr
       http:
         paths:
           - path: /
