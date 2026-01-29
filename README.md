@@ -1,6 +1,6 @@
 # resin-annuaire
 
-Site de l'annuaire des expertises du Réseau d'Ingenieur USPC/SciencesPo
+Site de l'annuaire des expertises du Réseau d'Ingénieur⋅es USPC/SciencesPo
 
 ## Installation
 
