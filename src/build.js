@@ -43,6 +43,7 @@ const memberPageTemplate = env.getTemplate("memberPage.html");
 const legalPageTemplate = env.getTemplate("legalPage.html");
 const subscribePageTemplate = env.getTemplate("subscribePage.html");
 const projectPageTemplate = env.getTemplate("projectPage.html");
+const aboutPageTemplate = env.getTemplate("aboutPage.html");
 const newsletterPageTemplate = env.getTemplate("newsletter.html");
 const ressourcesPageTemplate = env.getTemplate("ressourcesPage.html");
 const notFoundPageTemplate = env.getTemplate("notFoundPage.html");
@@ -120,8 +121,13 @@ async function main() {
   );
 
   fs.outputFileSync(
-    path.join(baseUrl, "a-propos.html"),
+    path.join(baseUrl, "projet.html"),
     projectPageTemplate.render(),
+  );
+
+  fs.outputFileSync(
+    path.join(baseUrl, "a-propos.html"),
+    aboutPageTemplate.render(),
   );
 
   fs.outputFileSync(
