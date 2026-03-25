@@ -159,6 +159,11 @@ async function main() {
     path.join(baseUrl, "data", "images"),
   );
 
+  fs.copySync(
+    path.join(siteUrl, "documents"),
+    path.join(baseUrl, "documents"),
+  );
+
   for (const member of cleanMembers) {
     fs.outputFileSync(
       path.join(baseUrl, member.slug + ".html"),
