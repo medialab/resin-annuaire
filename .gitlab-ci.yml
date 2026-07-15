@@ -24,6 +24,8 @@ build:
     name: $CI_COMMIT_REF_SLUG
   only:
     - tags
+    - staging
+    - prod
   except:
     - schedules
 
