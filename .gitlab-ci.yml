@@ -58,7 +58,7 @@ deploy_pprd:
     - cp ${RESIN_SECRETS} k8s/overlays/staging/sciencespo/secrets.env
     - kubectl apply -f k8s/overlays/staging/sciencespo/ns.yml
     - kubectl apply -k k8s/overlays/staging/sciencespo
-    - kubectl -n resin-sciencespo rollout restart deployment frontend
+    - kubectl -n resin-pprd-sciencespo rollout restart deployment frontend
 
   environment:
     name: $CI_COMMIT_REF_SLUG
