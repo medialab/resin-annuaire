@@ -10,6 +10,7 @@ Analyse:
     - Cartographie
     - Géomatique
   Analyse visuelle:
+    - Analyse visuelle de réseaux
     - Design d’information
     - Photographies
     - Réseaux
@@ -44,6 +45,7 @@ Curation:
   Chiffrement, protection, sécurité:
   Enrichissement:
     - Métadonnées
+    - XML-TEI
   Nettoyage:
     - Conversion
   Versioning:
@@ -90,6 +92,8 @@ Valorisation:
     - Édition papier
   Documentation:
     - Plan de gestion de données
+    - Recherche bibliographique
+    - Veille bibliographique
   Enseignement:
     - Ateliers
     - Encadrement
@@ -99,8 +103,12 @@ Valorisation:
     - Agilité
     - Management
     - Reporting
+    - Aide à la rédaction de projets
   Publication:
     - Data papers
     - Jeux de données
     - Podcasts
+    - Article
+    - Aide à la rédaction de publications
+    - Mise en forme bibliographique
   Écologie du numérique:
